@@ -1,8 +1,4 @@
 FROM openjdk:11-jdk
-VOLUME /tmp
+COPY --from=build /home/gradle/project/build/libs/*.jar /app.jar
 EXPOSE 9999
-ADD ./build/libs/ChallenMungs-0.0.1-SNAPSHOT.jar app.jar
-ARG JAR_FILE=*.jar
-COPY ${JAR_FILE} app.jar
-ENTRYPOINT ["java","-jar","/app.jar"]
-
+ENTRYPOINT ["java", "-jar", "/app.jar"]
