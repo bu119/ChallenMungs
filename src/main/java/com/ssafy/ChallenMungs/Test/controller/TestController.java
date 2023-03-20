@@ -39,20 +39,22 @@ public class TestController {
 
     //jpa가 기본적으로 제공하지 않지만, 비교적 간단한 쿼리문인 경우
     @GetMapping("/testCustom")
-    @ApiOperation(value = "jpa 기본 동작 확인", notes = "jpa 커스텀 쿼리 메서드 확인용 - 이름에 '안녕'을 포함하는 칼럼 리스트를 반환")
+    @ApiOperation(value = "jpa 커스텀 쿼리 메서드 동작 확인", notes = "jpa 커스텀 쿼리 메서드 확인용 - 이름에 '안녕'을 포함하는 칼럼 리스트를 반환")
     public List<TestDto> getTest(){
-        List<Test> list = service.getCustom("안녕");
-        return list.stream()
-                .map(b -> new TestDto(b.getName()))
-                .collect(Collectors.toList());
+       return service.getCustom("안녕");
     }
 
     //jpa가 기본적으로 제공하지 않고, 비교적 복잡한 쿼리문인 경우
     @GetMapping("/testQueryDsl")
+    @ApiOperation(value = "querydsl 동작 확인", notes = "querydsl 동작 확인용 - 모든 칼럼 반환(실전에선 이것보단 더 복잡한 쿼리문에 사용하세요.)")
     public List <TestDto> getQueryDsl(){
-        List<Test> list = service.getQueryDsl();
-        return list.stream()
-                .map(b -> new TestDto(b.getName()))
-                .collect(Collectors.toList());
+        return service.getQueryDsl();
+    }
+
+    //비교적 복잡한 쿼리문인데, 비교적 복잡한 쿼리문인 경우 2
+    @GetMapping("/testNative")
+    @ApiOperation(value = "native sql 동작 확인", notes = "native sql 동작 확인용 - 모든 칼럼 반환 (실전에선 이것보단 더 복잡한 쿼리문에 사용하세요.)")
+    public List <TestDto> getJPQL(){
+        return service.getJPQL("안녕");
     }
 }
