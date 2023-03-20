@@ -17,6 +17,6 @@ public class testController {
     @GetMapping("/hello")
     @ApiOperation(value = "hello world", notes = "역사적인 첫 커밋이에요!")
     public String Hello(){
-        return "hello";
+        return "hello world";
     }
 }
