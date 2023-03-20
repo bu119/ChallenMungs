@@ -7,4 +7,7 @@ import java.util.List;
 public interface TestService {
     long getCount();
     List<Test> getCustom(String name);
+    List <Test> getQueryDsl();
+
+
 }
