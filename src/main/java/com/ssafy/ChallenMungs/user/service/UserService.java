@@ -1,10 +1,11 @@
-package com.ssafy.ChallenMungs.User;
+package com.ssafy.ChallenMungs.user.service;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
+import com.ssafy.ChallenMungs.user.entity.User;
+import com.ssafy.ChallenMungs.user.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
-import java.util.List;
 
 @Service
 public class UserService {
@@ -24,3 +25,4 @@ public class UserService {
         userRepository.save(user);
     }
 }
+

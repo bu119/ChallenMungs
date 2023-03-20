@@ -1,4 +1,4 @@
-package com.ssafy.ChallenMungs.User;
+package com.ssafy.ChallenMungs.user.entity;
 
 import lombok.*;
 

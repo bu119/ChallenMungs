@@ -1,5 +1,6 @@
-package com.ssafy.ChallenMungs.User;
+package com.ssafy.ChallenMungs.user.repository;
 
+import com.ssafy.ChallenMungs.user.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 
