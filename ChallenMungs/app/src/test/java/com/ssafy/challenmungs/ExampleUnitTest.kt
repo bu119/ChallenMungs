@@ -1,4 +1,4 @@
-package com.example.challenmungs
+package com.ssafy.challenmungs
 
 import org.junit.Test
 

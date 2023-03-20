@@ -1,4 +1,4 @@
-package com.example.challenmungs.presentation
+package com.ssafy.challenmungs.presentation
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
