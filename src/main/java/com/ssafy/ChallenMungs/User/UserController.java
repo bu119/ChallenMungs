@@ -1,10 +1,10 @@
-package com.ssafy.ChallenMungs.Login;
+package com.ssafy.ChallenMungs.User;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
+import com.querydsl.jpa.impl.JPAQueryFactory;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import nonapi.io.github.classgraph.json.JSONUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,25 +17,26 @@ import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
 
 @RestController
 @RequestMapping("/login")
 @CrossOrigin("*")
 @Api(value = "login", description = "테스트 컨트롤러에요!")
-public class LoginController {
-    private Logger log = LoggerFactory.getLogger(LoginController.class);
+public class UserController {
+    private Logger log = LoggerFactory.getLogger(UserController.class);
+
+    @Autowired
+    UserService userService;
 
     @Value("${secret.key}")
     String secretKey;
 
     @PostMapping("/login")
     @ApiOperation(value = "로그인 하는 API에요")
-    ResponseEntity<Map<String, Object>> getAccessTokenFromMobile(/*@RequestBody String access_Token*/) {
-        String access_Token = "Vl3ExGYMkn2l9yhbJ2uwrRpF-s7Y-CSBq4lTw1DvCisNHgAAAYb9zdX2";
+    ResponseEntity<Map<String, Object>> login(/*@RequestBody String access_Token*/) {
+        String access_Token = "TtLDDKPnnJdQwA9NFa0MF_Er-uYrbr-kaMx3XU5GCj1zTQAAAYb-MvTq";
         Map<String, Object> res = new HashMap<>();
         HttpStatus httpStatus = null;
         String email;
@@ -46,7 +47,23 @@ public class LoginController {
                 res.put("code", "no_email");
                 httpStatus = HttpStatus.OK;
             }
-            System.out.println("여기까지");
+
+            if (userService.countUserByEmail(email) > 0) {
+                System.out.println("아이디가 이미 존재해요");
+            } else {
+                System.out.print("사용할 닉네임 입력:");
+                BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+                String tempName = br.readLine();
+                userService.saveUser(User.builder().loginId(email).name(tempName).build());
+            }
+//            if (userService.countUserByEmail(email) == 0) {
+//                BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+//
+//                String tempName = br.readLine();
+//
+//                userService.saveUser(User.builder().loginId(email).name(tempName).build());
+//                System.out.println("왓음");
+//            }
 
             //이메일을 데이터베이스에서 뒤져요
 //            UserEntity user = userService.findUserByEmail(email);
@@ -67,6 +84,8 @@ public class LoginController {
         }
         return null;
     }
+
+    //이메일을 받아 오는 메서드에요
     String getInfo(String token) throws IOException {
         String reqURL = "https://kapi.kakao.com/v2/user/me";
         URL url;
