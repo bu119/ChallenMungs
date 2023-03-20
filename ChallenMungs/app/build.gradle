@@ -1,16 +1,18 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+    id 'kotlin-kapt'
+    id 'com.google.dagger.hilt.android'
 }
 
 android {
-    namespace 'com.example.challenmungs'
-    compileSdk 32
+    namespace 'com.ssafy.challenmungs'
+    compileSdk 33
 
     defaultConfig {
-        applicationId "com.example.challenmungs"
+        applicationId "com.ssafy.challenmungs"
         minSdk 23
-        targetSdk 32
+        targetSdk 33
         versionCode 1
         versionName "1.0"
 
@@ -30,14 +32,27 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+    buildFeatures {
+        viewBinding true
+        dataBinding true
+    }
 }
 
 dependencies {
 
-    implementation 'androidx.core:core-ktx:1.7.0'
-    implementation 'androidx.appcompat:appcompat:1.6.0'
-    implementation 'com.google.android.material:material:1.7.0'
-    testImplementation 'junit:junit:4.13.2'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.3'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+    implementation libs.bundles.androidx
+    implementation libs.android.material
+    testImplementation libs.junit
+    androidTestImplementation libs.androidx.test.junit
+    androidTestImplementation libs.androidx.test.espresso
+
+    implementation libs.bundles.retrofit
+    implementation libs.bundles.okhttp3
+
+    implementation libs.hilt
+    kapt libs.hilt.compiler
+}
+
+kapt{
+    correctErrorTypes true
 }
