@@ -1,3 +1,22 @@
 <resources>
     <string name="app_name">ChallenMungs</string>
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="content_heart_temperature_amount">%s °C</string>
+    <string name="image_default_profile">image_default_profile_icon</string>
+    <string name="title_donate_history">기부내역</string>
+    <string name="title_my_challenge">내 챌린지</string>
+    <string name="content_total_contribution">누적 기부액 %s KLAY</string>
+    <string name="content_question_heart_temperature">당신의 마음의 온도는?</string>
+    <string name="image_heart_temperature">image_heart_temperature_icon</string>
+    <string name="image_donate_history">image_donate_history_icon</string>
+    <string name="image_my_challenge">image_my_challenge_icon</string>
+    <string name="image_my_campaign">image_my_campaign_icon</string>
+    <string name="image_cheer_campaign">image_cheer_campaign_icon</string>
+    <string name="title_my_wallet">내 지갑</string>
+    <string name="title_donate_bank">기부저금통</string>
+    <string name="content_logout">로그아웃</string>
+    <string name="title_my_campaign">내가 기부한 캠페인</string>
+    <string name="content_unit">KLAY</string>
+    <string name="title_cheer_campaign">응원한 캠페인</string>
 </resources>
