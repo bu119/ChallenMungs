@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".presentation.MyWallet">
+
+        <TextView
+            android:id="@+id/tv_current_balance_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="36dp"
+            android:fontFamily="sans-serif"
+            android:text="@string/title_current_balance"
+            android:textColor="@color/zambezi"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/iv_klay_icon"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="6dp"
+            android:contentDescription="@string/image_klay"
+            android:src="@drawable/ic_klay"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_current_balance_name"
+            app:layout_constraintStart_toEndOf="@+id/tv_current_balance_name"
+            app:layout_constraintTop_toTopOf="@+id/tv_current_balance_name" />
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/ll_current_balance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_current_balance_name">
+
+            <TextView
+                android:id="@+id/tv_current_balance_amount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:textSize="50sp"
+                android:textStyle="bold"
+                tools:text="115" />
+
+            <TextView
+                android:id="@+id/tv_current_balance_unit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:text="KLAY"
+                android:textColor="@color/black"
+                android:textSize="38sp"
+                android:textStyle="bold" />
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <TextView
+            android:id="@+id/tv_address_copy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="@string/content_address_copy"
+            android:textColor="@color/suva_grey"
+            android:textSize="11sp"
+            app:layout_constraintEnd_toEndOf="@+id/ll_current_balance"
+            app:layout_constraintHorizontal_bias="0.496"
+            app:layout_constraintStart_toStartOf="@+id/ll_current_balance"
+            app:layout_constraintTop_toBottomOf="@+id/ll_current_balance" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_participation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/bg_rect_golden_glow_radius5"
+            android:paddingHorizontal="40dp"
+            android:paddingVertical="15dp"
+            android:text="@string/content_challenge_participation"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_address_copy" />
+
+        <View
+            android:id="@+id/divider_middle"
+            android:layout_width="0dp"
+            android:layout_height="5dp"
+            android:layout_marginTop="40dp"
+            android:background="@color/white_smoke"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btn_participation" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_bank_statement"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:paddingTop="20dp"
+            android:paddingHorizontal="26dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/divider_middle" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

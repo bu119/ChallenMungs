@@ -5,4 +5,10 @@
     <string name="title_shelter_auth">후원처이신가요?</string>
     <string name="content_shelter_join">회원가입</string>
     <string name="content_shelter_login">로그인</string>
+
+    <!-- My Wallet -->
+    <string name="title_current_balance">현재 잔액</string>
+    <string name="image_klay">klay_icon</string>
+    <string name="content_address_copy">주소복사</string>
+    <string name="content_challenge_participation">챌린지 참여</string>
 </resources>
