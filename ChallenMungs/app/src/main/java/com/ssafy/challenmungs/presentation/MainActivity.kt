@@ -10,9 +10,11 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.NavHostFragment
 import com.ssafy.challenmungs.R
+import dagger.hilt.android.AndroidEntryPoint
 import com.ssafy.challenmungs.common.util.px
 import com.ssafy.challenmungs.databinding.ActivityMainBinding
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding

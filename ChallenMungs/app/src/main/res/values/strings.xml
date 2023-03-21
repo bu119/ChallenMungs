@@ -1,6 +1,11 @@
 <resources>
     <string name="app_name">ChallenMungs</string>
 
+    <!-- Log In -->
+    <string name="title_shelter_auth">후원처이신가요?</string>
+    <string name="content_shelter_join">회원가입</string>
+    <string name="content_shelter_login">로그인</string>
+
     <!-- Bottom Menu -->
     <string name="title_tab_challenge">챌린지</string>
     <string name="title_tab_donate">기부</string>
