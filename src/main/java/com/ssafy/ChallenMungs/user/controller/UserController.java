@@ -52,24 +52,22 @@ public class UserController {
 
     @PostMapping("/kakaoLogin")
     @ApiOperation(value = "로그인 하는 API에요!")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name="accessToken", value="리퀘스트바디로 스트링을 받아요", required = true, dataType = "string"/*@PathVariable = path, @RequestParam = query*/)
+    })
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "OK", response = User.class, examples = @Example(value = {
-                    @ExampleProperty(value = "{\"id\": 1, \"name\": \"John Doe\"}", mediaType = "application/json")
+            @ApiResponse(code = 200, message = "로그인 성공", examples = @Example(value = {
+                    @ExampleProperty(value = "{\"loginId\": \"gogogogo\", \"name\": \"John Doe\"}", mediaType = "application/json")
             })),
-            @ApiResponse(code = 404, message = "Not Found", response = Error.class, examples = @Example(value = {
-                    @ExampleProperty(value = "123", mediaType = "application/json"),
-                    @ExampleProperty(value = "456", mediaType = "application/xml")
-            }))
     })
     // 프론트 단이 없는 지금은 예제로 access토큰을 받아왔고 프론트 단이 완성되면 아래 줄에 패러미터의 주석을 풀고 그아랫줄을 삭제하세요
-    ResponseEntity<Map<String, Object>> kakaoLogin(/*@RequestBody String access_Token*/) {
-        String access_Token = "diwM7ZLVCq0jT4Vqps8WuE8zKfFGqhsLwfR9X3ABCiolEAAAAYcCjJlR";
+    ResponseEntity<Map<String, Object>> kakaoLogin(@RequestBody String accessToken) {
         // response로 만들 map을 만들어요
         Map<String, Object> res = new HashMap<>();
         HttpStatus httpStatus = null;
         String email;
         try {
-            email = getInfo(access_Token);
+            email = getInfo(accessToken);
             log.info("이메일을 받아왔어요!");
 
             if (userService.countUserByEmail(email) > 0) {
