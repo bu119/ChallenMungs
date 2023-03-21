@@ -28,5 +28,9 @@ public class UserService {
     public String findUserByLoginId(String loginId) {
         return userRepository.findUserByLoginId(loginId).getName();
     }
+
+    public void delete(String loginId) {
+        userRepository.deleteUserByLoginId(loginId);
+    }
 }
 

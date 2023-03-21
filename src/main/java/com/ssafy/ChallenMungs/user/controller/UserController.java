@@ -118,6 +118,26 @@ public class UserController {
         HttpStatus httpStatus = HttpStatus.OK;
         return new ResponseEntity<>(res, httpStatus);
     }
+
+    @DeleteMapping("/tokenConfirm/deleteUser")
+    @ApiOperation(value = "회원탈퇴", notes = "loginId를 통해 사용자 정보를 삭제한다.")
+    ResponseEntity<Map<String, Object>> deleteUser(HttpServletRequest request){
+        String loginId = request.getAttribute("loginId").toString();
+        userService.delete(loginId);
+
+        Map res = new HashMap<>();
+        res.put("code", "delete_success");
+        HttpStatus httpStatus = HttpStatus.OK;
+        return new ResponseEntity<>(res, httpStatus);
+    }
+
+//    @GetMapping("/kakaoLogout")
+//    @ApiOperation(value ="로그아웃", notes = "카카오 로그아웃")
+//
+
+
+
+
     /*
     @PostMapping("/registerUser")
     @ApiOperation(value = "이메일, 닉네임, 프로필 이미지로 유저를 등록하는 api에요")

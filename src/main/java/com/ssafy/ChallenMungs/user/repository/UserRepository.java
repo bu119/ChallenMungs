@@ -7,4 +7,5 @@ import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 public interface UserRepository extends JpaRepository<User, Long>, QuerydslPredicateExecutor<User> {
     int countByLoginId(String str);
     User findUserByLoginId(String loginId);
+    void deleteUserByLoginId(String loginId);
 }
