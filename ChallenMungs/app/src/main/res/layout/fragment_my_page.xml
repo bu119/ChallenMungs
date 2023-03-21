@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".presentation.mypage.MyPageFragment">
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -10,7 +9,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        tools:context=".presentation.mypage.MyPageFragment">
 
         <ImageView
             android:id="@+id/iv_profile"
@@ -56,7 +56,7 @@
             app:layout_constraintTop_toBottomOf="@+id/tv_total_contribution">
 
             <TextView
-                android:id="@+id/tv_heart_temperature_amount"
+                android:id="@+id/tv_heart_temperature"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="13dp"
@@ -67,7 +67,7 @@
                 app:layout_constraintBottom_toTopOf="@+id/iv_heart_temperature"
                 app:layout_constraintEnd_toEndOf="@+id/iv_heart_temperature"
                 app:layout_constraintStart_toStartOf="@+id/iv_heart_temperature"
-                app:layout_constraintTop_toBottomOf="@+id/textView"
+                app:layout_constraintTop_toBottomOf="@+id/tv_heart_temperature_name"
                 tools:ignore="TextContrastCheck" />
 
             <ImageView
@@ -95,7 +95,7 @@
                 app:layout_constraintStart_toStartOf="parent" />
 
             <TextView
-                android:id="@+id/textView"
+                android:id="@+id/tv_heart_temperature_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="22dp"
@@ -151,7 +151,6 @@
                 android:text="@string/content_unit"
                 android:textColor="@color/black"
                 android:textSize="16sp"
-
                 app:layout_constraintBottom_toBottomOf="@+id/tv_my_wallet_amount"
                 app:layout_constraintStart_toEndOf="@+id/tv_my_wallet_amount" />
 
@@ -240,7 +239,7 @@
                 app:layout_constraintTop_toTopOf="@+id/iv_donate_history" />
 
             <View
-                android:id="@+id/divider1"
+                android:id="@+id/divider_donate_history"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_marginTop="15dp"
@@ -257,7 +256,7 @@
                 android:contentDescription="@string/image_my_challenge"
                 android:src="@drawable/ic_mypage_my_challenge"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@id/divider1"
+                app:layout_constraintTop_toTopOf="@id/divider_donate_history"
                 tools:ignore="ImageContrastCheck" />
 
             <TextView
@@ -274,7 +273,7 @@
                 app:layout_constraintTop_toTopOf="@+id/iv_my_challenge" />
 
             <View
-                android:id="@+id/divider2"
+                android:id="@+id/divider_my_challenge"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_marginTop="15dp"
@@ -291,7 +290,7 @@
                 android:contentDescription="@string/image_cheer_campaign"
                 android:src="@drawable/ic_mypage_cheer_campaign"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@id/divider2" />
+                app:layout_constraintTop_toTopOf="@id/divider_my_challenge" />
 
             <TextView
                 android:id="@+id/tv_cheer_campaign_name"
@@ -307,7 +306,7 @@
                 app:layout_constraintTop_toTopOf="@+id/iv_cheer_campaign" />
 
             <View
-                android:id="@+id/divider3"
+                android:id="@+id/divider_cheer_campaign"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_marginTop="15dp"
@@ -324,7 +323,7 @@
                 android:contentDescription="@string/image_my_campaign"
                 android:src="@drawable/ic_mypage_my_campaign"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@id/divider3"
+                app:layout_constraintTop_toTopOf="@id/divider_cheer_campaign"
                 tools:ignore="ImageContrastCheck" />
 
             <TextView
@@ -341,7 +340,7 @@
                 app:layout_constraintTop_toTopOf="@+id/iv_my_campaign" />
 
             <View
-                android:id="@+id/divider4"
+                android:id="@+id/divider_my_campaign"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_marginTop="15dp"
@@ -380,6 +379,5 @@
             app:layout_constraintGuide_percent="0.95" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 
 </layout>
