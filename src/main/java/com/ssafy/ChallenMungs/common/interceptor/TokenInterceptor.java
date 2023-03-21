@@ -22,6 +22,7 @@ public class TokenInterceptor implements HandlerInterceptor {
             request.setAttribute("loginId", claims.get("loginId"));
             return true;
         } catch (Exception e) {
+            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
             return false;
         }
     }

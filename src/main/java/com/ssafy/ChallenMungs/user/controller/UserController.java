@@ -7,8 +7,7 @@ import com.ssafy.ChallenMungs.user.entity.User;
 import com.ssafy.ChallenMungs.user.service.UserService;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +34,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("/user")
 @CrossOrigin("*")
-@Api(value = "login", description = "테스트 컨트롤러에요!")
+@Api(value = "login", description = "유저와 관련된 컨트롤러에요!")
 public class UserController {
     private Logger log = LoggerFactory.getLogger(UserController.class);
 
@@ -52,9 +51,18 @@ public class UserController {
 
     @PostMapping("/kakaoLogin")
     @ApiOperation(value = "로그인 하는 API에요!")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "OK", response = User.class, examples = @Example(value = {
+                    @ExampleProperty(value = "{\"id\": 1, \"name\": \"John Doe\"}", mediaType = "application/json")
+            })),
+            @ApiResponse(code = 404, message = "Not Found", response = Error.class, examples = @Example(value = {
+                    @ExampleProperty(value = "123", mediaType = "application/json"),
+                    @ExampleProperty(value = "456", mediaType = "application/xml")
+            }))
+    })
     // 프론트 단이 없는 지금은 예제로 access토큰을 받아왔고 프론트 단이 완성되면 아래 줄에 패러미터의 주석을 풀고 그아랫줄을 삭제하세요
-    ResponseEntity<Map<String, Object>> kakaoLogin(@RequestBody String access_Token) {
-//        String access_Token = "diwM7ZLVCq0jT4Vqps8WuE8zKfFGqhsLwfR9X3ABCiolEAAAAYcCjJlR";
+    ResponseEntity<Map<String, Object>> kakaoLogin(/*@RequestBody String access_Token*/) {
+        String access_Token = "diwM7ZLVCq0jT4Vqps8WuE8zKfFGqhsLwfR9X3ABCiolEAAAAYcCjJlR";
         // response로 만들 map을 만들어요
         Map<String, Object> res = new HashMap<>();
         HttpStatus httpStatus = null;
@@ -100,7 +108,6 @@ public class UserController {
     @PostMapping("/registerUser")
     @ApiOperation(value = "이메일, 닉네임로 유저를 등록하는 api에요!")
     ResponseEntity<Map<String, Object>> registerUser(@RequestParam("loginId") String loginId, @RequestParam("name") String name) {
-
         userService.saveUser(User.builder().loginId(loginId).name(name).build());
 
         Map res = new HashMap<>();
@@ -118,6 +125,15 @@ public class UserController {
         HttpStatus httpStatus = HttpStatus.OK;
         return new ResponseEntity<>(res, httpStatus);
     }
+
+    @PostMapping("tokenConfirm/postProfileAndName")
+    @ApiOperation(value = "토큰을 가지고 프로필 이미지와 닉네임를 저장해요!")
+    ResponseEntity<Map<String, Object>> postProfileAndName(HttpServletRequest request, @RequestParam("name") String name, @RequestParam("file") MultipartFile file) {
+        String loginId = request.getAttribute("loginId").toString();
+
+        return null;
+    }
+
     /*
     @PostMapping("/registerUser")
     @ApiOperation(value = "이메일, 닉네임, 프로필 이미지로 유저를 등록하는 api에요")
