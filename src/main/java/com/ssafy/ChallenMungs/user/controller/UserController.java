@@ -50,7 +50,7 @@ public class UserController {
     String path;
 
     @PostMapping("/kakaoLogin")
-    @ApiOperation(value = "로그인 하는 API에요")
+    @ApiOperation(value = "로그인 하는 API에요!")
     // 프론트 단이 없는 지금은 예제로 access토큰을 받아왔고 프론트 단이 완성되면 아래 줄에 패러미터의 주석을 풀고 그아랫줄을 삭제하세요
     ResponseEntity<Map<String, Object>> kakaoLogin(/*@RequestBody String access_Token*/) {
         String access_Token = "rC2ftcJQarIgJ0IsOsPQvepRvj_y5WO7P7i6q5bnCinJXgAAAYcBEa0L";
@@ -95,7 +95,7 @@ public class UserController {
     }
 
     @PostMapping("/registerUser")
-    @ApiOperation(value = "이메일, 닉네임로 유저를 등록하는 api에요")
+    @ApiOperation(value = "이메일, 닉네임로 유저를 등록하는 api에요!")
     ResponseEntity<Map<String, Object>> registerUser(@RequestParam("loginId") String loginId, @RequestParam("name") String name) {
 
         userService.saveUser(User.builder().loginId(loginId).name(name).build());
@@ -106,6 +106,11 @@ public class UserController {
         return new ResponseEntity<>(res, httpStatus);
     }
 
+    @GetMapping("/getNameByToken")
+    @ApiOperation(value = "프로필수정 페이지에 들어갈 때 닉네임을 불러오는 메서드에요!")
+    ResponseEntity<Map<String, Object>> getNameByToken() {
+        return null;
+    }
     /*
     @PostMapping("/registerUser")
     @ApiOperation(value = "이메일, 닉네임, 프로필 이미지로 유저를 등록하는 api에요")
