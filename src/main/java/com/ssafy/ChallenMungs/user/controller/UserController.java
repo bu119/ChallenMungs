@@ -4,6 +4,7 @@ package com.ssafy.ChallenMungs.user.controller;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import com.ssafy.ChallenMungs.image.service.FileServiceImpl;
+import com.ssafy.ChallenMungs.user.dto.res1;
 import com.ssafy.ChallenMungs.user.entity.User;
 import com.ssafy.ChallenMungs.user.service.UserService;
 import io.jsonwebtoken.Jwts;
@@ -56,9 +57,7 @@ public class UserController {
             @ApiImplicitParam(name="accessToken", value="리퀘스트바디로 스트링을 받아요", required = true, dataType = "string"/*@PathVariable = path, @RequestParam = query*/)
     })
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "로그인 성공", examples = @Example(value = {
-                    @ExampleProperty(value = "{\"loginId\": \"gogogogo\", \"name\": \"John Doe\"}", mediaType = "application/json")
-            })),
+            @ApiResponse(code = 200, message = "로그인 성공", response = res1.class),
     })
     // 프론트 단이 없는 지금은 예제로 access토큰을 받아왔고 프론트 단이 완성되면 아래 줄에 패러미터의 주석을 풀고 그아랫줄을 삭제하세요
     ResponseEntity<Map<String, Object>> kakaoLogin(@RequestBody String accessToken) {
