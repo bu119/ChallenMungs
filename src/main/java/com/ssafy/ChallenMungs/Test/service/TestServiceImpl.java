@@ -20,6 +20,7 @@ public class TestServiceImpl implements TestService{
     @Override
     public long getCount() {
         return jpaRepo.count();
+
     }
     @Override
     public List<TestDto> getCustom(String name) {

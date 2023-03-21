@@ -1,16 +1,16 @@
 package com.ssafy.ChallenMungs.Test.entity;
 
 import lombok.*;
-
+import com.ssafy.ChallenMungs.user.entity.User;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-@Entity
+@Entity(name="Test")
 @Getter
 @Setter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor
 @AllArgsConstructor
 @Builder
 public class Test {
