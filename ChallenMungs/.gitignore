@@ -241,5 +241,4 @@ fabric.properties
 # End of https://www.toptal.com/developers/gitignore/api/macos,windows,androidstudio,android,git
 
 # kakao app key
-/*/*/*/*/*/*/kakao_app_key.xml
 kakao_app_key.xml
