@@ -131,13 +131,6 @@ public class UserController {
         return new ResponseEntity<>(res, httpStatus);
     }
 
-//    @GetMapping("/kakaoLogout")
-//    @ApiOperation(value ="로그아웃", notes = "카카오 로그아웃")
-//
-
-
-
-
     /*
     @PostMapping("/registerUser")
     @ApiOperation(value = "이메일, 닉네임, 프로필 이미지로 유저를 등록하는 api에요")
