@@ -3,6 +3,7 @@ package com.ssafy.ChallenMungs.user.controller;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
+import com.ssafy.ChallenMungs.image.service.FileServiceImpl;
 import com.ssafy.ChallenMungs.user.entity.User;
 import com.ssafy.ChallenMungs.user.service.UserService;
 import io.jsonwebtoken.Jwts;
@@ -24,9 +25,6 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -40,6 +38,9 @@ public class UserController {
 
     @Autowired
     UserService userService;
+
+    @Autowired
+    FileServiceImpl fileService;
 
     //토큰을 만들기 위한 비밀 키를 properties로 부터 가져와요
     @Value("${secret.key}")
@@ -130,7 +131,12 @@ public class UserController {
     @ApiOperation(value = "토큰을 가지고 프로필 이미지와 닉네임를 저장해요!")
     ResponseEntity<Map<String, Object>> postProfileAndName(HttpServletRequest request, @RequestParam("name") String name, @RequestParam("file") MultipartFile file) {
         String loginId = request.getAttribute("loginId").toString();
-
+        try {
+            String url = fileService.saveFile(file, "user");
+            
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
         return null;
     }
 
