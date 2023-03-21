@@ -18,6 +18,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -52,8 +53,8 @@ public class UserController {
     @PostMapping("/kakaoLogin")
     @ApiOperation(value = "로그인 하는 API에요!")
     // 프론트 단이 없는 지금은 예제로 access토큰을 받아왔고 프론트 단이 완성되면 아래 줄에 패러미터의 주석을 풀고 그아랫줄을 삭제하세요
-    ResponseEntity<Map<String, Object>> kakaoLogin(/*@RequestBody String access_Token*/) {
-        String access_Token = "rC2ftcJQarIgJ0IsOsPQvepRvj_y5WO7P7i6q5bnCinJXgAAAYcBEa0L";
+    ResponseEntity<Map<String, Object>> kakaoLogin(@RequestBody String access_Token) {
+//        String access_Token = "diwM7ZLVCq0jT4Vqps8WuE8zKfFGqhsLwfR9X3ABCiolEAAAAYcCjJlR";
         // response로 만들 map을 만들어요
         Map<String, Object> res = new HashMap<>();
         HttpStatus httpStatus = null;
@@ -65,7 +66,9 @@ public class UserController {
             if (userService.countUserByEmail(email) > 0) {
                 log.info("이미 데이터베이스에 아이디(login_id)가 있어요");
                 res.put("code", "member");
-                res.put("result", makeToken(email));
+                String token = makeToken(email);
+                System.out.println("token:" + token);
+                res.put("result", token);
                 httpStatus = HttpStatus.OK;
             } else {
                 log.info("데이터 베이스에 아이디(login_id)가 없어요. 닉네임을 등록하세요");
@@ -106,10 +109,14 @@ public class UserController {
         return new ResponseEntity<>(res, httpStatus);
     }
 
-    @GetMapping("/getNameByToken")
+    @GetMapping("/tokenConfirm/getNameByToken")
     @ApiOperation(value = "프로필수정 페이지에 들어갈 때 닉네임을 불러오는 메서드에요!")
-    ResponseEntity<Map<String, Object>> getNameByToken() {
-        return null;
+    ResponseEntity<Map<String, Object>> getNameByToken(HttpServletRequest request) {
+        Map res = new HashMap<>();
+        res.put("code", "get_name_success");
+        res.put("result", userService.findUserByLoginId(request.getAttribute("loginId").toString()));
+        HttpStatus httpStatus = HttpStatus.OK;
+        return new ResponseEntity<>(res, httpStatus);
     }
     /*
     @PostMapping("/registerUser")

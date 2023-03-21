@@ -24,5 +24,9 @@ public class UserService {
     public void saveUser(User user) {
         userRepository.save(user);
     }
+
+    public String findUserByLoginId(String loginId) {
+        return userRepository.findUserByLoginId(loginId).getName();
+    }
 }
 
