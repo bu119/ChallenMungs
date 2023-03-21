@@ -133,11 +133,23 @@ public class UserController {
         String loginId = request.getAttribute("loginId").toString();
         try {
             String url = fileService.saveFile(file, "user");
-            
+
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
         return null;
+    }
+    
+    @DeleteMapping("/tokenConfirm/deleteUser")
+    @ApiOperation(value = "회원탈퇴", notes = "loginId를 통해 사용자 정보를 삭제한다.")
+    ResponseEntity<Map<String, Object>> deleteUser(HttpServletRequest request){
+        String loginId = request.getAttribute("loginId").toString();
+        userService.delete(loginId);
+
+        Map res = new HashMap<>();
+        res.put("code", "delete_success");
+        HttpStatus httpStatus = HttpStatus.OK;
+        return new ResponseEntity<>(res, httpStatus);
     }
 
     /*
