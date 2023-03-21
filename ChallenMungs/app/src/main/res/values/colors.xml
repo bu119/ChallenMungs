@@ -8,6 +8,23 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
-    <color name="zambezi">#5C5C5C</color>
-    <color name="fair_pink">#F1E6E0</color>
+    <color name="zambezi">#FF5C5C5C</color>
+    <color name="suva_grey">#FF898989</color>
+    <color name="pink_swan">#FFB4B4B4</color>
+    <color name="gainsboro">#FFD9D9D9</color>
+    <color name="white_smoke">#FFF3F3F3</color>
+    <color name="golden_poppy">#FFF6BD00</color>
+    <color name="festival">#FFF5CC47</color>
+    <color name="golden_glow">#FFF8DC81</color>
+    <color name="banana_mania">#FFFFECB0</color>
+    <color name="corn_silk">#FFFFF7DC</color>
+    <color name="toast">#FF9F725A</color>
+    <color name="fair_pink">#FFF1E6E0</color>
+    <color name="mandy">#FFE34755</color>
+    <color name="royal_blue">#FF4D66E7</color>
+    <color name="trans35_royal_blue">#594D66E7</color>
+    <color name="trans35_mandy">#59E34755</color>
+    <color name="trans20_pink_swan">#33B4B4B4</color>
+    <color name="trans35_black">#59000000</color>
+    <color name="trans48_zambezi">#7A000000</color>
 </resources>
