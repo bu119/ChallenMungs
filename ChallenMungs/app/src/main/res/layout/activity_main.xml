@@ -5,4 +5,11 @@
     android:layout_height="match_parent"
     tools:context="com.ssafy.challenmungs.presentation.MainActivity">
 
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/fcv_login"
+        android:name="com.ssafy.challenmungs.presentation.auth.LogInFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:layout="@layout/fragment_log_in" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
