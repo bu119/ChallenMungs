@@ -24,7 +24,7 @@ public class TestServiceImpl implements TestService{
     }
     @Override
     public List<TestDto> getCustom(String name) {
-        List<Test> list =jpaRepo.findByNameContaining(name);
+        List<Test> list = jpaRepo.findByNameContaining(name);
         return list.stream()
                 .map(b -> new TestDto(b.getName()))
                 .collect(Collectors.toList());
