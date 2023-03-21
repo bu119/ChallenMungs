@@ -94,6 +94,18 @@ public class UserController {
                 .compact(); // 묶어
     }
 
+    @PostMapping("/registerUser")
+    @ApiOperation(value = "이메일, 닉네임로 유저를 등록하는 api에요")
+    ResponseEntity<Map<String, Object>> registerUser(@RequestParam("loginId") String loginId, @RequestParam("name") String name) {
+
+        userService.saveUser(User.builder().loginId(loginId).name(name).build());
+
+        Map res = new HashMap<>();
+        res.put("code", "save_success");
+        HttpStatus httpStatus = HttpStatus.OK;
+        return new ResponseEntity<>(res, httpStatus);
+    }
+
     /*
     @PostMapping("/registerUser")
     @ApiOperation(value = "이메일, 닉네임, 프로필 이미지로 유저를 등록하는 api에요")
