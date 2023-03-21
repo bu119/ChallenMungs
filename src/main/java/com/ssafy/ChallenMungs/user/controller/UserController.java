@@ -139,7 +139,7 @@ public class UserController {
         }
         return null;
     }
-    
+
     @DeleteMapping("/tokenConfirm/deleteUser")
     @ApiOperation(value = "회원탈퇴", notes = "loginId를 통해 사용자 정보를 삭제한다.")
     ResponseEntity<Map<String, Object>> deleteUser(HttpServletRequest request){
