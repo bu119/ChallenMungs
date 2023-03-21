@@ -3,6 +3,7 @@ package com.ssafy.ChallenMungs.user.service;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.ssafy.ChallenMungs.user.entity.User;
 import com.ssafy.ChallenMungs.user.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
@@ -31,6 +32,13 @@ public class UserService {
 
     public void delete(String loginId) {
         userRepository.deleteUserByLoginId(loginId);
+    }
+
+    public void updateProfileAndName(String loginId, String name, String url) {
+        User user = userRepository.findUserByLoginId(loginId);
+        user.setName(name);
+        user.setProfile(url);
+        userRepository.save(user);
     }
 }
 

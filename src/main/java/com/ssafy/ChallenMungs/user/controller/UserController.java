@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.transaction.Transactional;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -55,13 +56,14 @@ public class UserController {
     @PostMapping("/kakaoLogin")
     @ApiOperation(value = "로그인 하는 API에요!")
     @ApiImplicitParams({
-            @ApiImplicitParam(name="accessToken", value="리퀘스트바디로 스트링을 받아요", required = true, dataType = "string"/*@PathVariable = path, @RequestParam = query*/)
+            @ApiImplicitParam(name="accessToken", value="리퀘스트바디로 스트링을 받아요", required = true, dataType = "path"/*@PathVariable = path, @RequestParam = query*/)
     })
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "로그인 성공", response = Res1.class),
     })
     // 프론트 단이 없는 지금은 예제로 access토큰을 받아왔고 프론트 단이 완성되면 아래 줄에 패러미터의 주석을 풀고 그아랫줄을 삭제하세요
     ResponseEntity<Map<String, Object>> kakaoLogin(@RequestBody String accessToken) {
+//        String accessToken = "jkXVO2GiRzaUSfZtsLMvKIK3wc8RR-8wPIaKMm7cCj1z7AAAAYcGVzMv";
         // response로 만들 map을 만들어요
         Map<String, Object> res = new HashMap<>();
         HttpStatus httpStatus = null;
@@ -93,7 +95,7 @@ public class UserController {
 
     String makeToken(String loginId) {
         Date now = new Date();
-        Date expiryDate = new Date(now.getTime() + 86400000 * 7);
+        Date expiryDate = new Date(now.getTime() + 1086400000);
         return Jwts.builder()
                 .setSubject(secretKey) // 열쇠? 키?
                 .setIssuedAt(new Date()) // 발행일
@@ -125,19 +127,6 @@ public class UserController {
         return new ResponseEntity<>(res, httpStatus);
     }
 
-    @PostMapping("tokenConfirm/postProfileAndName")
-    @ApiOperation(value = "토큰을 가지고 프로필 이미지와 닉네임를 저장해요!")
-    ResponseEntity<Map<String, Object>> postProfileAndName(HttpServletRequest request, @RequestParam("name") String name, @RequestParam("file") MultipartFile file) {
-        String loginId = request.getAttribute("loginId").toString();
-        try {
-            String url = fileService.saveFile(file, "user");
-
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        return null;
-    }
-
     @DeleteMapping("/tokenConfirm/deleteUser")
     @ApiOperation(value = "회원탈퇴", notes = "loginId를 통해 사용자 정보를 삭제한다.")
     ResponseEntity<Map<String, Object>> deleteUser(HttpServletRequest request){
@@ -153,13 +142,27 @@ public class UserController {
     @PostMapping("/tokenConfirm/updateProfileAndName")
     @ApiOperation(value = "유저의 프로필과 닉네임 정보를 변경해요!")
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "변경 성공", response = Res1.class),
+            @ApiResponse(code = 200, message = "변경 성공", response = Res2.class),
     })
     ResponseEntity<Res2> updateProfileAndName(
-        @ApiParam(value = "닉네임을 주세요", required = true, example = "{\n\t\"result\": \"John Doe\"}")
-        @RequestParam("name") String name
+        HttpServletRequest request,
+        @ApiParam(value = "닉네임을 주세요", required = true)
+        @RequestParam("name") String name,
+        @ApiParam(value = "멀티파트 파일을 주세요", required = true)
+        @RequestParam("profile") MultipartFile file
     ) {
-        
+        String loginId = request.getAttribute("loginId").toString();
+        if (file != null) {
+            try {
+                String url = fileService.saveFile(file, "user");
+                userService.updateProfileAndName(loginId, name, url);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        } else {
+
+        }
+
         return null;
     }
     /*
