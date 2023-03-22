@@ -1,4 +1,4 @@
-package com.ssafy.challenmungs.presentation
+package com.ssafy.challenmungs.presentation.mypage
 
 import com.ssafy.challenmungs.R
 import com.ssafy.challenmungs.databinding.FragmentMyWalletBinding

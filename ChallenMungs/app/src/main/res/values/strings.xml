@@ -28,6 +28,10 @@
     <!-- My Wallet -->
     <string name="title_current_balance">현재 잔액</string>
     <string name="image_klay">klay_icon</string>
-    <string name="content_address_copy">주소복사</string>
+    <string name="content_address_copy"><u>주소 복사</u></string>
     <string name="content_challenge_participation">챌린지 참여</string>
+    <string name="image_bank_statement_item_icon">image_bank_statement_item_icon</string>
+    <string name="image_back">image_back_icon</string>
+    <string name="content_bank_statement_total">%s KLAY</string>
+    <string name="content_bank_statement_time">%d:%d</string>
 </resources>

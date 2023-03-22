@@ -3,13 +3,25 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="com.ssafy.challenmungs.presentation.MainActivity">
 
-    <androidx.fragment.app.FragmentContainerView
+<!--    <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fcv_login"
         android:name="com.ssafy.challenmungs.presentation.auth.LogInFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:layout="@layout/fragment_log_in" />
+        tools:layout="@layout/fragment_log_in" />-->
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/container"
+        android:name="com.ssafy.challenmungs.presentation.mypage.MyWallet"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout="@layout/fragment_my_wallet" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
