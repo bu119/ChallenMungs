@@ -17,23 +17,24 @@ import java.util.stream.Collectors;
 public class CampaignListServiceImpl implements CampaignListService {
     private final CampaignListRepository jpaRepo;
 
-
+    // 기부탭의 캠페인 목록
     @Override
     public List<CampaignDto> getCampaign(String type, int sort) {
         List<Campaign> list;
-        if (type == "date"){
+        if (type.equals("date")){
             list = jpaRepo.findByIsEndFalseOrderByRegistDateDesc();
+//            list=jpaRepo.findAll();
             if (sort == 0){
                 Collections.reverse(list);
             }
         }
-        else if (type == "amount"){
+        else if (type.equals("amount")){
             list = jpaRepo.findByIsEndFalseOrderByCollectAmountDesc();
             if (sort == 0){
                 Collections.reverse(list);
             }
         }
-        else if (type == "love"){
+        else if (type.equals("love")){
              list = jpaRepo.findByIsEndFalse();
             if (sort == 0){
                 // Love DB 만들어졌을 때 실행
@@ -46,22 +47,25 @@ public class CampaignListServiceImpl implements CampaignListService {
         // 이후 수정 필요!
         int loveCount = 0;
         return list.stream()
-                .map(b -> new CampaignDto(b.getThumbnail(),b.getTitle(), b.getName(), b.getCollectAmount(), b.getTargetAmount(), loveCount ))
+                .map(b -> new CampaignDto(b.getCampaignId(),b.getThumbnail(),b.getTitle(), b.getName(), b.getCollectAmount(), b.getTargetAmount(), loveCount ))
                 .collect(Collectors.toList());
     }
 
+    // 후원처 로그인시 캠페인 목록
     @Override
-    public List<Campaign> getShelter(String name) {
+    public List<Campaign> getShelter(String loginId) {
         return null;
     }
 
+    // 해당 유저가 참여한 캠페인 목록
     @Override
-    public List<CampaignDto> getUserParticipate(String name) {
+    public List<CampaignDto> getUserParticipate(String loginId) {
         return null;
     }
 
+    // 해당 유저가 응원한 캠페인 목록
     @Override
-    public List<CampaignDto> getUserLove(String name) {
+    public List<CampaignDto> getUserLove(String loginId) {
         return null;
     }
 }

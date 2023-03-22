@@ -11,6 +11,8 @@ import java.util.Date;
 public class CampaignDto {
     // 캠페인 목록 필수 정보
     // 썸네일, 제목, 보호소, 응원수, 누적금액, 목표금액
+
+    int campaignId;
     String thumbnail;
     String title;
     String name;

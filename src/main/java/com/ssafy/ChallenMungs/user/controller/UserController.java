@@ -297,5 +297,14 @@ public class UserController {
         HttpStatus httpStatus = HttpStatus.OK;
         return new ResponseEntity<>(res, httpStatus);
     }
+
+    @PutMapping("/tokenConfirm/updatePassword")
+    @ApiOperation(value = "유저 비밀번호 변경")
+    ResponseEntity updatePassword(HttpServletRequest request, @RequestParam("password") String password){
+        String loginId = request.getAttribute("loginId").toString();
+        userService.updatePassword(loginId, password);
+        return ResponseEntity.status(HttpStatus.OK).build();
+    }
+
 }
 
