@@ -4,7 +4,7 @@ import lombok.*;
 import javax.persistence.*;
 import java.util.Date;
 
-@Entity(name="Campaign")
+@Entity
 @Getter
 @Setter
 @NoArgsConstructor
