@@ -144,7 +144,6 @@ public class UserController {
     ResponseEntity<Map<String, Object>> deleteUser(HttpServletRequest request){
         String loginId = request.getAttribute("loginId").toString();
         boolean isDeleted = userService.delete(loginId);
-
         Map res = new HashMap<>();
 
         if (isDeleted) {
