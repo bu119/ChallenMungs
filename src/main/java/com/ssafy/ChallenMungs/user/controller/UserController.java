@@ -155,18 +155,6 @@ public class UserController {
         HttpStatus httpStatus = HttpStatus.OK;
         return new ResponseEntity<>(res, httpStatus);
     }
-    @PostMapping("tokenConfirm/postProfileAndName")
-    @ApiOperation(value = "토큰을 가지고 프로필 이미지와 닉네임를 저장해요!")
-    ResponseEntity<Map<String, Object>> postProfileAndName(HttpServletRequest request, @RequestParam("name") String name, @RequestParam("file") MultipartFile file) {
-        String loginId = request.getAttribute("loginId").toString();
-        try {
-            String url = fileService.saveFile(file, "user");
-
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        return null;
-    }
 
     @DeleteMapping("/tokenConfirm/deleteUser")
     @ApiOperation(value = "회원탈퇴", notes = "loginId를 통해 사용자 정보를 삭제한다.")
@@ -193,7 +181,7 @@ public class UserController {
             @ApiResponse(code = 200, message = "변경 성공"),
             @ApiResponse(code = 417, message = "변경 실패ㅜㅜ")
     })
-    ResponseEntity<Res2> updateProfileAndName(HttpServletRequest request, @RequestParam("name") String name, @RequestParam("profile") MultipartFile file) {
+    ResponseEntity updateProfileAndName(HttpServletRequest request, @RequestParam("name") String name, @RequestParam("profile") MultipartFile file) {
         String loginId = request.getAttribute("loginId").toString();
         String url = null;
         try {
@@ -236,6 +224,8 @@ public class UserController {
             return "no_email";
         }
     }
+
+
 
 }
 
