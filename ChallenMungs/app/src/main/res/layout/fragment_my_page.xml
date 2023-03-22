@@ -106,6 +106,7 @@
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="@+id/cl_heart_temperature"
                 app:layout_constraintTop_toTopOf="@+id/cl_heart_temperature" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -348,6 +349,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_my_campaign_name" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <TextView
