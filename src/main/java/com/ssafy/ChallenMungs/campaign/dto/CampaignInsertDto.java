@@ -14,5 +14,6 @@ public class CampaignInsertDto {
     String title;
     String loginId;
     String thumbnail;
+    int targetAmount;
     List<ContentDto> contentList;
 }

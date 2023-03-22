@@ -15,7 +15,6 @@ public class CampaignDetailDto {
     String thumbnail;
     String writer;
     int lovecnt;
-
     int collectAmount;
     int targetAmount;
 
