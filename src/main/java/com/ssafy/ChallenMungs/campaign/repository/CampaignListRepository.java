@@ -5,7 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
-public interface CampaignRepository extends JpaRepository<Campaign, Long>  {
+public interface CampaignListRepository extends JpaRepository<Campaign, Long>  {
 
 
 
