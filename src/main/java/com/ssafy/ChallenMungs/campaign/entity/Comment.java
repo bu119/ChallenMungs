@@ -23,10 +23,6 @@ public class Comment {
 
     @Column(name = "writer")
     private String writer;
-
-    @Column(name = "url")
-    private String url;
-
     @Column(name = "msg")
     private String msg;
 
