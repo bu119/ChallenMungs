@@ -2,6 +2,7 @@ package com.ssafy.ChallenMungs.campaign.entity;
 import com.ssafy.ChallenMungs.user.entity.User;
 import lombok.*;
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
@@ -18,7 +19,7 @@ public class Campaign {
     private int campaignId;
 
     // 캠페인 담당자
-    @ManyToOne  // 1:N
+    @ManyToOne (cascade = {CascadeType.ALL}) // 1:N
     @JoinColumn(name="login_id") //Join 기준
     private User user;
 
@@ -31,7 +32,7 @@ public class Campaign {
     private String walletAddress;
 
     // 캠페인 사진
-    @Column(name = "thumbnail")
+    @Column(name = "thumbnail",length = 2500)
     private String thumbnail;
 
     // 캠페인 제목
@@ -52,7 +53,7 @@ public class Campaign {
 
     // 생성일
     @Column(name = "regist_date")
-    private Date registDate;
+    private LocalDateTime registDate;
 
     // 모금 종료 여부
     @Column(name = "is_end")
