@@ -19,9 +19,8 @@ public class CampaignContentController {
 
      //todo 캠페인 생성하는 api
      @PostMapping("/upload")
-     @ApiOperation(value = "파일 업로드", notes = "파일을 업로드하고 img url을 가져옵니다. 폴더명은 user 혹은 campaign 로 해주세요.(상황에 맞게..)")
+     @ApiOperation(value = "캠페인 생성", notes = "캠페인을 생성하는 api 입니다.")
      public ResponseEntity<String> uploadAndGetLink() {
-
          return new ResponseEntity<String>("하하하", HttpStatus.OK);
      }
     //todo 캠페인에 좋아요 누르는 api
