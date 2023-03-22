@@ -29,8 +29,13 @@ public class UserService {
         return userRepository.findUserByLoginId(loginId).getName();
     }
 
-    public void delete(String loginId) {
-        userRepository.deleteUserByLoginId(loginId);
+    public boolean delete(String loginId) {
+        try {
+            userRepository.deleteUserByLoginId(loginId);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 }
 
