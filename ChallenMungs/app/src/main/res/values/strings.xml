@@ -1,10 +1,18 @@
 <resources>
-    <string name="app_name">ChallenMungs</string>
+    <string name="app_name">챌린멍스</string>
 
     <!-- Log In -->
     <string name="title_shelter_auth">후원처이신가요?</string>
     <string name="content_shelter_join">회원가입</string>
     <string name="content_shelter_login">로그인</string>
+
+    <!-- Bottom Menu -->
+    <string name="title_tab_challenge">챌린지</string>
+    <string name="title_tab_donate">기부</string>
+    <string name="title_tab_home">홈</string>
+    <string name="title_tab_map">정보</string>
+    <string name="title_tab_my_page">마이페이지</string>
+    <string name="image_menu">하단 메뉴의 이미지입니다.</string>
 
     <!-- My Page-->
     <string name="content_heart_temperature_amount">%s °C</string>
