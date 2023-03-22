@@ -82,7 +82,6 @@ public class UserController {
                 log.info("이미 데이터베이스에 아이디(login_id)가 있어요");
                 res.put("code", "member");
                 String token = makeToken(email);
-                System.out.println("token:" + token);
                 res.put("result", token);
                 httpStatus = HttpStatus.OK;
             } else {
@@ -141,7 +140,6 @@ public class UserController {
             }
             JsonParser parser = new JsonParser();
             JsonElement element = parser.parse(result);
-            System.out.println("여기까지:::" + element.getAsJsonObject().get("kakao_account").getAsJsonObject());
             v.put("loginId", element.getAsJsonObject().get("kakao_account").getAsJsonObject().get("email").getAsString());
             if (element.getAsJsonObject().get("kakao_account").getAsJsonObject().get("profile").getAsJsonObject().get("is_default_image").toString().equals("false")) {
                 System.out.println("개인프로필 이미지가 있어요 : " + element.getAsJsonObject().get("kakao_account").getAsJsonObject().get("profile").getAsJsonObject().get("profile_image_url").toString());
@@ -253,14 +251,27 @@ public class UserController {
     @PostMapping("/codeEmail")
     @ApiOperation(value = "자선단체의 회원가입 메서드에요!")
     ResponseEntity codeEmail(@RequestParam("to") String email, @RequestParam("charityName") String charityName) {
-        emailService.sendHtmlEmail("opi6@hanmail.net", charityName);
+        log.info("초대코드를 담은 이메일을 보낼게요!:" + email);
+        emailService.sendHtmlEmail(email, charityName);
         return ResponseEntity.status(HttpStatus.OK).build();
+    }
+    @PostMapping("/charityLogin")
+    @ApiOperation(value = "자선단체가 로그인하는 메서드에요!")
+    ResponseEntity charityLogin(@RequestParam("loginId") String loginId, @RequestParam("password") String password) {
+        log.info("자선단체가 로그인을 시도해요");
+        if(userService.charityLogin(loginId, password)) {
+            log.info("아이디와 비밀번호가 일치하는 정보를 찾았어요. 토큰을 만들게요");
+            return new ResponseEntity(makeToken(loginId), HttpStatus.OK);
+        } else {
+            log.info("아이디와 비밀번호가 일치하는 정보가 없어요.");
+            return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).build();
+        }
     }
 
     @PostMapping("/statusTest")
+    @ApiOperation(value = "httpStatus의 응답을 확인해 볼수 있는 테스트 메서드에요")
     ResponseEntity<Map<String, Object>> status(@RequestParam("state") String state) {
         HashMap<String, Object> v = new HashMap<>();
-        System.out.println(state);
         if (state.equals("OK")) {
             v.put("code", "good");
             HttpStatus httpStatus = HttpStatus.OK;
@@ -306,5 +317,11 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 
+    @PostMapping("/findPassword")
+    @ApiOperation(value = "loginId로 비밀번호를 찾아요")
+    ResponseEntity updatePassword(@RequestParam("loginId") String loginId) {
+        log.info("이메일로 임시 비밀번호를 보낼게요!:" + loginId);
+        emailService.sendHtmlEmail2(loginId);
+        return ResponseEntity.status(HttpStatus.OK).build();
+    }
 }
-

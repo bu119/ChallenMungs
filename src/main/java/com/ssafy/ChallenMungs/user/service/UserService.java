@@ -60,5 +60,9 @@ public class UserService {
         user.setPassword(password);
         userRepository.save(user);
     }
+
+    public boolean charityLogin(String loginId, String password) {
+        return userRepository.existsUserByLoginIdAndPassword(loginId, password);
+    }
 }
 

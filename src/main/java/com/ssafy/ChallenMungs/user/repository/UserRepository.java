@@ -12,4 +12,6 @@ public interface UserRepository extends JpaRepository<User, Long>, QuerydslPredi
     @Transactional
     void deleteUserByLoginId(String loginId);
     boolean existsByLoginId(String loginId);
+
+    boolean existsUserByLoginIdAndPassword(String loginId, String password);
 }
