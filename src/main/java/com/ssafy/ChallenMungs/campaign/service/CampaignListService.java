@@ -10,11 +10,11 @@ public interface CampaignListService {
     List<CampaignDto> getCampaign(String type, int sort);
 
     // 후원처 탭
-    List<Campaign> getShelter(String name);
+    List<Campaign> getShelter(String loginId);
 
     // 내가 참여한 캠페인
-    List<CampaignDto> getUserParticipate(String name);
+    List<CampaignDto> getUserParticipate(String loginId);
 
     // 내가 응원한 캠페인
-    List<CampaignDto> getUserLove(String name);
+    List<CampaignDto> getUserLove(String loginId);
 }
