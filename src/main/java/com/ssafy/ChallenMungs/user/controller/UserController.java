@@ -8,6 +8,7 @@ import com.ssafy.ChallenMungs.image.service.FileServiceImpl;
 import com.ssafy.ChallenMungs.user.dto.Res1;
 import com.ssafy.ChallenMungs.user.dto.Res2;
 import com.ssafy.ChallenMungs.user.entity.User;
+import com.ssafy.ChallenMungs.user.service.CodeService;
 import com.ssafy.ChallenMungs.user.service.EmailService;
 import com.ssafy.ChallenMungs.user.service.UserService;
 import io.jsonwebtoken.Jwts;
@@ -50,6 +51,9 @@ public class UserController {
     @Autowired
     EmailService emailService;
 
+    @Autowired
+    CodeService codeService;
+
     //토큰을 만들기 위한 비밀 키를 properties로 부터 가져와요
     @Value("${secret.key}")
     String secretKey;
@@ -85,13 +89,12 @@ public class UserController {
                 log.info("데이터 베이스에 아이디(login_id)가 없어요. 닉네임을 등록하세요");
                 res.put("code", "no_email");
                 res.put("result", email);
-                httpStatus = HttpStatus.OK;
+                httpStatus = HttpStatus.ACCEPTED; //202
             }
         } catch (Exception e) {
             res.put("code", e.getMessage());
             httpStatus = HttpStatus.EXPECTATION_FAILED; //417 이에요
         }
-        System.out.println(new ResponseEntity<>(res, httpStatus).toString());
         return new ResponseEntity<>(res, httpStatus);
     }
     String makeToken(String loginId) {
@@ -235,13 +238,23 @@ public class UserController {
     // 성공하면 토큰 실패하면 실패 메세지
     @PostMapping("/charityRegister")
     @ApiOperation(value = "자선단체의 회원가입 메서드에요!")
-    ResponseEntity<Map<String, Object>> charityLogin(@RequestParam("loginId") String loginId, @RequestParam("password") String password) {
-        User user = User.builder().loginId(loginId).password(password).type('s').build();
-        return null;
+    ResponseEntity charityLogin(@RequestParam("loginId") String loginId, @RequestParam("password") String password, @RequestParam("charityName") String charityName, @RequestParam("inviteCode") String inviteCode) {
+        log.info("초대코드를 확인해 볼게요!:" + inviteCode);
+        if (codeService.confirmInviteCode(charityName, inviteCode)) {
+            log.info("유효한 초대코드에요! 회원가입을 진행할게요");
+            userService.saveUser(User.builder().loginId(loginId).password(password).type('s').name(charityName).build());
+            log.info("회원가입을 완료했어요! 축하합니다!");
+            return ResponseEntity.status(200).build();
+        } else {
+            log.info("유효하지 않은 초대코드에요!");
+            return ResponseEntity.status(417).build();
+        }
     }
     @PostMapping("/codeEmail")
-    void codeEmail(@RequestParam("to") String email, @RequestParam("charityName") String charityName) {
+    @ApiOperation(value = "자선단체의 회원가입 메서드에요!")
+    ResponseEntity codeEmail(@RequestParam("to") String email, @RequestParam("charityName") String charityName) {
         emailService.sendHtmlEmail("opi6@hanmail.net", charityName);
+        return ResponseEntity.status(HttpStatus.OK).build();
     }
 
     @PostMapping("/statusTest")
@@ -252,9 +265,12 @@ public class UserController {
             v.put("code", "good");
             HttpStatus httpStatus = HttpStatus.OK;
             return new ResponseEntity<>(v, httpStatus);
+        } else if (state.equals("OK2")) {
+            v.put("code", "good2");
+            return new ResponseEntity<>(v, HttpStatus.ACCEPTED); // 202
         } else {
             v.put("code", "No");
-            return new ResponseEntity<>(v, HttpStatus.EXPECTATION_FAILED);
+            return new ResponseEntity<>(v, HttpStatus.EXPECTATION_FAILED); // 417
         }
     }
     @GetMapping("/charity/checkId")

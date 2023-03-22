@@ -23,8 +23,10 @@ public class EmailService {
     public void sendHtmlEmail(String to, String charityName) {
         String code = String.valueOf((int)(Math.random()*899999) + 100000);
         codeService.registerCode(charityName, code);
-        String subject = "후원처용 초대코드 입니다";
-        String htmlBody = "<html><body><h5>아래 비밀코드를 확인해 주세요</h5><h1>"+
+        String subject = charityName + "님을 위한 초대코드 입니다";
+        String htmlBody = "<html><body>" + 
+                "<h5>안녕하세요 + " + charityName + "님!</5>" + 
+                "<h5>아래 비밀코드를 확인하여 회원가입을 진행해 주세요</h5><h1>"+
                 code + "</h1></body></html>";
         SimpleMailMessage message = new SimpleMailMessage();
         message.setTo(to);

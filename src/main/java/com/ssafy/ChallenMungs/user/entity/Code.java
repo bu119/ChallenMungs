@@ -19,6 +19,6 @@ public class Code {
     private String charityName;
 
     @Column(name = "invite_code")
-    private String invite_code;
+    private String inviteCode;
 
 }
