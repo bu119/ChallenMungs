@@ -9,7 +9,6 @@ import javax.transaction.Transactional;
 public interface UserRepository extends JpaRepository<User, Long>, QuerydslPredicateExecutor<User> {
     int countByLoginId(String str);
     User findUserByLoginId(String loginId);
-
     @Transactional
     void deleteUserByLoginId(String loginId);
 }
