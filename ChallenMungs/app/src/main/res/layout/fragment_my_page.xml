@@ -30,9 +30,9 @@
             android:layout_marginStart="20dp"
             android:textColor="@color/black"
             android:textSize="20sp"
-            app:layout_constraintBottom_toTopOf="@+id/tv_total_contribution"
-            app:layout_constraintStart_toEndOf="@+id/iv_profile"
-            app:layout_constraintTop_toTopOf="@+id/iv_profile"
+            app:layout_constraintBottom_toTopOf="@id/tv_total_contribution"
+            app:layout_constraintStart_toEndOf="@id/iv_profile"
+            app:layout_constraintTop_toTopOf="@id/iv_profile"
             tools:text="김차돌내가짱이다짱짱" />
 
         <TextView
@@ -41,8 +41,8 @@
             android:layout_height="wrap_content"
             android:text="@string/content_total_contribution"
             android:textColor="@color/zambezi"
-            app:layout_constraintBottom_toBottomOf="@+id/iv_profile"
-            app:layout_constraintStart_toStartOf="@+id/tv_nickname" />
+            app:layout_constraintBottom_toBottomOf="@id/iv_profile"
+            app:layout_constraintStart_toStartOf="@id/tv_nickname" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cl_heart_temperature"
@@ -53,7 +53,7 @@
             android:background="@color/corn_silk"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_total_contribution">
+            app:layout_constraintTop_toBottomOf="@id/tv_total_contribution">
 
             <TextView
                 android:id="@+id/tv_heart_temperature"
@@ -64,10 +64,10 @@
                 android:textColor="@color/mandy"
                 android:textSize="11sp"
                 android:textStyle="bold"
-                app:layout_constraintBottom_toTopOf="@+id/iv_heart_temperature"
-                app:layout_constraintEnd_toEndOf="@+id/iv_heart_temperature"
-                app:layout_constraintStart_toStartOf="@+id/iv_heart_temperature"
-                app:layout_constraintTop_toBottomOf="@+id/tv_heart_temperature_name"
+                app:layout_constraintBottom_toTopOf="@id/iv_heart_temperature"
+                app:layout_constraintEnd_toEndOf="@id/iv_heart_temperature"
+                app:layout_constraintStart_toStartOf="@id/iv_heart_temperature"
+                app:layout_constraintTop_toBottomOf="@id/tv_heart_temperature_name"
                 tools:ignore="TextContrastCheck" />
 
             <ImageView
@@ -76,10 +76,9 @@
                 android:layout_height="66dp"
                 android:contentDescription="@string/image_heart_temperature"
                 android:src="@drawable/ic_mypage_heart_temperature"
-                app:layout_constraintBottom_toTopOf="@+id/progress_bar"
-                app:layout_constraintEnd_toEndOf="@+id/progress_bar"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="@+id/progress_bar" />
+                app:layout_constraintBottom_toTopOf="@id/progress_bar"
+                app:layout_constraintEnd_toEndOf="@id/progress_bar"
+                app:layout_constraintStart_toStartOf="@id/progress_bar" />
 
             <ProgressBar
                 android:id="@+id/progress_bar"
@@ -104,8 +103,8 @@
                 android:textColor="@color/black"
                 android:textSize="14sp"
                 android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="@+id/cl_heart_temperature"
-                app:layout_constraintTop_toTopOf="@+id/cl_heart_temperature" />
+                app:layout_constraintStart_toStartOf="@id/cl_heart_temperature"
+                app:layout_constraintTop_toTopOf="@id/cl_heart_temperature" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -118,9 +117,9 @@
             android:background="@drawable/bg_rect_fair_pink_radius15"
             android:paddingHorizontal="15dp"
             android:paddingVertical="15dp"
-            app:layout_constraintEnd_toStartOf="@+id/gl_middle"
-            app:layout_constraintStart_toStartOf="@+id/cl_heart_temperature"
-            app:layout_constraintTop_toBottomOf="@+id/cl_heart_temperature">
+            app:layout_constraintEnd_toStartOf="@id/gl_middle"
+            app:layout_constraintStart_toStartOf="@id/cl_heart_temperature"
+            app:layout_constraintTop_toBottomOf="@id/cl_heart_temperature">
 
             <TextView
                 android:id="@+id/tv_my_wallet_name"
@@ -140,8 +139,8 @@
                 android:layout_marginStart="8dp"
                 android:textColor="@color/black"
                 android:textSize="26sp"
-                app:layout_constraintStart_toStartOf="@+id/tv_my_wallet_name"
-                app:layout_constraintTop_toBottomOf="@+id/tv_my_wallet_name"
+                app:layout_constraintStart_toStartOf="@id/tv_my_wallet_name"
+                app:layout_constraintTop_toBottomOf="@id/tv_my_wallet_name"
                 tools:text="0" />
 
             <TextView
@@ -152,8 +151,8 @@
                 android:text="@string/content_unit"
                 android:textColor="@color/black"
                 android:textSize="16sp"
-                app:layout_constraintBottom_toBottomOf="@+id/tv_my_wallet_amount"
-                app:layout_constraintStart_toEndOf="@+id/tv_my_wallet_amount" />
+                app:layout_constraintBottom_toBottomOf="@id/tv_my_wallet_amount"
+                app:layout_constraintStart_toEndOf="@id/tv_my_wallet_amount" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -166,9 +165,9 @@
             android:background="@drawable/bg_rect_fair_pink_radius15"
             android:paddingHorizontal="15dp"
             android:paddingVertical="15dp"
-            app:layout_constraintEnd_toEndOf="@+id/cl_heart_temperature"
-            app:layout_constraintStart_toStartOf="@+id/gl_middle"
-            app:layout_constraintTop_toBottomOf="@+id/cl_heart_temperature">
+            app:layout_constraintEnd_toEndOf="@id/cl_heart_temperature"
+            app:layout_constraintStart_toStartOf="@id/gl_middle"
+            app:layout_constraintTop_toBottomOf="@id/cl_heart_temperature">
 
             <TextView
                 android:id="@+id/tv_donate_bank_name"
@@ -188,8 +187,8 @@
                 android:layout_marginStart="8dp"
                 android:textColor="@color/black"
                 android:textSize="26sp"
-                app:layout_constraintStart_toStartOf="@+id/tv_donate_bank_name"
-                app:layout_constraintTop_toBottomOf="@+id/tv_donate_bank_name"
+                app:layout_constraintStart_toStartOf="@id/tv_donate_bank_name"
+                app:layout_constraintTop_toBottomOf="@id/tv_donate_bank_name"
                 tools:text="0" />
 
             <TextView
@@ -200,8 +199,8 @@
                 android:text="@string/content_unit"
                 android:textColor="@color/black"
                 android:textSize="16sp"
-                app:layout_constraintBottom_toBottomOf="@+id/tv_donate_bank_amount"
-                app:layout_constraintStart_toEndOf="@+id/tv_donate_bank_amount" />
+                app:layout_constraintBottom_toBottomOf="@id/tv_donate_bank_amount"
+                app:layout_constraintStart_toEndOf="@id/tv_donate_bank_amount" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -235,9 +234,9 @@
                 android:textColor="@color/black"
                 android:textSize="14sp"
                 android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="@+id/iv_donate_history"
-                app:layout_constraintStart_toEndOf="@+id/iv_donate_history"
-                app:layout_constraintTop_toTopOf="@+id/iv_donate_history" />
+                app:layout_constraintBottom_toBottomOf="@id/iv_donate_history"
+                app:layout_constraintStart_toEndOf="@id/iv_donate_history"
+                app:layout_constraintTop_toTopOf="@id/iv_donate_history" />
 
             <View
                 android:id="@+id/divider_donate_history"
@@ -247,7 +246,7 @@
                 android:background="@color/golden_glow"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_donate_history_name" />
+                app:layout_constraintTop_toBottomOf="@id/tv_donate_history_name" />
 
             <ImageView
                 android:id="@+id/iv_my_challenge"
@@ -269,9 +268,9 @@
                 android:textColor="@color/black"
                 android:textSize="14sp"
                 android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="@+id/iv_my_challenge"
-                app:layout_constraintStart_toEndOf="@+id/iv_my_challenge"
-                app:layout_constraintTop_toTopOf="@+id/iv_my_challenge" />
+                app:layout_constraintBottom_toBottomOf="@id/iv_my_challenge"
+                app:layout_constraintStart_toEndOf="@id/iv_my_challenge"
+                app:layout_constraintTop_toTopOf="@id/iv_my_challenge" />
 
             <View
                 android:id="@+id/divider_my_challenge"
@@ -281,7 +280,7 @@
                 android:background="@color/golden_glow"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_my_challenge_name" />
+                app:layout_constraintTop_toBottomOf="@id/tv_my_challenge_name" />
 
             <ImageView
                 android:id="@+id/iv_cheer_campaign"
@@ -302,9 +301,9 @@
                 android:textColor="@color/black"
                 android:textSize="14sp"
                 android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="@+id/iv_cheer_campaign"
-                app:layout_constraintStart_toEndOf="@+id/iv_cheer_campaign"
-                app:layout_constraintTop_toTopOf="@+id/iv_cheer_campaign" />
+                app:layout_constraintBottom_toBottomOf="@id/iv_cheer_campaign"
+                app:layout_constraintStart_toEndOf="@id/iv_cheer_campaign"
+                app:layout_constraintTop_toTopOf="@id/iv_cheer_campaign" />
 
             <View
                 android:id="@+id/divider_cheer_campaign"
@@ -314,7 +313,7 @@
                 android:background="@color/golden_glow"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_cheer_campaign_name" />
+                app:layout_constraintTop_toBottomOf="@id/tv_cheer_campaign_name" />
 
             <ImageView
                 android:id="@+id/iv_my_campaign"
@@ -336,9 +335,9 @@
                 android:textColor="@color/black"
                 android:textSize="14sp"
                 android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="@+id/iv_my_campaign"
-                app:layout_constraintStart_toEndOf="@+id/iv_my_campaign"
-                app:layout_constraintTop_toTopOf="@+id/iv_my_campaign" />
+                app:layout_constraintBottom_toBottomOf="@id/iv_my_campaign"
+                app:layout_constraintStart_toEndOf="@id/iv_my_campaign"
+                app:layout_constraintTop_toTopOf="@id/iv_my_campaign" />
 
             <View
                 android:id="@+id/divider_my_campaign"
@@ -348,7 +347,7 @@
                 android:background="@color/golden_glow"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_my_campaign_name" />
+                app:layout_constraintTop_toBottomOf="@id/tv_my_campaign_name" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -362,7 +361,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/gl_bottom" />
+            app:layout_constraintTop_toTopOf="@id/gl_bottom" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/gl_middle"

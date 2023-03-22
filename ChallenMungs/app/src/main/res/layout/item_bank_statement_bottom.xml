@@ -28,8 +28,8 @@
             android:layout_marginStart="10dp"
             android:textColor="@color/black"
             android:textSize="14sp"
-            app:layout_constraintStart_toEndOf="@+id/iv_icon"
-            app:layout_constraintTop_toTopOf="@+id/iv_icon"
+            app:layout_constraintStart_toEndOf="@id/iv_icon"
+            app:layout_constraintTop_toTopOf="@id/iv_icon"
             tools:text="내용" />
 
         <TextView
@@ -39,8 +39,8 @@
             android:layout_marginTop="3dp"
             android:textColor="@color/pink_swan"
             android:textSize="11sp"
-            app:layout_constraintStart_toStartOf="@+id/tv_bank_statement_content"
-            app:layout_constraintTop_toBottomOf="@+id/tv_bank_statement_content"
+            app:layout_constraintStart_toStartOf="@id/tv_bank_statement_content"
+            app:layout_constraintTop_toBottomOf="@id/tv_bank_statement_content"
             tools:text="13:30" />
 
         <TextView
@@ -50,7 +50,7 @@
             android:textColor="@color/mandy"
             android:textSize="13sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/tv_bank_statement_content"
+            app:layout_constraintTop_toTopOf="@id/tv_bank_statement_content"
             tools:text="-20" />
 
         <TextView
@@ -62,7 +62,7 @@
             android:textColor="@color/zambezi"
             android:textSize="11sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_bank_statement_amount" />
+            app:layout_constraintTop_toBottomOf="@id/tv_bank_statement_amount" />
 
         <View
             android:id="@+id/divider_bottom"
@@ -72,14 +72,14 @@
             android:background="@color/banana_mania"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_bank_statement_time" />
+            app:layout_constraintTop_toBottomOf="@id/tv_bank_statement_time" />
 
         <Space
             android:layout_width="0dp"
             android:layout_height="20dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/divider_bottom" />
+            app:layout_constraintTop_toBottomOf="@id/divider_bottom" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

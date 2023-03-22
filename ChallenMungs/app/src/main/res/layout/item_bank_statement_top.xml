@@ -28,7 +28,7 @@
             android:layout_marginTop="17dp"
             android:contentDescription="@string/image_bank_statement_item_icon"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_bank_statement_date"
+            app:layout_constraintTop_toBottomOf="@id/tv_bank_statement_date"
             tools:src="@drawable/ic_wallet_charge" />
 
         <TextView
@@ -38,8 +38,8 @@
             android:layout_marginStart="10dp"
             android:textColor="@color/black"
             android:textSize="14sp"
-            app:layout_constraintStart_toEndOf="@+id/iv_bank_statement_icon"
-            app:layout_constraintTop_toTopOf="@+id/iv_bank_statement_icon"
+            app:layout_constraintStart_toEndOf="@id/iv_bank_statement_icon"
+            app:layout_constraintTop_toTopOf="@id/iv_bank_statement_icon"
             tools:text="내용" />
 
         <TextView
@@ -51,8 +51,8 @@
             android:textColor="@color/pink_swan"
             android:textSize="11sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/tv_bank_statement_content"
-            app:layout_constraintTop_toBottomOf="@+id/tv_bank_statement_content"
+            app:layout_constraintStart_toStartOf="@id/tv_bank_statement_content"
+            app:layout_constraintTop_toBottomOf="@id/tv_bank_statement_content"
             tools:text="13:30" />
 
         <TextView
@@ -62,7 +62,7 @@
             android:textColor="@color/mandy"
             android:textSize="13sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/tv_bank_statement_content"
+            app:layout_constraintTop_toTopOf="@id/tv_bank_statement_content"
             tools:text="-20" />
 
         <TextView
@@ -76,7 +76,7 @@
             android:textSize="11sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_bank_statement_amount" />
+            app:layout_constraintTop_toBottomOf="@id/tv_bank_statement_amount" />
 
         <View
             android:layout_width="0dp"

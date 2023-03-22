@@ -20,7 +20,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/toolbar">
+            app:layout_constraintTop_toBottomOf="@id/toolbar">
 
             <TextView
                 android:id="@+id/tv_current_balance_name"
@@ -43,9 +43,9 @@
                 android:layout_marginStart="6dp"
                 android:contentDescription="@string/image_klay"
                 android:src="@drawable/ic_klay"
-                app:layout_constraintBottom_toBottomOf="@+id/tv_current_balance_name"
-                app:layout_constraintStart_toEndOf="@+id/tv_current_balance_name"
-                app:layout_constraintTop_toTopOf="@+id/tv_current_balance_name" />
+                app:layout_constraintBottom_toBottomOf="@id/tv_current_balance_name"
+                app:layout_constraintStart_toEndOf="@id/tv_current_balance_name"
+                app:layout_constraintTop_toTopOf="@id/tv_current_balance_name" />
 
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:id="@+id/ll_current_balance"
@@ -54,7 +54,7 @@
                 android:orientation="horizontal"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_current_balance_name">
+                app:layout_constraintTop_toBottomOf="@id/tv_current_balance_name">
 
                 <TextView
                     android:id="@+id/tv_current_balance_amount"
@@ -85,9 +85,9 @@
                 android:text="@string/content_address_copy"
                 android:textColor="@color/zambezi"
                 android:textSize="11sp"
-                app:layout_constraintEnd_toEndOf="@+id/ll_current_balance"
-                app:layout_constraintStart_toStartOf="@+id/ll_current_balance"
-                app:layout_constraintTop_toBottomOf="@+id/ll_current_balance" />
+                app:layout_constraintEnd_toEndOf="@id/ll_current_balance"
+                app:layout_constraintStart_toStartOf="@id/ll_current_balance"
+                app:layout_constraintTop_toBottomOf="@id/ll_current_balance" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btn_participation"
@@ -100,7 +100,7 @@
                 android:text="@string/content_challenge_participation"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_address_copy" />
+                app:layout_constraintTop_toBottomOf="@id/tv_address_copy" />
 
             <View
                 android:id="@+id/divider_middle"
@@ -110,7 +110,7 @@
                 android:background="@color/white_smoke"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/btn_participation" />
+                app:layout_constraintTop_toBottomOf="@id/btn_participation" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_bank_statement"
@@ -122,7 +122,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/divider_middle"
+                app:layout_constraintTop_toBottomOf="@id/divider_middle"
                 tools:listitem="@layout/item_bank_statement_top" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

@@ -15,24 +15,18 @@ sealed class BankStatementViewHolder(binding: ViewDataBinding) :
     class TopItemViewHolder(private val binding: ItemBankStatementTopBinding) :
         BankStatementViewHolder(binding) {
 
-        override fun onBind(item: BankStatementItem) {
-
-        }
+        override fun onBind(item: BankStatementItem) {}
     }
 
     class MiddleItemViewHolder(private val binding: ItemBankStatementMiddleBinding) :
         BankStatementViewHolder(binding) {
 
-        override fun onBind(item: BankStatementItem) {
-
-        }
+        override fun onBind(item: BankStatementItem) {}
     }
 
     class BottomItemViewHolder(private val binding: ItemBankStatementBottomBinding) :
         BankStatementViewHolder(binding) {
 
-        override fun onBind(item: BankStatementItem) {
-
-        }
+        override fun onBind(item: BankStatementItem) {}
     }
 }

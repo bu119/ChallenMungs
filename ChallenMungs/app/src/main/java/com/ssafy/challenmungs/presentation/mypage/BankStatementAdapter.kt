@@ -18,9 +18,8 @@ class BankStatementAdapter(
         BOTTOM,
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BankStatementViewHolder {
-
-        return when (viewType) {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BankStatementViewHolder =
+        when (viewType) {
             ViewType.TOP.ordinal -> {
                 BankStatementViewHolder.TopItemViewHolder(
                     getViewDataBinding(parent, R.layout.item_bank_statement_top)
@@ -37,7 +36,6 @@ class BankStatementAdapter(
                 )
             }
         }
-    }
 
     override fun onBindViewHolder(holder: BankStatementViewHolder, position: Int) {
         holder.onBind(dataSet[position])
@@ -45,20 +43,17 @@ class BankStatementAdapter(
 
     override fun getItemCount(): Int = dataSet.size
 
-    override fun getItemViewType(position: Int): Int {
-        return when (position) {
-            0 -> ViewType.TOP.ordinal
-            itemCount -> ViewType.BOTTOM.ordinal
-            else -> ViewType.MIDDLE.ordinal
-        }
+    override fun getItemViewType(position: Int): Int = when (position) {
+        0 -> ViewType.TOP.ordinal
+        itemCount -> ViewType.BOTTOM.ordinal
+        else -> ViewType.MIDDLE.ordinal
     }
 
-    private fun <T : ViewDataBinding> getViewDataBinding(parent: ViewGroup, layoutRes: Int): T {
-        return DataBindingUtil.inflate(
+    private fun <T : ViewDataBinding> getViewDataBinding(parent: ViewGroup, layoutRes: Int): T =
+        DataBindingUtil.inflate(
             LayoutInflater.from(parent.context),
             layoutRes,
             parent,
             false
         )
-    }
 }

@@ -29,7 +29,7 @@
             android:layout_marginTop="8dp"
             android:textColor="@color/black"
             android:textSize="14sp"
-            app:layout_constraintStart_toEndOf="@+id/iv_bank_statement_icon"
+            app:layout_constraintStart_toEndOf="@id/iv_bank_statement_icon"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="내용" />
 
@@ -41,11 +41,10 @@
             android:layout_marginBottom="8dp"
             android:text="@string/content_bank_statement_time"
             android:textColor="@color/pink_swan"
-
             android:textSize="11sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/tv_bank_statement_content"
-            app:layout_constraintTop_toBottomOf="@+id/tv_bank_statement_content" />
+            app:layout_constraintStart_toStartOf="@id/tv_bank_statement_content"
+            app:layout_constraintTop_toBottomOf="@id/tv_bank_statement_content" />
 
         <TextView
             android:id="@+id/tv_bank_statement_amount"
@@ -69,7 +68,7 @@
             android:textSize="11sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_bank_statement_amount" />
+            app:layout_constraintTop_toBottomOf="@id/tv_bank_statement_amount" />
 
         <View
             android:layout_width="0dp"
