@@ -11,13 +11,14 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 public class User {
-    @Id
-    @Column(name = "user_id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long userId;
 
+    @Id
     @Column(name = "login_id")
     private String loginId;
+
+    //    @Column(name = "user_id")
+    //    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    //    private Long userId;
 
     @Column(name = "password")
     private String password;

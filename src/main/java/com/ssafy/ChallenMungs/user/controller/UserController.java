@@ -155,16 +155,36 @@ public class UserController {
         HttpStatus httpStatus = HttpStatus.OK;
         return new ResponseEntity<>(res, httpStatus);
     }
+    @PostMapping("tokenConfirm/postProfileAndName")
+    @ApiOperation(value = "토큰을 가지고 프로필 이미지와 닉네임를 저장해요!")
+    ResponseEntity<Map<String, Object>> postProfileAndName(HttpServletRequest request, @RequestParam("name") String name, @RequestParam("file") MultipartFile file) {
+        String loginId = request.getAttribute("loginId").toString();
+        try {
+            String url = fileService.saveFile(file, "user");
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return null;
+    }
+
     @DeleteMapping("/tokenConfirm/deleteUser")
     @ApiOperation(value = "회원탈퇴", notes = "loginId를 통해 사용자 정보를 삭제한다.")
     ResponseEntity<Map<String, Object>> deleteUser(HttpServletRequest request){
         String loginId = request.getAttribute("loginId").toString();
-        userService.delete(loginId);
-
+        boolean isDeleted = userService.delete(loginId);
         Map res = new HashMap<>();
-        res.put("code", "delete_success");
-        HttpStatus httpStatus = HttpStatus.OK;
-        return new ResponseEntity<>(res, httpStatus);
+
+        if (isDeleted) {
+            res.put("code", "delete_success");
+            HttpStatus httpStatus = HttpStatus.OK;
+            return new ResponseEntity<>(res, httpStatus);
+        } else {
+            res.put("code", "delete_failed");
+            res.put("message", "회원탈퇴에 실패하였습니다. 로그인 ID를 확인해주세요.");
+            HttpStatus httpStatus = HttpStatus.EXPECTATION_FAILED;
+            return new ResponseEntity<>(res, httpStatus);
+        }
     }
 
     @PostMapping("/tokenConfirm/updateProfileAndName")
