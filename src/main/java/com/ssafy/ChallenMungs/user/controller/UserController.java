@@ -227,7 +227,13 @@ public class UserController {
         }
     }
 
-
+    @GetMapping("/charity/checkId")
+    @ApiOperation(value = "기부처 아이디 중복체크")
+    ResponseEntity<Boolean> checkLoginIdDuplicate(@RequestParam("loginId") String loginId) {
+        log.info("회원가입하려는 아이디:" + loginId);
+        return ResponseEntity.ok(userService.checkLoginIdDuplicate(loginId));
+//        아이디가 있으면 true 없으면 false 반환
+    }
 
 }
 

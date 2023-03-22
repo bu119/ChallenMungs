@@ -45,5 +45,9 @@ public class UserService {
         user.setProfile(url);
         userRepository.save(user);
     }
+
+    public boolean checkLoginIdDuplicate(String loginId) {
+        return userRepository.existsByLoginId(loginId);
+    }
 }
 
