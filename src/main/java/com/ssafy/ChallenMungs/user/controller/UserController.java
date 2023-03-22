@@ -1,12 +1,14 @@
 package com.ssafy.ChallenMungs.user.controller;
 
 
+import com.amazonaws.Response;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import com.ssafy.ChallenMungs.image.service.FileServiceImpl;
 import com.ssafy.ChallenMungs.user.dto.Res1;
 import com.ssafy.ChallenMungs.user.dto.Res2;
 import com.ssafy.ChallenMungs.user.entity.User;
+import com.ssafy.ChallenMungs.user.service.EmailService;
 import com.ssafy.ChallenMungs.user.service.UserService;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -44,6 +46,9 @@ public class UserController {
 
     @Autowired
     FileServiceImpl fileService;
+
+    @Autowired
+    EmailService emailService;
 
     //토큰을 만들기 위한 비밀 키를 properties로 부터 가져와요
     @Value("${secret.key}")
@@ -106,7 +111,7 @@ public class UserController {
     ResponseEntity<Map<String, Object>> registerUser(@RequestParam("name") String name, @RequestParam("accessKey") String accessKey) {
 //        userService.saveUser(User.builder().loginId(loginId).name(name).build());
         Map<String, String> v = getProfileFromKakao(accessKey);
-        userService.saveUser(User.builder().loginId(v.get("loginId")).name(name).profile(v.get("profile")).build());
+        userService.saveUser(User.builder().loginId(v.get("loginId")).name(name).profile(v.get("profile")).type('n').build());
         Map res = new HashMap<>();
         res.put("code", "save_success");
         HttpStatus httpStatus = HttpStatus.OK;
@@ -227,6 +232,31 @@ public class UserController {
         }
     }
 
+    // 성공하면 토큰 실패하면 실패 메세지
+    @PostMapping("/charityRegister")
+    @ApiOperation(value = "자선단체의 회원가입 메서드에요!")
+    ResponseEntity<Map<String, Object>> charityLogin(@RequestParam("loginId") String loginId, @RequestParam("password") String password) {
+        User user = User.builder().loginId(loginId).password(password).type('s').build();
+        return null;
+    }
+    @PostMapping("/codeEmail")
+    void codeEmail(@RequestParam("to") String email, @RequestParam("charityName") String charityName) {
+        emailService.sendHtmlEmail("opi6@hanmail.net", charityName);
+    }
+
+    @PostMapping("/statusTest")
+    ResponseEntity<Map<String, Object>> status(@RequestParam("state") String state) {
+        HashMap<String, Object> v = new HashMap<>();
+        System.out.println(state);
+        if (state.equals("OK")) {
+            v.put("code", "good");
+            HttpStatus httpStatus = HttpStatus.OK;
+            return new ResponseEntity<>(v, httpStatus);
+        } else {
+            v.put("code", "No");
+            return new ResponseEntity<>(v, HttpStatus.EXPECTATION_FAILED);
+        }
+    }
     @GetMapping("/charity/checkId")
     @ApiOperation(value = "기부처 아이디 중복체크")
 //    ResponseEntity<Boolean> checkLoginIdDuplicate(@RequestParam("loginId") String loginId) {
