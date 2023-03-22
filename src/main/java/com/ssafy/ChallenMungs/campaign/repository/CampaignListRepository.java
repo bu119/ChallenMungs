@@ -1,13 +1,14 @@
 package com.ssafy.ChallenMungs.campaign.repository;
 
 import com.ssafy.ChallenMungs.campaign.entity.Campaign;
+import com.ssafy.ChallenMungs.user.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
 public interface CampaignListRepository extends JpaRepository<Campaign, Long>  {
 
-
+    Campaign findCampaignByCampaignId(int campaignId);
 
     // 진행중인 캠페인 - 생성일순(최신순)
     List<Campaign> findByIsEndFalseOrderByRegistDateDesc();

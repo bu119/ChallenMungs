@@ -16,6 +16,9 @@ public class Content {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int contentId;
 
+    @ManyToOne
+    @JoinColumn(name="campaign_id")
+    private Campaign campaign;
     @Column(name = "body")
     String body;
 
