@@ -5,7 +5,7 @@ import com.ssafy.ChallenMungs.campaign.entity.Campaign;
 
 import java.util.List;
 
-public interface CampaignService {
+public interface CampaignListService {
     // 기부 탭
     List<CampaignDto> getCampaign(String type, int sort);
 

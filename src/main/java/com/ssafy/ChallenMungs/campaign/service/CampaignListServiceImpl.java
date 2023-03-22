@@ -1,9 +1,8 @@
 package com.ssafy.ChallenMungs.campaign.service;
 
-import com.ssafy.ChallenMungs.Test.dto.TestDto;
 import com.ssafy.ChallenMungs.campaign.dto.CampaignDto;
 import com.ssafy.ChallenMungs.campaign.entity.Campaign;
-import com.ssafy.ChallenMungs.campaign.repository.CampaignRepository;
+import com.ssafy.ChallenMungs.campaign.repository.CampaignListRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -15,8 +14,8 @@ import java.util.stream.Collectors;
 @Service
 @Transactional
 @RequiredArgsConstructor
-public class CampaignServiceImpl implements CampaignService{
-    private final CampaignRepository jpaRepo;
+public class CampaignListServiceImpl implements CampaignListService {
+    private final CampaignListRepository jpaRepo;
 
 
     @Override
