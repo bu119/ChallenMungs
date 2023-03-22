@@ -1,6 +1,5 @@
 package com.ssafy.ChallenMungs.image.service;
 
-import com.ssafy.ChallenMungs.image.dto.FileDto;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -11,7 +10,6 @@ import java.io.IOException;
 import java.util.Optional;
 import java.util.UUID;
 
-import com.amazonaws.SdkClientException;
 import com.amazonaws.auth.AWSStaticCredentialsProvider;
 import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.client.builder.AwsClientBuilder;
@@ -44,7 +42,6 @@ public class FileServiceImpl implements FileService{
                 .build();
     }
 
-
     @Override
     public String saveFile(MultipartFile file,String folderName) throws IOException {
         // 원래 파일 이름 추출
@@ -65,10 +62,6 @@ public class FileServiceImpl implements FileService{
 
     }
 
-    @Override
-    public void deleteFile(FileDto fileDto) {
-
-    }
     private void upload(String bucketName, String fileName, File uploadFile) {
         s3.putObject(new PutObjectRequest(bucketName, fileName, uploadFile)
                 .withCannedAcl(CannedAccessControlList.PublicRead));
