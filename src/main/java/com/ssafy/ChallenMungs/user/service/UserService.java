@@ -1,8 +1,11 @@
 package com.ssafy.ChallenMungs.user.service;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
+import com.ssafy.ChallenMungs.user.controller.UserController;
 import com.ssafy.ChallenMungs.user.entity.User;
 import com.ssafy.ChallenMungs.user.repository.UserRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,6 +15,7 @@ import javax.persistence.EntityManager;
 public class UserService {
     private final UserRepository userRepository;
     private final JPAQueryFactory queryFactory;
+    private Logger log = LoggerFactory.getLogger(UserController.class);
 
     public UserService(UserRepository userRepository, EntityManager entityManager) {
         this.userRepository = userRepository;
@@ -48,6 +52,13 @@ public class UserService {
 
     public boolean checkLoginIdDuplicate(String loginId) {
         return userRepository.existsByLoginId(loginId);
+    }
+
+    public void updatePassword(String loginId, String password) {
+        log.info("아이디:" + loginId);
+        User user = userRepository.findUserByLoginId(loginId);
+        user.setPassword(password);
+        userRepository.save(user);
     }
 }
 
