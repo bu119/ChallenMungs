@@ -52,6 +52,9 @@ dependencies {
 	// 메일 보내기 의존성
 	implementation 'org.springframework.boot:spring-boot-starter-mail'
 
+	//소켓 라이브러리
+	implementation 'org.springframework.boot:spring-boot-starter-websocket'
+
 }
 
 tasks.named('test') {

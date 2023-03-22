@@ -26,7 +26,7 @@ public class EmailService {
         codeService.registerCode(charityName, code);
         String subject = charityName + "님을 위한 초대코드 입니다";
         String htmlBody = "<html><body>" + 
-                "<h5>안녕하세요 + " + charityName + "님!</5>" + 
+                "<h5>안녕하세요" + charityName + "님!</5>" +
                 "<h5>아래 비밀코드를 확인하여 회원가입을 진행해 주세요</h5><h1>"+
                 code + "</h1></body></html>";
         SimpleMailMessage message = new SimpleMailMessage();
@@ -53,7 +53,8 @@ public class EmailService {
         userService.saveUser(user);
         String subject = name + "님, 챌린멍스에서 보내는 임시 비밀번호입니다";
         String htmlBody = "<html><body>" +
-                "<h5>안녕하세요 + " + name + "님!</5>" +
+                "<h5>안녕하세요" +
+                "" + name + "님!</5>" +
                 "<h5>아래의 임시 비밀번호로 로그인을 진행해 주세요</h5><h1>"+
                 code + "</h1></body></html>";
         SimpleMailMessage message = new SimpleMailMessage();
