@@ -10,9 +10,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.NavHostFragment
 import com.ssafy.challenmungs.R
-import dagger.hilt.android.AndroidEntryPoint
 import com.ssafy.challenmungs.common.util.px
+import com.ssafy.challenmungs.common.util.setImmersiveMode
 import com.ssafy.challenmungs.databinding.ActivityMainBinding
+import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -24,6 +25,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        setImmersiveMode()
         initView()
 
         val navHostFragment =

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">ChallenMungs</string>
+    <string name="app_name">챌린멍스</string>
 
     <!-- Log In -->
     <string name="title_shelter_auth">후원처이신가요?</string>
