@@ -165,7 +165,9 @@ public class UserController {
     @ApiOperation(value = "회원탈퇴", notes = "loginId를 통해 사용자 정보를 삭제한다.")
     ResponseEntity<Map<String, Object>> deleteUser(HttpServletRequest request){
         String loginId = request.getAttribute("loginId").toString();
+        log.info("토큰을 통해 가져온 로그인 아이디:" + loginId);
         boolean isDeleted = userService.delete(loginId);
+        log.info("회원탈퇴 =" + isDeleted);
         Map res = new HashMap<>();
 
         if (isDeleted) {
@@ -246,7 +248,7 @@ public class UserController {
     ResponseEntity<Map<String, Object>> status(@RequestParam("state") String state) {
         HashMap<String, Object> v = new HashMap<>();
         System.out.println(state);
-        if(state.equals("OK")) {
+        if (state.equals("OK")) {
             v.put("code", "good");
             HttpStatus httpStatus = HttpStatus.OK;
             return new ResponseEntity<>(v, httpStatus);
@@ -254,6 +256,30 @@ public class UserController {
             v.put("code", "No");
             return new ResponseEntity<>(v, HttpStatus.EXPECTATION_FAILED);
         }
+    }
+    @GetMapping("/charity/checkId")
+    @ApiOperation(value = "기부처 아이디 중복체크")
+//    ResponseEntity<Boolean> checkLoginIdDuplicate(@RequestParam("loginId") String loginId) {
+//        log.info("회원가입하려는 아이디:" + loginId);
+//        return ResponseEntity.ok(userService.checkLoginIdDuplicate(loginId));
+////        아이디가 있으면 true 없으면 false 반환
+//    }
+    ResponseEntity<Map<String, Object>> checkLoginIdDuplicate(@RequestParam("loginId") String loginId) {
+        log.info("회원가입하려는 아이디:" + loginId);
+        boolean isExist = userService.checkLoginIdDuplicate(loginId);
+        log.info("중복 =" + isExist);
+        Map res = new HashMap<>();
+
+        if (isExist) {
+            res.put("result", 0);
+            res.put("code", "impossible_id");
+        } else {
+            res.put("result", 1);
+            res.put("code", "possible_id");
+        }
+
+        HttpStatus httpStatus = HttpStatus.OK;
+        return new ResponseEntity<>(res, httpStatus);
     }
 }
 
