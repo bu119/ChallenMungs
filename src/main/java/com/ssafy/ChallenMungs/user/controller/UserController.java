@@ -55,15 +55,12 @@ public class UserController {
 
     @PostMapping("/kakaoLogin")
     @ApiOperation(value = "로그인 하는 API에요!")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name="accessToken", value="리퀘스트바디로 스트링을 받아요", required = true, dataType = "path"/*@PathVariable = path, @RequestParam = query*/)
-    })
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "로그인 성공", response = Res1.class),
+            @ApiResponse(code = 200, message = "성공"),
+            @ApiResponse(code = 417, message = "실패ㅜㅜ")
     })
     // 프론트 단이 없는 지금은 예제로 access토큰을 받아왔고 프론트 단이 완성되면 아래 줄에 패러미터의 주석을 풀고 그아랫줄을 삭제하세요
     ResponseEntity<Map<String, Object>> kakaoLogin(@RequestBody String accessToken) {
-//        String accessToken = "jkXVO2GiRzaUSfZtsLMvKIK3wc8RR-8wPIaKMm7cCj1z7AAAAYcGVzMv";
         // response로 만들 map을 만들어요
         Map<String, Object> res = new HashMap<>();
         HttpStatus httpStatus = null;
@@ -87,15 +84,14 @@ public class UserController {
             }
         } catch (Exception e) {
             res.put("code", e.getMessage());
-            httpStatus = HttpStatus.EXPECTATION_FAILED;
+            httpStatus = HttpStatus.EXPECTATION_FAILED; //417 이에요
         }
         System.out.println(new ResponseEntity<>(res, httpStatus).toString());
         return new ResponseEntity<>(res, httpStatus);
     }
-
     String makeToken(String loginId) {
         Date now = new Date();
-        Date expiryDate = new Date(now.getTime() + 1086400000);
+        Date expiryDate = new Date(now.getTime() + 864000000);
         return Jwts.builder()
                 .setSubject(secretKey) // 열쇠? 키?
                 .setIssuedAt(new Date()) // 발행일
@@ -105,28 +101,60 @@ public class UserController {
                 .signWith(SignatureAlgorithm.HS512, secretKey) // 암호화 방식
                 .compact(); // 묶어
     }
-
     @PostMapping("/registerUser")
     @ApiOperation(value = "이메일, 닉네임로 유저를 등록하는 api에요!")
-    ResponseEntity<Map<String, Object>> registerUser(@RequestParam("loginId") String loginId, @RequestParam("name") String name) {
-        userService.saveUser(User.builder().loginId(loginId).name(name).build());
-
+    ResponseEntity<Map<String, Object>> registerUser(@RequestParam("name") String name, @RequestParam("accessKey") String accessKey) {
+//        userService.saveUser(User.builder().loginId(loginId).name(name).build());
+        Map<String, String> v = getProfileFromKakao(accessKey);
+        userService.saveUser(User.builder().loginId(v.get("loginId")).name(name).profile(v.get("profile")).build());
         Map res = new HashMap<>();
         res.put("code", "save_success");
         HttpStatus httpStatus = HttpStatus.OK;
         return new ResponseEntity<>(res, httpStatus);
     }
-
-    @GetMapping("/tokenConfirm/getNameByToken")
-    @ApiOperation(value = "프로필수정 페이지에 들어갈 때 닉네임을 불러오는 메서드에요!")
-    ResponseEntity<Map<String, Object>> getNameByToken(HttpServletRequest request) {
+    private HashMap<String, String> getProfileFromKakao(String token) {
+        String reqURL = "https://kapi.kakao.com/v2/user/me";
+        URL url;
+        HashMap<String, String> v = new HashMap<>();
+        v.put("loginId", null);
+        v.put("profile", null);
+        try {
+            url = new URL(reqURL);
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setRequestMethod("POST");
+            conn.setDoOutput(true);
+            conn.setRequestProperty("Authorization", "Bearer " + token);
+            int responseCode = conn.getResponseCode();
+            BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+            String line = "";
+            String result = "";
+            while ((line = br.readLine()) != null) {
+                result += line;
+            }
+            JsonParser parser = new JsonParser();
+            JsonElement element = parser.parse(result);
+            System.out.println("여기까지:::" + element.getAsJsonObject().get("kakao_account").getAsJsonObject());
+            v.put("loginId", element.getAsJsonObject().get("kakao_account").getAsJsonObject().get("email").getAsString());
+            if (element.getAsJsonObject().get("kakao_account").getAsJsonObject().get("profile").getAsJsonObject().get("is_default_image").toString().equals("false")) {
+                System.out.println("개인프로필 이미지가 있어요 : " + element.getAsJsonObject().get("kakao_account").getAsJsonObject().get("profile").getAsJsonObject().get("profile_image_url").toString());
+                v.put("profile", element.getAsJsonObject().get("kakao_account").getAsJsonObject().get("profile").getAsJsonObject().get("profile_image_url").toString());
+            }
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+        return v;
+    }
+    @GetMapping("/tokenConfirm/getNameAndProfile")
+    @ApiOperation(value = "프로필수정 페이지에 들어갈 때 닉네임과 프로필이미지을 불러오는 메서드에요!")
+    ResponseEntity<Map<String, Object>> getNameAndProfile(HttpServletRequest request) {
         Map res = new HashMap<>();
         res.put("code", "get_name_success");
-        res.put("result", userService.findUserByLoginId(request.getAttribute("loginId").toString()));
+        User user = userService.findUserByLoginId(request.getAttribute("loginId").toString());
+        res.put("name", user.getName());
+        res.put("profile", user.getProfile());
         HttpStatus httpStatus = HttpStatus.OK;
         return new ResponseEntity<>(res, httpStatus);
     }
-
     @DeleteMapping("/tokenConfirm/deleteUser")
     @ApiOperation(value = "회원탈퇴", notes = "loginId를 통해 사용자 정보를 삭제한다.")
     ResponseEntity<Map<String, Object>> deleteUser(HttpServletRequest request){
@@ -142,54 +170,21 @@ public class UserController {
     @PostMapping("/tokenConfirm/updateProfileAndName")
     @ApiOperation(value = "유저의 프로필과 닉네임 정보를 변경해요!")
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "변경 성공", response = Res2.class),
+            @ApiResponse(code = 200, message = "변경 성공"),
+            @ApiResponse(code = 417, message = "변경 실패ㅜㅜ")
     })
-    ResponseEntity<Res2> updateProfileAndName(
-        HttpServletRequest request,
-        @ApiParam(value = "닉네임을 주세요", required = true)
-        @RequestParam("name") String name,
-        @ApiParam(value = "멀티파트 파일을 주세요", required = true)
-        @RequestParam("profile") MultipartFile file
-    ) {
+    ResponseEntity<Res2> updateProfileAndName(HttpServletRequest request, @RequestParam("name") String name, @RequestParam("profile") MultipartFile file) {
         String loginId = request.getAttribute("loginId").toString();
-        if (file != null) {
-            try {
-                String url = fileService.saveFile(file, "user");
-                userService.updateProfileAndName(loginId, name, url);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        } else {
-
+        String url = null;
+        try {
+            if (file != null) url = fileService.saveFile(file, "user");
+        } catch (IOException e) {
+            return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).build();
         }
-
-        return null;
+        userService.updateProfileAndName(loginId, name, url);
+        return ResponseEntity.status(HttpStatus.OK).build();
     }
-    /*
-    @PostMapping("/registerUser")
-    @ApiOperation(value = "이메일, 닉네임, 프로필 이미지로 유저를 등록하는 api에요")
-    ResponseEntity<Map<String, Object>> registerUser(@RequestParam("loginId") String loginId, @RequestParam("name") String name, @RequestParam("file") MultipartFile file) {
-        if (file != null) {
-            Path savePath = Paths.get(path + "\\" + name + ".png");
-            byte[] bytes = new byte[0];
-            try {
-                bytes = file.getBytes();
-                Files.write(savePath, bytes);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-            userService.saveUser(User.builder().loginId(loginId).name(name).profile(path + "\\" + name + ".png").build());
-        } else {
-            userService.saveUser(User.builder().loginId(loginId).name(name).build());
-        }
-        Map res = new HashMap<>();
-        res.put("code", "save_success");
-        HttpStatus httpStatus = HttpStatus.OK;
-        return new ResponseEntity<>(res, httpStatus);
-    }
-    */
 
-    //이메일을 받아 오는 메서드에요
     String getInfo(String token) throws IOException {
         String reqURL = "https://kapi.kakao.com/v2/user/me";
         URL url;
@@ -213,6 +208,7 @@ public class UserController {
             if(hasEmail){
                 email = element.getAsJsonObject().get("kakao_account").getAsJsonObject().get("email").getAsString();
             }
+            System.out.println(element.getAsJsonObject().get("kakao_account").getAsJsonObject());
             return email;
         } catch (MalformedURLException e) {
             // TODO Auto-generated catch block
@@ -220,5 +216,6 @@ public class UserController {
             return "no_email";
         }
     }
+
 }
 
