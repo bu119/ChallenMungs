@@ -19,7 +19,7 @@ public class Campaign {
 
     // 캠페인 담당자
     @ManyToOne  // 1:N
-    @JoinColumn(name="user_id") //Join 기준
+    @JoinColumn(name="login_id") //Join 기준
     private User user;
 
     // 후원처 이름
