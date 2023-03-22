@@ -229,11 +229,27 @@ public class UserController {
 
     @GetMapping("/charity/checkId")
     @ApiOperation(value = "기부처 아이디 중복체크")
-    ResponseEntity<Boolean> checkLoginIdDuplicate(@RequestParam("loginId") String loginId) {
+//    ResponseEntity<Boolean> checkLoginIdDuplicate(@RequestParam("loginId") String loginId) {
+//        log.info("회원가입하려는 아이디:" + loginId);
+//        return ResponseEntity.ok(userService.checkLoginIdDuplicate(loginId));
+////        아이디가 있으면 true 없으면 false 반환
+//    }
+    ResponseEntity<Map<String, Object>> checkLoginIdDuplicate(@RequestParam("loginId") String loginId) {
         log.info("회원가입하려는 아이디:" + loginId);
-        return ResponseEntity.ok(userService.checkLoginIdDuplicate(loginId));
-//        아이디가 있으면 true 없으면 false 반환
-    }
+        boolean isExist = userService.checkLoginIdDuplicate(loginId);
+        log.info("중복 =" + isExist);
+        Map res = new HashMap<>();
 
+        if (isExist) {
+            res.put("result", 0);
+            res.put("code", "impossible_id");
+        } else {
+            res.put("result", 1);
+            res.put("code", "possible_id");
+        }
+
+        HttpStatus httpStatus = HttpStatus.OK;
+        return new ResponseEntity<>(res, httpStatus);
+    }
 }
 
