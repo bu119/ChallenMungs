@@ -2,6 +2,7 @@ package com.ssafy.challenmungs
 
 import android.app.Application
 import android.util.Log
+import androidx.appcompat.app.AppCompatDelegate
 import com.kakao.sdk.common.KakaoSdk
 import com.kakao.sdk.common.util.Utility
 import com.ssafy.challenmungs.data.local.datasource.SharedPreferences
@@ -15,6 +16,7 @@ class ApplicationClass : Application() {
 
         KakaoSdk.init(this@ApplicationClass, getString(R.string.KAKAO_NATIVE_APP_KEY))
         Log.d("KaKao-KeyHash", Utility.getKeyHash(this@ApplicationClass))
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
     }
 
     companion object {
