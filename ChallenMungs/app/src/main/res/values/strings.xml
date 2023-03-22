@@ -14,7 +14,7 @@
     <string name="title_tab_my_page">마이페이지</string>
     <string name="image_menu">하단 메뉴의 이미지입니다.</string>
 
-    <!-- My Page-->
+    <!-- My Page -->
     <string name="content_heart_temperature_amount">%s °C</string>
     <string name="image_default_profile">image_default_profile_icon</string>
     <string name="title_donate_history">기부내역</string>
@@ -32,4 +32,8 @@
     <string name="title_my_campaign">내가 기부한 캠페인</string>
     <string name="content_unit">KLAY</string>
     <string name="title_cheer_campaign">응원한 캠페인</string>
+
+    <!-- Splash -->
+    <string name="image_logo">서비스 로고입니다.</string>
+    <string name="content_splash">기부를 재미있게!</string>
 </resources>
