@@ -7,8 +7,10 @@ public interface CampaignContentService {
     void createCampaign(CampaignInsertDto info);
     boolean isCampaignAble(String loginId);
 
-    int cheerUpCampaign();
+    int cheerUpCampaign(String loginId, int campaignId);
     CampaignDetailDto viewDetailCampaign(int campaignId);
+
+
 
 
 
