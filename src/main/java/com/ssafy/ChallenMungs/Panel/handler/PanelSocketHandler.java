@@ -1,5 +1,7 @@
-package com.ssafy.ChallenMungs.spceicalChallenge.handler;
+package com.ssafy.ChallenMungs.Panel.handler;
 
+import com.ssafy.ChallenMungs.Panel.service.PanelService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
@@ -7,7 +9,10 @@ import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
 @Component
-public class SpecialChallengeSocketHandler extends TextWebSocketHandler {
+public class PanelSocketHandler extends TextWebSocketHandler {
+    @Autowired
+    PanelService panelService;
+
     @Override
     public void afterConnectionEstablished(WebSocketSession session) throws Exception {
         super.afterConnectionEstablished(session);

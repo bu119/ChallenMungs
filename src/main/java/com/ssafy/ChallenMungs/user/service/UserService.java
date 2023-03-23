@@ -54,11 +54,16 @@ public class UserService {
         return userRepository.existsByLoginId(loginId);
     }
 
-    public void updatePassword(String loginId, String password) {
+    public boolean updatePassword(String loginId, String currentPassword, String newPassword) {
         log.info("아이디:" + loginId);
-        User user = userRepository.findUserByLoginId(loginId);
-        user.setPassword(password);
-        userRepository.save(user);
+        User user = userRepository.findUserByLoginIdAndPassword(loginId, currentPassword);
+        if (user == null) {
+            user.setPassword(newPassword);
+            userRepository.save(user);
+            return false;
+        } else {
+            return true;
+        }
     }
 
     public boolean charityLogin(String loginId, String password) {

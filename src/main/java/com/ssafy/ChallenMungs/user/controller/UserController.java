@@ -311,10 +311,13 @@ public class UserController {
 
     @PutMapping("/tokenConfirm/updatePassword")
     @ApiOperation(value = "유저 비밀번호 변경")
-    ResponseEntity updatePassword(HttpServletRequest request, @RequestParam("password") String password){
+    ResponseEntity updatePassword(HttpServletRequest request, @RequestParam("currentPassword") String currentPassword, @RequestParam("newPassword") String newPassword){
         String loginId = request.getAttribute("loginId").toString();
-        userService.updatePassword(loginId, password);
-        return ResponseEntity.status(HttpStatus.OK).build();
+        if (userService.updatePassword(loginId, currentPassword, newPassword)) {
+            return ResponseEntity.status(HttpStatus.OK).build();
+        } else {
+            return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).build();
+        }
     }
 
     @PostMapping("/findPassword")

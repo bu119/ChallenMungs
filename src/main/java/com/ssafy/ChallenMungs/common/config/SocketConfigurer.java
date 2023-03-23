@@ -1,8 +1,7 @@
 package com.ssafy.ChallenMungs.common.config;
 
-import com.ssafy.ChallenMungs.spceicalChallenge.handler.SpecialChallengeSocketHandler;
+import com.ssafy.ChallenMungs.Panel.handler.PanelSocketHandler;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.graphql.servlet.GraphQlWebMvcAutoConfiguration;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.socket.config.annotation.EnableWebSocket;
 import org.springframework.web.socket.config.annotation.WebSocketConfigurer;
@@ -12,9 +11,9 @@ import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry
 @EnableWebSocket
 public class SocketConfigurer implements WebSocketConfigurer {
     @Autowired
-    SpecialChallengeSocketHandler socketHandler;
+    PanelSocketHandler socketHandler;
     @Override
     public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
-        registry.addHandler(socketHandler, "/socket").setAllowedOrigins("*");
+        registry.addHandler(socketHandler, "/panelSocket").setAllowedOrigins("*");
     }
 }
