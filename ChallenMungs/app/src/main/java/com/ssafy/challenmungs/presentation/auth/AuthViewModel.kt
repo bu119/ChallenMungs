@@ -22,8 +22,8 @@ class AuthViewModel @Inject constructor(
     private val _accessToken: MutableLiveData<String?> = MutableLiveData()
     val accessToken: LiveData<String?> = _accessToken
 
-    private val _userEmail: MutableLiveData<String?> = MutableLiveData()
-    val userEmail: LiveData<String?> = _userEmail
+    private val _isNewMember: MutableLiveData<Boolean> = MutableLiveData(false)
+    val isNewMember: LiveData<Boolean> = _isNewMember
 
     fun setAccessToken(accessToken: String) {
         _accessToken.value = accessToken
@@ -33,8 +33,8 @@ class AuthViewModel @Inject constructor(
         when (val value = logInUseCase(body)) {
             is Resource.Success<Auth> -> {
                 when (value.data.code) {
-                    "no_email" -> ApplicationClass.preferences.accessToken = value.data.result
-                    "member" -> _userEmail.value = value.data.result
+                    "no_email" -> _isNewMember.value = true
+                    "member" -> ApplicationClass.preferences.accessToken = value.data.result
                 }
             }
             is Resource.Error -> Log.e("requestLogin", "requestLogin: ${value.errorMessage}")
