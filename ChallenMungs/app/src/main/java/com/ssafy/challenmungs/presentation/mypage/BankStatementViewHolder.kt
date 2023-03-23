@@ -5,7 +5,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.ssafy.challenmungs.databinding.ItemBankStatementBottomBinding
 import com.ssafy.challenmungs.databinding.ItemBankStatementMiddleBinding
 import com.ssafy.challenmungs.databinding.ItemBankStatementTopBinding
-import com.ssafy.challenmungs.domain.entity.BankStatementItem
+import com.ssafy.challenmungs.domain.entity.bank.BankStatementItem
 
 sealed class BankStatementViewHolder(binding: ViewDataBinding) :
     RecyclerView.ViewHolder(binding.root) {

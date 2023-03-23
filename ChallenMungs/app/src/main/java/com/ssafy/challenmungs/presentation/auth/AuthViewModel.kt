@@ -5,8 +5,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.ssafy.challenmungs.ApplicationClass
 import com.ssafy.challenmungs.data.remote.Resource
-import com.ssafy.challenmungs.domain.entity.Auth
+import com.ssafy.challenmungs.domain.entity.member.Auth
 import com.ssafy.challenmungs.domain.usecase.auth.LogInUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -28,13 +29,15 @@ class AuthViewModel @Inject constructor(
         when (val value = logInUseCase(body)) {
             is Resource.Success<Auth> -> {
                 when (value.data.code) {
-                    "no_email" -> _accessToken.value = value.data.result
+                    "no_email" -> {
+                        _accessToken.value = value.data.result
+                        ApplicationClass.preferences.accessToken = value.data.result
+                    }
                     "member" -> _userEmail.value = value.data.result
                 }
             }
-            is Resource.Error -> {
+            is Resource.Error ->
                 Log.e("requestLogin", "requestLogin: ${value.errorMessage}")
-            }
         }
     }
 }

@@ -1,7 +1,9 @@
 package com.ssafy.challenmungs.di
 
+import com.ssafy.challenmungs.AuthInterceptorClient
 import com.ssafy.challenmungs.NoAuthInterceptorClient
 import com.ssafy.challenmungs.data.remote.service.AuthApiService
+import com.ssafy.challenmungs.data.remote.service.MemberApiService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -19,4 +21,11 @@ object ServiceModule {
         @NoAuthInterceptorClient retrofit: Retrofit
     ): AuthApiService =
         retrofit.create(AuthApiService::class.java)
+
+    @Provides
+    @Singleton
+    fun provideMemberApiService(
+        @AuthInterceptorClient retrofit: Retrofit
+    ): MemberApiService =
+        retrofit.create(MemberApiService::class.java)
 }

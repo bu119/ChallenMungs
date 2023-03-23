@@ -22,7 +22,6 @@ class MainActivity : AppCompatActivity() {
     private val menus = arrayOf("challenge", "donate", "home", "map", "my_page")
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        setTheme(R.style.Theme_ChallenMungs)
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)

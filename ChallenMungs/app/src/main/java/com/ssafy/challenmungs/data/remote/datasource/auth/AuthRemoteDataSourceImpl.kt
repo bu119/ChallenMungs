@@ -1,5 +1,6 @@
 package com.ssafy.challenmungs.data.remote.datasource.auth
 
+import com.ssafy.challenmungs.data.remote.datasource.member.MemberResponse
 import com.ssafy.challenmungs.data.remote.service.AuthApiService
 import okhttp3.RequestBody
 import javax.inject.Inject
