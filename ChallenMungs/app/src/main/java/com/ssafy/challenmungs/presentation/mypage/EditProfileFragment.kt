@@ -1,18 +1,27 @@
 package com.ssafy.challenmungs.presentation.mypage
 
-import com.bumptech.glide.Glide
+import androidx.fragment.app.viewModels
 import com.ssafy.challenmungs.R
+import com.ssafy.challenmungs.common.util.BindingAdapters.setProfileImg
 import com.ssafy.challenmungs.databinding.FragmentEditProfileBinding
 import com.ssafy.challenmungs.presentation.base.BaseFragment
 
 class EditProfileFragment :
     BaseFragment<FragmentEditProfileBinding>(R.layout.fragment_edit_profile) {
 
+    private val editProfileViewModel by viewModels<EditProfileViewModel>()
+
     override fun initView() {
+        binding.vm = editProfileViewModel
+        setData()
+    }
+
+    private fun setData() {
         val toolbar = binding.toolbar
         toolbar.tvTitle.text = getString(R.string.title_edit_profile)
 
-        val profileImage = binding.ivProfile
-        Glide.with(this).load(R.drawable.ic_profile_default).circleCrop().into(profileImage)
+        editProfileViewModel.profileImgUrl.observe(viewLifecycleOwner) {
+            binding.ivProfile.setProfileImg(it)
+        }
     }
 }
