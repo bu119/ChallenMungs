@@ -5,7 +5,7 @@ import lombok.*;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
-@Entity(name="challenge_board")
+@Entity(name="general_board")
 @Getter
 @Setter
 @NoArgsConstructor

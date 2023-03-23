@@ -4,7 +4,7 @@ import lombok.*;
 
 import javax.persistence.*;
 
-@Entity(name="challenge_reject")
+@Entity(name="general_reject")
 @Getter
 @Setter
 @NoArgsConstructor

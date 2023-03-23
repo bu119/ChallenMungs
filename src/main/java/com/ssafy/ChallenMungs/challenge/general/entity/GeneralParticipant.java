@@ -6,7 +6,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
-@Entity(name="challenge_participant")
+@Entity(name="general_participant")
 @Getter
 @Setter
 @NoArgsConstructor
