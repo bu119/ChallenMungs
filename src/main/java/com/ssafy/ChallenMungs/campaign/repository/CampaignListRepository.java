@@ -10,6 +10,10 @@ public interface CampaignListRepository extends JpaRepository<Campaign, Long>  {
 
     Campaign findCampaignByCampaignId(int campaignId);
 
+    //진행중인 캠페인 중 특정 유저에게 속한 캠페인
+    List<Campaign> findAllByUser(User user);
+
+
     // 진행중인 캠페인 - 생성일순(최신순)
     List<Campaign> findByIsEndFalseOrderByRegistDateDesc();
 
