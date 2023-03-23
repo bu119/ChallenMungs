@@ -1,7 +1,7 @@
 package com.ssafy.challenmungs.presentation.auth
 
 import android.util.Log
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
 import com.kakao.sdk.auth.model.OAuthToken
 import com.kakao.sdk.common.model.ClientError
 import com.kakao.sdk.common.model.ClientErrorCause
@@ -17,7 +17,7 @@ import okhttp3.RequestBody.Companion.toRequestBody
 class LogInFragment : BaseFragment<FragmentLogInBinding>(R.layout.fragment_log_in) {
 
     private val TAG = "KaKao-Login"
-    private val authViewModel by viewModels<AuthViewModel>()
+    private val authViewModel by activityViewModels<AuthViewModel>()
     private val callback: (OAuthToken?, Throwable?) -> Unit = { token, error ->
         if (error != null) {
             Log.e(TAG, "카카오계정으로 로그인 실패", error)
@@ -30,6 +30,7 @@ class LogInFragment : BaseFragment<FragmentLogInBinding>(R.layout.fragment_log_i
     override fun initView() {
         initListener()
         observeAccessToken()
+        observeFlag()
     }
 
     private fun initListener() {
@@ -47,7 +48,10 @@ class LogInFragment : BaseFragment<FragmentLogInBinding>(R.layout.fragment_log_i
                             requireContext(),
                             callback = callback
                         )
-                    } else if (token != null) Log.i(TAG, "로그인 성공 ${token.accessToken}")
+                    } else if (token != null) {
+                        Log.i(TAG, "로그인 성공 ${token.accessToken}")
+                        authViewModel.setAccessToken(token.accessToken)
+                    }
                 }
             } else {
                 UserApiClient.instance.loginWithKakaoAccount(requireContext(), callback = callback)
@@ -59,6 +63,13 @@ class LogInFragment : BaseFragment<FragmentLogInBinding>(R.layout.fragment_log_i
         authViewModel.accessToken.observe(viewLifecycleOwner) {
             if (it != null)
                 authViewModel.requestLogin(it.toRequestBody("text/plain".toMediaTypeOrNull()))
+        }
+    }
+
+    private fun observeFlag() {
+        authViewModel.isNewMember.observe(viewLifecycleOwner) {
+            if (it)
+                navigate(LogInFragmentDirections.actionToOnBoardingFragment())
         }
     }
 }

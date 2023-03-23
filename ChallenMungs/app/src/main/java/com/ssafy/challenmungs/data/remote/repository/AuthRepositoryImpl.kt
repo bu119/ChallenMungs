@@ -17,4 +17,9 @@ class AuthRepositoryImpl @Inject constructor(
         wrapToResource(Dispatchers.IO) {
             authRemoteDataSource.requestLogin(body).toDomainModel()
         }
+
+    override suspend fun requestJoin(name: String, accessToken: String): Resource<String> =
+        wrapToResource(Dispatchers.IO) {
+            authRemoteDataSource.requestJoin(name, accessToken).toDomainModel()
+        }
 }

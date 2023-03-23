@@ -3,12 +3,23 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation_auth"
-    app:startDestination="@id/LogInFragment">
+    app:startDestination="@id/log_in_fragment">
 
     <fragment
-        android:id="@+id/LogInFragment"
+        android:id="@+id/log_in_fragment"
         android:name="com.ssafy.challenmungs.presentation.auth.LogInFragment"
-        android:label="fragment_log_in"
-        tools:layout="@layout/fragment_log_in" />
+        android:label="LogInFragment"
+        tools:layout="@layout/fragment_log_in">
+
+        <action
+            android:id="@+id/action_to_on_boarding_fragment"
+            app:destination="@id/on_boarding_fragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/on_boarding_fragment"
+        android:name="com.ssafy.challenmungs.presentation.auth.OnBoardingFragment"
+        android:label="OnBoardingFragment"
+        tools:layout="@layout/fragment_on_boarding" />
 
 </navigation>

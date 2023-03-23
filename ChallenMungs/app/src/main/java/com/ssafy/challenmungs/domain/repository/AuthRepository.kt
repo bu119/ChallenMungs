@@ -7,4 +7,6 @@ import okhttp3.RequestBody
 interface AuthRepository {
 
     suspend fun requestLogin(body: RequestBody): Resource<Auth>
+
+    suspend fun requestJoin(name: String, accessToken: String): Resource<String>
 }
