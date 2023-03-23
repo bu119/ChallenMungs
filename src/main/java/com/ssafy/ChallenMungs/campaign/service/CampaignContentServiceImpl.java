@@ -1,6 +1,8 @@
 package com.ssafy.ChallenMungs.campaign.service;
 
 import com.ssafy.ChallenMungs.Test.dto.TestDto;
+import com.ssafy.ChallenMungs.blockchain.entity.Wallet;
+import com.ssafy.ChallenMungs.blockchain.repository.WalletRepository;
 import com.ssafy.ChallenMungs.campaign.dto.CampaignDetailDto;
 import com.ssafy.ChallenMungs.campaign.dto.CampaignInsertDto;
 import com.ssafy.ChallenMungs.campaign.dto.ContentDto;
@@ -14,7 +16,12 @@ import com.ssafy.ChallenMungs.user.controller.UserController;
 import com.ssafy.ChallenMungs.user.entity.User;
 import com.ssafy.ChallenMungs.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+
+import java.io.IOException;
+import java.math.BigInteger;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -23,6 +30,12 @@ import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import org.web3j.exceptions.MessageDecodingException;
+import org.web3j.protocol.Web3j;
+import org.web3j.protocol.core.DefaultBlockParameterName;
+import org.web3j.protocol.core.methods.response.EthGetBalance;
+import org.web3j.protocol.http.HttpService;
+import org.web3j.utils.Convert;
 
 import javax.transaction.Transactional;
 
@@ -35,9 +48,12 @@ public class CampaignContentServiceImpl implements CampaignContentService{
     private final CampaignContentRepository contentRepo;
     private final LoveRepository loveRepo;
     private final UserRepository userRepo;
-    private Logger logger = LoggerFactory.getLogger(UserController.class);
+
+    private final WalletRepository walletRepo;
+
     @Override
     public void createCampaign(CampaignInsertDto info) {
+
         //캠페인 개요 저장하고
         Campaign campaign=initCampaign(info);
         listRepo.save(campaign);
@@ -60,7 +76,7 @@ public class CampaignContentServiceImpl implements CampaignContentService{
     }
     public Campaign initCampaign(CampaignInsertDto info){
         User shelter=getUser(info.getLoginId());
-        String account=getAccount(info.getLoginId());
+        String account=getAddress(info.getLoginId());
         Campaign campaign=new Campaign();
         campaign.setUser(shelter);
         campaign.setName(shelter.getName());
@@ -68,7 +84,8 @@ public class CampaignContentServiceImpl implements CampaignContentService{
         campaign.setThumbnail(info.getThumbnail());
         campaign.setTitle(info.getTitle());
         campaign.setTargetAmount(info.getTargetAmount());
-        campaign.setRegistDate(LocalDateTime.now());
+        campaign.setRegistDate(LocalDateTime.now().format(DateTimeFormatter.ofLocalizedDate(FormatStyle.SHORT)));
+        campaign.setEndDate(info.getEndDate());
         campaign.setCollectAmount(0);
         campaign.setWithdrawAmount(0);
         campaign.setEnd(false);
@@ -79,16 +96,40 @@ public class CampaignContentServiceImpl implements CampaignContentService{
     public User getUser(String loginId){
         return userRepo.findUserByLoginId(loginId);
     }
-
-    //todo 지갑
-    public String getAccount(String loginId){
-        return "testAccount";
-    }
-
     @Override
     public boolean isCampaignAble(String loginId) {
-        return false;
+        //일반유저면 캠페인 생성 불가
+        if(userRepo.findUserByLoginId(loginId).getType()=='n') return false;
+
+        String address=getAddress(loginId);
+        if(address.equals("disable")) return false;
+        return true;
     }
+
+    //후원처 유저의 아이디를 가지고 사용 가능한 캠페인계좌 하나를 반환합니다. 없으면 "disable" 반환
+    public String getAddress(String loginId){
+        User user=userRepo.findUserByLoginId(loginId);
+        //그 유저의 캠페인을 모두 가져와서, none이 아닌 계좌가 2개 미만이면
+        List <Campaign> campaigns=listRepo.findAllByUser(user);
+        int campaignCnt=0;
+
+        for(Campaign campaign:campaigns){
+            if(!campaign.getWalletAddress().equals("none"))
+                campaignCnt++;
+        }
+
+        //사용가능한 add가 2개이면 첫번째 캠페인 계좌주소를 반환
+        if(campaignCnt==0){
+             return walletRepo.findByUserAndType(user,'1').getAddress();
+        }
+        //사용가능한 add가 1개이면 두번째 캠페인 계좌주소를 반환
+        else if(campaignCnt==1){
+            return walletRepo.findByUserAndType(user,'2').getAddress();
+        }
+
+        return "disable";
+    }
+ 
 
     @Override
     public int cheerUpCampaign(String loginId, int campaignId) {

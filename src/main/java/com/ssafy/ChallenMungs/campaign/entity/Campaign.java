@@ -27,7 +27,7 @@ public class Campaign {
     @Column(name = "name")
     private String name;
 
-    // 캠페인 지갑 주소
+    // 캠페인 지갑 주소- 캠페인 종료 후에는 "none"으로 변경한다.
     @Column(name = "wallet_address")
     private String walletAddress;
 
@@ -53,11 +53,18 @@ public class Campaign {
 
     // 생성일
     @Column(name = "regist_date")
-    private LocalDateTime registDate;
+    private String registDate;
 
     // 모금 종료 여부
     @Column(name = "is_end")
     private boolean isEnd;
+
+    // 종료일
+    @Column(name = "end_date")
+    private String endDate;
+
+
+
 
 
 }
