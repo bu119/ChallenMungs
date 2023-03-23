@@ -4,22 +4,21 @@ import lombok.*;
 
 import javax.persistence.*;
 
-@Entity(name = "game_user_mapping")
+@Entity(name="challenge_reject")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class ChallengeUserMapping {
+public class ChallengeReject {
     @Id
-    @Column(name = "idx")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "idx")
     int idx;
 
     @Column(name = "login_id")
     String loginId;
 
-    @Column(name = "game_id")
-    int gameId;
-
+    @Column(name = "board_id")
+    int boardId;
 }
