@@ -7,7 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ssafy.challenmungs.data.remote.Resource
 import com.ssafy.challenmungs.domain.entity.member.Member
-import com.ssafy.challenmungs.domain.usecase.auth.GetMemberInfoUseCase
+import com.ssafy.challenmungs.domain.usecase.member.GetMemberInfoUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -22,11 +22,7 @@ class MemberViewModel @Inject constructor(
 
     fun getMemberInfo() = viewModelScope.launch {
         when (val value = getMemberInfoUseCase()) {
-            is Resource.Success<Member> -> {
-                _memberInfo.value = value.data
-                Log.d("getMemberInfo", "getMemberInfo: ${memberInfo.value}")
-
-            }
+            is Resource.Success<Member> -> _memberInfo.value = value.data
             is Resource.Error ->
                 Log.e("getMemberInfo", "getMemberInfo: ${value.errorMessage}")
         }
