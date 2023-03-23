@@ -1,6 +1,6 @@
 package com.ssafy.ChallenMungs.challenge.general.entity;
 
-import com.ssafy.ChallenMungs.challenge.commonEntity.Challenge;
+import com.ssafy.ChallenMungs.challenge.common.entity.Challenge;
 import lombok.*;
 
 import javax.persistence.*;

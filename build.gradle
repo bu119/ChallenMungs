@@ -55,6 +55,9 @@ dependencies {
 	//소켓 라이브러리
 	implementation 'org.springframework.boot:spring-boot-starter-websocket'
 
+	// 좌표간 거리 구하는 라이브러리
+	implementation 'org.apache.commons:commons-math3:3.6.1'
+
 }
 
 tasks.named('test') {

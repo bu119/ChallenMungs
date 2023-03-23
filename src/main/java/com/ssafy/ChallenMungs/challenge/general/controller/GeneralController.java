@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/general")
 @CrossOrigin("*")
-@Api(value = "challenge", description = "챌린지를 관리하는 컨트롤러에요!")
+@Api(value = "generalChallenge", description = "일반챌린지를 관리하는 컨트롤러에요!")
 public class GeneralController {
     @Autowired
     GeneralRepository generalRepository;

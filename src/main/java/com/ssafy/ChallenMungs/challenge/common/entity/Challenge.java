@@ -1,4 +1,4 @@
-package com.ssafy.ChallenMungs.challenge.commonEntity;
+package com.ssafy.ChallenMungs.challenge.common.entity;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;

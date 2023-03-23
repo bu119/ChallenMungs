@@ -15,4 +15,5 @@ import org.springframework.web.bind.annotation.RestController;
 @Api(value = "panel", description = "판넬뒤집기와 관련된 컨트롤러에요!")
 public class PanelController {
     private Logger log = LoggerFactory.getLogger(UserController.class);
+
 }
