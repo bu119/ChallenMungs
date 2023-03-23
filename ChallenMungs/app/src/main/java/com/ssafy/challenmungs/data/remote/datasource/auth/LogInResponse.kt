@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName
 import com.ssafy.challenmungs.data.remote.datasource.base.DataToDomainMapper
 import com.ssafy.challenmungs.domain.entity.member.Auth
 
-data class AuthResponse(
+data class LogInResponse(
     @SerializedName("result")
     val result: String,
     @SerializedName("code")

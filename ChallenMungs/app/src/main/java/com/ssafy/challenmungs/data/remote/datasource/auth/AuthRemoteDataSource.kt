@@ -4,5 +4,5 @@ import okhttp3.RequestBody
 
 interface AuthRemoteDataSource {
 
-    suspend fun requestLogin(body: RequestBody): AuthResponse
+    suspend fun requestLogin(body: RequestBody): LogInResponse
 }

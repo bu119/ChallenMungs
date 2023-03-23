@@ -1,6 +1,6 @@
 package com.ssafy.challenmungs.data.remote.service
 
-import com.ssafy.challenmungs.data.remote.datasource.auth.AuthResponse
+import com.ssafy.challenmungs.data.remote.datasource.auth.LogInResponse
 import okhttp3.RequestBody
 import retrofit2.http.Body
 import retrofit2.http.POST
@@ -8,5 +8,5 @@ import retrofit2.http.POST
 interface AuthApiService {
 
     @POST("/user/kakaoLogin")
-    suspend fun requestLogin(@Body body: RequestBody): AuthResponse
+    suspend fun requestLogin(@Body body: RequestBody): LogInResponse
 }
