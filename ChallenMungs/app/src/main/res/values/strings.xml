@@ -60,4 +60,11 @@
     <string name="content_new_password_check">새로운 비밀번호 확인</string>
     <string name="content_new_password">새로운 비밀번호</string>
     <string name="content_current_password">현재 비밀번호</string>
+
+    <!-- Donation Certificate -->
+    <string name="title_donation_certificate">기부증서</string>
+    <string name="content_donator">기부자</string>
+    <string name="content_donation">기부액</string>
+    <string name="content_shelter">기부처</string>
+    <string name="content_donation_date">기부 날짜</string>
 </resources>
