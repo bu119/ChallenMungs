@@ -1,4 +1,4 @@
-package com.ssafy.ChallenMungs.challenge.entity;
+package com.ssafy.ChallenMungs.challenge.general.entity;
 
 import lombok.*;
 
@@ -12,7 +12,7 @@ import javax.persistence.Id;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class ChallengeParticipant {
+public class GeneralParticipant {
     @Id
     @Column(name = "login_id")
     String loginId;

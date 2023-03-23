@@ -1,4 +1,4 @@
-package com.ssafy.ChallenMungs.challenge.controller;
+package com.ssafy.ChallenMungs.challenge.general.controller;
 
 import io.swagger.annotations.Api;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -9,6 +9,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/SpecialChallenge")
 @CrossOrigin("*")
 @Api(value = "challenge", description = "챌린지를 관리하는 컨트롤러에요!")
-public class ChallengeController {
+public class GeneralController {
     
 }
