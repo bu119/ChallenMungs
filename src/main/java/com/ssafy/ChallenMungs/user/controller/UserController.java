@@ -88,7 +88,7 @@ public class UserController {
                 log.info("데이터 베이스에 아이디(login_id)가 없어요. 닉네임을 등록하세요");
                 res.put("code", "no_email");
                 res.put("result", email);
-                httpStatus = HttpStatus.ACCEPTED; //202
+                httpStatus = HttpStatus.LOCKED; //423
             }
         } catch (Exception e) {
             res.put("code", e.getMessage());

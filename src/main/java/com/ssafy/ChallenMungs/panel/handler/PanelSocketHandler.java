@@ -1,7 +1,5 @@
-package com.ssafy.ChallenMungs.challenge.handler;
+package com.ssafy.ChallenMungs.panel.handler;
 
-import com.ssafy.ChallenMungs.challenge.service.ChallengeService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
