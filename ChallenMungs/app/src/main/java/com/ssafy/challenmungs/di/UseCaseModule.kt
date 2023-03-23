@@ -1,6 +1,8 @@
 package com.ssafy.challenmungs.di
 
 import com.ssafy.challenmungs.domain.repository.AuthRepository
+import com.ssafy.challenmungs.domain.repository.MemberRepository
+import com.ssafy.challenmungs.domain.usecase.auth.GetMemberInfoUseCase
 import com.ssafy.challenmungs.domain.usecase.auth.LogInUseCase
 import dagger.Module
 import dagger.Provides
@@ -16,4 +18,9 @@ object UseCaseModule {
     @Provides
     fun provideLogInUseCase(authRepository: AuthRepository): LogInUseCase =
         LogInUseCase(authRepository)
+
+    @Singleton
+    @Provides
+    fun provideGetMemberInfoUseCase(memberRepository: MemberRepository): GetMemberInfoUseCase =
+        GetMemberInfoUseCase(memberRepository)
 }

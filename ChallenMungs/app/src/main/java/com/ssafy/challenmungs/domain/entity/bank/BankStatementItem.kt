@@ -1,4 +1,4 @@
-package com.ssafy.challenmungs.domain.entity
+package com.ssafy.challenmungs.domain.entity.bank
 
 data class BankStatementItem(
     val content: String,
