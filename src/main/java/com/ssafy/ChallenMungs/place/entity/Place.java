@@ -38,10 +38,10 @@ public class Place {
 
     //위도
     @Column(name="lat")
-    private Decimal lat;
+    private String lat;
 
     // 경도
     @Column(name="lng")
-    private Decimal lng;
+    private String lng;
 
 }
