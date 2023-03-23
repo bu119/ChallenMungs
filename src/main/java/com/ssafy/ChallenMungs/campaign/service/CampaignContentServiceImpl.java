@@ -6,8 +6,10 @@ import com.ssafy.ChallenMungs.campaign.dto.CampaignInsertDto;
 import com.ssafy.ChallenMungs.campaign.dto.ContentDto;
 import com.ssafy.ChallenMungs.campaign.entity.Campaign;
 import com.ssafy.ChallenMungs.campaign.entity.Content;
+import com.ssafy.ChallenMungs.campaign.entity.Love;
 import com.ssafy.ChallenMungs.campaign.repository.CampaignContentRepository;
 import com.ssafy.ChallenMungs.campaign.repository.CampaignListRepository;
+import com.ssafy.ChallenMungs.campaign.repository.LoveRepository;
 import com.ssafy.ChallenMungs.user.controller.UserController;
 import com.ssafy.ChallenMungs.user.entity.User;
 import com.ssafy.ChallenMungs.user.repository.UserRepository;
@@ -15,6 +17,7 @@ import lombok.RequiredArgsConstructor;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
@@ -30,6 +33,7 @@ public class CampaignContentServiceImpl implements CampaignContentService{
 
     private final CampaignListRepository listRepo;
     private final CampaignContentRepository contentRepo;
+    private final LoveRepository loveRepo;
     private final UserRepository userRepo;
     private Logger logger = LoggerFactory.getLogger(UserController.class);
     @Override
@@ -87,10 +91,29 @@ public class CampaignContentServiceImpl implements CampaignContentService{
     }
 
     @Override
-    public int cheerUpCampaign() {
-        return 0;
+    public int cheerUpCampaign(String loginId, int campaignId) {
+        Campaign campaign=listRepo.findCampaignByCampaignId(campaignId);
+        User user=userRepo.findUserByLoginId(loginId);
+        //잘못된 입력
+        if(user==null||campaign==null) return 2;
+        boolean isExist=isExistLove(user,campaign);
+        //첫 조아요
+         if(!isExist){
+             Love love=new Love();
+             love.setCampaign(campaign);
+             love.setUser(user);
+            loveRepo.save(love);
+            return 0;
+         }
+         //중복 조아요
+         return 1;
+    }
+    public boolean isExistLove(User user,Campaign campaign){
+        if(loveRepo.countByUserAndCampaign(user,campaign)==0) return false;
+        return true;
     }
 
+    //todo lovecnt 로직만들기
     @Override
     public CampaignDetailDto viewDetailCampaign(int campaignId) {
         Campaign campaign=listRepo.findCampaignByCampaignId(campaignId);
