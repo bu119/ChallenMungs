@@ -1,13 +1,16 @@
 package com.ssafy.challenmungs.presentation.auth
 
+import android.content.Intent
 import android.util.Log
 import androidx.fragment.app.activityViewModels
 import com.kakao.sdk.auth.model.OAuthToken
 import com.kakao.sdk.common.model.ClientError
 import com.kakao.sdk.common.model.ClientErrorCause
 import com.kakao.sdk.user.UserApiClient
+import com.ssafy.challenmungs.ApplicationClass
 import com.ssafy.challenmungs.R
 import com.ssafy.challenmungs.databinding.FragmentLogInBinding
+import com.ssafy.challenmungs.presentation.MainActivity
 import com.ssafy.challenmungs.presentation.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
@@ -18,6 +21,7 @@ class LogInFragment : BaseFragment<FragmentLogInBinding>(R.layout.fragment_log_i
 
     private val TAG = "KaKao-Login"
     private val authViewModel by activityViewModels<AuthViewModel>()
+    private val memberViewModel by activityViewModels<MemberViewModel>()
     private val callback: (OAuthToken?, Throwable?) -> Unit = { token, error ->
         if (error != null) {
             Log.e(TAG, "카카오계정으로 로그인 실패", error)
@@ -31,6 +35,7 @@ class LogInFragment : BaseFragment<FragmentLogInBinding>(R.layout.fragment_log_i
         initListener()
         observeAccessToken()
         observeFlag()
+        observeMemberInfo()
     }
 
     private fun initListener() {
@@ -67,9 +72,22 @@ class LogInFragment : BaseFragment<FragmentLogInBinding>(R.layout.fragment_log_i
     }
 
     private fun observeFlag() {
-        authViewModel.isNewMember.observe(viewLifecycleOwner) {
-            if (it)
-                navigate(LogInFragmentDirections.actionToOnBoardingFragment())
+        authViewModel.authType.observe(viewLifecycleOwner) {
+            when (it) {
+                "new" -> navigate(LogInFragmentDirections.actionToOnBoardingFragment())
+                "member" ->
+                    if (ApplicationClass.preferences.accessToken != null)
+                        memberViewModel.getMemberInfo()
+            }
+        }
+    }
+
+    private fun observeMemberInfo() {
+        memberViewModel.memberInfo.observe(viewLifecycleOwner) {
+            if (it != null) {
+                val intent = Intent(activity, MainActivity::class.java)
+                startActivity(intent)
+            }
         }
     }
 }
