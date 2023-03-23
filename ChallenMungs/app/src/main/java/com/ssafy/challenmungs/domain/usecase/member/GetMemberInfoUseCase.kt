@@ -1,8 +1,7 @@
-package com.ssafy.challenmungs.domain.usecase.auth
+package com.ssafy.challenmungs.domain.usecase.member
 
 import com.ssafy.challenmungs.data.remote.Resource
 import com.ssafy.challenmungs.domain.entity.member.Member
-import com.ssafy.challenmungs.domain.repository.AuthRepository
 import com.ssafy.challenmungs.domain.repository.MemberRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
