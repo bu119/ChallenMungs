@@ -25,19 +25,19 @@ class AuthViewModel @Inject constructor(
     private val _userEmail: MutableLiveData<String?> = MutableLiveData()
     val userEmail: LiveData<String?> = _userEmail
 
+    fun setAccessToken(accessToken: String) {
+        _accessToken.value = accessToken
+    }
+
     fun requestLogin(body: RequestBody) = viewModelScope.launch {
         when (val value = logInUseCase(body)) {
             is Resource.Success<Auth> -> {
                 when (value.data.code) {
-                    "no_email" -> {
-                        _accessToken.value = value.data.result
-                        ApplicationClass.preferences.accessToken = value.data.result
-                    }
+                    "no_email" -> ApplicationClass.preferences.accessToken = value.data.result
                     "member" -> _userEmail.value = value.data.result
                 }
             }
-            is Resource.Error ->
-                Log.e("requestLogin", "requestLogin: ${value.errorMessage}")
+            is Resource.Error -> Log.e("requestLogin", "requestLogin: ${value.errorMessage}")
         }
     }
 }

@@ -23,12 +23,13 @@ class LogInFragment : BaseFragment<FragmentLogInBinding>(R.layout.fragment_log_i
             Log.e(TAG, "카카오계정으로 로그인 실패", error)
         } else if (token != null) {
             Log.i(TAG, "카카오계정으로 로그인 성공 ${token.accessToken}")
-            authViewModel.requestLogin(token.accessToken.toRequestBody("text/plain".toMediaTypeOrNull()))
+            authViewModel.setAccessToken(token.accessToken)
         }
     }
 
     override fun initView() {
         initListener()
+        observeAccessToken()
     }
 
     private fun initListener() {
@@ -46,15 +47,18 @@ class LogInFragment : BaseFragment<FragmentLogInBinding>(R.layout.fragment_log_i
                             requireContext(),
                             callback = callback
                         )
-                    } else if (token != null) {
-                        Log.i(TAG, "로그인 성공 ${token.accessToken}")
-
-                        authViewModel.requestLogin(token.accessToken.toRequestBody("text/plain".toMediaTypeOrNull()))
-                    }
+                    } else if (token != null) Log.i(TAG, "로그인 성공 ${token.accessToken}")
                 }
             } else {
                 UserApiClient.instance.loginWithKakaoAccount(requireContext(), callback = callback)
             }
+        }
+    }
+
+    private fun observeAccessToken() {
+        authViewModel.accessToken.observe(viewLifecycleOwner) {
+            if (it != null)
+                authViewModel.requestLogin(it.toRequestBody("text/plain".toMediaTypeOrNull()))
         }
     }
 }
