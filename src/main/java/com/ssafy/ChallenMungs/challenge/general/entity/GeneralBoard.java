@@ -1,4 +1,4 @@
-package com.ssafy.ChallenMungs.challenge.entity;
+package com.ssafy.ChallenMungs.challenge.general.entity;
 
 import lombok.*;
 
@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class ChallengeBoard {
+public class GeneralBoard {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "board_id")

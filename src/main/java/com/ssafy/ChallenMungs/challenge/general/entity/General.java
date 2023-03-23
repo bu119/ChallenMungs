@@ -1,4 +1,4 @@
-package com.ssafy.ChallenMungs.challenge.entity;
+package com.ssafy.ChallenMungs.challenge.general.entity;
 
 import lombok.*;
 
@@ -11,7 +11,7 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Challenge {
+public class General {
     @Id
     @Column(name = "challengeId")
     @GeneratedValue(strategy = GenerationType.IDENTITY)

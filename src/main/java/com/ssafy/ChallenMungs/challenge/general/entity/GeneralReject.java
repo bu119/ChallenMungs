@@ -1,4 +1,4 @@
-package com.ssafy.ChallenMungs.challenge.entity;
+package com.ssafy.ChallenMungs.challenge.general.entity;
 
 import lombok.*;
 
@@ -10,7 +10,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class ChallengeReject {
+public class GeneralReject {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "idx")

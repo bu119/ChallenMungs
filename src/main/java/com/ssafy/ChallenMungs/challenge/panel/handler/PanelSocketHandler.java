@@ -1,4 +1,4 @@
-package com.ssafy.ChallenMungs.panel.handler;
+package com.ssafy.ChallenMungs.challenge.panel.handler;
 
 import org.springframework.stereotype.Component;
 import org.springframework.web.socket.CloseStatus;
