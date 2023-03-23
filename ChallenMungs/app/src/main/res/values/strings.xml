@@ -46,4 +46,9 @@
     <string name="image_back">image_back_icon</string>
     <string name="content_bank_statement_total">%s KLAY</string>
     <string name="content_bank_statement_time">%d:%d</string>
+
+    <!-- Member - OnBoarding -->
+    <string name="content_member_name">닉네임</string>
+    <string name="content_save">저장</string>
+    <string name="title_member_onboarding">회원정보 입력</string>
 </resources>
