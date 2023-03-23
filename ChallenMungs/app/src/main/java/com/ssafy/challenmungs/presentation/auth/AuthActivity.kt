@@ -2,9 +2,9 @@ package com.ssafy.challenmungs.presentation.auth
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import com.ssafy.challenmungs.ApplicationClass
 import com.ssafy.challenmungs.R
 import com.ssafy.challenmungs.common.util.setImmersiveMode
 import com.ssafy.challenmungs.databinding.ActivityAuthBinding
@@ -26,7 +26,8 @@ class AuthActivity : AppCompatActivity() {
         setImmersiveMode()
 
         observeMemberInfo()
-        checkAccessToken()
+        if (ApplicationClass.preferences.accessToken != null)
+            checkAccessToken()
     }
 
     private fun checkAccessToken() {
@@ -35,7 +36,6 @@ class AuthActivity : AppCompatActivity() {
 
     private fun observeMemberInfo() {
         memberViewModel.memberInfo.observe(this) {
-            Log.d("getMemberInfo", "getMemberInfo: $it")
             val intent = Intent(this@AuthActivity, MainActivity::class.java)
             startActivity(intent)
             finish()
