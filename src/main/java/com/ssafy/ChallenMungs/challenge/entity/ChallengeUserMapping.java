@@ -1,4 +1,4 @@
-package com.ssafy.ChallenMungs.Panel.entity;
+package com.ssafy.ChallenMungs.challenge.entity;
 
 import lombok.*;
 
@@ -10,7 +10,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class PanelUserMapping {
+public class ChallengeUserMapping {
     @Id
     @Column(name = "idx")
     @GeneratedValue(strategy = GenerationType.IDENTITY)

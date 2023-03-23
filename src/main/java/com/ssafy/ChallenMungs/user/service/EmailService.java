@@ -56,7 +56,17 @@ public class EmailService {
                 "<h5>안녕하세요" +
                 "" + name + "님!</5>" +
                 "<h5>아래의 임시 비밀번호로 로그인을 진행해 주세요</h5><h1>"+
-                code + "</h1></body></html>";
+                code + "</h1>" +
+                "<button onclick='goApp();'>로그인하러가기</button><script>" +
+                "var goApp = () => { alert('myapp://') } </script>" +
+                "</body></html>";
+
+//        <intent-filter>
+//            <action android:name="android.intent.action.VIEW" />
+//            <category android:name="android.intent.category.DEFAULT" />
+//            <category android:name="android.intent.category.BROWSABLE" />
+//            <data android:scheme="myapp" />
+//        </intent-filter>
         SimpleMailMessage message = new SimpleMailMessage();
         message.setTo(to);
         message.setSubject(subject);
