@@ -22,8 +22,8 @@ public class PlaceController {
 
     @GetMapping("/lsit")
     @ApiOperation(value = "정보 조회", notes = "선택 지역과 선택 유형을 기준으로 목록을 조회하는 api 입니다.")
-    public ResponseEntity<List<Place>> getPlace(@RequestParam List cities, @RequestParam List types){
-        return new ResponseEntity<List<Place>>(service.getPlace(cities, types), HttpStatus.OK);
+    public ResponseEntity<List<Place>> getPlace(@RequestParam(required = false) List<String> cities, @RequestParam(required = false) String type){
+        return new ResponseEntity<List<Place>>(service.getPlace(cities, type), HttpStatus.OK);
     }
     
 }
