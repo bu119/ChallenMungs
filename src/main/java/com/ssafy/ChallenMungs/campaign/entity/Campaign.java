@@ -2,6 +2,7 @@ package com.ssafy.ChallenMungs.campaign.entity;
 import com.ssafy.ChallenMungs.user.entity.User;
 import lombok.*;
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
 
@@ -53,7 +54,7 @@ public class Campaign {
 
     // 생성일
     @Column(name = "regist_date")
-    private String registDate;
+    private LocalDate registDate;
 
     // 모금 종료 여부
     @Column(name = "is_end")
@@ -61,7 +62,7 @@ public class Campaign {
 
     // 종료일
     @Column(name = "end_date")
-    private String endDate;
+    private LocalDate endDate;
 
 
 

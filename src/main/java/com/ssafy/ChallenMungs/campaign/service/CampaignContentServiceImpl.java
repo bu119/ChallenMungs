@@ -17,25 +17,17 @@ import com.ssafy.ChallenMungs.user.entity.User;
 import com.ssafy.ChallenMungs.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 
-import java.io.IOException;
-import java.math.BigInteger;
+
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.time.format.FormatStyle;
+
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.joda.time.DateTime;
 import org.springframework.stereotype.Service;
-import org.web3j.exceptions.MessageDecodingException;
-import org.web3j.protocol.Web3j;
-import org.web3j.protocol.core.DefaultBlockParameterName;
-import org.web3j.protocol.core.methods.response.EthGetBalance;
-import org.web3j.protocol.http.HttpService;
-import org.web3j.utils.Convert;
+
 
 import javax.transaction.Transactional;
 
@@ -84,8 +76,8 @@ public class CampaignContentServiceImpl implements CampaignContentService{
         campaign.setThumbnail(info.getThumbnail());
         campaign.setTitle(info.getTitle());
         campaign.setTargetAmount(info.getTargetAmount());
-        campaign.setRegistDate(LocalDateTime.now().format(DateTimeFormatter.ofLocalizedDate(FormatStyle.SHORT)));
-        campaign.setEndDate(info.getEndDate());
+        campaign.setRegistDate(getNowTime());
+        campaign.setEndDate(stringtoLocalDate(info.getEndDate()));
         campaign.setCollectAmount(0);
         campaign.setWithdrawAmount(0);
         campaign.setEnd(false);
@@ -93,6 +85,17 @@ public class CampaignContentServiceImpl implements CampaignContentService{
         return campaign;
     }
 
+    public LocalDate getNowTime(){
+        LocalDateTime now = LocalDateTime.now();
+        String date=now.toString().substring(0,10);
+        return stringtoLocalDate(date);
+
+    }
+    public LocalDate stringtoLocalDate(String date){
+        DateTimeFormatter dateformatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate ld = LocalDate.parse(date, dateformatter);
+        return ld;
+    }
     public User getUser(String loginId){
         return userRepo.findUserByLoginId(loginId);
     }
@@ -129,7 +132,7 @@ public class CampaignContentServiceImpl implements CampaignContentService{
 
         return "disable";
     }
- 
+
 
     @Override
     public int cheerUpCampaign(String loginId, int campaignId) {
@@ -154,17 +157,19 @@ public class CampaignContentServiceImpl implements CampaignContentService{
         return true;
     }
 
-    //todo lovecnt 로직만들기
     @Override
     public CampaignDetailDto viewDetailCampaign(int campaignId) {
         Campaign campaign=listRepo.findCampaignByCampaignId(campaignId);
-        int loveCnt=0;
+
         CampaignDetailDto result=new CampaignDetailDto(
-                campaign.getTitle(),campaign.getThumbnail(), campaign.getName(),0,
+                campaign.getTitle(),campaign.getThumbnail(), campaign.getName(),getLoveCnt(campaign),
                 campaign.getCollectAmount(),campaign.getTargetAmount(),getContentDtoList(campaign));
 
         return result;
 
+    }
+    public int getLoveCnt(Campaign campaign){
+        return loveRepo.countByCampaign(campaign);
     }
     public List<ContentDto> getContentDtoList(Campaign campaign){
         List<Content> list=contentRepo.findAllByCampaign(campaign);

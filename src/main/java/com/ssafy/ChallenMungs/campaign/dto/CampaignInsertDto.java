@@ -3,7 +3,10 @@ package com.ssafy.ChallenMungs.campaign.dto;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Getter
@@ -15,6 +18,8 @@ public class CampaignInsertDto {
     String loginId;
     String thumbnail;
     int targetAmount;
+
+
     String endDate;
     List<ContentDto> contentList;
 }
