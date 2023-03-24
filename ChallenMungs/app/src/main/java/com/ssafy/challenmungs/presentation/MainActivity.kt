@@ -8,7 +8,6 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import androidx.navigation.fragment.NavHostFragment
 import com.ssafy.challenmungs.R
 import com.ssafy.challenmungs.common.util.px
 import com.ssafy.challenmungs.common.util.setImmersiveMode
@@ -28,12 +27,6 @@ class MainActivity : AppCompatActivity() {
         setImmersiveMode()
         initView()
 
-        val navHostFragment =
-            supportFragmentManager.findFragmentById(R.id.nav_host) as NavHostFragment
-        val navGraph =
-            navHostFragment.navController
-                .navInflater
-                .inflate(R.navigation.navigation_main)
     }
 
     private fun initView() {
