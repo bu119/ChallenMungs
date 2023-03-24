@@ -3,6 +3,7 @@ package com.ssafy.challenmungs.presentation.auth
 import android.content.Intent
 import android.util.Log
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.lifecycleScope
 import com.kakao.sdk.auth.model.OAuthToken
 import com.kakao.sdk.common.model.ClientError
 import com.kakao.sdk.common.model.ClientErrorCause
@@ -13,6 +14,7 @@ import com.ssafy.challenmungs.databinding.FragmentLogInBinding
 import com.ssafy.challenmungs.presentation.MainActivity
 import com.ssafy.challenmungs.presentation.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.RequestBody.Companion.toRequestBody
 
@@ -76,8 +78,11 @@ class LogInFragment : BaseFragment<FragmentLogInBinding>(R.layout.fragment_log_i
             when (it) {
                 "new" -> navigate(LogInFragmentDirections.actionToOnBoardingFragment())
                 "member" ->
-                    if (ApplicationClass.preferences.accessToken != null)
-                        memberViewModel.getMemberInfo()
+                    if (ApplicationClass.preferences.accessToken != null) {
+                        lifecycleScope.launch {
+                            memberViewModel.getMemberInfo()
+                        }
+                    }
             }
         }
     }
