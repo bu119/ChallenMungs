@@ -2,6 +2,8 @@ package com.ssafy.ChallenMungs.blockchain.entity;
 
 import com.ssafy.ChallenMungs.user.entity.User;
 import lombok.*;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 
@@ -16,8 +18,9 @@ public class Wallet {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int walletId;
 
-    @ManyToOne(cascade = {CascadeType.ALL})
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="login_id")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private User user;
 
     @Column(name="address")
