@@ -34,7 +34,7 @@ public class GeneralController {
 
     // 일반챌린지를 생성하는 API - 생성시 참가자 테이블에 생성자를 생성자로 추가
     @PostMapping("/tokenConfirm/create")
-    @ApiOperation(value = "일반챌린지를 생성하는 api입니다.")
+    @ApiOperation(value = "일반챌린지를 생성하는 api입니다.", notes = "결과 값으로 challengeId를 반환합니다.")
     public ResponseEntity<Long> createGeneral(
             HttpServletRequest request,
             @RequestParam("title") String title,
@@ -76,7 +76,7 @@ public class GeneralController {
 
     // 챌린지id로 챌린지를 조회하는 API
     @GetMapping("/{challengeId}")
-    @ApiOperation(value = "일반챌린지를 조회하는 api입니다.")
+    @ApiOperation(value = "챌린지를 조회하는 api입니다.",notes = "challengeId를 활용하여 조회합니다.")
     public ResponseEntity<List<Challenge>> findByChallengeId(@RequestParam("challengeId") Long challengeId) {
         List<Challenge> challenges = generalService.findByChallengeId(challengeId);
         if (!challenges.isEmpty()) {
