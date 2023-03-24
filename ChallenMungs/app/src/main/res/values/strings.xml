@@ -47,8 +47,28 @@
     <string name="content_bank_statement_total">%s KLAY</string>
     <string name="content_bank_statement_time">%d:%d</string>
 
+    <!-- Edit Profile -->
+    <string name="title_edit_profile">프로필 수정</string>
+    <string name="content_save">저장</string>
+    <string name="content_withdrawal">회원탈퇴</string>
+    <string name="content_nickname">닉네임</string>
+    <string name="profile_edit">profile_edit_icon</string>
+    <string name="profile_image">profile_image</string>
+    <string name="title_password_change">비밀번호 변경</string>
+    <string name="content_change">변경</string>
+    <string name="content_cancel">취소</string>
+    <string name="content_new_password_check">새로운 비밀번호 확인</string>
+    <string name="content_new_password">새로운 비밀번호</string>
+    <string name="content_current_password">현재 비밀번호</string>
+
+    <!-- Donation Certificate -->
+    <string name="title_donation_certificate">기부증서</string>
+    <string name="content_donator">기부자</string>
+    <string name="content_donation">기부액</string>
+    <string name="content_shelter">기부처</string>
+    <string name="content_donation_date">기부 날짜</string>
+
     <!-- Member - OnBoarding -->
     <string name="content_member_name">닉네임</string>
-    <string name="content_save">저장</string>
     <string name="title_member_onboarding">회원정보 입력</string>
 </resources>

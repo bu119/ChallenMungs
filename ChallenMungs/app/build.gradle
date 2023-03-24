@@ -54,6 +54,10 @@ dependencies {
     kapt libs.hilt.compiler
 
     implementation libs.bundles.kakao
+
+    // Glide
+    implementation libs.glide
+    annotationProcessor libs.glide.compiler
 }
 
 kapt{
