@@ -34,6 +34,7 @@ public class GeneralController {
             @RequestParam("title") String title,
             @RequestParam("description") String description,
             @RequestParam("startDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
+//
             @RequestParam("endDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate,
             @RequestParam("maxParticipantCount") int maxParticipantCount,
             @RequestParam("currentParticipantCount") int currentParticipantCount,
