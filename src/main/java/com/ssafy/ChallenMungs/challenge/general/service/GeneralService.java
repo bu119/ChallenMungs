@@ -6,7 +6,7 @@ import com.ssafy.ChallenMungs.challenge.general.repository.GeneralRepository;
 import org.springframework.stereotype.Service;
 
 @Service
-public class GeneralBoardService {
+public class GeneralService {
 
     private final GeneralRepository generalRepository;
 
