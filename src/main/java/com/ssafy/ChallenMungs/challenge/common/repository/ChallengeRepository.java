@@ -7,5 +7,9 @@ import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 import java.util.List;
 
 public interface ChallengeRepository extends JpaRepository<Challenge, Long>, QuerydslPredicateExecutor<Challenge> {
-    List<Challenge> findByChallengeType(int i);
+    List<Challenge> findAllByChallengeType(int i);
+
+    List<Challenge> findAllByTitleLike(String s);
+
+    List<Challenge> findAllByTitleLikeAndChallengeType(String s, int i);
 }

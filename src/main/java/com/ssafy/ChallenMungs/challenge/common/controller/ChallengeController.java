@@ -1,7 +1,9 @@
 package com.ssafy.ChallenMungs.challenge.common.controller;
 
 import com.ssafy.ChallenMungs.challenge.common.entity.Challenge;
+import com.ssafy.ChallenMungs.challenge.common.entity.MyChallenge;
 import com.ssafy.ChallenMungs.challenge.common.service.ChallengeService;
+import com.ssafy.ChallenMungs.challenge.common.service.MyChallengeService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.commons.math3.geometry.euclidean.threed.Vector3D;
@@ -12,6 +14,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -26,17 +30,26 @@ public class ChallengeController {
     @Autowired
     ChallengeService challengeService;
 
+    @Autowired
+    MyChallengeService myChallengeService;
+
     @PostMapping("/tokenConfirm/getList")
     @ApiOperation(value = "챌린지 리스트를 불러오는 메서드에요")
-    ResponseEntity getList(@RequestParam("lat") double lat, @RequestParam("lng") double lng, @RequestParam int type) { // type 1: 전체, 2: 일반, 3: 판넬 4: 보물
+    ResponseEntity getList(HttpServletRequest request, @RequestParam("lat") double lat, @RequestParam("lng") double lng, @RequestParam("type") int type, @RequestParam("searchValue") String searchValue, @RequestParam("myChallenge") boolean myChallenge, @RequestParam("onlyTommorow") boolean onlyTommrow) { // type 1: 전체, 2: 일반, 3: 판넬 4: 보물
         log.info("챌린지 리스트를 구할게요!");
         log.info("거리제한은 3km에요!");
         double distanceLimit = 3.0;
         List<Challenge> challenges = null;
+        List<Challenge> temp = null;
         switch (type) {
             case 1:
                 log.info("타입이 1이에요 모든 챌린지를 가져올게요");
-                challenges = challengeService.findAll().stream().filter(c -> {
+                if (searchValue != null) {
+                    temp = challengeService.findAllByTitleLike("%" + searchValue + "%");
+                } else {
+                    temp = challengeService.findAll();
+                }
+                challenges = temp.stream().filter(c -> {
                     if (
                             !((c.getChallengeType() == 2 || c.getChallengeType() == 3) &&
                                     getDistance(lat, lng, c.getCenterLat(), c.getCenterLng()) > distanceLimit)
@@ -46,11 +59,21 @@ public class ChallengeController {
                 break;
             case 2:
                 log.info("타입이 2이에요 일반 챌린지를 가져올게요");
-                challenges = challengeService.findByChallengeType(1);
+                if (searchValue != null) {
+                    temp = challengeService.findAllByTitleLikeAndChallengeType("%" + searchValue + "%", 1);
+                } else {
+                    temp = challengeService.findAllByChallengeType(1);
+                }
+                challenges = temp;
                 break;
             case 3:
                 log.info("타입이 3이에요 판넬 챌린지를 가져올게요");
-                challenges = challengeService.findByChallengeType(2).stream().filter(c -> {
+                if (searchValue != null) {
+                    temp = challengeService.findAllByTitleLikeAndChallengeType("%" + searchValue + "%", 2);
+                } else {
+                    temp = challengeService.findAllByChallengeType(2);
+                }
+                challenges = temp.stream().filter(c -> {
                     if (
                             getDistance(lat, lng, c.getCenterLat(), c.getCenterLng()) <= distanceLimit
                     ) return true;
@@ -59,7 +82,12 @@ public class ChallengeController {
                 break;
             case 4:
                 log.info("타입이 4이에요 보물 챌린지를 가져올게요");
-                challenges = challengeService.findByChallengeType(3).stream().filter(c -> {
+                if (searchValue != null) {
+                    temp = challengeService.findAllByTitleLikeAndChallengeType("%" + searchValue + "%", 3);
+                } else {
+                    temp = challengeService.findAllByChallengeType(3);
+                }
+                challenges = temp.stream().filter(c -> {
                     if (
                             getDistance(lat, lng, c.getCenterLat(), c.getCenterLng()) <= distanceLimit
                     ) return true;
@@ -69,8 +97,16 @@ public class ChallengeController {
             default:
                 break;
         }
-        return new ResponseEntity(challenges, HttpStatus.OK);
+        if (myChallenge) {
+            log.info("내 챌린지만을 구해요");
+            String loginId = request.getAttribute("loginId").toString();
+            List<MyChallenge> myChallenges = myChallengeService.findAllByLoginId(loginId);
+            HashMap<Integer, Boolean> map = new HashMap<>();
+        } else {
 
+        }
+
+        return new ResponseEntity(challenges, HttpStatus.OK);
     }
 
 

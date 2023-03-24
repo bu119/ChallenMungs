@@ -17,7 +17,15 @@ public class ChallengeService {
         return challengeRepository.findAll();
     }
 
-    public List<Challenge> findByChallengeType(int i) {
-        return challengeRepository.findByChallengeType(i);
+    public List<Challenge> findAllByChallengeType(int i) {
+        return challengeRepository.findAllByChallengeType(i);
+    }
+
+    public List<Challenge> findAllByTitleLike(String s) {
+        return challengeRepository.findAllByTitleLike(s);
+    }
+
+    public List<Challenge> findAllByTitleLikeAndChallengeType(String s, int i) {
+        return challengeRepository.findAllByTitleLikeAndChallengeType(s, i);
     }
 }

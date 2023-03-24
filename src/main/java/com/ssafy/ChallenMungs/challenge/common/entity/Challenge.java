@@ -49,7 +49,7 @@ public class Challenge {
 
     // 판넬뒤집기 요소
     @Column(name = "game_type")
-    String gameType; //"solo", "team"
+    Integer gameType; //1: 개인, 2: 팀
 
     // 판넬, 보물 요소
     @Column(name = "left_top_lat")
