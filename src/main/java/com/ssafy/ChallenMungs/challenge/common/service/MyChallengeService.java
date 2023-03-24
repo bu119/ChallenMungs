@@ -13,6 +13,6 @@ public class MyChallengeService {
     MyChallengeRepository myChallengeRepository;
 
     public List<MyChallenge> findAllByLoginId(String loginId) {
-        return myChallengeRepository.findAllByLoginId();
+        return myChallengeRepository.findAllByLoginId(loginId);
     }
 }

@@ -8,5 +8,5 @@ import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 import java.util.List;
 
 public interface MyChallengeRepository extends JpaRepository<MyChallenge, Long>, QuerydslPredicateExecutor<MyChallenge> {
-    List<MyChallenge> findAllByLoginId();
+    List<MyChallenge> findAllByLoginId(String loginId);
 }

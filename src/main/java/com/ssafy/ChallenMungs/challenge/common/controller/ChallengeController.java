@@ -6,6 +6,7 @@ import com.ssafy.ChallenMungs.challenge.common.service.ChallengeService;
 import com.ssafy.ChallenMungs.challenge.common.service.MyChallengeService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import net.bytebuddy.asm.Advice;
 import org.apache.commons.math3.geometry.euclidean.threed.Vector3D;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,6 +16,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -35,7 +38,7 @@ public class ChallengeController {
 
     @PostMapping("/tokenConfirm/getList")
     @ApiOperation(value = "챌린지 리스트를 불러오는 메서드에요")
-    ResponseEntity getList(HttpServletRequest request, @RequestParam("lat") double lat, @RequestParam("lng") double lng, @RequestParam("type") int type, @RequestParam("searchValue") String searchValue, @RequestParam("myChallenge") boolean myChallenge, @RequestParam("onlyTommorow") boolean onlyTommrow) { // type 1: 전체, 2: 일반, 3: 판넬 4: 보물
+    ResponseEntity getList(HttpServletRequest request, @RequestParam("lat") double lat, @RequestParam("lng") double lng, @RequestParam("type") int type, @RequestParam("searchValue") String searchValue, @RequestParam("myChallenge") boolean myChallenge, @RequestParam("onlyTomorrow") boolean onlyTomorrow) { // type 1: 전체, 2: 일반, 3: 판넬 4: 보물
         log.info("챌린지 리스트를 구할게요!");
         log.info("거리제한은 3km에요!");
         double distanceLimit = 3.0;
@@ -101,9 +104,29 @@ public class ChallengeController {
             log.info("내 챌린지만을 구해요");
             String loginId = request.getAttribute("loginId").toString();
             List<MyChallenge> myChallenges = myChallengeService.findAllByLoginId(loginId);
-            HashMap<Integer, Boolean> map = new HashMap<>();
-        } else {
+            HashMap<Long, Boolean> map = new HashMap<>();
+            for (MyChallenge mc : myChallenges) {
+                map.put(mc.getChallengeId(), true);
+            }
+            List<Challenge> removeList = new ArrayList<>();
+            for (int i = 0; i < challenges.size(); i++) {
+                if (map.get(challenges.get(i).getChallengeId()) != null) continue;
+                removeList.add(challenges.get(i));
+            }
+            for (Challenge r : removeList) {
+                challenges.remove(r);
+            }
+        }
 
+        if (onlyTomorrow) {
+            List<Challenge> removeList = new ArrayList<>();
+            for (int i = 0; i < challenges.size(); i++) {
+                if (LocalDate.now().plusDays(1).equals(challenges.get(i).getStartDate())) continue;
+                removeList.add(challenges.get(i));
+            }
+            for (Challenge r : removeList) {
+                challenges.remove(r);
+            }
         }
 
         return new ResponseEntity(challenges, HttpStatus.OK);

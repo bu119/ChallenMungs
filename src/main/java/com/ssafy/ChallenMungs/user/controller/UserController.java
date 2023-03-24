@@ -115,7 +115,7 @@ public class UserController {
         log.info("누군가가 회원가입을 시도하고 있어요!");
         Map<String, String> v = getProfileFromKakao(accessKey);
         log.info("회원저장을 시도할게요:" + v.get("loginId") + " " + name + " " + v.get("profile"));
-        userService.saveUser(User.builder().loginId(v.get("loginId")).name(name).profile(v.get("profile")).type('n').build());
+        userService.saveUser(User.builder().loginId(v.get("loginId")).name(name).profile(v.get("profile")).type('n').totalDonate(0).build());
         log.info("회원정보를 데이터 베이스에 저장했어요!");
         Map res = new HashMap<>();
         res.put("code", "save_success");

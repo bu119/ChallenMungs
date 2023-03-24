@@ -28,4 +28,8 @@ public class ChallengeService {
     public List<Challenge> findAllByTitleLikeAndChallengeType(String s, int i) {
         return challengeRepository.findAllByTitleLikeAndChallengeType(s, i);
     }
+
+    public void save(Challenge build) {
+        challengeRepository.save(build);
+    }
 }

@@ -19,5 +19,5 @@ public class MyChallenge {
     String loginId;
 
     @Column(name = "challenge_id")
-    String challengeId;
+    Long challengeId;
 }

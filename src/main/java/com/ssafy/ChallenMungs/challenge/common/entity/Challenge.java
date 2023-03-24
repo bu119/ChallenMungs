@@ -3,6 +3,7 @@ package com.ssafy.ChallenMungs.challenge.common.entity;
 import lombok.*;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity (name = "challenge")
@@ -23,10 +24,10 @@ public class Challenge {
     private String title;
 
     @Column(name = "start_date")
-    private LocalDateTime startDate;
+    private LocalDate startDate;
 
     @Column(name = "end_date")
-    private LocalDateTime endDate;
+    private LocalDate endDate;
 
     @Column(name = "max_participant_count")
     private Integer maxParticipantCount;
