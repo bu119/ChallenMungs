@@ -2,10 +2,12 @@ package com.ssafy.challenmungs.presentation.auth
 
 import android.content.Intent
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.lifecycleScope
 import com.ssafy.challenmungs.R
 import com.ssafy.challenmungs.databinding.FragmentOnBoardingBinding
 import com.ssafy.challenmungs.presentation.MainActivity
 import com.ssafy.challenmungs.presentation.base.BaseFragment
+import kotlinx.coroutines.launch
 
 class OnBoardingFragment : BaseFragment<FragmentOnBoardingBinding>(R.layout.fragment_on_boarding) {
 
@@ -40,6 +42,8 @@ class OnBoardingFragment : BaseFragment<FragmentOnBoardingBinding>(R.layout.frag
     }
 
     private fun checkAccessToken() {
-        memberViewModel.getMemberInfo()
+        lifecycleScope.launch {
+            memberViewModel.getMemberInfo()
+        }
     }
 }

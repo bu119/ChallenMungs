@@ -22,4 +22,10 @@
         android:label="OnBoardingFragment"
         tools:layout="@layout/fragment_on_boarding" />
 
+    <activity
+        android:id="@+id/main_activity"
+        android:name="com.ssafy.challenmungs.presentation.MainActivity"
+        android:label="MainActivity"
+        tools:layout="@layout/activity_main" />
+
 </navigation>
