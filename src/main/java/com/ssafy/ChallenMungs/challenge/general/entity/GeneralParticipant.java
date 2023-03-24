@@ -18,8 +18,8 @@ public class GeneralParticipant {
     String loginId;
 
     @Column(name = "challenge_id")
-    int challengeId;
+    Long challengeId;
 
     @Column(name = "success_count")
-    int successCount;
+    Integer successCount;
 }
