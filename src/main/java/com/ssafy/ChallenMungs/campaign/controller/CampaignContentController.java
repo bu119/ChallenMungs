@@ -24,7 +24,7 @@ public class CampaignContentController {
 
     private Logger logger = LoggerFactory.getLogger(UserController.class);
      @PostMapping("/create")
-     @ApiOperation(value = "캠페인을 생성합니다. 로그인아이디는 꼭 db에 있는걸로 넣으세요." ,notes=" 캠페인 제목, 후원처아이디,종료일(yy.mm.dd) 썸네일 이미지 링크, 내용 리스트가 필요합니다. \n " +
+     @ApiOperation(value = "캠페인을 생성합니다. 로그인아이디는 꼭 db에 있는걸로 넣으세요." ,notes=" 캠페인 제목, 후원처아이디,종료일(yyyy-mm-dd) 썸네일 이미지 링크, 내용 리스트가 필요합니다. \n " +
              "내용 리스트의 아이템 하나는 type(img,bold,nomal)과 body(이미지 링크 혹은 내용)이 필요합니다.\n " +
              "img는 이미지, bold는 굵은 글씨,normal은 일반글씨입니다. img src 대신 멀티파트로 보내는 걸 원하면 지원이에게 말하세요.")
      ResponseEntity<String> createCampaign(@RequestBody CampaignInsertDto info) {
