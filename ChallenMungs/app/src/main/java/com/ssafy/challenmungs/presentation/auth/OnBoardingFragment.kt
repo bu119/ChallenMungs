@@ -17,33 +17,24 @@ class OnBoardingFragment : BaseFragment<FragmentOnBoardingBinding>(R.layout.frag
     override fun initView() {
         binding.toolbar.tvTitle.text = getString(R.string.title_member_onboarding)
         initListener()
-        observeAccessToken()
-        observeMemberInfo()
     }
 
     private fun initListener() {
         binding.btnSave.setOnClickListener {
-            if (authViewModel.accessToken.value != null)
-                authViewModel.requestJoin(binding.etNickname.text.toString())
-        }
-    }
+            lifecycleScope.launch {
+                if (authViewModel.accessToken.value != null) {
+                    val flagJoin = authViewModel.requestJoin(binding.etNickname.text.toString())
 
-    private fun observeAccessToken() {
-        authViewModel.accessToken.observe(viewLifecycleOwner) {
-            checkAccessToken()
-        }
-    }
+                    if (flagJoin) {
+                        val success = memberViewModel.getMemberInfo()
 
-    private fun observeMemberInfo() {
-        memberViewModel.memberInfo.observe(viewLifecycleOwner) {
-            val intent = Intent(activity, MainActivity::class.java)
-            startActivity(intent)
-        }
-    }
-
-    private fun checkAccessToken() {
-        lifecycleScope.launch {
-            memberViewModel.getMemberInfo()
+                        if (success) {
+                            val intent = Intent(activity, MainActivity::class.java)
+                            startActivity(intent)
+                        }
+                    }
+                }
+            }
         }
     }
 }

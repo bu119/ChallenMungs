@@ -11,6 +11,7 @@ import com.ssafy.challenmungs.domain.entity.member.Auth
 import com.ssafy.challenmungs.domain.usecase.auth.JoinUseCase
 import com.ssafy.challenmungs.domain.usecase.auth.LogInUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import okhttp3.RequestBody
 import javax.inject.Inject
@@ -48,10 +49,17 @@ class AuthViewModel @Inject constructor(
         }
     }
 
-    fun requestJoin(name: String) = viewModelScope.launch {
+    suspend fun requestJoin(name: String) = viewModelScope.async {
         when (val value = joinUseCase(name, accessToken.value!!)) {
-            is Resource.Success<String> -> ApplicationClass.preferences.accessToken = value.data
-            is Resource.Error -> Log.e("requestJoin", "requestJoin: ${value.errorMessage}")
+            is Resource.Success<String> -> {
+                ApplicationClass.preferences.accessToken = value.data
+                _authType.value = "member"
+                return@async true
+            }
+            is Resource.Error -> {
+                Log.e("requestJoin", "requestJoin: ${value.errorMessage}")
+                return@async false
+            }
         }
-    }
+    }.await()
 }
