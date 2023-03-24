@@ -53,7 +53,7 @@ public class Campaign {
 
     // 생성일
     @Column(name = "regist_date")
-    private String registDate;
+    private LocalDateTime registDate;
 
     // 모금 종료 여부
     @Column(name = "is_end")
@@ -61,7 +61,7 @@ public class Campaign {
 
     // 종료일
     @Column(name = "end_date")
-    private String endDate;
+    private LocalDateTime endDate;
 
 
 
