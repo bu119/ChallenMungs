@@ -7,5 +7,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface LoveRepository extends JpaRepository<Love, Long> {
     Love findByUserAndCampaign(User user, Campaign campaign);
-    int countByUserAndCampaign(User user, Campaign campaign);
+    int countByUserAndCampaign(User user, Campaign campaign); //유저 조아요 중복체크용
+    int countByCampaign(Campaign campaign);
 }

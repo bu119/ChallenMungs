@@ -84,7 +84,7 @@ public class CampaignContentServiceImpl implements CampaignContentService{
         campaign.setThumbnail(info.getThumbnail());
         campaign.setTitle(info.getTitle());
         campaign.setTargetAmount(info.getTargetAmount());
-        campaign.setRegistDate(LocalDateTime.now().format(DateTimeFormatter.ofLocalizedDate(FormatStyle.SHORT)));
+        campaign.setRegistDate(LocalDateTime.now());
         campaign.setEndDate(info.getEndDate());
         campaign.setCollectAmount(0);
         campaign.setWithdrawAmount(0);
@@ -129,7 +129,7 @@ public class CampaignContentServiceImpl implements CampaignContentService{
 
         return "disable";
     }
- 
+
 
     @Override
     public int cheerUpCampaign(String loginId, int campaignId) {
@@ -154,17 +154,19 @@ public class CampaignContentServiceImpl implements CampaignContentService{
         return true;
     }
 
-    //todo lovecnt 로직만들기
     @Override
     public CampaignDetailDto viewDetailCampaign(int campaignId) {
         Campaign campaign=listRepo.findCampaignByCampaignId(campaignId);
-        int loveCnt=0;
+
         CampaignDetailDto result=new CampaignDetailDto(
-                campaign.getTitle(),campaign.getThumbnail(), campaign.getName(),0,
+                campaign.getTitle(),campaign.getThumbnail(), campaign.getName(),getLoveCnt(campaign),
                 campaign.getCollectAmount(),campaign.getTargetAmount(),getContentDtoList(campaign));
 
         return result;
 
+    }
+    public int getLoveCnt(Campaign campaign){
+        return loveRepo.countByCampaign(campaign);
     }
     public List<ContentDto> getContentDtoList(Campaign campaign){
         List<Content> list=contentRepo.findAllByCampaign(campaign);
