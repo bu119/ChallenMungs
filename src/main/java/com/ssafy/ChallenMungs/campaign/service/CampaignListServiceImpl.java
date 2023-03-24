@@ -1,8 +1,11 @@
 package com.ssafy.ChallenMungs.campaign.service;
 
 import com.ssafy.ChallenMungs.campaign.dto.CampaignDto;
+import com.ssafy.ChallenMungs.campaign.dto.CampaignShelterDto;
 import com.ssafy.ChallenMungs.campaign.entity.Campaign;
 import com.ssafy.ChallenMungs.campaign.repository.CampaignListRepository;
+import com.ssafy.ChallenMungs.user.entity.User;
+import com.ssafy.ChallenMungs.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +19,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class CampaignListServiceImpl implements CampaignListService {
     private final CampaignListRepository jpaRepo;
+    private final UserRepository userRepo;
 
     // 기부탭의 캠페인 목록
     @Override
@@ -53,8 +57,14 @@ public class CampaignListServiceImpl implements CampaignListService {
 
     // 후원처 로그인시 캠페인 목록
     @Override
-    public List<Campaign> getShelter(String loginId) {
-        return null;
+    public List<CampaignShelterDto> getShelter(String loginId) {
+        List<Campaign> list;
+        User shelterUser = userRepo.findUserByLoginId(loginId);
+        list = jpaRepo.findAllByUser(shelterUser);
+
+        return list.stream()
+                .map(b -> new CampaignShelterDto(b.getCampaignId(), b.getThumbnail(), b.getTitle(), b.getTargetAmount(), b.getCollectAmount(), b.getWithdrawAmount(), b.getRegistDate(), b.isEnd(), b.getEndDate()))
+                .collect(Collectors.toList());
     }
 
     // 해당 유저가 참여한 캠페인 목록
