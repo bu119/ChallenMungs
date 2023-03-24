@@ -1,10 +1,10 @@
 package com.ssafy.ChallenMungs.challenge.common.entity;
 
+import com.ssafy.ChallenMungs.common.Converter.LocalDateConverter;
 import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 @Entity (name = "challenge")
 @Getter
@@ -23,10 +23,10 @@ public class Challenge {
     @Column(name = "title")
     private String title;
 
-    @Column(name = "start_date")
+    @Column(name = "start_date", columnDefinition = "DATE")
     private LocalDate startDate;
 
-    @Column(name = "end_date")
+    @Column(name = "end_date", columnDefinition = "DATE")
     private LocalDate endDate;
 
     @Column(name = "max_participant_count")
