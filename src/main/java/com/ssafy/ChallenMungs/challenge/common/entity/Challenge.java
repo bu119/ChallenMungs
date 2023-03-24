@@ -1,6 +1,5 @@
 package com.ssafy.ChallenMungs.challenge.common.entity;
 
-import com.ssafy.ChallenMungs.common.Converter.LocalDateConverter;
 import lombok.*;
 
 import javax.persistence.*;
