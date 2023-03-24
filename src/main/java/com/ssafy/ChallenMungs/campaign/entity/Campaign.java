@@ -1,6 +1,9 @@
 package com.ssafy.ChallenMungs.campaign.entity;
 import com.ssafy.ChallenMungs.user.entity.User;
 import lombok.*;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -20,8 +23,9 @@ public class Campaign {
     private int campaignId;
 
     // 캠페인 담당자
-    @ManyToOne (cascade = {CascadeType.ALL}) // 1:N
+    @ManyToOne(fetch = FetchType.LAZY)  // 1:N
     @JoinColumn(name="login_id") //Join 기준
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private User user;
 
     // 후원처 이름
