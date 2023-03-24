@@ -32,9 +32,9 @@ public class GeneralController {
     @Autowired
     GeneralParticipantService generalParticipantService;
 
-
+    // 일반챌린지를 생성하는 API - 생성시 참가자 테이블에 생성자를 생성자로 추가
     @PostMapping("/tokenConfirm/create")
-    @ApiOperation(value = "일반챌린지 생성")
+    @ApiOperation(value = "일반챌린지를 생성하는 api입니다.")
     public ResponseEntity<Long> createGeneral(
             HttpServletRequest request,
             @RequestParam("title") String title,
@@ -74,7 +74,9 @@ public class GeneralController {
         return ResponseEntity.ok(challengeId);
     }
 
+    // 챌린지id로 챌린지를 조회하는 API
     @GetMapping("/{challengeId}")
+    @ApiOperation(value = "일반챌린지를 조회하는 api입니다.")
     public ResponseEntity<List<Challenge>> findByChallengeId(@RequestParam("challengeId") Long challengeId) {
         List<Challenge> challenges = generalService.findByChallengeId(challengeId);
         if (!challenges.isEmpty()) {
