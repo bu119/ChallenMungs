@@ -2,6 +2,8 @@ package com.ssafy.ChallenMungs.campaign.entity;
 
 
 import lombok.*;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 
@@ -16,8 +18,9 @@ public class Content {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int contentId;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="campaign_id")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Campaign campaign;
     @Column(name = "body")
     String body;

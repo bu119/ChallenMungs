@@ -29,6 +29,7 @@ public class CampaignContentController {
              "img는 이미지, bold는 굵은 글씨,normal은 일반글씨입니다. img src 대신 멀티파트로 보내는 걸 원하면 지원이에게 말하세요.")
      ResponseEntity<String> createCampaign(@RequestBody CampaignInsertDto info) {
 
+         if(!service.isCampaignAble(info.getLoginId())) return new ResponseEntity<String>("후원처 유저가 아니거나 캠페인 슬롯이 없습니다.",HttpStatus.OK);
           try{
                service.createCampaign(info);
           }catch(Exception e){
@@ -66,7 +67,6 @@ public class CampaignContentController {
 
     }
 
-    //todo 캠페인 만드는게 가능한지 반환하는 api
     @PostMapping("/isCampaignAble")
     @ApiOperation(value = "캠페인을 만들 수 있는지 체크합니다" ,notes="후원처의 아이디이고, 현재 진행중인 캠페인이 2개 미만인 경우에만 true를 반환합니다.")
     ResponseEntity<Boolean> isCampaignAble(@RequestParam String loginId) {
