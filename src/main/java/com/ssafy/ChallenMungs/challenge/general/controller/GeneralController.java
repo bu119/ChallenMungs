@@ -28,7 +28,7 @@ public class GeneralController {
 
     @PostMapping("/create")
     @ApiOperation(value = "일반챌린지 생성")
-    public ResponseEntity<Long> createGeneral(//
+    public ResponseEntity<Long> createGeneral(
             @RequestParam("title") String title,
             @RequestParam("description") String description,
             @RequestParam("startDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
