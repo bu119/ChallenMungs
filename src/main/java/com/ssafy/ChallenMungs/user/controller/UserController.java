@@ -252,6 +252,7 @@ public class UserController {
             return ResponseEntity.status(417).build();
         }
     }
+
     @PostMapping("/codeEmail")
     @ApiOperation(value = "자선단체의 회원가입 메서드에요!")
     ResponseEntity codeEmail(@RequestParam("to") String email, @RequestParam("charityName") String charityName) {
