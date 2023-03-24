@@ -133,7 +133,7 @@
             tools:text="2023.01.14" />
 
         <Space
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="43dp"
             app:layout_constraintBottom_toTopOf="@id/tv_write_date"
             app:layout_constraintEnd_toEndOf="parent"
@@ -180,4 +180,5 @@
                 app:layout_constraintTop_toTopOf="@id/tv_issue_place" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </layout>
