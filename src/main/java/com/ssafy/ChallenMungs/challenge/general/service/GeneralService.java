@@ -13,20 +13,14 @@ public class GeneralService {
     public GeneralService(GeneralRepository generalRepository) {
         this.generalRepository = generalRepository;
     }
-//    public Long save(Challenge challenge) {
-//        return generalRepository.save(challenge).getChallengeId();
-//    }
 
     public Long saveChallenge(Challenge challenge) {
         return generalRepository.save(challenge).getChallengeId();
     }
 
-
-
-
-
-
-
+//    public List<Challenge> findAllChallenges() {
+//        return generalRepository.findAll();
+//    }
 
 }
 
