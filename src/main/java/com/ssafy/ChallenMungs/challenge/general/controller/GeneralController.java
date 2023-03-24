@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.sql.Date;
 import java.time.LocalDate;
+import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/general")
@@ -58,6 +60,18 @@ public class GeneralController {
 
         return ResponseEntity.ok(challengeId);
     }
+
+    @GetMapping("/{challengeId}")
+    public ResponseEntity<List<Challenge>> findByChallengeId(@RequestParam("challengeId") Long challengeId) {
+        List<Challenge> challenges = generalService.findByChallengeId(challengeId);
+        if (!challenges.isEmpty()) {
+            return ResponseEntity.ok(challenges);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+
 
 
 }
