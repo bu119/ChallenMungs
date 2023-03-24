@@ -34,5 +34,5 @@ public class User {
     private String profile;
 
     @Column(name = "total_donate")
-    private String totalDonate;
+    private Integer totalDonate;
 }
