@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="20dp"
+        tools:context=".presentation.mypage.DonationCertificateFragment">
+
+        <ImageView
+            android:id="@+id/iv_background_logo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:alpha="0.2"
+            android:contentDescription="@string/image_logo"
+            android:src="@drawable/ic_logo_basic"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_donation_certificate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:text="@string/title_donation_certificate"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_donator_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="27dp"
+            android:layout_marginTop="40dp"
+            android:text="@string/content_donator"
+            android:textColor="@color/black"
+            android:textSize="11sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_donation_certificate" />
+
+        <TextView
+            android:id="@+id/tv_donator_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="25dp"
+            android:textColor="@color/black"
+            android:textSize="11sp"
+            app:layout_constraintBottom_toBottomOf="@id/tv_donator_title"
+            app:layout_constraintStart_toEndOf="@id/tv_donator_title"
+            app:layout_constraintTop_toTopOf="@id/tv_donator_title"
+            tools:text="김차돌돌돌돌돌돌돌" />
+
+        <TextView
+            android:id="@+id/tv_donation_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/content_donation"
+            android:textColor="@color/black"
+            android:textSize="11sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@id/tv_donator_title"
+            app:layout_constraintTop_toBottomOf="@id/tv_donator_title" />
+
+        <TextView
+            android:id="@+id/tv_donation_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/content_bank_statement_total"
+            android:textColor="@color/black"
+            android:textSize="11sp"
+            app:layout_constraintBottom_toBottomOf="@id/tv_donation_title"
+            app:layout_constraintStart_toStartOf="@id/tv_donator_content"
+            app:layout_constraintTop_toTopOf="@id/tv_donation_title" />
+
+        <TextView
+            android:id="@+id/tv_shelter_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/content_shelter"
+            android:textColor="@color/black"
+            android:textSize="11sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@id/tv_donation_title"
+            app:layout_constraintTop_toBottomOf="@id/tv_donation_title" />
+
+        <TextView
+            android:id="@+id/tv_shelter_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:textSize="11sp"
+            app:layout_constraintBottom_toBottomOf="@id/tv_shelter_title"
+            app:layout_constraintStart_toStartOf="@id/tv_donation_content"
+            app:layout_constraintTop_toTopOf="@id/tv_shelter_title"
+            tools:text="oo 보호소" />
+
+        <TextView
+            android:id="@+id/tv_donation_date_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/content_donation_date"
+            android:textColor="@color/black"
+            android:textSize="11sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@id/tv_shelter_title"
+            app:layout_constraintTop_toBottomOf="@id/tv_shelter_title" />
+
+        <TextView
+            android:id="@+id/tv_donation_date_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:textSize="11sp"
+            app:layout_constraintBottom_toBottomOf="@id/tv_donation_date_title"
+            app:layout_constraintStart_toStartOf="@id/tv_shelter_content"
+            app:layout_constraintTop_toTopOf="@id/tv_donation_date_title"
+            tools:text="2023.01.14" />
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="43dp"
+            app:layout_constraintBottom_toTopOf="@id/tv_write_date"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_donation_date_content" />
+
+        <TextView
+            android:id="@+id/tv_write_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:textColor="@color/black"
+            android:textSize="11sp"
+            app:layout_constraintBottom_toTopOf="@id/tv_issue_place"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:text="2023년 2월 14일" />
+
+            <TextView
+                android:id="@+id/tv_issue_place"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="25dp"
+                android:text="@string/app_name"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <ImageView
+                android:id="@+id/iv_stamp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:adjustViewBounds="true"
+                android:layout_marginStart="-10dp"
+                android:contentDescription="@string/image_logo"
+                android:minWidth="30dp"
+                android:minHeight="30dp"
+                android:src="@drawable/ic_certificate_donate_stamp"
+                app:layout_constraintBottom_toBottomOf="@id/tv_issue_place"
+                app:layout_constraintStart_toEndOf="@id/tv_issue_place"
+                app:layout_constraintTop_toTopOf="@id/tv_issue_place" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
