@@ -20,6 +20,6 @@ public class CampaignInsertDto {
     int targetAmount;
 
 
-    LocalDateTime endDate;
+    String endDate;
     List<ContentDto> contentList;
 }
