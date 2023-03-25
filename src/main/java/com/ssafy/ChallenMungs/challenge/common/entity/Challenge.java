@@ -1,6 +1,5 @@
 package com.ssafy.ChallenMungs.challenge.common.entity;
 
-import com.ssafy.ChallenMungs.common.Converter.LocalDateConverter;
 import lombok.*;
 
 import javax.persistence.*;
@@ -70,4 +69,7 @@ public class Challenge {
 
     @Column(name = "center_lng")
     Double centerLng;
+
+    @Column(name = "started")
+    Boolean started;
 }

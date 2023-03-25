@@ -119,6 +119,7 @@ public class ChallengeController {
         }
 
         if (onlyTomorrow) {
+            log.info("내일 시작하는 챌린지만을 골라요!");
             List<Challenge> removeList = new ArrayList<>();
             for (int i = 0; i < challenges.size(); i++) {
                 if (LocalDate.now().plusDays(1).equals(challenges.get(i).getStartDate())) continue;
@@ -127,6 +128,16 @@ public class ChallengeController {
             for (Challenge r : removeList) {
                 challenges.remove(r);
             }
+        }
+
+        List<Challenge> removeList = new ArrayList<>();
+        log.info("시작안한 챌린지만을 걸러요!");
+        for (int i = 0; i < challenges.size(); i++) {
+            if (challenges.get(i).getStarted() == false) continue;
+            removeList.add(challenges.get(i));
+        }
+        for (Challenge r : removeList) {
+            challenges.remove(r);
         }
 
         return new ResponseEntity(challenges, HttpStatus.OK);
