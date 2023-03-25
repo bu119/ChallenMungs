@@ -5,6 +5,8 @@ import com.ssafy.ChallenMungs.challenge.common.entity.Challenge;
 import com.ssafy.ChallenMungs.challenge.general.repository.GeneralRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class GeneralService {
 
@@ -13,18 +15,15 @@ public class GeneralService {
     public GeneralService(GeneralRepository generalRepository) {
         this.generalRepository = generalRepository;
     }
-//    public Long save(Challenge challenge) {
-//        return generalRepository.save(challenge).getChallengeId();
-//    }
 
     public Long saveChallenge(Challenge challenge) {
+
         return generalRepository.save(challenge).getChallengeId();
     }
 
-
-
-
-
+    public List<Challenge> findByChallengeId(Long challengeId) {
+        return generalRepository.findByChallengeId(challengeId);
+    }
 
 
 

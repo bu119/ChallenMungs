@@ -1,6 +1,7 @@
 package com.ssafy.ChallenMungs.campaign.service;
 
 import com.ssafy.ChallenMungs.campaign.dto.CampaignDto;
+import com.ssafy.ChallenMungs.campaign.dto.CampaignShelterDto;
 import com.ssafy.ChallenMungs.campaign.entity.Campaign;
 
 import java.util.List;
@@ -10,7 +11,7 @@ public interface CampaignListService {
     List<CampaignDto> getCampaign(String type, int sort);
 
     // 후원처 탭
-    List<Campaign> getShelter(String loginId);
+    List<CampaignShelterDto> getShelter(String loginId);
 
     // 내가 참여한 캠페인
     List<CampaignDto> getUserParticipate(String loginId);
