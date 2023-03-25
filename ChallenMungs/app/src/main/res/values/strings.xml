@@ -67,4 +67,12 @@
     <string name="content_donation">기부액</string>
     <string name="content_shelter">기부처</string>
     <string name="content_donation_date">기부 날짜</string>
+
+    <!--  Information Toolbar  -->
+    <string name="title_info">정보</string>
+
+    <!--  Panel Game Play  -->
+    <string name="content_walk_start">산책 시작하기</string>
+    <string name="content_walk_end">산책 끝내기</string>
+    <string name="content_panel_rank">%d등 (%d개)</string>
 </resources>
