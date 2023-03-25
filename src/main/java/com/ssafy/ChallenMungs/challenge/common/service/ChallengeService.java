@@ -32,4 +32,12 @@ public class ChallengeService {
     public void save(Challenge build) {
         challengeRepository.save(build);
     }
+
+    public Challenge findByChallengeId(Long challengeId) {
+        return challengeRepository.findByChallengeId(challengeId);
+    }
+
+    public void delete(Challenge challenge) {
+        challengeRepository.delete(challenge);
+    }
 }

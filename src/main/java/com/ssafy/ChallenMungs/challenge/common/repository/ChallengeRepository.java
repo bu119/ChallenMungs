@@ -12,4 +12,6 @@ public interface ChallengeRepository extends JpaRepository<Challenge, Long>, Que
     List<Challenge> findAllByTitleLike(String s);
 
     List<Challenge> findAllByTitleLikeAndChallengeType(String s, int i);
+
+    Challenge findByChallengeId(Long challengeId);
 }

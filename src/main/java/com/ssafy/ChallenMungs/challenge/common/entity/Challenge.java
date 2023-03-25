@@ -70,6 +70,6 @@ public class Challenge {
     @Column(name = "center_lng")
     Double centerLng;
 
-    @Column(name = "started")
-    Boolean started;
+    @Column(name = "status") // 0: 아직 시작안함, 1: 진행중, 2: 끝남
+    Integer status;
 }

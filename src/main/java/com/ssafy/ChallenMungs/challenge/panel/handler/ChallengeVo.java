@@ -11,7 +11,6 @@ import java.util.ArrayList;
 @AllArgsConstructor
 @Builder
 public class ChallengeVo {
-    int challengeId;
-    ArrayList<PlayerVo> sessions;
+    ArrayList<PlayerVo> players;
     int [] [] mapInfo;
 }

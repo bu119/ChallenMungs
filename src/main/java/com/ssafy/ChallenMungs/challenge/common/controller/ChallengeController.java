@@ -133,7 +133,7 @@ public class ChallengeController {
         List<Challenge> removeList = new ArrayList<>();
         log.info("시작안한 챌린지만을 걸러요!");
         for (int i = 0; i < challenges.size(); i++) {
-            if (challenges.get(i).getStarted() == false) continue;
+            if (challenges.get(i).getStatus() != 0) continue;
             removeList.add(challenges.get(i));
         }
         for (Challenge r : removeList) {
@@ -143,7 +143,32 @@ public class ChallengeController {
         return new ResponseEntity(challenges, HttpStatus.OK);
     }
 
+    @PostMapping("/tokenConfirm/getInChallenge")
+    ResponseEntity getInChallenge(HttpServletRequest request, @RequestParam("challengeId") long challengeId) {
+        Challenge challenge = challengeService.findByChallengeId(challengeId);
+        if (challenge.getCurrentParticipantCount() >= challenge.getMaxParticipantCount()) {
+            log.info("이미 풀방이라 들어갈 수 없어요!");
+            return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).build();
+        }
+        challenge.setCurrentParticipantCount(challenge.getCurrentParticipantCount() + 1);
+        challengeService.save(challenge);
+        String loginId = request.getAttribute("loginId").toString();
+        myChallengeService.save(MyChallenge.builder().loginId(loginId).challengeId(challengeId).build());
+        return ResponseEntity.status(HttpStatus.OK).build();
+    }
 
+    @PostMapping("/tokenConfirm/getOutChallenge")
+    ResponseEntity getOutchallenge(HttpServletRequest request, @RequestParam("challengeId") long challengeId) {
+        String loginId = request.getAttribute("loginId").toString();
+        myChallengeService.findByLoginIdAndChallengeIdToDelete(loginId, challengeId);
+        Challenge challenge = challengeService.findByChallengeId(challengeId);
+        challenge.setCurrentParticipantCount(challenge.getCurrentParticipantCount() - 1);
+        if (challenge.getCurrentParticipantCount() == 0) {
+            log.info("제가 나가서 이방엔 더이상 사람이 없어요!");
+            challengeService.delete(challenge);
+        }
+        return ResponseEntity.status(HttpStatus.OK).build();
+    }
 
     double getDistance(double lat1, double lon1, double lat2, double lon2) {
         final double R = 6371; // 지구 반경 (km)

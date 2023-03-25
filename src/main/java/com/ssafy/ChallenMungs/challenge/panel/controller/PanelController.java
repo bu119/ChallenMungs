@@ -54,7 +54,7 @@ public class PanelController {
                 .centerLat((leftTopLat + rightBottomLat) / 2)
                 .centerLng((leftTopLng + rightBottomLng) / 2)
                 .currentParticipantCount(0)
-                .started(false)
+                .status(0)
                 .build());
         return ResponseEntity.status(HttpStatus.OK).build();
     }
