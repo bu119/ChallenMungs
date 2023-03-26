@@ -39,7 +39,7 @@
 
     <!-- My Wallet -->
     <string name="title_current_balance">현재 잔액</string>
-    <string name="image_klay">klay_icon</string>
+    <string name="image_klay">KLAY_icon</string>
     <string name="content_address_copy"><u>주소 복사</u></string>
     <string name="content_challenge_participation">챌린지 참여</string>
     <string name="image_bank_statement_item_icon">image_bank_statement_item_icon</string>
@@ -71,4 +71,12 @@
     <!--  Piggy Bank  -->
     <string name="content_donation_possible_amount">기부 가능 금액</string>
     <string name="content_donate">기부하기</string>
+
+    <!-- Donation Details -->
+    <string name="content_donation_number">기부건수</string>
+    <string name="content_donation_number_unit">건</string>
+    <string name="content_totality_donation">총 기부액</string>
+    <string name="content_year">%s년</string>
+    <string name="title_total_contribution">누적 기부액</string>
+
 </resources>
