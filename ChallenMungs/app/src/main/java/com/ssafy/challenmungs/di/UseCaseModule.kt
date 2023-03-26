@@ -2,8 +2,10 @@ package com.ssafy.challenmungs.di
 
 import com.ssafy.challenmungs.domain.repository.AuthRepository
 import com.ssafy.challenmungs.domain.repository.MemberRepository
+import com.ssafy.challenmungs.domain.repository.WalletRepository
 import com.ssafy.challenmungs.domain.usecase.auth.JoinUseCase
 import com.ssafy.challenmungs.domain.usecase.auth.LogInUseCase
+import com.ssafy.challenmungs.domain.usecase.klaytn.CreateAccountUseCase
 import com.ssafy.challenmungs.domain.usecase.member.GetMemberInfoUseCase
 import dagger.Module
 import dagger.Provides
@@ -29,4 +31,9 @@ object UseCaseModule {
     @Provides
     fun provideGetMemberInfoUseCase(memberRepository: MemberRepository): GetMemberInfoUseCase =
         GetMemberInfoUseCase(memberRepository)
+
+    @Singleton
+    @Provides
+    fun provideCreateAccountUseCase(walletRepository: WalletRepository): CreateAccountUseCase =
+        CreateAccountUseCase(walletRepository)
 }
