@@ -51,9 +51,9 @@ public class PanelSocketHandler extends TextWebSocketHandler {
         String event = element.getAsJsonObject().get("event").getAsString();
         JsonElement data = element.getAsJsonObject().get("data").getAsJsonObject();
         if (event.equals("access")) {
-            log.info("누군가가 게임에 접속했어요");
+            log.info("누군가가 게임에 접속했어요 데이터:" + data);
             Long challengeId = data.getAsJsonObject().get("challengeId").getAsLong();
-            String loginId = data.getAsJsonObject().get("LoginId").getAsString();
+            String loginId = data.getAsJsonObject().get("loginId").getAsString();
             MyChallenge myChallenge = myChallengeService.findByLoginIdAndChallengeId(loginId, challengeId);
             int myTeamId = myChallenge.getTeamId();
             // 챌린지메니저에 등록한다
