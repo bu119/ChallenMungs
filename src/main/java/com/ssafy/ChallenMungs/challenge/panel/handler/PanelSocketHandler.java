@@ -3,7 +3,9 @@ package com.ssafy.ChallenMungs.challenge.panel.handler;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
+import com.ssafy.ChallenMungs.challenge.common.entity.Challenge;
 import com.ssafy.ChallenMungs.challenge.common.entity.MyChallenge;
+import com.ssafy.ChallenMungs.challenge.common.service.ChallengeService;
 import com.ssafy.ChallenMungs.challenge.common.service.MyChallengeService;
 import com.ssafy.ChallenMungs.user.controller.UserController;
 import org.slf4j.Logger;
@@ -16,8 +18,10 @@ import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 import springfox.documentation.spring.web.json.Json;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 @Component
 public class PanelSocketHandler extends TextWebSocketHandler {
@@ -27,7 +31,43 @@ public class PanelSocketHandler extends TextWebSocketHandler {
     JsonParser parser = new JsonParser();
 
     @Autowired
+    ChallengeService challengeService;
+
+    @Autowired
     MyChallengeService myChallengeService;
+
+//    PanelSocketHandler() {
+//        boolean flag = false;
+//        List<Challenge> challenges = challengeService.findAllByStatus(1);
+//        for (Challenge c : challenges) {
+//            LocalDate today = LocalDate.now();
+//            flag = false;
+//            if (c.getStatus() == 1) {
+//                c.setStatus(1);
+//                flag = true;
+//                if (c.getChallengeType() == 2) {
+//                    List<MyChallenge> myChallenges = myChallengeService.findAllByChallengeId(c.getChallengeId());
+//                    int teamIdx = 0;
+//                    ArrayList<RankVo> rankInfo = new ArrayList<>();
+//                    if (c.getGameType() == 1) {
+//                        for (MyChallenge mc : myChallenges) {
+//                            teamIdx++;
+//                            rankInfo.add(RankVo.builder().teamRank(1).PanelCount(0).teamId(teamIdx).build());
+//                        }
+//                    } else if (c.getGameType() == 2) {
+//                        rankInfo.add(RankVo.builder().teamRank(1).PanelCount(0).teamId(1).build());
+//                        rankInfo.add(RankVo.builder().teamRank(1).PanelCount(0).teamId(2).build());
+//                    }
+//                    Double cell_size = 50.0;// m다
+////                    int xd = (int) Math.ceil(getDistance(c.getLeftTopLat(), c.getRightBottomLng(), c.getRightBottomLat(), c.getRightBottomLng()) / (cell_size / 1000));
+////                    int yd = (int) Math.ceil(getDistance(c.getLeftTopLat(), c.getLeftTopLng(), c.getLeftTopLat(), c.getRightBottomLng()) / (cell_size / 1000));
+//
+////                    challengeManager.put(c.getChallengeId(), ChallengeVo.builder().players(new ArrayList<PlayerVo>()).mapInfo(new int[xd][yd]).rankInfo(rankInfo).build());
+//                }
+//                challengeService.save(c);
+//            }
+//        }
+//    }
 
     //있어야 되는거
     //0. 방이 만들어졌을 때 룸메니저에게 맵크기를 알려주기 -> 맵을 구획하고 만든사람을 방안에 넣어줌

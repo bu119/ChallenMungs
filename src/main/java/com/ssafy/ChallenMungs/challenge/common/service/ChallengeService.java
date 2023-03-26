@@ -40,4 +40,8 @@ public class ChallengeService {
     public void delete(Challenge challenge) {
         challengeRepository.delete(challenge);
     }
+
+    public List<Challenge> findAllByStatus(int i) {
+        return challengeRepository.findAllByStatus(i);
+    }
 }
