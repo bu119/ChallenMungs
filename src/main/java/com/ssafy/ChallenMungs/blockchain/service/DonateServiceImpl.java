@@ -27,7 +27,17 @@ public class DonateServiceImpl implements  DonateService{
 
     //------기부 관련-------
     @Override
-    public void addCollectAmount(int campaignId,int money,String memo,String loginId) {
+    public void donate(int campaignId,int money,String memo,String loginId) {
+        //기부금액 업데이트 및 목표금액 도달 체크
+        Campaign campaign=campaignRepo.findCampaignByCampaignId(campaignId);
+        addCollectAmount(campaignId,money);
+        //캠페인 응원 댓글 추가
+        addComment(campaign,memo,loginId);
+        //기부자의 기부금액 업데이트
+        updateUserDonate(loginId,money);
+    }
+    @Override
+    public void addCollectAmount(int campaignId,int money){
         Campaign campaign=campaignRepo.findCampaignByCampaignId(campaignId);
         //만약 이 기부로 목표금액이 다 채워진다면
         if(isEndFund(campaign,money)){
@@ -38,10 +48,6 @@ public class DonateServiceImpl implements  DonateService{
         int newCollected=campaign.getCollectAmount()+money;
         campaign.setCollectAmount(newCollected);
         campaignRepo.save(campaign);
-        //캠페인 응원 댓글 추가
-        addComment(campaign,memo,loginId);
-        //기부자의 기부금액 업데이트
-        updateUserDonate(loginId,money);
     }
     @Override
     public void addComment(Campaign campaign,String memo,String loginId){
@@ -76,23 +82,33 @@ public class DonateServiceImpl implements  DonateService{
         LocalDate ld = LocalDate.parse(date, dateformatter);
         return ld;
     }
-
-
     //------출금 관련-------
     @Override
+    public void transfer(int fromCampaignId,int toCampaignId,int money){
+        addCollectAmount(toCampaignId,money);
+        plusWithdraw(fromCampaignId,money);
+    }
+    @Override
     public void plusWithdraw(int campaignId, int money) {
-        //출금
+        //만약 isEnd가 true고 출금금액이 목표금액 이상이면 계좌 회수
+        Campaign campaign=campaignRepo.findCampaignByCampaignId(campaignId);
+        if(isEndCampaign(campaign,money)){
+            campaign.setWalletAddress("none");
+        }
+        //출금 금액 업데이트
+        int newWithdraw=campaign.getWithdrawAmount()+money;
+        campaign.setWithdrawAmount(newWithdraw);
+        campaignRepo.save(campaign);
+
     }
-
-
 
     @Override
-    public void isEndCampaign(Campaign campaign, int money) {
-
+    public boolean isEndCampaign(Campaign campaign, int money) {
+        if(campaign.isEnd()&&(campaign.getWithdrawAmount()+money)>=campaign.getTargetAmount()){
+            return true;
+        }
+        return false;
     }
 
-    @Override
-    public void returnAccount(int campaignId) {
 
-    }
 }
