@@ -3,9 +3,12 @@ package com.ssafy.challenmungs.di
 import android.content.Context
 import com.ssafy.challenmungs.AuthInterceptorClient
 import com.ssafy.challenmungs.NoAuthInterceptorClient
+import com.ssafy.challenmungs.WalletInterceptorClient
 import com.ssafy.challenmungs.common.util.Constants.BASE_URL
+import com.ssafy.challenmungs.common.util.Constants.KLAYTN_API_WALLET
 import com.ssafy.challenmungs.data.local.datasource.SharedPreferences
-import com.ssafy.challenmungs.data.remote.AuthInterceptor
+import com.ssafy.challenmungs.data.remote.interceptor.AuthInterceptor
+import com.ssafy.challenmungs.data.remote.interceptor.WalletAuthInterceptor
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -56,6 +59,24 @@ object NetworkModule {
 
     @Provides
     @Singleton
+    @WalletInterceptorClient
+    fun provideWalletHttpClient(
+        @ApplicationContext context: Context
+    ): OkHttpClient {
+        val loggingInterceptor = HttpLoggingInterceptor()
+        loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
+        val walletAuthInterceptor = WalletAuthInterceptor(SharedPreferences(context))
+        return OkHttpClient.Builder()
+            .readTimeout(10, TimeUnit.SECONDS)
+            .connectTimeout(10, TimeUnit.SECONDS)
+            .writeTimeout(10, TimeUnit.SECONDS)
+            .addInterceptor(loggingInterceptor)
+            .addInterceptor(walletAuthInterceptor)
+            .build()
+    }
+
+    @Provides
+    @Singleton
     @NoAuthInterceptorClient
     fun provideRetrofit(
         @NoAuthInterceptorClient okHttpClient: OkHttpClient
@@ -75,6 +96,18 @@ object NetworkModule {
         Retrofit.Builder()
             .addConverterFactory(GsonConverterFactory.create())
             .baseUrl(BASE_URL)
+            .client(okHttpClient)
+            .build()
+
+    @Provides
+    @Singleton
+    @WalletInterceptorClient
+    fun provideWalletRetrofit(
+        @WalletInterceptorClient okHttpClient: OkHttpClient
+    ): Retrofit =
+        Retrofit.Builder()
+            .addConverterFactory(GsonConverterFactory.create())
+            .baseUrl(KLAYTN_API_WALLET)
             .client(okHttpClient)
             .build()
 }
