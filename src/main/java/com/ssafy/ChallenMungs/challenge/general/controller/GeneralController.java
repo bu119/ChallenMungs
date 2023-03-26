@@ -76,9 +76,9 @@ public class GeneralController {
     }
 
     // 챌린지id로 챌린지를 조회하는 API
-    @GetMapping("/{challengeId}")
-    @ApiOperation(value = "챌린지를 조회하는 api입니다.", notes = "challengeId를 활용하여 조회합니다.")
-    public ResponseEntity<Challenge> findByChallengeId(@PathVariable("challengeId") Long challengeId) {
+    @GetMapping("/detail")
+    @ApiOperation(value = "챌린지 정보를 조회하는 api입니다.", notes = "challengeId를 활용하여 조회합니다.")
+    public ResponseEntity<Challenge> findByChallengeId(@RequestParam("challengeId") Long challengeId) {
         Challenge challenge = generalService.findByChallengeId(challengeId);
         if (challenge != null) {
             return ResponseEntity.ok(challenge);
