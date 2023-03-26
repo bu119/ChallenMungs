@@ -15,6 +15,7 @@ public class GeneralParticipantService {
         this.generalParticipantRepository = generalParticipantRepository;
     }
 
+    // 챌린지 참가자 테이블을 생성하는 함수
     public void saveParticipant(GeneralParticipant generalParticipant) {
         generalParticipantRepository.save(generalParticipant);
     }

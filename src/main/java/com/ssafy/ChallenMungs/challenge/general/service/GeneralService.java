@@ -16,11 +16,12 @@ public class GeneralService {
         this.generalRepository = generalRepository;
     }
 
+    // 챌린지를 생성하는 함수
     public Long saveChallenge(Challenge challenge) {
-
         return generalRepository.save(challenge).getChallengeId();
     }
 
+    // 챌린지 id를 활용하여 챌린지를 조회하는 함수
     public List<Challenge> findByChallengeId(Long challengeId) {
         return generalRepository.findByChallengeId(challengeId);
     }
