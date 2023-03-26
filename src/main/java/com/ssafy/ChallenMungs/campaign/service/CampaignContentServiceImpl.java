@@ -77,7 +77,6 @@ public class CampaignContentServiceImpl implements CampaignContentService{
         campaign.setTitle(info.getTitle());
         campaign.setTargetAmount(info.getTargetAmount());
         campaign.setRegistDate(getNowTime());
-        campaign.setEndDate(stringtoLocalDate(info.getEndDate()));
         campaign.setCollectAmount(0);
         campaign.setWithdrawAmount(0);
         campaign.setEnd(false);

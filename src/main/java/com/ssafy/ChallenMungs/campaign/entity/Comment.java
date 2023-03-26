@@ -2,6 +2,7 @@ package com.ssafy.ChallenMungs.campaign.entity;
 
 
 
+import com.ssafy.ChallenMungs.user.entity.User;
 import lombok.*;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
@@ -24,10 +25,15 @@ public class Comment {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Campaign campaign;
 
-    @Column(name = "writer")
-    private String writer;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="login_id")
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private User user;
+
     @Column(name = "msg")
     private String msg;
+
+
 
 
 }
