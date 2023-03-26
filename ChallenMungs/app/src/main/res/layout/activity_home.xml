@@ -36,6 +36,7 @@
             <include
                 android:id="@+id/tab_my_page"
                 layout="@layout/item_bottom_menu" />
+
         </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
