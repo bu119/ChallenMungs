@@ -1,7 +1,6 @@
 package com.ssafy.challenmungs.presentation.challenge
 
 import android.graphics.Bitmap
-import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.VectorDrawable
 import androidx.core.content.ContextCompat
@@ -15,6 +14,7 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.*
 import com.ssafy.challenmungs.R
+import com.ssafy.challenmungs.common.util.px
 import com.ssafy.challenmungs.databinding.FragmentPanelPlayBinding
 import com.ssafy.challenmungs.presentation.base.BaseFragment
 
@@ -26,8 +26,6 @@ class PanelPlayFragment : BaseFragment<FragmentPanelPlayBinding>(R.layout.fragme
     private var myMarker: Marker? = null
 
     override fun initView() {
-        val toolbar = binding.toolbar
-        toolbar.tvTitle.text = "임의의 챌린지 제목입니다."
         val mapFragment =
             childFragmentManager.findFragmentById(R.id.fcv_google_map) as SupportMapFragment?
         mapFragment?.getMapAsync(this)
@@ -48,32 +46,28 @@ class PanelPlayFragment : BaseFragment<FragmentPanelPlayBinding>(R.layout.fragme
                 }
             }
 
-            val profileImg =
-                "https://kr.object.ncloudstorage.com/challenmungs-storage/user/e39faf10-48c3-4deb-99dc-0d12df102499ic_profile.png"
+            val profileImg = getString(R.string.default_profile_url)
             createMyMarker(this, profileImg)
         }
     }
 
     private fun setTile(googleMap: GoogleMap, fillColorArgb: Int, center: LatLng) {
         val rectOptions = PolygonOptions().apply {
-            addAll(createRectangle(center, DISTANCE, DISTANCE))
+            addAll(createRectangle(center))
             fillColor(ContextCompat.getColor(requireContext(), fillColorArgb))
-            strokeWidth(1f)
+            strokeWidth(0f)
         }
         panels.add(googleMap.addPolygon(rectOptions))
     }
 
     private fun createRectangle(
         center: LatLng,
-        halfWidth: Double,
-        halfHeight: Double
     ): List<LatLng> {
         return listOf(
-            LatLng(center.latitude - halfHeight, center.longitude - halfWidth),
-            LatLng(center.latitude - halfHeight, center.longitude + halfWidth),
-            LatLng(center.latitude + halfHeight, center.longitude + halfWidth),
-            LatLng(center.latitude + halfHeight, center.longitude - halfWidth),
-            LatLng(center.latitude - halfHeight, center.longitude - halfWidth),
+            LatLng(center.latitude - DISTANCE, center.longitude - DISTANCE),
+            LatLng(center.latitude - DISTANCE, center.longitude + DISTANCE),
+            LatLng(center.latitude + DISTANCE, center.longitude + DISTANCE),
+            LatLng(center.latitude + DISTANCE, center.longitude - DISTANCE),
         )
     }
 
@@ -81,15 +75,14 @@ class PanelPlayFragment : BaseFragment<FragmentPanelPlayBinding>(R.layout.fragme
         Glide.with(this@PanelPlayFragment)
             .asBitmap()
             .load(profileImg)
-            .placeholder(R.drawable.ic_dog_calendar)
-            .error(R.drawable.ic_treasure_close)
+            .placeholder(R.drawable.ic_profile_default)
+            .error(R.drawable.ic_profile_default)
             .into(object : CustomTarget<Bitmap>() {
                 override fun onResourceReady(
                     resource: Bitmap,
                     transition: Transition<in Bitmap>?
                 ) {
-                    val scale = context!!.resources.displayMetrics.density
-                    val pixels = (30 * scale + 0.5f).toInt()
+                    val pixels = 30.px(requireContext())
                     val bitmap =
                         Bitmap.createScaledBitmap(resource, pixels, pixels, true)
                     myMarker?.remove()
@@ -103,48 +96,32 @@ class PanelPlayFragment : BaseFragment<FragmentPanelPlayBinding>(R.layout.fragme
 
                 override fun onLoadStarted(placeholder: Drawable?) {
                     super.onLoadStarted(placeholder)
-                    val bitmapDrawable = placeholder as VectorDrawable
-                    val bitmap = bitmapDrawable.toBitmap()
-                    myMarker?.remove()
-                    myMarker = googleMap.addMarker(
-                        MarkerOptions()
-                            .position(defaultPosition)
-                            .icon(
-                                BitmapDescriptorFactory.fromBitmap(bitmap)
-                            )
-                            .anchor(0.5f, 0.5f)
-                    )
+                    replaceDrawableMarker(googleMap, placeholder)
                 }
 
                 override fun onLoadFailed(errorDrawable: Drawable?) {
                     super.onLoadFailed(errorDrawable)
-                    val bitmapDrawable = errorDrawable as VectorDrawable
-                    val bitmap = bitmapDrawable.toBitmap()
-                    myMarker?.remove()
-                    myMarker = googleMap.addMarker(
-                        MarkerOptions()
-                            .position(defaultPosition)
-                            .icon(
-                                BitmapDescriptorFactory.fromBitmap(bitmap)
-                            )
-                            .anchor(0.5f, 0.5f)
-                    )
+                    replaceDrawableMarker(googleMap, errorDrawable)
                 }
 
                 override fun onLoadCleared(placeholder: Drawable?) {
-                    val bitmapDrawable = placeholder as BitmapDrawable
-                    val bitmap = bitmapDrawable.bitmap
-                    myMarker?.remove()
-                    myMarker = googleMap.addMarker(
-                        MarkerOptions()
-                            .position(defaultPosition)
-                            .icon(
-                                BitmapDescriptorFactory.fromBitmap(bitmap)
-                            )
-                            .anchor(0.5f, 0.5f)
-                    )
+                    replaceDrawableMarker(googleMap, placeholder)
                 }
             })
+    }
+
+    fun replaceDrawableMarker(googleMap: GoogleMap, drawable: Drawable?) {
+        val bitmapDrawable = drawable as VectorDrawable
+        val bitmap = bitmapDrawable.toBitmap()
+        myMarker?.remove()
+        myMarker = googleMap.addMarker(
+            MarkerOptions()
+                .position(defaultPosition)
+                .icon(
+                    BitmapDescriptorFactory.fromBitmap(bitmap)
+                )
+                .anchor(0.5f, 0.5f)
+        )
     }
 
     companion object {
