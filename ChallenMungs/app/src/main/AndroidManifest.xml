@@ -56,6 +56,10 @@
             </intent-filter>
         </activity>
 
+        <activity
+            android:name=".presentation.home.HomeActivity"
+            android:exported="false" />
+
     </application>
 
 </manifest>
