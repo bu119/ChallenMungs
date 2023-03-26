@@ -41,7 +41,7 @@
         </activity>
 
         <activity
-            android:name=".presentation.home.HomeActivity"
+            android:name=".presentation.MainActivity"
             android:exported="true"
             android:theme="@style/Theme.Splash">
 
@@ -53,8 +53,8 @@
         </activity>
 
         <activity
-            android:name=".presentation.MainActivity"
-            android:exported="true" />
+            android:name=".presentation.home.HomeActivity"
+            android:exported="false" />
 
     </application>
 
