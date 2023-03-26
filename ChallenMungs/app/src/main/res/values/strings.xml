@@ -27,7 +27,7 @@
     <string name="image_my_campaign">image_my_campaign_icon</string>
     <string name="image_cheer_campaign">image_cheer_campaign_icon</string>
     <string name="title_my_wallet">내 지갑</string>
-    <string name="title_donate_bank">기부저금통</string>
+    <string name="title_donate_bank">기부 저금통</string>
     <string name="content_logout">로그아웃</string>
     <string name="title_my_campaign">내가 기부한 캠페인</string>
     <string name="content_unit">KLAY</string>
@@ -67,6 +67,10 @@
     <string name="content_donation">기부액</string>
     <string name="content_shelter">기부처</string>
     <string name="content_donation_date">기부 날짜</string>
+
+    <!--  Piggy Bank  -->
+    <string name="content_donation_possible_amount">기부 가능 금액</string>
+    <string name="content_donate">기부하기</string>
 
     <!-- Permission -->
     <string name="image_camera">카메라 아이콘입니다.</string>
