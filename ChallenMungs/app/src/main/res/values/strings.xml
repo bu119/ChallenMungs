@@ -39,7 +39,7 @@
 
     <!-- My Wallet -->
     <string name="title_current_balance">현재 잔액</string>
-    <string name="image_klay">klay_icon</string>
+    <string name="image_klay">KLAY_icon</string>
     <string name="content_address_copy"><u>주소 복사</u></string>
     <string name="content_challenge_participation">챌린지 참여</string>
     <string name="image_bank_statement_item_icon">image_bank_statement_item_icon</string>
@@ -86,4 +86,12 @@
     <string name="title_permission_gps">위치 정보 (선택)</string>
     <string name="content_permission_gps">특별 챌린지(판넬뒤집기, 보물찾기)의 목록 조회와 특별챌린지 이용, 그리고 주변 상권 조회를 위한 접근</string>
     <string name="content_check">확인</string>
+
+    <!-- Donation Details -->
+    <string name="content_donation_number">기부건수</string>
+    <string name="content_donation_number_unit">건</string>
+    <string name="content_totality_donation">총 기부액</string>
+    <string name="content_year">%s년</string>
+    <string name="title_total_contribution">누적 기부액</string>
+
 </resources>
