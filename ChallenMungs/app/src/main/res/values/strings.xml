@@ -27,7 +27,7 @@
     <string name="image_my_campaign">image_my_campaign_icon</string>
     <string name="image_cheer_campaign">image_cheer_campaign_icon</string>
     <string name="title_my_wallet">내 지갑</string>
-    <string name="title_donate_bank">기부저금통</string>
+    <string name="title_donate_bank">기부 저금통</string>
     <string name="content_logout">로그아웃</string>
     <string name="title_my_campaign">내가 기부한 캠페인</string>
     <string name="content_unit">KLAY</string>
