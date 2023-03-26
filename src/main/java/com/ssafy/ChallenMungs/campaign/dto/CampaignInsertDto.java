@@ -19,7 +19,5 @@ public class CampaignInsertDto {
     String thumbnail;
     int targetAmount;
 
-
-    String endDate;
     List<ContentDto> contentList;
 }
