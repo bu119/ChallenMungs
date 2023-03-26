@@ -6,7 +6,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".presentation.mypage.MyWallet">
+        tools:context=".presentation.mypage.MyWalletFragment">
 
         <include
             android:id="@+id/toolbar"
@@ -23,7 +23,7 @@
             app:layout_constraintTop_toBottomOf="@id/toolbar">
 
             <TextView
-                android:id="@+id/tv_current_balance_name"
+                android:id="@+id/tv_current_balance_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="40dp"
@@ -43,9 +43,9 @@
                 android:layout_marginStart="6dp"
                 android:contentDescription="@string/image_klay"
                 android:src="@drawable/ic_klay"
-                app:layout_constraintBottom_toBottomOf="@id/tv_current_balance_name"
-                app:layout_constraintStart_toEndOf="@id/tv_current_balance_name"
-                app:layout_constraintTop_toTopOf="@id/tv_current_balance_name" />
+                app:layout_constraintBottom_toBottomOf="@id/tv_current_balance_title"
+                app:layout_constraintStart_toEndOf="@id/tv_current_balance_title"
+                app:layout_constraintTop_toTopOf="@id/tv_current_balance_title" />
 
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:id="@+id/ll_current_balance"
@@ -54,7 +54,7 @@
                 android:orientation="horizontal"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_current_balance_name">
+                app:layout_constraintTop_toBottomOf="@id/tv_current_balance_title">
 
                 <TextView
                     android:id="@+id/tv_current_balance_amount"
