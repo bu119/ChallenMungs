@@ -56,10 +56,14 @@ public class PanelSocketHandler extends TextWebSocketHandler {
             String loginId = data.getAsJsonObject().get("LoginId").getAsString();
             MyChallenge myChallenge = myChallengeService.findByLoginIdAndChallengeId(loginId, challengeId);
             int myTeamId = myChallenge.getTeamId();
-            
             // 챌린지메니저에 등록한다
-            challengeManager.get(challengeId).getPlayers().add(PlayerVo.builder().session(session).team_id(myTeamId).ranking(0).build());
-            // 현재 맵정보 준다
+            challengeManager.get(challengeId).getPlayers().add(PlayerVo.builder().session(session).loginId(loginId).teamId(myTeamId).build());
+            // 현재 맵정보와 랭킹정보 준다
+            HashMap<String, Object> dto = new HashMap<>();
+            dto.put("code", "access");
+            dto.put("mapInfo", challengeManager.get(challengeId).mapInfo);
+            dto.put("rankInfo", challengeManager.get(challengeId).rankInfo);
+            session.sendMessage(new TextMessage(mapper.writeValueAsString(dto)));
         }
     }
 

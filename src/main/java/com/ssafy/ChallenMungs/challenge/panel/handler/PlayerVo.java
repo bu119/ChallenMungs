@@ -11,7 +11,7 @@ import java.util.ArrayList;
 @Builder
 public class PlayerVo extends ArrayList<PlayerVo> {
     WebSocketSession session;
-    int ranking;
-    int team_id;
+    String loginId;
+    int teamId;
 
 }

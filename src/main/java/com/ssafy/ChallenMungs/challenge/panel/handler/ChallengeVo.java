@@ -1,7 +1,6 @@
 package com.ssafy.ChallenMungs.challenge.panel.handler;
 
 import lombok.*;
-import org.springframework.web.socket.WebSocketSession;
 
 import java.util.ArrayList;
 
@@ -13,4 +12,6 @@ import java.util.ArrayList;
 public class ChallengeVo {
     ArrayList<PlayerVo> players;
     int [] [] mapInfo;
+    ArrayList<RankVo> rankInfo;
+
 }
