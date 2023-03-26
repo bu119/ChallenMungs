@@ -59,6 +59,7 @@ public class GeneralController {
                         .campaignId(campaignId)
                         .successCondition(successCondition)
                         .challengeType(1)
+                        .status(0)
                         .build()
         );
 
@@ -85,8 +86,6 @@ public class GeneralController {
             return ResponseEntity.notFound().build();
         }
     }
-
-
 
 
 }
