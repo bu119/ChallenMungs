@@ -83,9 +83,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
                 android:background="@drawable/bg_rect_golden_glow_radius5"
-                android:paddingHorizontal="40dp"
+                android:paddingHorizontal="50dp"
                 android:paddingVertical="15dp"
-                android:text="@string/content_challenge_participation"
+                android:text="@string/content_donate"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/ll_current_balance" />

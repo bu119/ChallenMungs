@@ -70,4 +70,5 @@
 
     <!--  Piggy Bank  -->
     <string name="content_donation_possible_amount">기부 가능 금액</string>
+    <string name="content_donate">기부하기</string>
 </resources>
