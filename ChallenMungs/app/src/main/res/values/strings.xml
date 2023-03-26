@@ -72,6 +72,21 @@
     <string name="content_donation_possible_amount">기부 가능 금액</string>
     <string name="content_donate">기부하기</string>
 
+    <!-- Permission -->
+    <string name="image_camera">카메라 아이콘입니다.</string>
+    <string name="image_gallery">갤러리 아이콘입니다.</string>
+    <string name="image_gps">gps 아이콘입니다.</string>
+    <string name="title_permission">접근 권한 안내</string>
+    <string name="content_permission_main">챌린멍스 서비스 사용을 위해\n아래의 접근 권한 동의가 필요합니다.</string>
+    <string name="content_permission_sub">권한을 승인하지 않아도 서비스 이용은 가능하지만 해당 기능을 사용하실 수 없으며, 해당 기능을 사용할 때 다시 접근 권한에 대한 동의 요청을 받게됩니다.</string>
+    <string name="title_permission_camera">카메라 (선택)</string>
+    <string name="content_permission_camera">일반 챌린지 인증 사진 촬영을 위한 접근</string>
+    <string name="title_permission_gallery">갤러리 (선택)</string>
+    <string name="content_permission_gallery">일반 챌린지 인증 사진 업로드를 위한 접근</string>
+    <string name="title_permission_gps">위치 정보 (선택)</string>
+    <string name="content_permission_gps">특별 챌린지(판넬뒤집기, 보물찾기)의 목록 조회와 특별챌린지 이용, 그리고 주변 상권 조회를 위한 접근</string>
+    <string name="content_check">확인</string>
+
     <!-- Donation Details -->
     <string name="content_donation_number">기부건수</string>
     <string name="content_donation_number_unit">건</string>
