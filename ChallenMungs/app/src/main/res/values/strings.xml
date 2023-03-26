@@ -67,4 +67,7 @@
     <string name="content_donation">기부액</string>
     <string name="content_shelter">기부처</string>
     <string name="content_donation_date">기부 날짜</string>
+
+    <!--  Piggy Bank  -->
+    <string name="content_donation_possible_amount">기부 가능 금액</string>
 </resources>
