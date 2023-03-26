@@ -77,15 +77,20 @@ public class GeneralController {
 
     // 챌린지id로 챌린지를 조회하는 API
     @GetMapping("/{challengeId}")
-    @ApiOperation(value = "챌린지를 조회하는 api입니다.",notes = "challengeId를 활용하여 조회합니다.")
-    public ResponseEntity<List<Challenge>> findByChallengeId(@RequestParam("challengeId") Long challengeId) {
-        List<Challenge> challenges = generalService.findByChallengeId(challengeId);
-        if (!challenges.isEmpty()) {
-            return ResponseEntity.ok(challenges);
+    @ApiOperation(value = "챌린지를 조회하는 api입니다.", notes = "challengeId를 활용하여 조회합니다.")
+    public ResponseEntity<Challenge> findByChallengeId(@PathVariable("challengeId") Long challengeId) {
+        Challenge challenge = generalService.findByChallengeId(challengeId);
+        if (challenge != null) {
+            return ResponseEntity.ok(challenge);
         } else {
             return ResponseEntity.notFound().build();
         }
     }
+
+
+//    @PostMapping("/{challengeId}/enter")
+//    @ApiOperation(value = "챌린지에 입장하는 api입니다.",notes = "challengeId를 활용하여 입장합니다.")
+
 
 
 }
