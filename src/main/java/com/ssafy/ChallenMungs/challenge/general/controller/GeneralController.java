@@ -88,9 +88,54 @@ public class GeneralController {
     }
 
 
-//    @PostMapping("/{challengeId}/enter")
-//    @ApiOperation(value = "챌린지에 입장하는 api입니다.",notes = "challengeId를 활용하여 입장합니다.")
+    // 챌린지에 참가하는 API
+    @PutMapping("/tokenConfirm/entry")
+    @ApiOperation(value = "챌린지 참가자 인원을 추가하는 api입니다.", notes = "challengeId를 활용하여 조회한 뒤, currentParticipantCount에 1을 더하여 수정합니다.")
+    public ResponseEntity<String> entryChallenge(HttpServletRequest request, @RequestParam("challengeId") Long challengeId) {
+        // 이미 참여한 챌린지인지 확인안함 - 백에서 하는건가? /////////////////////////////
+        // 챌린지 인원이 다찼는지 확인안함 - 백에서 필요한지? /////////////////////////////
+        try {
+            generalService.entryChallenge(challengeId);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
 
+        String loginId = request.getAttribute("loginId").toString();
 
+        // 챌린지 참가자 테이블 추가
+        generalParticipantService.saveParticipant(
+                GeneralParticipant.builder()
+                        .loginId(loginId)
+                        .challengeId(challengeId)
+                        .successCount(0)
+                        .build()
+        );
+
+        return ResponseEntity.ok("챌린지에 참가하셨습니다.");
+    }
+//    public ResponseEntity<String> updateChallengeParticipants(@PathVariable("challengeId") Long challengeId, @RequestParam("participants") int participants) {
+//        Challenge challenge = generalService.findByChallengeId(challengeId);
+//        if (challenge != null) {
+//            challenge.setCurrentParticipantCount(participants);
+//            generalService.saveChallenge(challenge);
+//            return ResponseEntity.ok("챌린지 인원이 수정되었습니다.");
+//        } else {
+//            return ResponseEntity.notFound().build();
+//        }
+//    }
+
+    // 챌린지에서 나가는 API
+    @PutMapping("/tokenConfirm/leave")
+    @ApiOperation(value = "챌린지 참가자 인원을 감소시키는 api입니다.", notes = "challengeId를 활용하여 조회한 뒤, currentParticipantCount에 1을 뺍니다. 참가자가 없다면 챌린지를 석제합니다.")
+    public ResponseEntity<String> leaveChallenge(HttpServletRequest request, @RequestParam("challengeId") Long challengeId) {
+        String loginId = request.getAttribute("loginId").toString();
+        // 참여한 챌린지인지 확인안함 - 백에서 필요한지? ///////////////////////////////
+        // 백에서 확인하고 삭제해야하니?? ////////////////////////////////////////////
+        generalService.leaveChallenge(challengeId);
+        // 챌린지 참가자 테이블에서 해당 참가자 삭제
+        generalParticipantService.deleteParticipant(challengeId, loginId);
+        return ResponseEntity.ok("챌린지에서 나갔습니다.");
+    }
+    
 
 }

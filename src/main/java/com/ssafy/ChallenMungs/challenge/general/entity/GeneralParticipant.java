@@ -2,9 +2,7 @@ package com.ssafy.ChallenMungs.challenge.general.entity;
 
 import lombok.*;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity(name="general_participant")
 @Getter
@@ -14,6 +12,9 @@ import javax.persistence.Id;
 @Builder
 public class GeneralParticipant {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    Long participantId;
+
     @Column(name = "login_id")
     String loginId;
 
