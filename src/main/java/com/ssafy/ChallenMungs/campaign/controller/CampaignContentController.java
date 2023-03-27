@@ -24,7 +24,7 @@ public class CampaignContentController {
      private final CampaignContentService  service;
      Response res=new Response();
 
-    private Logger logger = LoggerFactory.getLogger(UserController.class);
+    private Logger logger = LoggerFactory.getLogger(CampaignContentController.class);
      @PostMapping("/create")
      @ApiOperation(value = "캠페인을 생성합니다. 로그인아이디는 꼭 db에 있는걸로 넣으세요." ,notes=" 캠페인 제목, 후원처아이디,종료일(yyyy-mm-dd) 썸네일 이미지 링크, 내용 리스트가 필요합니다. \n " +
              "내용 리스트의 아이템 하나는 type(img,bold,nomal)과 body(이미지 링크 혹은 내용)이 필요합니다.\n " +
