@@ -58,8 +58,11 @@ dependencies {
     // Glide
     implementation libs.glide
     annotationProcessor libs.glide.compiler
+
+    // GoogleMap
+    implementation libs.google.map
 }
 
-kapt{
+kapt {
     correctErrorTypes true
 }
