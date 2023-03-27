@@ -149,7 +149,7 @@ public class ChallengeController {
 
 
     @PostMapping("/tokenConfirm/getInChallenge")
-    ResponseEntity getInChallenge(HttpServletRequest request, @RequestParam("challengeId") long challengeId, @RequestParam("teamId") Integer teamId) {
+    ResponseEntity getInChallenge(HttpServletRequest request, @RequestParam("challengeId") long challengeId, @RequestParam(name = "teamId", required = false) Integer teamId) {
         Challenge challenge = challengeService.findByChallengeId(challengeId);
         if (challenge.getCurrentParticipantCount() >= challenge.getMaxParticipantCount()) {
             log.info("이미 풀방이라 들어갈 수 없어요!");
