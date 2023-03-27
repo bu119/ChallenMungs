@@ -96,11 +96,16 @@ public class ChallengeScheduler {
                         sb.append(mapper.writeValueAsString(panelSocketHandler.challengeManager.get(c.getChallengeId()).getMapInfo()));
                         sb.append(",\nrankInfo:");
                         sb.append(mapper.writeValueAsString(panelSocketHandler.challengeManager.get(c.getChallengeId()).getRankInfo()));
+                        sb.append(",\ncenterLat:");
+                        sb.append(c.getCenterLat());
+                        sb.append(",\ncenterLng:");
+                        sb.append(c.getCenterLng());
                         sb.append("\n}");
                     } catch (JsonProcessingException e) {
                         throw new RuntimeException(e);
                     }
                     fileManager.saveResult(Long.toString(c.getChallengeId()), sb.toString());
+                    panelSocketHandler.challengeManager.remove(c.getChallengeId());
                 }
             }
             if (flag) {

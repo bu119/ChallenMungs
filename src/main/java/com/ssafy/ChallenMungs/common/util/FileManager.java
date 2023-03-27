@@ -25,14 +25,21 @@ public class FileManager {
     void init() {
         if (System.getProperty("os.name").substring(0, 3).equals("Win")) directoryPath = windowsPath;
         else directoryPath = ubuntuPath;
+        System.out.println(directoryPath);
         File directory = new File(directoryPath);
-        File[] files = directory.listFiles();
-        for (File file : files) {
-            System.out.println(file.getName());
-            if (file.isFile()) {
-                file.delete();
-            }
-        }
+        System.out.println("디렉터리:::" + directory + "  " + directory.exists());
+        if (!directory.exists()) directory.mkdirs();
+        System.out.println("디렉터리:::" + directory + "  " + directory.exists());
+        File directory2 = new File("/home");
+        System.out.println("디렉터리:::" + directory2 + "  " + directory2.exists());
+//        File[] files = directory.listFiles();
+//        System.out.println("파일스:::" + files);
+//        for (File file : files) {
+//            System.out.println(file.getName());
+//            if (file.isFile()) {
+//                file.delete();
+//            }
+//        }
     }
 
     public void saveResult(String title, String content) {

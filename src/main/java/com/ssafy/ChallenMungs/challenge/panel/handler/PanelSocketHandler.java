@@ -82,7 +82,7 @@ public class PanelSocketHandler extends TextWebSocketHandler {
         String event = element.getAsJsonObject().get("event").getAsString();
         JsonElement data = element.getAsJsonObject().get("data").getAsJsonObject();
         if (event.equals("access")) {
-            log.info("누군가가 게임에 접속했어요 데이터:" + data);
+            log.info("누군가가 산책을 시작했어요 데이터:" + data);
             Long challengeId = data.getAsJsonObject().get("challengeId").getAsLong();
             String loginId = data.getAsJsonObject().get("loginId").getAsString();
             MyChallenge myChallenge = myChallengeService.findByLoginIdAndChallengeId(loginId, challengeId);
@@ -93,7 +93,7 @@ public class PanelSocketHandler extends TextWebSocketHandler {
             HashMap<String, Object> dto = new HashMap<>();
             dto.put("code", "access");
             HashMap<String, Object> value = new HashMap<>();
-            dto.put("data", value);
+            dto.put("value", value);
             value.put("mapInfo", challengeManager.get(challengeId).mapInfo);
             value.put("rankInfo", challengeManager.get(challengeId).rankInfo);
             session.sendMessage(new TextMessage(mapper.writeValueAsString(dto)));
@@ -136,7 +136,7 @@ public class PanelSocketHandler extends TextWebSocketHandler {
             HashMap<String, Object> mapDto = new HashMap<String, Object>();
             mapDto.put("code", "signaling");
             HashMap<String, Object> subMap = new HashMap<String, Object>();
-            mapDto.put("data", subMap);
+            mapDto.put("value", subMap);
             subMap.put("indexR", index_r);
             subMap.put("indexC", index_c);
             subMap.put("teamId", myChallenge.getTeamId());
@@ -146,6 +146,8 @@ public class PanelSocketHandler extends TextWebSocketHandler {
             for (PlayerVo pv : challengeManager.get(challengeId).players) {
                 pv.session.sendMessage(dto);
             }
+        } else if (event.equals("getInfo")) {
+            log.info("게임 중 정보를 불러와요");
         }
     }
 
