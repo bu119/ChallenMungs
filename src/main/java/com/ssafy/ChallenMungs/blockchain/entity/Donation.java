@@ -32,6 +32,9 @@ public class Donation {
     @Column(name = "total_money")
     int totalMoney;
 
+    @Column(name = "year")
+    int year;
+
     @Column(name = "donate_date")
     private LocalDateTime donateDate;
 
