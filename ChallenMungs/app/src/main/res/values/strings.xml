@@ -55,6 +55,7 @@
     <string name="profile_edit">profile_edit_icon</string>
     <string name="profile_image">profile_image</string>
     <string name="title_password_change">비밀번호 변경</string>
+    <string name="title_withdrawal_wallet_address">출금받을 지갑 주소</string>
     <string name="content_change">변경</string>
     <string name="content_cancel">취소</string>
     <string name="content_new_password_check">새로운 비밀번호 확인</string>
@@ -93,6 +94,7 @@
     <string name="content_totality_donation">총 기부액</string>
     <string name="content_year">%s년</string>
     <string name="title_total_contribution">누적 기부액</string>
+    <string name="content_close">닫기</string>
 
     <!--  Information Toolbar  -->
     <string name="title_info">정보</string>
