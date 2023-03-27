@@ -114,4 +114,12 @@
     <string name="content_progress">(%d%)</string>
     <string name="image_heart_icon">image_heart_icon</string>
     <string name="image_campaign_banner">image_banner</string>
+
+    <!--  Challenge Card  -->
+    <string name="content_period">%s ~ %s</string>
+    <string name="content_treasure">보물</string>
+    <string name="content_headcount">%d/%d</string>
+    <string name="content_normal">일반</string>
+    <string name="content_panel_individual">판넬(개)</string>
+    <string name="content_panel_team">판넬(팀)</string>
 </resources>
