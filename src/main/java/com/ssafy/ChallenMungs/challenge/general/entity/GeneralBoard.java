@@ -30,6 +30,6 @@ public class GeneralBoard {
     @Column(name = "reject_count")
     Integer rejectCount;
 
-    @Column(name = "register_day")
+    @Column(name = "register_day", columnDefinition = "DATE")
     LocalDate registerDay;
 }

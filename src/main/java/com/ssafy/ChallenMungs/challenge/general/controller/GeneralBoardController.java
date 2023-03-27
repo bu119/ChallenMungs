@@ -22,7 +22,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 @RestController
-@RequestMapping("/board")
+@RequestMapping("/generalBoard")
 @CrossOrigin("*")
 @Api(value = "generalChallengeBoard", description = "일반챌린지 게시판를 관리하는 컨트롤러에요!")
 public class GeneralBoardController {
@@ -50,6 +50,8 @@ public class GeneralBoardController {
         } catch (IOException e) {
             return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).build();
         }
+
+        log.info("사진: ", url);
 
         String loginId = request.getAttribute("loginId").toString();
         LocalDate today = LocalDate.now();

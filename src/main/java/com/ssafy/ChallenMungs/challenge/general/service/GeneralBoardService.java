@@ -17,7 +17,8 @@ public class GeneralBoardService {
 
     // 인증을 사진을 등록하는 함수
     public Integer savePicture(GeneralBoard generalBoard) {
-        return boardRepository.save(generalBoard).getBoardId();
+        boardRepository.save(generalBoard);
+        return generalBoard.getBoardId();
     }
 
     // today에 등록된 글 가져오기
