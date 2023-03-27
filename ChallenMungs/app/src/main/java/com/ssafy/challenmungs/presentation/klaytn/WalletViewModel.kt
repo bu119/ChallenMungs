@@ -9,7 +9,7 @@ import com.ssafy.challenmungs.data.remote.Resource
 import com.ssafy.challenmungs.domain.entity.klaytn.Account
 import com.ssafy.challenmungs.domain.usecase.klaytn.CreateAccountUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.async
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -17,23 +17,18 @@ class WalletViewModel @Inject constructor(
     private val createAccountUseCase: CreateAccountUseCase
 ) : ViewModel() {
 
-    private val _address: MutableLiveData<ArrayList<String>> = MutableLiveData(arrayListOf())
+    private val _address: MutableLiveData<ArrayList<String>> = MutableLiveData()
     val address: LiveData<ArrayList<String>> = _address
 
-    suspend fun createAccount() = viewModelScope.async {
+    fun createAccount() = viewModelScope.launch {
         when (val value = createAccountUseCase()) {
             is Resource.Success<Account> -> {
                 if (address.value == null)
                     _address.value = arrayListOf()
-
                 _address.value!!.add(value.data.address)
-                Log.d("createAccount", "createAccount: ${address.value}")
-                return@async true
             }
-            is Resource.Error -> {
+            is Resource.Error ->
                 Log.e("createAccount", "createAccount: ${value.errorMessage}")
-                return@async false
-            }
         }
-    }.await()
+    }
 }
