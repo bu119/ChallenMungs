@@ -5,6 +5,7 @@ import com.ssafy.ChallenMungs.campaign.dto.CampaignShelterDto;
 import com.ssafy.ChallenMungs.campaign.service.CampaignListService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -36,10 +37,13 @@ public class CampaignListController {
     @ApiOperation(value = "보호소 캠페인", notes = "보호소로 로그인시 자신의 캠페인 목록을 조회하는 api 입니다.")
     public ResponseEntity<List<CampaignShelterDto>> getShelter(@RequestParam String loginId){
         return new ResponseEntity<List<CampaignShelterDto>>(service.getShelter(loginId), HttpStatus.OK);
-
     }
 
-
     // 내가 응원한 캠페인 리스트
+    @GetMapping("/myLove")
+    @ApiOperation(value = "내가 응원한 캠페인", notes = "사용자가 응원한 캠페인 목록을 조회하는 api 입니다.")
+    public ResponseEntity<List<CampaignDto>> getUserLove(@RequestParam String loginId){
+        return new ResponseEntity<List<CampaignDto>>(service.getUserLove(loginId), HttpStatus.OK);
+    }
     
 }
