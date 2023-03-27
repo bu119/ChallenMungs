@@ -55,7 +55,6 @@ public class PanelSocketHandler extends TextWebSocketHandler {
                 rankInfo.add(RankVo.builder().teamRank(1).PanelCount(0).teamId(1).build());
                 rankInfo.add(RankVo.builder().teamRank(1).PanelCount(0).teamId(2).build());
             }
-            System.out.println("::" + challengeManager);
             challengeManager.put(c.getChallengeId(), ChallengeVo.builder().players(new ArrayList<PlayerVo>()).mapInfo(new int[c.getCellD()][c.getCellD()]).rankInfo(rankInfo).build());
         }
     }
