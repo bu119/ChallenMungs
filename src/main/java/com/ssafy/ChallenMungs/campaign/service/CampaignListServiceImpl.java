@@ -4,12 +4,17 @@ import com.ssafy.ChallenMungs.campaign.dto.CampaignDto;
 import com.ssafy.ChallenMungs.campaign.dto.CampaignShelterDto;
 import com.ssafy.ChallenMungs.campaign.dto.ContentDto;
 import com.ssafy.ChallenMungs.campaign.entity.Campaign;
+import com.ssafy.ChallenMungs.campaign.entity.Love;
 import com.ssafy.ChallenMungs.campaign.repository.CampaignContentRepository;
 import com.ssafy.ChallenMungs.campaign.repository.CampaignListRepository;
 import com.ssafy.ChallenMungs.campaign.repository.LoveRepository;
+import com.ssafy.ChallenMungs.place.service.PlaceServiceImpl;
 import com.ssafy.ChallenMungs.user.entity.User;
 import com.ssafy.ChallenMungs.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -24,10 +29,10 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class CampaignListServiceImpl implements CampaignListService {
     private final CampaignListRepository jpaRepo;
-
     private final CampaignContentRepository contentRepo;
     private final UserRepository userRepo;
     private final LoveRepository loveRepo;
+    private Logger log = LoggerFactory.getLogger(CampaignListServiceImpl.class);
 
 //    List<CampaignDto> test(){
 //        List <CampaignDto> list=getCampaign("",1);
@@ -138,6 +143,19 @@ public class CampaignListServiceImpl implements CampaignListService {
     // 해당 유저가 응원한 캠페인 목록
     @Override
     public List<CampaignDto> getUserLove(String loginId) {
-        return null;
+        User loginUser = userRepo.findUserByLoginId(loginId);
+
+        //love에서 로그인 아이디와 일치하는 캠페인 아이디 뽑기
+        List<Love> loveCampaigns = loveRepo.findAllByUser(loginUser);
+        List<Integer> campaignIds=new ArrayList<>();
+        for(Love loveItem:loveCampaigns){
+            campaignIds.add(loveItem.getCampaign().getCampaignId());
+        }
+        //캠페인 아이디로 캠페인 필터링 하기
+        List<Campaign> list = jpaRepo.findByCampaignIdIn(campaignIds);
+
+        return  list.stream()
+                .map(b -> new CampaignDto(b.getCampaignId(),b.getThumbnail(),b.getTitle(), b.getName(), b.getCollectAmount(), b.getTargetAmount(), loveRepo.countByCampaign(b)))
+                .collect(Collectors.toList());
     }
 }
