@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">챌린멍스</string>
 
     <!-- Log In -->
@@ -95,4 +95,13 @@
     <string name="title_total_contribution">누적 기부액</string>
     <string name="content_close">닫기</string>
 
+
+    <!--  Information Toolbar  -->
+    <string name="title_info">정보</string>
+
+    <!--  Panel Game Play  -->
+    <string name="content_walk_start">산책 시작하기</string>
+    <string name="content_walk_end">산책 끝내기</string>
+    <string name="content_panel_rank">%d등 (%d개)</string>
+    <string name="default_profile_url" tools:ignore="TypographyDashes">https://kr.object.ncloudstorage.com/challenmungs-storage/user/e39faf10-48c3-4deb-99dc-0d12df102499ic_profile.png</string>
 </resources>
