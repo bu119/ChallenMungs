@@ -37,6 +37,9 @@ public class Challenge {
     @Column(name = "entry_fee")
     Integer entryFee;
 
+    @Column(name = "status") // 0: 아직 시작안함, 1: 진행중, 2: 끝남
+    Integer status;
+
     // 일반챌린지 요소
     @Column(name = "campaign_id")
     Integer campaignId;
@@ -59,9 +62,6 @@ public class Challenge {
 
     @Column(name = "cell_d")
     Integer cellD;
-
-    @Column(name = "status") // 0: 아직 시작안함, 1: 진행중, 2: 끝남
-    Integer status;
 
     @Column(name = "max_lat")
     Double maxLat;
