@@ -108,4 +108,10 @@
     <!-- Member - OnBoarding -->
     <string name="content_member_name">닉네임</string>
     <string name="title_member_onboarding">회원정보 입력</string>
+
+    <!--  Campaign Card  -->
+    <string name="content_campaign_amount">%d / %d KLAY</string>
+    <string name="content_progress">(%d%)</string>
+    <string name="image_heart_icon">image_heart_icon</string>
+    <string name="image_campaign_banner">image_banner</string>
 </resources>
