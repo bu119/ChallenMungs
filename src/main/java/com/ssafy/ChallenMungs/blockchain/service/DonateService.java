@@ -1,6 +1,13 @@
 package com.ssafy.ChallenMungs.blockchain.service;
 
+import com.ssafy.ChallenMungs.blockchain.dto.DonationDetailDto;
+import com.ssafy.ChallenMungs.blockchain.dto.DonationListDto;
+import com.ssafy.ChallenMungs.blockchain.dto.DonationSummaryDto;
+import com.ssafy.ChallenMungs.blockchain.entity.Donation;
 import com.ssafy.ChallenMungs.campaign.entity.Campaign;
+import org.springframework.data.domain.Pageable;
+
+import java.util.List;
 
 public interface DonateService {
     void donate(int campaignId,int money,String memo,String loginId);
@@ -19,7 +26,9 @@ public interface DonateService {
     boolean checkTransferAble(String fromAddress,String toAddress); //잔액이 충분한지 체크
 
 
-
+    List<DonationListDto> viewMyDonations(String loginId, int year);
+    DonationDetailDto getDonation(int donationId);
+    DonationSummaryDto getSummary(String loginId, int year);
 
 
 
