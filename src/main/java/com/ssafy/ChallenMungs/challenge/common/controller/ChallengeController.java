@@ -4,6 +4,7 @@ import com.ssafy.ChallenMungs.challenge.common.entity.Challenge;
 import com.ssafy.ChallenMungs.challenge.common.entity.MyChallenge;
 import com.ssafy.ChallenMungs.challenge.common.service.ChallengeService;
 import com.ssafy.ChallenMungs.challenge.common.service.MyChallengeService;
+import com.ssafy.ChallenMungs.common.util.Distance;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import net.bytebuddy.asm.Advice;
@@ -36,6 +37,9 @@ public class ChallengeController {
     @Autowired
     MyChallengeService myChallengeService;
 
+    @Autowired
+    Distance distance;
+
     @PostMapping("/tokenConfirm/getList")
     @ApiOperation(value = "챌린지 리스트를 불러오는 메서드에요")
     ResponseEntity getList(HttpServletRequest request, @RequestParam("lat") double lat, @RequestParam("lng") double lng, @RequestParam("type") int type, @RequestParam("searchValue") String searchValue, @RequestParam("myChallenge") boolean myChallenge, @RequestParam("onlyTomorrow") boolean onlyTomorrow) { // type 1: 전체, 2: 일반, 3: 판넬 4: 보물
@@ -55,7 +59,7 @@ public class ChallengeController {
                 challenges = temp.stream().filter(c -> {
                     if (
                             !((c.getChallengeType() == 2 || c.getChallengeType() == 3) &&
-                                    getDistance(lat, lng, c.getCenterLat(), c.getCenterLng()) > distanceLimit)
+                                    distance.getDistance(lat, lng, c.getCenterLat(), c.getCenterLng()) > distanceLimit)
                     ) return true;
                     return false;
                 }).collect(Collectors.toList());
@@ -78,7 +82,7 @@ public class ChallengeController {
                 }
                 challenges = temp.stream().filter(c -> {
                     if (
-                            getDistance(lat, lng, c.getCenterLat(), c.getCenterLng()) <= distanceLimit
+                            distance.getDistance(lat, lng, c.getCenterLat(), c.getCenterLng()) <= distanceLimit
                     ) return true;
                     return false;
                 }).collect(Collectors.toList());
@@ -92,7 +96,7 @@ public class ChallengeController {
                 }
                 challenges = temp.stream().filter(c -> {
                     if (
-                            getDistance(lat, lng, c.getCenterLat(), c.getCenterLng()) <= distanceLimit
+                            distance.getDistance(lat, lng, c.getCenterLat(), c.getCenterLng()) <= distanceLimit
                     ) return true;
                     return false;
                 }).collect(Collectors.toList());
@@ -168,27 +172,6 @@ public class ChallengeController {
             challengeService.delete(challenge);
         }
         return ResponseEntity.status(HttpStatus.OK).build();
-    }
-
-    double getDistance(double lat1, double lon1, double lat2, double lon2) {
-        final double R = 6371; // 지구 반경 (km)
-        double lat1Rad = Math.toRadians(lat1);
-        double lat2Rad = Math.toRadians(lat2);
-        double lon1Rad = Math.toRadians(lon1);
-        double lon2Rad = Math.toRadians(lon2);
-
-        double x1 = R * Math.cos(lat1Rad) * Math.cos(lon1Rad);
-        double y1 = R * Math.cos(lat1Rad) * Math.sin(lon1Rad);
-        double z1 = R * Math.sin(lat1Rad);
-
-        double x2 = R * Math.cos(lat2Rad) * Math.cos(lon2Rad);
-        double y2 = R * Math.cos(lat2Rad) * Math.sin(lon2Rad);
-        double z2 = R * Math.sin(lat2Rad);
-
-        Vector3D p1 = new Vector3D(x1, y1, z1);
-        Vector3D p2 = new Vector3D(x2, y2, z2);
-
-        return R * Vector3D.angle(p1, p2);
     }
 
 }

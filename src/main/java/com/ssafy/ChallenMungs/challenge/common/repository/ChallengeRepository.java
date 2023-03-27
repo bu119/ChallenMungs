@@ -15,5 +15,5 @@ public interface ChallengeRepository extends JpaRepository<Challenge, Long>, Que
 
     Challenge findByChallengeId(Long challengeId);
 
-    List<Challenge> findAllByStatus(int i);
+    List<Challenge> findAllByStatusAndChallengeType(int status, int challengeType);
 }
