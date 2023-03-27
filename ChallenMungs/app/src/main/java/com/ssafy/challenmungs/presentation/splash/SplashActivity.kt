@@ -17,12 +17,12 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
-private const val SPLASH_VIEW_TIME: Long = 5000
 
 @SuppressLint("CustomSplashScreen")
 @AndroidEntryPoint
 class SplashActivity : AppCompatActivity() {
 
+    private val _splashViewTime: Long = 5000
     private val memberViewModel by viewModels<MemberViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -42,7 +42,7 @@ class SplashActivity : AppCompatActivity() {
                 else -> Intent(this@SplashActivity, PermissionActivity::class.java)
             }
 
-            delay(SPLASH_VIEW_TIME)
+            delay(_splashViewTime)
             startActivity(intent)
             finish()
         }
