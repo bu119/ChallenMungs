@@ -153,7 +153,7 @@ public class ChallengeController {
         challenge.setCurrentParticipantCount(challenge.getCurrentParticipantCount() + 1);
         challengeService.save(challenge);
         String loginId = request.getAttribute("loginId").toString();
-        myChallengeService.save(MyChallenge.builder().loginId(loginId).challengeId(challengeId).build());
+        myChallengeService.save(MyChallenge.builder().loginId(loginId).challengeId(challengeId).successCount(0).build());
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 
@@ -189,6 +189,18 @@ public class ChallengeController {
         Vector3D p2 = new Vector3D(x2, y2, z2);
 
         return R * Vector3D.angle(p1, p2);
+    }
+
+    // 챌린지id로 챌린지를 조회하는 API
+    @GetMapping("/tokenConfirm/detail")
+    @ApiOperation(value = "챌린지 정보를 조회하는 api입니다.", notes = "challengeId를 활용하여 조회합니다.")
+    public ResponseEntity<Challenge> findByChallengeId(HttpServletRequest request, @RequestParam("challengeId") Long challengeId) {
+        Challenge challenge = challengeService.findByChallengeId(challengeId);
+        if (challenge != null) {
+            return ResponseEntity.ok(challenge);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
 }

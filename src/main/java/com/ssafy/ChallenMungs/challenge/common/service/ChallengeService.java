@@ -33,6 +33,7 @@ public class ChallengeService {
         challengeRepository.save(build);
     }
 
+    // 챌린지 id를 활용하여 챌린지를 조회하는 함수
     public Challenge findByChallengeId(Long challengeId) {
         return challengeRepository.findByChallengeId(challengeId);
     }
