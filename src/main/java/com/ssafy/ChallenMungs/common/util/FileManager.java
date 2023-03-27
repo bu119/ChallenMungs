@@ -25,6 +25,7 @@ public class FileManager {
     void init() {
         if (System.getProperty("os.name").substring(0, 3).equals("Win")) directoryPath = windowsPath;
         else directoryPath = ubuntuPath;
+        System.out.println(directoryPath);
         File directory = new File(directoryPath);
         System.out.println("디렉터리:::" + directory);
         File[] files = directory.listFiles();
