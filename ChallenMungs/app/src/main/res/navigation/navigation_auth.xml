@@ -24,8 +24,8 @@
 
     <activity
         android:id="@+id/main_activity"
-        android:name="com.ssafy.challenmungs.presentation.MainActivity"
+        android:name="com.ssafy.challenmungs.presentation.PermissionActivity"
         android:label="MainActivity"
-        tools:layout="@layout/activity_main" />
+        tools:layout="@layout/activity_permission" />
 
 </navigation>

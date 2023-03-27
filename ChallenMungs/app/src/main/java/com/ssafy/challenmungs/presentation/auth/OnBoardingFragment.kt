@@ -6,7 +6,7 @@ import androidx.lifecycle.lifecycleScope
 import com.ssafy.challenmungs.R
 import com.ssafy.challenmungs.databinding.FragmentOnBoardingBinding
 import com.ssafy.challenmungs.presentation.base.BaseFragment
-import com.ssafy.challenmungs.presentation.home.HomeActivity
+import com.ssafy.challenmungs.presentation.home.MainActivity
 import com.ssafy.challenmungs.presentation.klaytn.WalletViewModel
 import kotlinx.coroutines.launch
 
@@ -61,7 +61,7 @@ class OnBoardingFragment : BaseFragment<FragmentOnBoardingBinding>(R.layout.frag
     }
 
     private fun moveToHomeActivity() {
-        val intent = Intent(activity, HomeActivity::class.java)
+        val intent = Intent(activity, MainActivity::class.java)
         startActivity(intent)
     }
 }
