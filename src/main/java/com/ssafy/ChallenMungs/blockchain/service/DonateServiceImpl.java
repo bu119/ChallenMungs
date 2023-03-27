@@ -1,5 +1,7 @@
 package com.ssafy.ChallenMungs.blockchain.service;
 
+import com.ssafy.ChallenMungs.blockchain.entity.Donation;
+import com.ssafy.ChallenMungs.blockchain.repository.DonationRepository;
 import com.ssafy.ChallenMungs.blockchain.repository.WalletRepository;
 import com.ssafy.ChallenMungs.campaign.entity.Campaign;
 import com.ssafy.ChallenMungs.campaign.entity.Comment;
@@ -24,6 +26,7 @@ public class DonateServiceImpl implements  DonateService{
     private final UserRepository userRepo;
     private final CampaignListRepository campaignRepo;
     private final CommentRepository commentRepo;
+    private final DonationRepository donationRepo;
 
     //------기부 관련-------
     @Override
@@ -35,6 +38,8 @@ public class DonateServiceImpl implements  DonateService{
         addComment(campaign,memo,loginId);
         //기부자의 기부금액 업데이트
         updateUserDonate(loginId,money);
+        //기부 내역 추가
+        addDonation(campaign,money,loginId);
     }
     @Override
     public void addCollectAmount(int campaignId,int money){
@@ -65,12 +70,27 @@ public class DonateServiceImpl implements  DonateService{
         user.setTotalDonate(newTotal);
         userRepo.save(user);
     }
+
+
     @Override
     public boolean isEndFund(Campaign campaign, int money) {
         if((campaign.getCollectAmount()+money)>=campaign.getTargetAmount())
             return true;
         return false;
     }
+
+    @Override
+    public void addDonation(Campaign campaign,int money,String loginId){
+        User user=userRepo.findUserByLoginId(loginId);
+        Donation donation=new Donation();
+        donation.setUser(user);
+        donation.setShelter(campaign.getName());
+        donation.setMoney(money);
+        donation.setTotalMoney(user.getTotalDonate());
+        donation.setDonateDate(LocalDateTime.now());
+        donationRepo.save(donation);
+    }
+
     public LocalDate getNowTime(){
         LocalDateTime now = LocalDateTime.now();
         String date=now.toString().substring(0,10);
@@ -109,6 +129,26 @@ public class DonateServiceImpl implements  DonateService{
         }
         return false;
     }
+
+
+    @Override
+    public boolean checkCampaignTransferAble(int campaignId) {
+
+        return false;
+    }
+    @Override
+    public boolean checkTransferAble(String fromAddress, String toAddress) {
+        return false;
+    }
+
+
+    //----내 기부내역 조회-----
+    public void viewMyDonations(String loginId,int year) {
+
+    }
+
+
+
 
 
 }
