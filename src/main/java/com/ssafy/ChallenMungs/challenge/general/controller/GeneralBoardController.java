@@ -7,6 +7,7 @@ import com.ssafy.ChallenMungs.challenge.common.service.MyChallengeService;
 import com.ssafy.ChallenMungs.challenge.general.entity.GeneralBoard;
 import com.ssafy.ChallenMungs.challenge.general.service.GeneralBoardService;
 import com.ssafy.ChallenMungs.image.service.FileServiceImpl;
+import com.ssafy.ChallenMungs.user.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
@@ -44,6 +45,9 @@ public class GeneralBoardController {
     @Autowired
     MyChallengeService myChallengeService;
 
+    @Autowired
+    UserService userService;
+
 
     // 인증사진을 등록하는 API
     @PostMapping("/tokenConfirm/registerPicture")
@@ -58,6 +62,7 @@ public class GeneralBoardController {
 
         // 챌린지가 진행중인지 확인
         if (challenge.getStatus() != 1) {
+            log.info("챌린지가 진행중이지 않습니다.");
             return ResponseEntity.notFound().build();
         }
 
@@ -66,23 +71,28 @@ public class GeneralBoardController {
         // 해당 챌린지에 로그인한 유저가 참여하고 있는지 확인
         MyChallenge myChallenge = myChallengeService.findByLoginIdAndChallengeId(loginId,challengeId);
         if (myChallenge == null) {
+            log.info("참여하지않은 챌린지입니다.");
             return ResponseEntity.notFound().build();
         }
 
         // 해당 챌린지에 이미 인증을 완료한 사진이 있는지 확인
         GeneralBoard board = boardService.findByChallengeIdAndLoginIdAndRegisterDay(challengeId, loginId, LocalDate.now());
         if (board != null) {
+            log.info("이미 인증을 완료하였습니다.");
             return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
         }
 
+        // 사진 업로드
         String url = null;
         try {
             url = fileService.saveFile(file, "challenge");
         } catch (IOException e) {
+            log.info("사진 업로드 실패");
             return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).build();
         }
 
         LocalDate today = LocalDate.now();
+        String nickName = userService.findUserByLoginId(loginId).getName();
         int boardId = boardService.savePicture(
                 GeneralBoard.builder()
                         .challengeId(challengeId)
@@ -90,6 +100,7 @@ public class GeneralBoardController {
                         .pictureUri(url)
                         .rejectCount(0)
                         .registerDay(today)
+                        .nickName(nickName)
                         .build()
         );
         return ResponseEntity.ok(boardId);
@@ -110,7 +121,6 @@ public class GeneralBoardController {
         String loginId = request.getAttribute("loginId").toString();
         return boardService.getBoardsByChallengeIdAndLoginId(challengeId, loginId);
     }
-
-
+    
 
 }

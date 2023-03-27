@@ -24,6 +24,10 @@ public class GeneralBoard {
     @Column(name = "login_id")
     String loginId;
 
+    // 사용자 닉네임을.. 추가를.... 해야하나.....???
+    @Column(name = "nick_name")
+    String nickName;
+
     @Column(name = "picture_uri", length = 2500)
     String pictureUri;
 
