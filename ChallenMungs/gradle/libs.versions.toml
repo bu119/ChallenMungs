@@ -72,3 +72,4 @@ kotlin = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 android-application = { id = "com.android.application", version.ref = "android-application" }
 android-library = { id = "com.android.library", version.ref = "android-library" }
 hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
+androidx-navigation-safe-args = { id = "androidx.navigation.safeargs", version.ref = "androidx-navigation" }

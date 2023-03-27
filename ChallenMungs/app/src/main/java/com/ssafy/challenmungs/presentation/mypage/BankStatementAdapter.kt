@@ -6,7 +6,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
 import com.ssafy.challenmungs.R
-import com.ssafy.challenmungs.domain.entity.BankStatementItem
+import com.ssafy.challenmungs.domain.entity.bank.BankStatementItem
 
 class BankStatementAdapter(
     private val dataSet: ArrayList<BankStatementItem>

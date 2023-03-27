@@ -3,7 +3,7 @@ package com.ssafy.challenmungs.data.remote.repository
 import com.ssafy.challenmungs.common.util.wrapToResource
 import com.ssafy.challenmungs.data.remote.Resource
 import com.ssafy.challenmungs.data.remote.datasource.auth.AuthRemoteDataSource
-import com.ssafy.challenmungs.domain.entity.Auth
+import com.ssafy.challenmungs.domain.entity.member.Auth
 import com.ssafy.challenmungs.domain.repository.AuthRepository
 import kotlinx.coroutines.Dispatchers
 import okhttp3.RequestBody
@@ -17,4 +17,17 @@ class AuthRepositoryImpl @Inject constructor(
         wrapToResource(Dispatchers.IO) {
             authRemoteDataSource.requestLogin(body).toDomainModel()
         }
+
+    override suspend fun requestJoin(name: String, accessToken: String): Resource<String> =
+        wrapToResource(Dispatchers.IO) {
+            authRemoteDataSource.requestJoin(name, accessToken).toDomainModel()
+        }
+
+    override suspend fun setWallet(
+        memberId: String,
+        piggyBank: String,
+        wallet: String
+    ): Resource<String> = wrapToResource(Dispatchers.IO) {
+        authRemoteDataSource.setWallet(memberId, piggyBank, wallet).toDomainModel()
+    }
 }
