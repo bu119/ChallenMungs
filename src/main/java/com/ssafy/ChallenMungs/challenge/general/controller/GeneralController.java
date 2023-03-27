@@ -23,7 +23,7 @@ import java.time.LocalDate;
 @Api(value = "generalChallenge", description = "일반챌린지를 관리하는 컨트롤러에요!")
 public class GeneralController {
 
-    private Logger log = LoggerFactory.getLogger(UserController.class);
+    private Logger log = LoggerFactory.getLogger(GeneralController.class);
 
     @Autowired
     GeneralService generalService;
