@@ -27,7 +27,7 @@ public class FileManager {
         else directoryPath = ubuntuPath;
         System.out.println(directoryPath);
         File directory = new File(directoryPath);
-        System.out.println("디렉터리:::" + directory);
+        System.out.println("디렉터리:::" + directory + "  " + directory.exists());
         File[] files = directory.listFiles();
         System.out.println("파일스:::" + files);
         for (File file : files) {
