@@ -18,4 +18,6 @@ public interface GeneralBoardRepository extends JpaRepository<GeneralBoard, Long
 
     // 유저의 히스토리 가져오기
     List<GeneralBoard> findByChallengeIdAndLoginId(Long challengeId, String loginId);
+
+    GeneralBoard findByChallengeIdAndLoginIdAndRegisterDay(Long challengeId, String loginId, LocalDate registerDay);
 }

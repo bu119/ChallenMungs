@@ -1,6 +1,9 @@
 package com.ssafy.ChallenMungs.challenge.general.controller;
 
 import com.ssafy.ChallenMungs.challenge.common.entity.Challenge;
+import com.ssafy.ChallenMungs.challenge.common.entity.MyChallenge;
+import com.ssafy.ChallenMungs.challenge.common.service.ChallengeService;
+import com.ssafy.ChallenMungs.challenge.common.service.MyChallengeService;
 import com.ssafy.ChallenMungs.challenge.general.entity.GeneralBoard;
 import com.ssafy.ChallenMungs.challenge.general.service.GeneralBoardService;
 import com.ssafy.ChallenMungs.image.service.FileServiceImpl;
@@ -35,6 +38,13 @@ public class GeneralBoardController {
     @Autowired
     FileServiceImpl fileService;
 
+    @Autowired
+    ChallengeService challengeService;
+
+    @Autowired
+    MyChallengeService myChallengeService;
+
+
     // 인증사진을 등록하는 API
     @PostMapping("/tokenConfirm/registerPicture")
     @ApiOperation(value = "인증사진을 등록하는 api입니다.", notes = "결과 값으로 boardId를 반환합니다.")
@@ -44,6 +54,27 @@ public class GeneralBoardController {
             @RequestParam("pictureUri") MultipartFile file
     ) {
 
+        Challenge challenge = challengeService.findByChallengeId(challengeId);
+
+        // 챌린지가 진행중인지 확인
+        if (challenge.getStatus() != 1) {
+            return ResponseEntity.notFound().build();
+        }
+
+        String loginId = request.getAttribute("loginId").toString();
+
+        // 해당 챌린지에 로그인한 유저가 참여하고 있는지 확인
+        MyChallenge myChallenge = myChallengeService.findByLoginIdAndChallengeId(loginId,challengeId);
+        if (myChallenge == null) {
+            return ResponseEntity.notFound().build();
+        }
+
+        // 해당 챌린지에 이미 인증을 완료한 사진이 있는지 확인
+        GeneralBoard board = boardService.findByChallengeIdAndLoginIdAndRegisterDay(challengeId, loginId, LocalDate.now());
+        if (board != null) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+        }
+
         String url = null;
         try {
             url = fileService.saveFile(file, "challenge");
@@ -51,9 +82,6 @@ public class GeneralBoardController {
             return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).build();
         }
 
-        log.info("사진: ", url);
-
-        String loginId = request.getAttribute("loginId").toString();
         LocalDate today = LocalDate.now();
         int boardId = boardService.savePicture(
                 GeneralBoard.builder()
@@ -67,16 +95,14 @@ public class GeneralBoardController {
         return ResponseEntity.ok(boardId);
     }
 
-
-
-    @GetMapping("/getToday")
+    @GetMapping("tokenConfirm/getToday")
     @ApiOperation(value = "투데이 게시판을 조회하는 api입니다.", notes = "결과 값으로 오늘 등록된 주어진 challengeId와 일치하는 모든 GeneralBoard 객체들이 반환합니다.")
     public ResponseEntity<List<GeneralBoard>> getBoardsByChallengeIdToday(
             HttpServletRequest request, @PathParam("challengeId") Long challengeId) {
         return boardService.getBoardsByChallengeIdToday(challengeId);
     }
 
-    @GetMapping("/history")
+    @GetMapping("tokenConfirm/history")
     @ApiOperation(value = "히스토리 게시판을 조회하는 api입니다.", notes = "결과 값으로 challengeI에 해당하는 유저의 데이터들을 반환합니다.")
     public ResponseEntity<List<GeneralBoard>> getBoardsByChallengeIdAndLoginId(
             HttpServletRequest request,@PathParam("challengeId") Long challengeId) {
@@ -84,4 +110,7 @@ public class GeneralBoardController {
         String loginId = request.getAttribute("loginId").toString();
         return boardService.getBoardsByChallengeIdAndLoginId(challengeId, loginId);
     }
+
+
+
 }
