@@ -176,15 +176,19 @@ public class ChallengeController {
         }
     }
 
+    // 나갈 때 커런트인원 빼기 안함 방에 있었었는지 여부
     @PostMapping("/tokenConfirm/getOutChallenge")
     ResponseEntity getOutchallenge(HttpServletRequest request, @RequestParam("challengeId") long challengeId) {
         String loginId = request.getAttribute("loginId").toString();
         myChallengeService.findByLoginIdAndChallengeIdToDelete(loginId, challengeId);
         Challenge challenge = challengeService.findByChallengeId(challengeId);
+        System.out.println("::::" + challenge);
         challenge.setCurrentParticipantCount(challenge.getCurrentParticipantCount() - 1);
         if (challenge.getCurrentParticipantCount() == 0) {
             log.info("제가 나가서 이방엔 더이상 사람이 없어요!");
             challengeService.delete(challenge);
+        } else {
+            challengeService.save(challenge);
         }
         return ResponseEntity.status(HttpStatus.OK).build();
     }

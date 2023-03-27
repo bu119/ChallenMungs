@@ -84,16 +84,19 @@ public class ChallengeScheduler {
                 challengeService.save(c);
             }
             // 예를 들어 2일에 끝나는 겜이면 3일 자정에 끝나야됨
-            if (c.getEndDate().plusDays(1).equals(today)) {
+            if (c.getStatus() == 1 && c.getEndDate().plusDays(1).equals(today)) {
                 c.setStatus(2);
                 flag = true;
                 String saveValue;
                 StringBuilder sb = new StringBuilder();
                 if (c.getChallengeType() == 2) {
                     log.info("판넬뒤집기 챌린지가 종료되었어요!");
-
                     try {
+                        sb.append("{\nmapInfo:");
                         sb.append(mapper.writeValueAsString(panelSocketHandler.challengeManager.get(c.getChallengeId()).getMapInfo()));
+                        sb.append(",\nrankInfo:");
+                        sb.append(mapper.writeValueAsString(panelSocketHandler.challengeManager.get(c.getChallengeId()).getRankInfo()));
+                        sb.append("\n}");
                     } catch (JsonProcessingException e) {
                         throw new RuntimeException(e);
                     }
