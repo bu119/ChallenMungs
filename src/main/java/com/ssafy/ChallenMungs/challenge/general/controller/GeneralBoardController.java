@@ -58,6 +58,7 @@ public class GeneralBoardController {
 
         // 챌린지가 진행중인지 확인
         if (challenge.getStatus() != 1) {
+            log.info("챌린지가 진행중이지 않습니다.");
             return ResponseEntity.notFound().build();
         }
 
@@ -66,12 +67,14 @@ public class GeneralBoardController {
         // 해당 챌린지에 로그인한 유저가 참여하고 있는지 확인
         MyChallenge myChallenge = myChallengeService.findByLoginIdAndChallengeId(loginId,challengeId);
         if (myChallenge == null) {
+            log.info("참여하지않은 챌린지입니다.");
             return ResponseEntity.notFound().build();
         }
 
         // 해당 챌린지에 이미 인증을 완료한 사진이 있는지 확인
         GeneralBoard board = boardService.findByChallengeIdAndLoginIdAndRegisterDay(challengeId, loginId, LocalDate.now());
         if (board != null) {
+            log.info("이미 인증을 완료하였습니다.");
             return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
         }
 
@@ -79,6 +82,7 @@ public class GeneralBoardController {
         try {
             url = fileService.saveFile(file, "challenge");
         } catch (IOException e) {
+            log.info("사진 업로드 실패");
             return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).build();
         }
 
@@ -110,7 +114,6 @@ public class GeneralBoardController {
         String loginId = request.getAttribute("loginId").toString();
         return boardService.getBoardsByChallengeIdAndLoginId(challengeId, loginId);
     }
-
-
+    
 
 }
