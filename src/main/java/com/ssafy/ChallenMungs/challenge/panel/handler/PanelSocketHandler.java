@@ -148,6 +148,19 @@ public class PanelSocketHandler extends TextWebSocketHandler {
             }
         } else if (event.equals("getInfo")) {
             log.info("게임 중 정보를 불러와요");
+            Long challengeId = data.getAsJsonObject().get("challengeId").getAsLong();
+            Challenge challenge = challengeService.findByChallengeId(challengeId);
+            HashMap<String, Object> mapDto = new HashMap<String, Object>();
+            mapDto.put("code", "getInfo");
+            HashMap<String, Object> subMap = new HashMap<String, Object>();
+            mapDto.put("value", subMap);
+            subMap.put("startDate", challenge.getStartDate().toString());
+            subMap.put("endDate", challenge.getEndDate().toString());
+            subMap.put("entryFee", challenge.getEntryFee());
+            subMap.put("gameType", challenge.getGameType());
+            subMap.put("rankInfo", challengeManager.get(challengeId).rankInfo);
+            TextMessage dto = new TextMessage(mapper.writeValueAsString(mapDto));
+            session.sendMessage(dto);
         }
     }
 
