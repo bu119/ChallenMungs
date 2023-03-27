@@ -22,16 +22,16 @@ public class CampaignListController {
 
     private final CampaignListService service;
 
-    //각종 옵션에 따라 캠페인 리스트를 반환하는 api
+    // 캠페인 탭 목록조회(최신순, 누적금액순, 응원순)
     @GetMapping("/ongoing")
-    @ApiOperation(value = "기부탭", notes = "기부탭에서 캠페인 목록을 조회하는 api 입니다.")
-    public ResponseEntity<List<CampaignDto>> getCampaign(@RequestParam String type, @RequestParam int sort){
+    @ApiOperation(value = "기부탭", notes = "기부탭에서 캠페인 목록을 조회하는 api 입니다.\n type : date(등록일), amount(누적 금액), love(캠페인 응원수) \n sort(default = 1) : 1(내림차순), 0(오름차순)     * 파라 미터 없이 보내면 기본 내림차순 정렬 \n 기부탭 처음 선택 시 : 파라미터를 넣지 않고 호출하면 캠페인 최신순으로 기본 정렬 됩니다." )
+    public ResponseEntity<List<CampaignDto>> getCampaign(@RequestParam(required = false, defaultValue="default") String type, @RequestParam(required = false, defaultValue = "1") int sort){
         //return service.getCampaign(type, sort);
         return new ResponseEntity<List<CampaignDto>>(service.getCampaign(type, sort), HttpStatus.OK);
 
     }
 
-    //보호소 화면에서 자신의 캠페인 리스트를 보여주는 api
+    //보호소 화면 로그인시 캠페인 리스트
     @GetMapping("/shelter")
     @ApiOperation(value = "보호소 캠페인", notes = "보호소로 로그인시 자신의 캠페인 목록을 조회하는 api 입니다.")
     public ResponseEntity<List<CampaignShelterDto>> getShelter(@RequestParam String loginId){
@@ -40,6 +40,6 @@ public class CampaignListController {
     }
 
 
-    //2개가 필수 구현이고 나머지(내가 좋아요한 캠페인 등)는 적당히 추가해주세요
+    // 내가 응원한 캠페인 리스트
     
 }
