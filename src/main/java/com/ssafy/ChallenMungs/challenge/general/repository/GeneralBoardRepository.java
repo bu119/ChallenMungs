@@ -11,8 +11,6 @@ import java.util.List;
 
 public interface GeneralBoardRepository extends JpaRepository<GeneralBoard, Long>, QuerydslPredicateExecutor<GeneralBoard> {
 
-    GeneralBoard findByChallengeId(Long challengeId);
-
     // today 인증 가져오기 (challengeId와 registerDay에 해당하는 게시글을 모두 조회)
     List<GeneralBoard> findAllByChallengeIdAndRegisterDay(Long challengeId, LocalDate registerDay);
 
@@ -20,8 +18,5 @@ public interface GeneralBoardRepository extends JpaRepository<GeneralBoard, Long
     List<GeneralBoard> findByChallengeIdAndLoginId(Long challengeId, String loginId);
 
     GeneralBoard findByChallengeIdAndLoginIdAndRegisterDay(Long challengeId, String loginId, LocalDate registerDay);
-
-    // Reject 과반수 이상이면 삭제
-//    void increaseRejectCountAndDeleteIfNecessary(Long challengeId, String loginId);
 
 }
