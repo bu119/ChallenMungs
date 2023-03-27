@@ -3,15 +3,26 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+
+        <variable
+            name="campaign"
+            type="com.ssafy.challenmungs.domain.entity.campaign.CampaignCard" />
+
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="5dp"
+        android:paddingVertical="10dp">
 
         <ImageView
             android:id="@+id/iv_banner"
             android:layout_width="0dp"
             android:layout_height="92dp"
             android:contentDescription="@string/image_campaign_banner"
+            android:src="@{campaign.bannerUrl}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -23,6 +34,7 @@
             android:layout_marginTop="10dp"
             android:ellipsize="end"
             android:maxLines="2"
+            android:text="@{campaign.title}"
             android:textColor="@color/black"
             android:textSize="14sp"
             android:textStyle="bold"
@@ -39,6 +51,7 @@
             android:layout_marginEnd="18dp"
             android:ellipsize="end"
             android:maxLines="1"
+            android:text="@{campaign.charity}"
             android:textColor="@color/pink_swan"
             android:textSize="14sp"
             app:layout_constraintEnd_toStartOf="@id/iv_cheer_icon"
@@ -50,6 +63,7 @@
             android:id="@+id/tv_cheer_count"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="@{campaign.cheerCount}"
             android:textColor="@color/black"
             android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="@id/tv_title"
@@ -83,7 +97,7 @@
             android:id="@+id/tv_progress"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/content_progress"
+            android:text="@{@string/content_progress(campaign.progress)}"
             android:textColor="@color/zambezi"
             android:textSize="11sp"
             app:layout_constraintBottom_toBottomOf="@id/progress_bar"
@@ -96,7 +110,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="6dp"
-            android:text="@string/content_campaign_amount"
+            android:text="@{@string/content_campaign_amount(campaign.achievement, campaign.target)}"
             android:textColor="@color/zambezi"
             android:textSize="11sp"
             app:layout_constraintBottom_toBottomOf="parent"
