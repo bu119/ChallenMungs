@@ -1,8 +1,13 @@
 package com.ssafy.ChallenMungs.blockchain.service;
 
+import com.ssafy.ChallenMungs.blockchain.dto.DonationDetailDto;
+import com.ssafy.ChallenMungs.blockchain.dto.DonationItemDto;
+import com.ssafy.ChallenMungs.blockchain.dto.DonationListDto;
+import com.ssafy.ChallenMungs.blockchain.dto.DonationSummaryDto;
 import com.ssafy.ChallenMungs.blockchain.entity.Donation;
 import com.ssafy.ChallenMungs.blockchain.repository.DonationRepository;
 import com.ssafy.ChallenMungs.blockchain.repository.WalletRepository;
+import com.ssafy.ChallenMungs.campaign.controller.CampaignContentController;
 import com.ssafy.ChallenMungs.campaign.entity.Campaign;
 import com.ssafy.ChallenMungs.campaign.entity.Comment;
 import com.ssafy.ChallenMungs.campaign.repository.CampaignListRepository;
@@ -10,18 +15,25 @@ import com.ssafy.ChallenMungs.campaign.repository.CommentRepository;
 import com.ssafy.ChallenMungs.user.entity.User;
 import com.ssafy.ChallenMungs.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @Transactional
 @RequiredArgsConstructor
 public class DonateServiceImpl implements  DonateService{
 
+    private Logger logger = LoggerFactory.getLogger(DonateServiceImpl.class);
 
     private final UserRepository userRepo;
     private final CampaignListRepository campaignRepo;
@@ -88,6 +100,7 @@ public class DonateServiceImpl implements  DonateService{
         donation.setMoney(money);
         donation.setTotalMoney(user.getTotalDonate());
         donation.setDonateDate(LocalDateTime.now());
+        donation.setYear(LocalDateTime.now().getYear());
         donationRepo.save(donation);
     }
 
@@ -143,8 +156,34 @@ public class DonateServiceImpl implements  DonateService{
 
 
     //----내 기부내역 조회-----
-    public void viewMyDonations(String loginId,int year) {
+    @Override
+    public List<DonationListDto> viewMyDonations(String loginId, int year) {
+        List <DonationListDto> result=new ArrayList<>();
+        List <Donation> list=donationRepo.findAllByUserAndYearOrderByDonateDateDesc(userRepo.findUserByLoginId(loginId),year);
+        for(Donation donate:list){
+            DonationItemDto item=new DonationItemDto(donate.getShelter(),donate.getMoney(),donate.getTotalMoney(),donate.getDonateDate().getHour()+":"+donate.getDonateDate().getMinute());
+            String day=donate.getDonateDate().getMonthValue()+"."+donate.getDonateDate().getDayOfMonth();
+            DonationListDto listItem=new DonationListDto(donate.getDonationId(),day,item);
+            result.add(listItem);
+        }
+        return result;
+    }
+    @Override
+    public DonationDetailDto getDonation(int donationId){
+        Donation d=donationRepo.findByDonationId(donationId);
+        String day=d.getDonateDate().getYear()+"."+d.getDonateDate().getMonthValue()+"."+d.getDonateDate().getDayOfMonth();
+        DonationDetailDto result=new DonationDetailDto(d.getUser().getName(),d.getMoney(),d.getShelter(),day);
+        return result;
+    }
+    @Override
+    public DonationSummaryDto getSummary(String loginId, int year){
+        User user=userRepo.findUserByLoginId(loginId);
+        int cnt=donationRepo.countByUserAndYear(user,year);
+        int sumYear= donationRepo.sumYearAmount(loginId,year);
+        int sumTotal= donationRepo.sumTotalAmount(loginId);
+        DonationSummaryDto result=new DonationSummaryDto(cnt,sumYear,sumTotal);
 
+        return result;
     }
 
 
