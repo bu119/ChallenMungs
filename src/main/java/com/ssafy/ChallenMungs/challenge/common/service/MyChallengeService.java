@@ -15,4 +15,20 @@ public class MyChallengeService {
     public List<MyChallenge> findAllByLoginId(String loginId) {
         return myChallengeRepository.findAllByLoginId(loginId);
     }
+
+    public void save(MyChallenge myChallenge) {
+        myChallengeRepository.save(myChallenge);
+    }
+
+    public void findByLoginIdAndChallengeIdToDelete(String loginId, long challengeId) {
+        myChallengeRepository.deleteByLoginIdAndChallengeId(loginId, challengeId);
+    }
+
+    public List<MyChallenge> findAllByChallengeId(Long challengeId) {
+        return myChallengeRepository.findAllByChallengeId(challengeId);
+    }
+
+    public MyChallenge findByLoginIdAndChallengeId(String loginId, Long challengeId) {
+        return myChallengeRepository.findByLoginIdAndChallengeId(loginId, challengeId);
+    }
 }

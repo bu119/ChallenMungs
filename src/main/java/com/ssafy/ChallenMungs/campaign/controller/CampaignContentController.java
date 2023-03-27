@@ -34,7 +34,7 @@ public class CampaignContentController {
                service.createCampaign(info);
           }catch(Exception e){
               logger.info("exception: "+e.getMessage());
-              return new ResponseEntity<String>("실패",HttpStatus.OK);
+              return new ResponseEntity<String>("실패",HttpStatus.INTERNAL_SERVER_ERROR);
           }
           return new ResponseEntity<String>("성공",HttpStatus.OK);
      }
@@ -46,7 +46,7 @@ public class CampaignContentController {
         try{
             return new ResponseEntity<Object>(service.viewDetailCampaign(campaignId),HttpStatus.OK);
         }catch(Exception e){
-            return new ResponseEntity<Object>("실패",HttpStatus.OK);
+            return new ResponseEntity<Object>("실패", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -61,9 +61,9 @@ public class CampaignContentController {
              return new ResponseEntity<String>("성공",HttpStatus.OK);
          }
          else if(service.cheerUpCampaign(loginId,campaignId)==1){
-             return new ResponseEntity<String>("중복",HttpStatus.OK);
+             return new ResponseEntity<String>("중복",HttpStatus.INTERNAL_SERVER_ERROR);
          }
-        return new ResponseEntity<String>("실패",HttpStatus.OK);
+        return new ResponseEntity<String>("실패",HttpStatus.INTERNAL_SERVER_ERROR);
 
     }
 

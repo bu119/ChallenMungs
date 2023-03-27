@@ -1,11 +1,12 @@
 package com.ssafy.ChallenMungs.challenge.general.controller;
 
 import com.ssafy.ChallenMungs.challenge.common.entity.Challenge;
+import com.ssafy.ChallenMungs.challenge.common.entity.MyChallenge;
+import com.ssafy.ChallenMungs.challenge.general.service.GeneralParticipantService;
 import com.ssafy.ChallenMungs.challenge.general.service.GeneralService;
 import com.ssafy.ChallenMungs.user.controller.UserController;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.intellij.lang.annotations.Pattern;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +14,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.sql.Date;
+import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDate;
 
 @RestController
@@ -27,16 +28,20 @@ public class GeneralController {
     @Autowired
     GeneralService generalService;
 
+    @Autowired
+    GeneralParticipantService generalParticipantService;
 
-    @PostMapping("/create")
-    @ApiOperation(value = "일반챌린지 생성")
+    // 일반챌린지를 생성하는 API - 생성시 참가자 테이블에 생성자를 생성자로 추가
+    @PostMapping("/tokenConfirm/create")
+    @ApiOperation(value = "일반챌린지를 생성하는 api입니다.", notes = "결과 값으로 challengeId를 반환합니다.")
     public ResponseEntity<Long> createGeneral(
+            HttpServletRequest request,
             @RequestParam("title") String title,
             @RequestParam("description") String description,
             @RequestParam("startDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
             @RequestParam("endDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate,
             @RequestParam("maxParticipantCount") int maxParticipantCount,
-            @RequestParam("currentParticipantCount") int currentParticipantCount,
+//            @RequestParam("currentParticipantCount") int currentParticipantCount,
             @RequestParam("entryFee") int entryFee,
             @RequestParam("campaignId") int campaignId,
             @RequestParam("successCondition") int successCondition
@@ -48,16 +53,25 @@ public class GeneralController {
                         .startDate(startDate)
                         .endDate(endDate)
                         .maxParticipantCount(maxParticipantCount)
-                        .currentParticipantCount(currentParticipantCount)
+                        .currentParticipantCount(1)
                         .entryFee(entryFee)
                         .campaignId(campaignId)
                         .successCondition(successCondition)
                         .challengeType(1)
+                        .status(0)
+                        .build()
+        );
+
+        String loginId = request.getAttribute("loginId").toString();
+        generalParticipantService.saveParticipant(
+                MyChallenge.builder()
+                        .loginId(loginId)
+                        .challengeId(challengeId)
+                        .successCount(0)
                         .build()
         );
 
         return ResponseEntity.ok(challengeId);
     }
-
 
 }

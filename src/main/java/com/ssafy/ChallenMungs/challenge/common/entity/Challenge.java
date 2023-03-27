@@ -51,22 +51,28 @@ public class Challenge {
     @Column(name = "game_type")
     Integer gameType; //1: 개인, 2: 팀
 
-    // 판넬, 보물 요소
-    @Column(name = "left_top_lat")
-    Double leftTopLat;
-
-    @Column(name = "left_top_lng")
-    Double leftTopLng;
-
-    @Column(name = "right_bottom_lat")
-    Double rightBottomLat;
-
-    @Column(name = "right_bottom_lng")
-    Double rightBottomLng;
-
     @Column(name = "center_lat")
     Double centerLat;
 
     @Column(name = "center_lng")
     Double centerLng;
+
+    @Column(name = "cell_d")
+    Integer cellD;
+
+    @Column(name = "status") // 0: 아직 시작안함, 1: 진행중, 2: 끝남
+    Integer status;
+
+    @Column(name = "max_lat")
+    Double maxLat;
+
+    @Column(name = "min_lat")
+    Double minLat;
+
+    @Column(name = "max_lng")
+    Double maxLng;
+
+    @Column(name = "min_lng")
+    Double minLng;
+
 }

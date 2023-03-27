@@ -20,4 +20,10 @@ public class MyChallenge {
 
     @Column(name = "challenge_id")
     Long challengeId;
+
+    @Column(name = "team_id")
+    Integer teamId;
+
+    @Column(name = "success_count")
+    Integer successCount;
 }

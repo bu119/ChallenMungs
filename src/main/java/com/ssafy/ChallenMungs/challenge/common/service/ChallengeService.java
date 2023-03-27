@@ -32,4 +32,18 @@ public class ChallengeService {
     public void save(Challenge build) {
         challengeRepository.save(build);
     }
+
+    // 챌린지 id를 활용하여 챌린지를 조회하는 함수
+    public Challenge findByChallengeId(Long challengeId) {
+        return challengeRepository.findByChallengeId(challengeId);
+    }
+
+    public void delete(Challenge challenge) {
+        challengeRepository.delete(challenge);
+    }
+
+
+    public List<Challenge> findAllByStatusAndChallengeType(int status, int challengeType) { //status(0:시작안함 1:진행중 2:끝), challengeType(1:일반, 2:판넬, 3:보물)
+        return challengeRepository.findAllByStatusAndChallengeType(status, challengeType);
+    }
 }

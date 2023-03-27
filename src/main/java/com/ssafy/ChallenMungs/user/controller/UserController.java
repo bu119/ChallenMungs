@@ -154,7 +154,12 @@ public class UserController {
         }
         return v;
     }
-    @GetMapping("/tokenConfirm/getNameAndProfile")
+    @GetMapping("/getLoginId")
+    ResponseEntity getLoginId(HttpServletRequest request) {
+        return new ResponseEntity(request.getAttribute("loginId").toString(), HttpStatus.OK);
+    }
+
+    @GetMapping("/tokenConfirm/getNameAndProfileAndLoginId")
     @ApiOperation(value = "프로필수정 페이지에 들어갈 때 닉네임과 프로필이미지을 불러오는 메서드에요!")
     ResponseEntity<Map<String, Object>> getNameAndProfile(HttpServletRequest request) {
         Map res = new HashMap<>();
@@ -162,6 +167,7 @@ public class UserController {
         User user = userService.findUserByLoginId(request.getAttribute("loginId").toString());
         res.put("name", user.getName());
         res.put("profile", user.getProfile());
+        res.put("loginId", user.getLoginId());
         HttpStatus httpStatus = HttpStatus.OK;
         return new ResponseEntity<>(res, httpStatus);
     }
