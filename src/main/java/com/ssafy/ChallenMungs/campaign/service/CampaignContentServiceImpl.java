@@ -98,6 +98,7 @@ public class CampaignContentServiceImpl implements CampaignContentService{
     public User getUser(String loginId){
         return userRepo.findUserByLoginId(loginId);
     }
+
     @Override
     public boolean isCampaignAble(String loginId) {
         //일반유저면 캠페인 생성 불가
