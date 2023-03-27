@@ -29,6 +29,7 @@ public class FileManager {
         File directory = new File(directoryPath);
         System.out.println("디렉터리:::" + directory + "  " + directory.exists());
         if (!directory.exists()) directory.mkdirs();
+        System.out.println("디렉터리:::" + directory + "  " + directory.exists());
         File directory2 = new File("/home");
         System.out.println("디렉터리:::" + directory2 + "  " + directory2.exists());
 //        File[] files = directory.listFiles();
