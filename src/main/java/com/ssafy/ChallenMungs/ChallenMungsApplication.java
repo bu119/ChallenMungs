@@ -11,7 +11,6 @@ public class ChallenMungsApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(ChallenMungsApplication.class, args);
-
 	}
 
 }
