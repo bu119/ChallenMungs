@@ -2,7 +2,7 @@ package com.ssafy.challenmungs.data.remote.service
 
 import com.ssafy.challenmungs.data.remote.datasource.auth.JoinResponse
 import com.ssafy.challenmungs.data.remote.datasource.auth.LogInResponse
-import com.ssafy.challenmungs.data.remote.datasource.base.ResultResponse
+import com.ssafy.challenmungs.data.remote.datasource.common.ResultResponse
 import okhttp3.RequestBody
 import retrofit2.http.Body
 import retrofit2.http.POST
