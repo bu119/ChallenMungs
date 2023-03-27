@@ -121,6 +121,17 @@ public class GeneralBoardController {
         String loginId = request.getAttribute("loginId").toString();
         return boardService.getBoardsByChallengeIdAndLoginId(challengeId, loginId);
     }
-    
+
+    @PutMapping("tokenConfirm/reject")
+    @ApiOperation(value = "일반챌린지 인증을 반려하는 api입니다.", notes = "게시글의 challengeId와 loginId를 활용하여 반려합니다.")
+    public ResponseEntity<Void> increaseRejectCountAndDelete(
+            HttpServletRequest request,
+            @RequestParam Long challengeId,
+            @RequestParam String loginId
+    ) {
+        String userLoginId = request.getAttribute("loginId").toString();
+        boardService.increaseRejectCountAndDelete(challengeId, loginId, userLoginId);
+        return ResponseEntity.ok().build();
+    }
 
 }
