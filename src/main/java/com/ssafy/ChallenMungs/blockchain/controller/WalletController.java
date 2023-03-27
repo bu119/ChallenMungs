@@ -1,11 +1,14 @@
 package com.ssafy.ChallenMungs.blockchain.controller;
 
 import com.ssafy.ChallenMungs.blockchain.service.WalletService;
+import com.ssafy.ChallenMungs.common.util.Response;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.HashMap;
 
 @RestController
 @RequestMapping("/wallet")
@@ -13,15 +16,18 @@ import org.springframework.web.bind.annotation.*;
 @CrossOrigin("*")
 public class WalletController {
     private final WalletService service;
+    Response res=new Response();
+
     //후원처 계좌 생성
     @PostMapping("/special")
     @ApiOperation(value = "후원처 유저의 계좌를 db에 넣어요" ,notes="캠페인슬롯주소1, 캠페인슬롯주소2, 유저아이디(꼭 db에 있는걸로!)가 필요합니다.")
     ResponseEntity<Object> specialUser(@RequestParam String campaign1, @RequestParam String campaign2,@RequestParam String loginId) {
         try{
             service.insertSpecialWallet(campaign1,campaign2,loginId);
-            return new ResponseEntity<Object>("성공",HttpStatus.OK);
+            return new ResponseEntity<Object>(res.makeSimpleRes("성공"),HttpStatus.OK);
+
         }catch(Exception e){
-            return new ResponseEntity<Object>("실패",HttpStatus.OK);
+            return new ResponseEntity<Object>(res.makeSimpleRes("실패 "+e.getMessage()),HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -31,9 +37,9 @@ public class WalletController {
     ResponseEntity<Object> nomalUser(@RequestParam String piggybank, @RequestParam String wallet,@RequestParam String loginId) {
         try{
             service.insertNomalWallet(piggybank,wallet,loginId);
-            return new ResponseEntity<Object>("성공",HttpStatus.OK);
+            return new ResponseEntity<Object>(res.makeSimpleRes("성공"),HttpStatus.OK);
         }catch(Exception e){
-            return new ResponseEntity<Object>("실패",HttpStatus.OK);
+            return new ResponseEntity<Object>(res.makeSimpleRes("실패 "+e.getMessage()),HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 

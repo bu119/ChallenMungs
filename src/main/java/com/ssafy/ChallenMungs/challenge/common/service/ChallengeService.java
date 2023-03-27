@@ -42,7 +42,8 @@ public class ChallengeService {
         challengeRepository.delete(challenge);
     }
 
-    public List<Challenge> findAllByStatus(int i) {
-        return challengeRepository.findAllByStatus(i);
+
+    public List<Challenge> findAllByStatusAndChallengeType(int status, int challengeType) { //status(0:시작안함 1:진행중 2:끝), challengeType(1:일반, 2:판넬, 3:보물)
+        return challengeRepository.findAllByStatusAndChallengeType(status, challengeType);
     }
 }
