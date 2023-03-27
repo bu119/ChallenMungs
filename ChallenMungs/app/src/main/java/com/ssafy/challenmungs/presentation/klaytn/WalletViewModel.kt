@@ -17,15 +17,19 @@ class WalletViewModel @Inject constructor(
     private val createAccountUseCase: CreateAccountUseCase
 ) : ViewModel() {
 
-    private val _address: MutableLiveData<ArrayList<String>> = MutableLiveData()
+    private val _address: MutableLiveData<ArrayList<String>> = MutableLiveData(arrayListOf())
     val address: LiveData<ArrayList<String>> = _address
 
     fun createAccount() = viewModelScope.launch {
         when (val value = createAccountUseCase()) {
             is Resource.Success<Account> -> {
-                if (address.value == null)
-                    _address.value = arrayListOf()
-                _address.value!!.add(value.data.address)
+                val arrayList = arrayListOf<String>()
+
+                if (address.value!!.size == 1)
+                    arrayList.add(address.value!![0])
+                arrayList.add(value.data.address)
+
+                _address.value = arrayList
             }
             is Resource.Error ->
                 Log.e("createAccount", "createAccount: ${value.errorMessage}")
