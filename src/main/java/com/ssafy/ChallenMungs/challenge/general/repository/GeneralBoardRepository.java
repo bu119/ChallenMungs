@@ -22,6 +22,6 @@ public interface GeneralBoardRepository extends JpaRepository<GeneralBoard, Long
     GeneralBoard findByChallengeIdAndLoginIdAndRegisterDay(Long challengeId, String loginId, LocalDate registerDay);
 
     // Reject 과반수 이상이면 삭제
-    void increaseRejectCountAndDeleteIfNecessary(Long challengeId, String loginId);
+//    void increaseRejectCountAndDeleteIfNecessary(Long challengeId, String loginId);
 
 }
