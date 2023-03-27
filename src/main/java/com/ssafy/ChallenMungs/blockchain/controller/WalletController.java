@@ -21,7 +21,7 @@ public class WalletController {
             service.insertSpecialWallet(campaign1,campaign2,loginId);
             return new ResponseEntity<Object>("성공",HttpStatus.OK);
         }catch(Exception e){
-            return new ResponseEntity<Object>("실패 "+e.getMessage(),HttpStatus.OK);
+            return new ResponseEntity<Object>("실패 "+e.getMessage(),HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -33,7 +33,7 @@ public class WalletController {
             service.insertNomalWallet(piggybank,wallet,loginId);
             return new ResponseEntity<Object>("성공",HttpStatus.OK);
         }catch(Exception e){
-            return new ResponseEntity<Object>("실패 "+ e.getMessage(),HttpStatus.OK);
+            return new ResponseEntity<Object>("실패 "+ e.getMessage(),HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
