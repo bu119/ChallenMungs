@@ -104,4 +104,8 @@
     <string name="content_walk_end">산책 끝내기</string>
     <string name="content_panel_rank">%d등 (%d개)</string>
     <string name="default_profile_url" tools:ignore="TypographyDashes">https://kr.object.ncloudstorage.com/challenmungs-storage/user/e39faf10-48c3-4deb-99dc-0d12df102499ic_profile.png</string>
+
+    <!-- Member - OnBoarding -->
+    <string name="content_member_name">닉네임</string>
+    <string name="title_member_onboarding">회원정보 입력</string>
 </resources>

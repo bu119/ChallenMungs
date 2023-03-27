@@ -20,7 +20,8 @@
             android:textSize="25sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:navGraph="@navigation/navigation_main" />
 
         <TextView
             android:id="@+id/tv_content_permission_main"

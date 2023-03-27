@@ -46,6 +46,10 @@
 
         <activity
             android:name=".presentation.MainActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".presentation.auth.AuthActivity"
             android:exported="true"
             android:theme="@style/Theme.Splash">
 

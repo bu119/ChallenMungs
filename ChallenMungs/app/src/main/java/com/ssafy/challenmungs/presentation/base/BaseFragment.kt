@@ -40,7 +40,7 @@ abstract class BaseFragment<T : ViewDataBinding>(
 
     abstract fun initView()
 
-    fun navigation(directions: NavDirections) {
+    fun navigate(directions: NavDirections) {
         navController.navigate(directions)
     }
 
