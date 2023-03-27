@@ -1,5 +1,6 @@
 package com.ssafy.ChallenMungs.blockchain.service;
 
+import com.ssafy.ChallenMungs.blockchain.dto.DonationDetailDto;
 import com.ssafy.ChallenMungs.blockchain.dto.DonationListDto;
 import com.ssafy.ChallenMungs.blockchain.entity.Donation;
 import com.ssafy.ChallenMungs.campaign.entity.Campaign;
@@ -25,6 +26,7 @@ public interface DonateService {
 
 
     List<DonationListDto> viewMyDonations(String loginId, int year);
+    DonationDetailDto getDonation(int donationId);
 
 
 

@@ -14,4 +14,5 @@ import java.util.List;
 public interface DonationRepository extends JpaRepository<Donation, Long> {
 
     List<Donation> findAllByUserAndYearOrderByDonateDateDesc( User user, int year);
+    Donation findByDonationId(int donationId);
 }

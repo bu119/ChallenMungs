@@ -52,13 +52,18 @@ public class DonateController {
     }
     //년도와 아이디를 입력으로 받아 기부내역 리스트를 받아옴
 
-    @PostMapping("/donateList")
+    @GetMapping("/donateList")
     @ApiOperation(value = "나의 년도별 기부 내역을 조회합니다." ,notes="페이징은 논의해보고 정할예정..place 방식 페이징 괜찮으면 그걸로 페이징처리 할게요.")
     ResponseEntity<Object> list(@RequestParam String loginId,@RequestParam int year) {
         return new ResponseEntity<Object>(service.viewMyDonations(loginId,year),HttpStatus.OK);
     }
 
     //년도와 아이디를 입력으로 받아 디테일한 기부 정보를 가져옴
+    @GetMapping("/donateDetail")
+    @ApiOperation(value = "기부아이템아이디를 받아 자세한 기부정보를 가져옵니다." ,notes=" ")
+    ResponseEntity<Object> list(@RequestParam int donationId) {
+        return new ResponseEntity<Object>(service.getDonation(donationId),HttpStatus.OK);
+    }
 
     //기부내역아이디를 주면 기부증서 내용을 보여줌
 

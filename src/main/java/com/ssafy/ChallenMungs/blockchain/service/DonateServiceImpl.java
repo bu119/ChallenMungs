@@ -1,5 +1,6 @@
 package com.ssafy.ChallenMungs.blockchain.service;
 
+import com.ssafy.ChallenMungs.blockchain.dto.DonationDetailDto;
 import com.ssafy.ChallenMungs.blockchain.dto.DonationItemDto;
 import com.ssafy.ChallenMungs.blockchain.dto.DonationListDto;
 import com.ssafy.ChallenMungs.blockchain.entity.Donation;
@@ -164,7 +165,12 @@ public class DonateServiceImpl implements  DonateService{
             result.add(listItem);
         }
         return result;
-
+    }
+    public DonationDetailDto getDonation(int donationId){
+        Donation d=donationRepo.findByDonationId(donationId);
+        String day=d.getDonateDate().getYear()+"."+d.getDonateDate().getMonthValue()+"."+d.getDonateDate().getDayOfMonth();
+        DonationDetailDto result=new DonationDetailDto(d.getUser().getName(),d.getMoney(),d.getShelter(),day);
+        return result;
     }
 
 
