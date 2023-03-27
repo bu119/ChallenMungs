@@ -99,9 +99,4 @@ public class PanelController {
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 
-    @PostMapping("/loadResult")
-    void loadResult() {
-        fileManager.loadResult("7");
-    }
-
 }
