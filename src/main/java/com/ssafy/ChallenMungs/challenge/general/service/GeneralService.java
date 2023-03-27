@@ -22,10 +22,9 @@ public class GeneralService {
     }
 
     // 챌린지 id를 활용하여 챌린지를 조회하는 함수
-    public List<Challenge> findByChallengeId(Long challengeId) {
+    public Challenge findByChallengeId(Long challengeId) {
         return generalRepository.findByChallengeId(challengeId);
     }
-
 
 
 }

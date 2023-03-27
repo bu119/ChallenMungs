@@ -1,7 +1,7 @@
 package com.ssafy.ChallenMungs.challenge.general.controller;
 
 import com.ssafy.ChallenMungs.challenge.common.entity.Challenge;
-import com.ssafy.ChallenMungs.challenge.general.entity.GeneralParticipant;
+import com.ssafy.ChallenMungs.challenge.common.entity.MyChallenge;
 import com.ssafy.ChallenMungs.challenge.general.service.GeneralParticipantService;
 import com.ssafy.ChallenMungs.challenge.general.service.GeneralService;
 import com.ssafy.ChallenMungs.user.controller.UserController;
@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDate;
-import java.util.List;
 
 @RestController
 @RequestMapping("/general")
@@ -42,7 +41,7 @@ public class GeneralController {
             @RequestParam("startDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
             @RequestParam("endDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate,
             @RequestParam("maxParticipantCount") int maxParticipantCount,
-            @RequestParam("currentParticipantCount") int currentParticipantCount,
+//            @RequestParam("currentParticipantCount") int currentParticipantCount,
             @RequestParam("entryFee") int entryFee,
             @RequestParam("campaignId") int campaignId,
             @RequestParam("successCondition") int successCondition
@@ -54,7 +53,7 @@ public class GeneralController {
                         .startDate(startDate)
                         .endDate(endDate)
                         .maxParticipantCount(maxParticipantCount)
-                        .currentParticipantCount(currentParticipantCount)
+                        .currentParticipantCount(1)
                         .entryFee(entryFee)
                         .campaignId(campaignId)
                         .successCondition(successCondition)
@@ -65,7 +64,7 @@ public class GeneralController {
 
         String loginId = request.getAttribute("loginId").toString();
         generalParticipantService.saveParticipant(
-                GeneralParticipant.builder()
+                MyChallenge.builder()
                         .loginId(loginId)
                         .challengeId(challengeId)
                         .successCount(0)
@@ -74,18 +73,5 @@ public class GeneralController {
 
         return ResponseEntity.ok(challengeId);
     }
-
-    // 챌린지id로 챌린지를 조회하는 API
-    @GetMapping("/{challengeId}")
-    @ApiOperation(value = "챌린지를 조회하는 api입니다.",notes = "challengeId를 활용하여 조회합니다.")
-    public ResponseEntity<List<Challenge>> findByChallengeId(@RequestParam("challengeId") Long challengeId) {
-        List<Challenge> challenges = generalService.findByChallengeId(challengeId);
-        if (!challenges.isEmpty()) {
-            return ResponseEntity.ok(challenges);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
-    }
-
 
 }

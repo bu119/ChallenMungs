@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface GeneralRepository extends JpaRepository<Challenge, Long>, QuerydslPredicateExecutor<Challenge> {
 
-    List<Challenge> findByChallengeId(Long challengeId);
+    Challenge findByChallengeId(Long challengeId);
 
 }
 

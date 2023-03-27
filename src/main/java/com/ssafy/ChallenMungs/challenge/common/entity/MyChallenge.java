@@ -23,4 +23,7 @@ public class MyChallenge {
 
     @Column(name = "team_id")
     Integer teamId;
+
+    @Column(name = "success_count")
+    Integer successCount;
 }
