@@ -58,8 +58,9 @@ public class DonateController {
         return new ResponseEntity<Object>(service.viewMyDonations(loginId,year),HttpStatus.OK);
     }
 
-    //기부내역아이디를 주면 기부증서 내용을 보여줌
+    //년도와 아이디를 입력으로 받아 디테일한 기부 정보를 가져옴
 
+    //기부내역아이디를 주면 기부증서 내용을 보여줌
 
 
     //영수증 이미지 가지고 사용처, 사용일, 사용금액 반환

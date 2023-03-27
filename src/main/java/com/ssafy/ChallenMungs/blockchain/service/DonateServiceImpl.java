@@ -160,10 +160,9 @@ public class DonateServiceImpl implements  DonateService{
         for(Donation donate:list){
             DonationItemDto item=new DonationItemDto(donate.getShelter(),donate.getMoney(),donate.getTotalMoney(),donate.getDonateDate().getHour()+":"+donate.getDonateDate().getMinute());
             String day=donate.getDonateDate().getMonthValue()+"."+donate.getDonateDate().getDayOfMonth();
-            DonationListDto listItem=new DonationListDto(day,item);
+            DonationListDto listItem=new DonationListDto(donate.getDonationId(),day,item);
             result.add(listItem);
         }
-
         return result;
 
     }

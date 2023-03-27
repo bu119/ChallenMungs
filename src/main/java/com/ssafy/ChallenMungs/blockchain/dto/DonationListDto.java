@@ -8,6 +8,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 public class DonationListDto {
+    int donationId;
     String day;
     DonationItemDto item;
 
