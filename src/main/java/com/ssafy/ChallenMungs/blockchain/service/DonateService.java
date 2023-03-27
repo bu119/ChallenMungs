@@ -3,7 +3,7 @@ package com.ssafy.ChallenMungs.blockchain.service;
 import com.ssafy.ChallenMungs.campaign.entity.Campaign;
 
 public interface DonateService {
-    public void donate(int campaignId,int money,String memo,String loginId);
+    void donate(int campaignId,int money,String memo,String loginId);
     void addCollectAmount(int campaignId,int money); //모금액 플러스(누적 금액 플러스)
     void plusWithdraw(int campaignId,int money); //출금 누적 금액 플러스. 이월할때도 호출
     void transfer(int fromCampaignId,int toCampaignId,int money);
@@ -13,6 +13,14 @@ public interface DonateService {
 
     void addComment(Campaign campaign,String memo,String loginId);
     void updateUserDonate(String loginId,int money);
+
+    boolean checkCampaignTransferAble(int campaignId); //캠페인 이월 가능한지 체크
+    void addDonation(Campaign campaign,int money,String loginId);
+    boolean checkTransferAble(String fromAddress,String toAddress); //잔액이 충분한지 체크
+
+
+
+
 
 
 

@@ -17,15 +17,17 @@ public class WalletServiceImpl implements  WalletService{
     private final UserRepository userRepo;
 
     @Override
-    public void insertNomalWallet(String piggyBank, String wallet,String loginId) {
+    public void insertNomalWallet(String piggyBank, String wallet,String loginId) throws Exception{
         User user=userRepo.findUserByLoginId(loginId);
+        if(user==null) throw new Exception("로그인아이디 확인");
         walletRepo.save(initWallet(user,'p',piggyBank));
         walletRepo.save(initWallet(user,'w',wallet));
     }
 
     @Override
-    public void insertSpecialWallet(String campaign1, String campaign2,String loginId) {
+    public void insertSpecialWallet(String campaign1, String campaign2,String loginId) throws Exception {
         User user=userRepo.findUserByLoginId(loginId);
+        if(user==null) throw new Exception("로그인아이디 확인");
         walletRepo.save(initWallet(user,'1',campaign1));
         walletRepo.save(initWallet(user,'2',campaign2));
 
