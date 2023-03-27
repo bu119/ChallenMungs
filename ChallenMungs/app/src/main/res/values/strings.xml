@@ -31,7 +31,7 @@
     <string name="content_logout">로그아웃</string>
     <string name="title_my_campaign">내가 기부한 캠페인</string>
     <string name="content_unit">KLAY</string>
-    <string name="title_cheer_campaign">응원한 캠페인</string>
+    <string name="title_cheer_campaign">내가 응원한 기부 캠페인</string>
 
     <!-- Splash -->
     <string name="image_logo">서비스 로고입니다.</string>
