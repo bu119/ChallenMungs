@@ -41,7 +41,7 @@ public class ChallengeScheduler {
     ObjectMapper mapper = new ObjectMapper();
 
 //    @Scheduled(cron = "0 0 0 * * ?") // 매일 자정에 동작해요
-    @Scheduled(cron = "0/5 * * * * ?") // 5초마다 실행해요
+    @Scheduled(cron = "0/20 * * * * ?") // 5초마다 실행해요
     public void startChallenge() {
         System.out.println("스케쥴러가 동작해요!");
         boolean flag;

@@ -1,9 +1,11 @@
 package com.ssafy.ChallenMungs.challenge.panel.controller;
 
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ssafy.ChallenMungs.challenge.common.entity.Challenge;
 import com.ssafy.ChallenMungs.challenge.panel.service.PanelService;
 import com.ssafy.ChallenMungs.common.util.Distance;
+import com.ssafy.ChallenMungs.common.util.FileManager;
 import io.swagger.annotations.Api;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,6 +30,10 @@ public class PanelController {
     @Autowired
     Distance distance;
 
+    @Autowired
+    FileManager fileManager;
+
+
     @PostMapping("/tokenConfirm/makePanelChallenge")
     ResponseEntity makePanelChallenge(
             @RequestParam("title") String title,
@@ -36,7 +42,6 @@ public class PanelController {
             @RequestParam("maxParticipantCount") int maxParticipantCount,
             @RequestParam("gameType") int gameType,
             @RequestParam("entryFee") int entryFee,
-            @RequestParam("successCondition") int successCondition,
 
             @RequestParam("centerLat") Double centerLat,
             @RequestParam("centerLng") Double centerLng,
@@ -83,7 +88,6 @@ public class PanelController {
                 .maxParticipantCount(maxParticipantCount)
                 .gameType(gameType)
                 .entryFee(entryFee)
-                .successCondition(successCondition)
                 .centerLat(centerLat)
                 .centerLng(centerLng)
                 .maxLat(maxLat).minLat(minLat).maxLng(maxLng).minLng(minLng)
@@ -93,6 +97,11 @@ public class PanelController {
                 .status(0)
                 .build());
         return ResponseEntity.status(HttpStatus.OK).build();
+    }
+
+    @PostMapping("/loadResult")
+    void loadResult() {
+        fileManager.loadResult("7");
     }
 
 }

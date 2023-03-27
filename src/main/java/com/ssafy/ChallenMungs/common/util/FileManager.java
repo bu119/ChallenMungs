@@ -28,6 +28,7 @@ public class FileManager {
         File directory = new File(directoryPath);
         File[] files = directory.listFiles();
         for (File file : files) {
+            System.out.println(file.getName());
             if (file.isFile()) {
                 file.delete();
             }
