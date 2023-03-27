@@ -7,6 +7,7 @@ import com.ssafy.ChallenMungs.challenge.common.service.MyChallengeService;
 import com.ssafy.ChallenMungs.challenge.general.entity.GeneralBoard;
 import com.ssafy.ChallenMungs.challenge.general.service.GeneralBoardService;
 import com.ssafy.ChallenMungs.image.service.FileServiceImpl;
+import com.ssafy.ChallenMungs.user.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
@@ -44,6 +45,9 @@ public class GeneralBoardController {
     @Autowired
     MyChallengeService myChallengeService;
 
+    @Autowired
+    UserService userService;
+
 
     // 인증사진을 등록하는 API
     @PostMapping("/tokenConfirm/registerPicture")
@@ -78,6 +82,7 @@ public class GeneralBoardController {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
         }
 
+        // 사진 업로드
         String url = null;
         try {
             url = fileService.saveFile(file, "challenge");
@@ -87,6 +92,7 @@ public class GeneralBoardController {
         }
 
         LocalDate today = LocalDate.now();
+        String nickName = userService.findUserByLoginId(loginId).getName();
         int boardId = boardService.savePicture(
                 GeneralBoard.builder()
                         .challengeId(challengeId)
@@ -94,6 +100,7 @@ public class GeneralBoardController {
                         .pictureUri(url)
                         .rejectCount(0)
                         .registerDay(today)
+                        .nickName(nickName)
                         .build()
         );
         return ResponseEntity.ok(boardId);
