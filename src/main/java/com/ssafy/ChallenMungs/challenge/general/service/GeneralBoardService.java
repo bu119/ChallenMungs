@@ -40,6 +40,10 @@ public class GeneralBoardService {
         return ResponseEntity.ok(boards);
     }
 
+    public GeneralBoard findByChallengeIdAndLoginIdAndRegisterDay(Long challengeId, String loginId, LocalDate registerDay) {
+        return boardRepository.findByChallengeIdAndLoginIdAndRegisterDay(challengeId, loginId, registerDay);
+    }
+
 
 
 }
