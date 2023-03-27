@@ -43,6 +43,7 @@ public class DonateController {
     @ApiOperation(value = "후원처가 모금액을 다른 캠페인으로 이월합니다." ,notes="모인 금액을 초과해 이월할 수 없도록 주의")
     ResponseEntity<Object> withdraw(@RequestParam int fromCampaignId,@RequestParam int toCampaignId,@RequestParam int money) {
         service.transfer(fromCampaignId,toCampaignId,money);
+
         return new ResponseEntity<Object>("성공",HttpStatus.OK);
     }
 
