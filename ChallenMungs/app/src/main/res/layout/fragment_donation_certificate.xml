@@ -10,6 +10,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="@drawable/bg_rect_gainsboro_white_radius5_stroke1"
         android:padding="20dp"
         tools:context=".presentation.mypage.DonationCertificateFragment">
 
@@ -152,32 +153,32 @@
             app:layout_constraintStart_toStartOf="parent"
             tools:text="2023년 2월 14일" />
 
-            <TextView
-                android:id="@+id/tv_issue_place"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="25dp"
-                android:text="@string/app_name"
-                android:textColor="@color/black"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
+        <TextView
+            android:id="@+id/tv_issue_place"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="25dp"
+            android:text="@string/app_name"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
-            <ImageView
-                android:id="@+id/iv_stamp"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:adjustViewBounds="true"
-                android:layout_marginStart="-10dp"
-                android:contentDescription="@string/image_logo"
-                android:minWidth="30dp"
-                android:minHeight="30dp"
-                android:src="@drawable/ic_certificate_donate_stamp"
-                app:layout_constraintBottom_toBottomOf="@id/tv_issue_place"
-                app:layout_constraintStart_toEndOf="@id/tv_issue_place"
-                app:layout_constraintTop_toTopOf="@id/tv_issue_place" />
+        <ImageView
+            android:id="@+id/iv_stamp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="-10dp"
+            android:adjustViewBounds="true"
+            android:contentDescription="@string/image_logo"
+            android:minWidth="30dp"
+            android:minHeight="30dp"
+            android:src="@drawable/ic_certificate_donate_stamp"
+            app:layout_constraintBottom_toBottomOf="@id/tv_issue_place"
+            app:layout_constraintStart_toEndOf="@id/tv_issue_place"
+            app:layout_constraintTop_toTopOf="@id/tv_issue_place" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
