@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".presentation.challenge.CreatePanelFragment">
+
+        <include
+            android:id="@+id/toolbar"
+            layout="@layout/toolbar_default"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ScrollView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/toolbar">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/tv_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="18dp"
+                    android:layout_marginTop="18dp"
+                    android:text="@string/title_title"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/til_et_title"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="18dp"
+                    android:layout_marginTop="10dp"
+                    app:endIconMode="clear_text"
+                    app:errorEnabled="true"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_title">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/et_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/bg_rect_white_smoke_radius10"
+                        android:fontFamily="sans-serif"
+                        android:hint="@string/content_enter_title"
+                        android:importantForAutofill="no"
+                        android:inputType="text"
+                        android:paddingHorizontal="18dp"
+                        android:paddingVertical="15dp"
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/suva_grey"
+                        android:textSize="14sp" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <TextView
+                    android:id="@+id/tv_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="@string/title_date"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="@id/til_et_title"
+                    app:layout_constraintTop_toBottomOf="@id/til_et_title" />
+
+                <TextView
+                    android:id="@+id/tv_date_content"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="16dp"
+                    android:background="@drawable/bg_rect_white_smoke_radius10"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:paddingHorizontal="18dp"
+                    android:paddingVertical="15dp"
+                    android:text="@string/content_choice_date"
+                    android:textColor="@color/suva_grey"
+                    android:textSize="14sp"
+                    app:layout_constraintEnd_toStartOf="@id/btn_calendar"
+                    app:layout_constraintStart_toStartOf="@id/tv_date"
+                    app:layout_constraintTop_toBottomOf="@id/tv_date" />
+
+                <androidx.appcompat.widget.AppCompatImageButton
+                    android:id="@+id/btn_calendar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="18dp"
+                    android:background="@drawable/bg_rect_golden_glow_radius100"
+                    android:minWidth="0dp"
+                    android:minHeight="0dp"
+                    android:paddingHorizontal="10dp"
+                    android:paddingVertical="8dp"
+                    android:src="@drawable/ic_dog_calendar"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_date_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/tv_date_content" />
+
+                <TextView
+                    android:id="@+id/tv_max_headcount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="@string/title_max_headcount"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="@id/tv_date_content"
+                    app:layout_constraintTop_toBottomOf="@id/tv_date_content" />
+
+                <androidx.appcompat.widget.AppCompatImageButton
+                    android:id="@+id/btn_minus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/bg_rect_golden_glow_radius5"
+                    android:minWidth="0dp"
+                    android:minHeight="0dp"
+                    android:padding="7dp"
+                    android:src="@drawable/ic_minus"
+                    app:layout_constraintStart_toStartOf="@id/tv_max_headcount"
+                    app:layout_constraintTop_toBottomOf="@id/tv_max_headcount" />
+
+                <TextView
+                    android:id="@+id/tv_max_headcount_content"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    app:layout_constraintBottom_toBottomOf="@id/btn_minus"
+                    app:layout_constraintEnd_toStartOf="@id/btn_plus"
+                    app:layout_constraintStart_toEndOf="@id/btn_minus"
+                    app:layout_constraintTop_toTopOf="@id/btn_minus"
+                    tools:text="4" />
+
+                <androidx.appcompat.widget.AppCompatImageButton
+                    android:id="@+id/btn_plus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="48dp"
+                    android:background="@drawable/bg_rect_golden_glow_radius5"
+                    android:minWidth="0dp"
+                    android:minHeight="0dp"
+                    android:padding="7dp"
+                    android:src="@drawable/ic_plus"
+                    app:layout_constraintBottom_toBottomOf="@id/btn_minus"
+                    app:layout_constraintStart_toEndOf="@id/btn_minus"
+                    app:layout_constraintTop_toTopOf="@id/btn_minus" />
+
+                <TextView
+                    android:id="@+id/tv_type"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="@string/title_type"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="@id/btn_minus"
+                    app:layout_constraintTop_toBottomOf="@id/btn_minus" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </ScrollView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

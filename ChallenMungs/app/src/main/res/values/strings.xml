@@ -108,4 +108,12 @@
     <!-- Member - OnBoarding -->
     <string name="content_member_name">닉네임</string>
     <string name="title_member_onboarding">회원정보 입력</string>
+
+    <!--  Panel Game Create  -->
+    <string name="title_title">제목</string>
+    <string name="title_date">일정</string>
+    <string name="content_enter_title">제목을 입력해주세요.</string>
+    <string name="content_choice_date">일정을 선택해주세요.</string>
+    <string name="title_max_headcount">최대인원</string>
+    <string name="title_type">유형</string>
 </resources>
