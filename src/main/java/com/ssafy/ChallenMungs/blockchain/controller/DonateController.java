@@ -54,18 +54,24 @@ public class DonateController {
 
     @GetMapping("/donateList")
     @ApiOperation(value = "나의 년도별 기부 내역을 조회합니다." ,notes="페이징은 논의해보고 정할예정..place 방식 페이징 괜찮으면 그걸로 페이징처리 할게요.")
-    ResponseEntity<Object> list(@RequestParam String loginId,@RequestParam int year) {
+    ResponseEntity<Object> getDonationList(@RequestParam String loginId,@RequestParam int year) {
         return new ResponseEntity<Object>(service.viewMyDonations(loginId,year),HttpStatus.OK);
     }
 
-    //년도와 아이디를 입력으로 받아 디테일한 기부 정보를 가져옴
+    //기부내역아이디를 주면 기부증서 내용을 보여줌
     @GetMapping("/donateDetail")
-    @ApiOperation(value = "기부아이템아이디를 받아 자세한 기부정보를 가져옵니다." ,notes=" ")
-    ResponseEntity<Object> list(@RequestParam int donationId) {
+    @ApiOperation(value = "기부아이템아이디를 받아 자세한 기부정보를 가져옵니다." ,notes="기부 증서에 들어갈 수 있는 디테일한 내용들을 반환합니다.")
+    ResponseEntity<Object> getDonation(@RequestParam int donationId) {
         return new ResponseEntity<Object>(service.getDonation(donationId),HttpStatus.OK);
     }
 
-    //기부내역아이디를 주면 기부증서 내용을 보여줌
+    //년도와 아이디를 입력으로 받아 디테일한 기부 정보를 가져옴
+    @GetMapping("/donateSummary")
+    @ApiOperation(value = "로그인아이디와 년도를 입력하면 기부 내역 요약정보를 가져옵니다." ,notes="해당 년도의 기부건수,해당 년도의 총기부액, 토탈 누적 기부액을 반환합니다.")
+    ResponseEntity<Object> getDonationSummary(@RequestParam String loginId,@RequestParam int year) {
+        return new ResponseEntity<Object>(service.getSummary(loginId,year),HttpStatus.OK);
+    }
+
 
 
     //영수증 이미지 가지고 사용처, 사용일, 사용금액 반환

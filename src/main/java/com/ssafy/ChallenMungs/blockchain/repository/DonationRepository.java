@@ -15,4 +15,15 @@ public interface DonationRepository extends JpaRepository<Donation, Long> {
 
     List<Donation> findAllByUserAndYearOrderByDonateDateDesc( User user, int year);
     Donation findByDonationId(int donationId);
+    int countByUserAndYear(User user,int year);
+
+
+    @Query(value = "select sum(money) from donation where login_id= :login_id",
+            nativeQuery = true)
+    int sumTotalAmount(@Param("login_id") String loginId);
+
+    @Query(value = "select sum(money) from donation where login_id= :login_id and year= :year",
+            nativeQuery = true)
+    int sumYearAmount(@Param("login_id") String loginId,@Param("year") int year);
+
 }

@@ -3,6 +3,7 @@ package com.ssafy.ChallenMungs.blockchain.service;
 import com.ssafy.ChallenMungs.blockchain.dto.DonationDetailDto;
 import com.ssafy.ChallenMungs.blockchain.dto.DonationItemDto;
 import com.ssafy.ChallenMungs.blockchain.dto.DonationListDto;
+import com.ssafy.ChallenMungs.blockchain.dto.DonationSummaryDto;
 import com.ssafy.ChallenMungs.blockchain.entity.Donation;
 import com.ssafy.ChallenMungs.blockchain.repository.DonationRepository;
 import com.ssafy.ChallenMungs.blockchain.repository.WalletRepository;
@@ -155,6 +156,7 @@ public class DonateServiceImpl implements  DonateService{
 
 
     //----내 기부내역 조회-----
+    @Override
     public List<DonationListDto> viewMyDonations(String loginId, int year) {
         List <DonationListDto> result=new ArrayList<>();
         List <Donation> list=donationRepo.findAllByUserAndYearOrderByDonateDateDesc(userRepo.findUserByLoginId(loginId),year);
@@ -166,10 +168,21 @@ public class DonateServiceImpl implements  DonateService{
         }
         return result;
     }
+    @Override
     public DonationDetailDto getDonation(int donationId){
         Donation d=donationRepo.findByDonationId(donationId);
         String day=d.getDonateDate().getYear()+"."+d.getDonateDate().getMonthValue()+"."+d.getDonateDate().getDayOfMonth();
         DonationDetailDto result=new DonationDetailDto(d.getUser().getName(),d.getMoney(),d.getShelter(),day);
+        return result;
+    }
+    @Override
+    public DonationSummaryDto getSummary(String loginId, int year){
+        User user=userRepo.findUserByLoginId(loginId);
+        int cnt=donationRepo.countByUserAndYear(user,year);
+        int sumYear= donationRepo.sumYearAmount(loginId,year);
+        int sumTotal= donationRepo.sumTotalAmount(loginId);
+        DonationSummaryDto result=new DonationSummaryDto(cnt,sumYear,sumTotal);
+
         return result;
     }
 
