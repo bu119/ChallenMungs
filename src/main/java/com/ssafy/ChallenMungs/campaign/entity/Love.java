@@ -13,6 +13,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@Table(name = "love")
 public class Love {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -23,7 +23,7 @@ public interface CampaignListRepository extends JpaRepository<Campaign, Long>  {
     List<Campaign> findByIsEndFalse();
 
     // 내가 응원한 캠페인
-
+    List<Campaign> findByCampaignIdIn(List<Integer> campaignIds);
 
     // 내가 참여한 캠페인
 
