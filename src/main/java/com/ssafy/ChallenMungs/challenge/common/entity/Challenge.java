@@ -75,4 +75,10 @@ public class Challenge {
     @Column(name = "min_lng")
     Double minLng;
 
+    @Column(name = "cell_size")
+    Double cellSize;
+
+    @Column(name = "map_size")
+    Double map_size;
+
 }

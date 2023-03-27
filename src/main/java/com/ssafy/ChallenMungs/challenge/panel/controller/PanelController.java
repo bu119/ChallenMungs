@@ -4,8 +4,6 @@ package com.ssafy.ChallenMungs.challenge.panel.controller;
 import com.ssafy.ChallenMungs.challenge.common.entity.Challenge;
 import com.ssafy.ChallenMungs.challenge.panel.service.PanelService;
 import com.ssafy.ChallenMungs.common.util.Distance;
-import com.ssafy.ChallenMungs.common.util.GetPosition;
-import com.ssafy.ChallenMungs.user.controller.UserController;
 import io.swagger.annotations.Api;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -89,6 +87,7 @@ public class PanelController {
                 .centerLat(centerLat)
                 .centerLng(centerLng)
                 .maxLat(maxLat).minLat(minLat).maxLng(maxLng).minLng(minLng)
+                .cellSize(cellSize).map_size(mapSize)
                 .cellD(cellD)
                 .currentParticipantCount(0)
                 .status(0)

@@ -147,18 +147,33 @@ public class ChallengeController {
         return new ResponseEntity(challenges, HttpStatus.OK);
     }
 
+
     @PostMapping("/tokenConfirm/getInChallenge")
-    ResponseEntity getInChallenge(HttpServletRequest request, @RequestParam("challengeId") long challengeId) {
+    ResponseEntity getInChallenge(HttpServletRequest request, @RequestParam("challengeId") long challengeId, @RequestParam("teamId") Integer teamId) {
         Challenge challenge = challengeService.findByChallengeId(challengeId);
         if (challenge.getCurrentParticipantCount() >= challenge.getMaxParticipantCount()) {
             log.info("이미 풀방이라 들어갈 수 없어요!");
             return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).build();
         }
-        challenge.setCurrentParticipantCount(challenge.getCurrentParticipantCount() + 1);
-        challengeService.save(challenge);
-        String loginId = request.getAttribute("loginId").toString();
-        myChallengeService.save(MyChallenge.builder().loginId(loginId).challengeId(challengeId).successCount(0).build());
-        return ResponseEntity.status(HttpStatus.OK).build();
+        if (teamId == null) {
+            challenge.setCurrentParticipantCount(challenge.getCurrentParticipantCount() + 1);
+            challengeService.save(challenge);
+            String loginId = request.getAttribute("loginId").toString();
+            myChallengeService.save(MyChallenge.builder().loginId(loginId).challengeId(challengeId).successCount(0).build());
+            return ResponseEntity.status(HttpStatus.OK).build();
+        } else {
+            if (challenge.getCurrentParticipantCount() >= challenge.getMaxParticipantCount() / 2) {
+                log.info("팀 정원 초과");
+                return ResponseEntity.status(HttpStatus.LOCKED).build(); //423
+            } else {
+                log.info("아직 수용 가능");
+                challenge.setCurrentParticipantCount(challenge.getCurrentParticipantCount() + 1);
+                challengeService.save(challenge);
+                String loginId = request.getAttribute("loginId").toString();
+                myChallengeService.save(MyChallenge.builder().loginId(loginId).challengeId(challengeId).successCount(0).teamId(teamId).build());
+                return ResponseEntity.status(HttpStatus.OK).build();
+            }
+        }
     }
 
     @PostMapping("/tokenConfirm/getOutChallenge")

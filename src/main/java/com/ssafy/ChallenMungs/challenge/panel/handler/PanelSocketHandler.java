@@ -28,7 +28,6 @@ import java.util.List;
 
 @Component
 public class PanelSocketHandler extends TextWebSocketHandler {
-    ArrayList<WebSocketSession> allSession = new ArrayList<>();
     public HashMap<Long, ChallengeVo> challengeManager = new HashMap<>();
     ObjectMapper mapper = new ObjectMapper();
     JsonParser parser = new JsonParser();
@@ -105,6 +104,48 @@ public class PanelSocketHandler extends TextWebSocketHandler {
             Double myLng = data.getAsJsonObject().get("lng").getAsDouble();
             Long challengeId = data.getAsJsonObject().get("challengeId").getAsLong();
             String loginId = data.getAsJsonObject().get("loginId").getAsString();
+
+            Challenge challenge = challengeService.findByChallengeId(challengeId);
+            MyChallenge myChallenge = myChallengeService.findByLoginIdAndChallengeId(loginId, challengeId);
+            Double latCellLength = (challenge.getMaxLat() - challenge.getMinLat()) / challenge.getCellD();
+            Double lngCellLength = (challenge.getMaxLng() - challenge.getMinLng()) / challenge.getCellD();
+
+            Integer index_c = (int) ((myLng - challenge.getMinLng()) / lngCellLength);
+            Integer index_r = (int) ((challenge.getMaxLat() - myLat) / latCellLength);
+
+            int moto = challengeManager.get(challengeId).mapInfo[index_r][index_c];
+            challengeManager.get(challengeId).mapInfo[index_r][index_c] = myChallenge.getTeamId();
+
+            if (moto != 0) challengeManager.get(challengeId).rankInfo.get(moto - 1).PanelCount--;
+            challengeManager.get(challengeId).rankInfo.get(myChallenge.getTeamId() - 1).PanelCount++;
+
+            challengeManager.get(challengeId).rankInfo.sort((o1, o2) -> {
+                return o1.PanelCount;
+            });
+
+            int rank = 0;
+            int count = -1;
+            for (RankVo r : challengeManager.get(challengeId).rankInfo) {
+                if (count < r.PanelCount) {
+                    count = r.PanelCount;
+                    rank++;
+                }
+                r.teamRank = rank;
+            }
+
+            HashMap<String, Object> mapDto = new HashMap<String, Object>();
+            mapDto.put("code", "signaling");
+            HashMap<String, Object> subMap = new HashMap<String, Object>();
+            mapDto.put("data", subMap);
+            subMap.put("indexR", index_r);
+            subMap.put("indexC", index_c);
+            subMap.put("teamId", myChallenge.getTeamId());
+            subMap.put("rankInfo", challengeManager.get(challengeId).rankInfo);
+            TextMessage dto = new TextMessage(mapper.writeValueAsString(mapDto));
+
+            for (PlayerVo pv : challengeManager.get(challengeId).players) {
+                pv.session.sendMessage(dto);
+            }
         }
     }
 
@@ -112,10 +153,13 @@ public class PanelSocketHandler extends TextWebSocketHandler {
     public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
         super.afterConnectionClosed(session, status);
         log.info("누군가가 소켓에서 연결이 끊겼어요ㅜㅜ");
-        for (WebSocketSession w : allSession) {
-            if (w.equals(session)) {
-                allSession.remove(w);
-                break;
+        Loop1:
+        for (Long i : challengeManager.keySet()) {
+            for (PlayerVo pv : challengeManager.get(i).players) {
+                if (pv.session.equals(session)) {
+                    challengeManager.get(i).players.remove(pv);
+                    break Loop1;
+                }
             }
         }
     }

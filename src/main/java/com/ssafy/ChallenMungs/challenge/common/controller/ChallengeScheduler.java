@@ -38,14 +38,21 @@ public class ChallengeScheduler {
         boolean flag;
         // 시작하면 teamId를 다시 정의해줘요
         List<Challenge> challenges = challengeService.findAll();
+        Loop1:
         for (Challenge c : challenges) {
             LocalDate today = LocalDate.now();
             flag = false;
             if (c.getStatus() == 0 && c.getStartDate().equals(today)) {
+                if (c.getCurrentParticipantCount() < c.getMaxParticipantCount()) {
+                    log.info("정원을 채우지 못해서 방이 지워져요ㅜㅜ");
+                    challengeService.delete(c);
+                    continue Loop1;
+                }
                 c.setStatus(1);
                 flag = true;
                 if (c.getChallengeType() == 2) {
                     List<MyChallenge> myChallenges = myChallengeService.findAllByChallengeId(c.getChallengeId());
+                    System.out.println("마챌" + myChallenges);
                     int teamIdx = 0;
                     ArrayList<RankVo> rankInfo = new ArrayList<>();
                     if (c.getGameType() == 1) {
@@ -53,6 +60,7 @@ public class ChallengeScheduler {
                             teamIdx++;
                             mc.setTeamId(teamIdx);
                             myChallengeService.save(mc);
+                            System.out.println("teamIdx는 " + teamIdx);
                             rankInfo.add(RankVo.builder().teamRank(1).PanelCount(0).teamId(teamIdx).build());
                         }
                     } else if (c.getGameType() == 2) {
@@ -69,7 +77,7 @@ public class ChallengeScheduler {
                 challengeService.save(c);
             }
             // 예를 들어 2일에 끝나는 겜이면 3일 자정에 끝나야됨
-            if (c.getEndDate().minusDays(1).equals(today)) {
+            if (c.getEndDate().plusDays(1).equals(today)) {
                 c.setStatus(2);
                 flag = true;
             }
