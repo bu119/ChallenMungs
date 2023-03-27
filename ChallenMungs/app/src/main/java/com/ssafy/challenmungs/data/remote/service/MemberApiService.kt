@@ -5,6 +5,6 @@ import retrofit2.http.GET
 
 interface MemberApiService {
 
-    @GET("/user/tokenConfirm/getNameAndProfile")
+    @GET("/user/tokenConfirm/getNameAndProfileAndLoginId")
     suspend fun getMemberInfo(): MemberResponse
 }

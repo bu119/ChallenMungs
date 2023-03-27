@@ -9,8 +9,10 @@ data class MemberResponse(
     val profile: String?,
     @SerializedName("name")
     val name: String,
-): DataToDomainMapper<Member>{
+    @SerializedName("loginId")
+    val memberId: String,
+) : DataToDomainMapper<Member> {
 
     override fun toDomainModel(): Member =
-        Member(profile, name)
+        Member(profile, name, memberId)
 }
