@@ -41,7 +41,7 @@ public class GeneralController {
             @RequestParam("startDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
             @RequestParam("endDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate,
             @RequestParam("maxParticipantCount") int maxParticipantCount,
-            @RequestParam("currentParticipantCount") int currentParticipantCount,
+//            @RequestParam("currentParticipantCount") int currentParticipantCount,
             @RequestParam("entryFee") int entryFee,
             @RequestParam("campaignId") int campaignId,
             @RequestParam("successCondition") int successCondition
@@ -53,7 +53,7 @@ public class GeneralController {
                         .startDate(startDate)
                         .endDate(endDate)
                         .maxParticipantCount(maxParticipantCount)
-                        .currentParticipantCount(currentParticipantCount)
+                        .currentParticipantCount(1)
                         .entryFee(entryFee)
                         .campaignId(campaignId)
                         .successCondition(successCondition)
