@@ -137,4 +137,5 @@
     <string name="content_do_set">설정하기</string>
     <string name="content_not_set">미설정</string>
     <string name="title_play_area_setting">경기구역 설정</string>
+    <string name="image_reset">image_reset_button_icon</string>
 </resources>

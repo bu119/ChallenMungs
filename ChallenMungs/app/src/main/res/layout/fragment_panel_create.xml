@@ -16,59 +16,47 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <ScrollView
-            android:id="@+id/scrollView2"
+            android:id="@+id/sv_content"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginBottom="18dp"
+            app:layout_constraintBottom_toTopOf="@id/btn_ok"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/toolbar">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:padding="18dp">
 
                 <TextView
                     android:id="@+id/tv_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="18dp"
-                    android:layout_marginTop="18dp"
                     android:text="@string/title_title"
                     android:textColor="@color/black"
                     android:textSize="16sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/til_et_title"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                    android:layout_width="0dp"
+                <EditText
+                    android:id="@+id/et_title"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="18dp"
-                    android:layout_marginTop="10dp"
-                    app:endIconMode="clear_text"
-                    app:errorEnabled="true"
+                    android:background="@drawable/bg_rect_white_smoke_radius10"
+                    android:fontFamily="sans-serif"
+                    android:hint="@string/content_enter_title"
+                    android:importantForAutofill="no"
+                    android:inputType="text"
+                    android:paddingHorizontal="18dp"
+                    android:paddingVertical="15dp"
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/suva_grey"
+                    android:textSize="14sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tv_title">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/et_title"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/bg_rect_white_smoke_radius10"
-                        android:fontFamily="sans-serif"
-                        android:hint="@string/content_enter_title"
-                        android:importantForAutofill="no"
-                        android:inputType="text"
-                        android:paddingHorizontal="18dp"
-                        android:paddingVertical="15dp"
-                        android:textColor="@color/black"
-                        android:textColorHint="@color/suva_grey"
-                        android:textSize="14sp" />
-
-                </com.google.android.material.textfield.TextInputLayout>
+                    app:layout_constraintTop_toBottomOf="@id/tv_title" />
 
                 <TextView
                     android:id="@+id/tv_date"
@@ -78,8 +66,8 @@
                     android:text="@string/title_date"
                     android:textColor="@color/black"
                     android:textSize="16sp"
-                    app:layout_constraintStart_toStartOf="@id/til_et_title"
-                    app:layout_constraintTop_toBottomOf="@id/til_et_title" />
+                    app:layout_constraintStart_toStartOf="@id/et_title"
+                    app:layout_constraintTop_toBottomOf="@id/et_title" />
 
                 <TextView
                     android:id="@+id/tv_date_content"
@@ -103,7 +91,6 @@
                     android:id="@+id/btn_calendar"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="18dp"
                     android:background="@drawable/bg_rect_golden_glow_radius100"
                     android:contentDescription="@string/image_calendar"
                     android:minWidth="0dp"
@@ -184,26 +171,36 @@
                     android:layout_marginTop="10dp"
                     android:gravity="center"
                     app:checkedButton="@id/btn_individual"
-                    app:layout_constraintStart_toStartOf="@+id/tv_type"
+                    app:layout_constraintStart_toStartOf="@id/tv_type"
                     app:layout_constraintTop_toBottomOf="@id/tv_type"
                     app:selectionRequired="true"
                     app:singleSelection="true">
 
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/btn_individual"
-                        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:minWidth="0dp"
+                        android:minHeight="0dp"
+                        android:padding="10dp"
+                        android:stateListAnimator="@null"
                         android:text="@string/content_individual"
-                        android:textColor="@color/black" />
+                        android:textColor="@color/black"
+                        android:textSize="14sp" />
 
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/btn_team"
-                        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:backgroundTint="@color/white_smoke"
+                        android:minWidth="0dp"
+                        android:minHeight="0dp"
+                        android:paddingHorizontal="18dp"
+                        android:paddingVertical="10dp"
+                        android:stateListAnimator="@null"
                         android:text="@string/content_team"
-                        android:textColor="@color/black" />
+                        android:textColor="@color/black"
+                        android:textSize="14sp" />
 
                 </com.google.android.material.button.MaterialButtonToggleGroup>
 
@@ -215,18 +212,18 @@
                     android:text="@string/content_participation_money"
                     android:textColor="@color/black"
                     android:textSize="16sp"
-                    app:layout_constraintStart_toStartOf="@+id/btg_type"
-                    app:layout_constraintTop_toBottomOf="@+id/btg_type" />
+                    app:layout_constraintStart_toStartOf="@id/btg_type"
+                    app:layout_constraintTop_toBottomOf="@id/btg_type" />
 
                 <ImageView
                     android:layout_width="16dp"
                     android:layout_height="16dp"
                     android:layout_marginStart="6dp"
+                    android:contentDescription="@string/image_klay"
                     android:src="@drawable/ic_klay"
                     app:layout_constraintBottom_toBottomOf="@id/tv_participation_money"
                     app:layout_constraintStart_toEndOf="@id/tv_participation_money"
-                    app:layout_constraintTop_toTopOf="@+id/tv_participation_money"
-                    android:contentDescription="@string/image_klay" />
+                    app:layout_constraintTop_toTopOf="@id/tv_participation_money" />
 
                 <androidx.appcompat.widget.AppCompatImageButton
                     android:id="@+id/btn_participation_money_minus"
@@ -276,10 +273,11 @@
                     android:text="@string/title_play_area_setting"
                     android:textColor="@color/black"
                     android:textSize="16sp"
-                    app:layout_constraintStart_toStartOf="@+id/btn_participation_money_minus"
-                    app:layout_constraintTop_toBottomOf="@+id/btn_participation_money_minus" />
+                    app:layout_constraintStart_toStartOf="@id/btn_participation_money_minus"
+                    app:layout_constraintTop_toBottomOf="@id/btn_participation_money_minus" />
 
                 <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btn_play_area_set"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
@@ -291,8 +289,8 @@
                     android:text="@string/content_not_set"
                     android:textColor="@color/black"
                     android:textSize="14sp"
-                    app:layout_constraintStart_toStartOf="@+id/tv_play_area"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_play_area" />
+                    app:layout_constraintStart_toStartOf="@id/tv_play_area"
+                    app:layout_constraintTop_toBottomOf="@id/tv_play_area" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -302,28 +300,28 @@
             android:id="@+id/btn_reset"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="18dp"
             android:background="@android:color/transparent"
+            android:contentDescription="@string/image_reset"
+            android:padding="18dp"
             android:src="@drawable/ic_reset"
-            app:layout_constraintBottom_toBottomOf="@+id/btn_ok"
+            app:layout_constraintBottom_toBottomOf="@id/btn_ok"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/btn_ok" />
+            app:layout_constraintTop_toTopOf="@id/btn_ok" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_ok"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
             android:layout_marginEnd="18dp"
             android:layout_marginBottom="30dp"
+            android:background="@drawable/bg_rect_golden_glow_radius5"
             android:minWidth="0dp"
             android:minHeight="0dp"
-            android:paddingHorizontal="108dp"
             android:paddingVertical="15dp"
             android:text="@string/content_do_set"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/btn_reset" />
+            app:layout_constraintStart_toEndOf="@id/btn_reset" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
