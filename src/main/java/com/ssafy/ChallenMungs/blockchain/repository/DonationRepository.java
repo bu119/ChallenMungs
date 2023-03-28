@@ -26,4 +26,8 @@ public interface DonationRepository extends JpaRepository<Donation, Long> {
             nativeQuery = true)
     int sumYearAmount(@Param("login_id") String loginId,@Param("year") int year);
 
+    @Query(value = "select count(*) from campaign where name = :name and wallet_address != 'none'",
+            nativeQuery = true)
+    int getRunningCampaignCnt(@Param("name") String name);
+
 }
