@@ -5,7 +5,9 @@ import com.ssafy.challenmungs.R
 import com.ssafy.challenmungs.common.util.BindingAdapters.setProfileImg
 import com.ssafy.challenmungs.databinding.FragmentEditProfileBinding
 import com.ssafy.challenmungs.presentation.base.BaseFragment
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class EditProfileFragment :
     BaseFragment<FragmentEditProfileBinding>(R.layout.fragment_edit_profile) {
 
