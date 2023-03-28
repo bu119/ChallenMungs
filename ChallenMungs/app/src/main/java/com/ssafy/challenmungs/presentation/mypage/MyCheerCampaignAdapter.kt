@@ -29,6 +29,7 @@ class MyCheerCampaignAdapter(var items: List<CampaignCard> = listOf()) :
     class CampaignViewHolder(
         private val binding: ItemCampaignCardBinding
     ) : RecyclerView.ViewHolder(binding.root) {
+
         fun onBind(data: CampaignCard) {
             binding.campaign = data
         }
