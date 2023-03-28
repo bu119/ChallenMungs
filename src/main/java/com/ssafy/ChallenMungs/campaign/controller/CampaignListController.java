@@ -45,5 +45,12 @@ public class CampaignListController {
     public ResponseEntity<List<CampaignDto>> getUserLove(@RequestParam String loginId){
         return new ResponseEntity<List<CampaignDto>>(service.getUserLove(loginId), HttpStatus.OK);
     }
+
+    // 내가 기부한 캠페인 리스트
+    @GetMapping("/myDonate")
+    @ApiOperation(value = "내가 기부한 캠페인", notes = "사용자가 기부한 캠페인 목록을 조회하는 api 입니다.")
+    public ResponseEntity<List<CampaignDto>> getUserDonate(@RequestParam String loginId){
+        return new ResponseEntity<List<CampaignDto>>(service.getUserDonate(loginId), HttpStatus.OK);
+    }
     
 }

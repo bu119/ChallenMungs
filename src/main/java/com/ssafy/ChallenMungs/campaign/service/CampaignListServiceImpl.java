@@ -4,9 +4,11 @@ import com.ssafy.ChallenMungs.campaign.dto.CampaignDto;
 import com.ssafy.ChallenMungs.campaign.dto.CampaignShelterDto;
 import com.ssafy.ChallenMungs.campaign.dto.ContentDto;
 import com.ssafy.ChallenMungs.campaign.entity.Campaign;
+import com.ssafy.ChallenMungs.campaign.entity.Comment;
 import com.ssafy.ChallenMungs.campaign.entity.Love;
 import com.ssafy.ChallenMungs.campaign.repository.CampaignContentRepository;
 import com.ssafy.ChallenMungs.campaign.repository.CampaignListRepository;
+import com.ssafy.ChallenMungs.campaign.repository.CommentRepository;
 import com.ssafy.ChallenMungs.campaign.repository.LoveRepository;
 import com.ssafy.ChallenMungs.place.service.PlaceServiceImpl;
 import com.ssafy.ChallenMungs.user.entity.User;
@@ -32,6 +34,7 @@ public class CampaignListServiceImpl implements CampaignListService {
     private final CampaignContentRepository contentRepo;
     private final UserRepository userRepo;
     private final LoveRepository loveRepo;
+    private final CommentRepository commentRepo;
     private Logger log = LoggerFactory.getLogger(CampaignListServiceImpl.class);
 
 //    List<CampaignDto> test(){
@@ -136,8 +139,20 @@ public class CampaignListServiceImpl implements CampaignListService {
 
     // 해당 유저가 참여한 캠페인 목록
     @Override
-    public List<CampaignDto> getUserParticipate(String loginId) {
-        return null;
+    public List<CampaignDto> getUserDonate(String loginId) {
+        User loginUser = userRepo.findUserByLoginId(loginId);
+        List<Comment> donateCampaigns = commentRepo.findAllByUser(loginUser);
+
+        List<Integer> campaignIds = new ArrayList<>();
+        for (Comment commentItem:donateCampaigns){
+            campaignIds.add(commentItem.getCampaign().getCampaignId());
+        }
+        //캠페인 아이디로 캠페인 필터링 하기
+        List<Campaign> list = jpaRepo.findByCampaignIdIn(campaignIds);
+
+        return  list.stream()
+                .map(b -> new CampaignDto(b.getCampaignId(),b.getThumbnail(),b.getTitle(), b.getName(), b.getCollectAmount(), b.getTargetAmount(), loveRepo.countByCampaign(b)))
+                .collect(Collectors.toList());
     }
 
     // 해당 유저가 응원한 캠페인 목록
@@ -147,7 +162,8 @@ public class CampaignListServiceImpl implements CampaignListService {
 
         //love에서 로그인 아이디와 일치하는 캠페인 아이디 뽑기
         List<Love> loveCampaigns = loveRepo.findAllByUser(loginUser);
-        List<Integer> campaignIds=new ArrayList<>();
+        // 캠페인 아이디 리스트로 저장
+        List<Integer> campaignIds = new ArrayList<>();
         for(Love loveItem:loveCampaigns){
             campaignIds.add(loveItem.getCampaign().getCampaignId());
         }
