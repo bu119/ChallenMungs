@@ -7,14 +7,13 @@ import javax.persistence.*;
 @Entity(name = "challenge_result")
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @Builder
 public class ChallengeResult {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "idx")
-    Long idx;
+    Long indx;
 
     @Column(name = "login_id")
     String loginId;
@@ -28,6 +27,6 @@ public class ChallengeResult {
     @Column(name = "panel_count")
     Integer panelCount;
 
-    @Column(name = "rank")
-    Integer rank;
+    @Column(name = "ranking")
+    Integer ranking;
 }

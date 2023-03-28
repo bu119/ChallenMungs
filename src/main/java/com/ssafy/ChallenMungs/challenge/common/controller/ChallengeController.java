@@ -1,14 +1,14 @@
 package com.ssafy.ChallenMungs.challenge.common.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ssafy.ChallenMungs.challenge.common.entity.Challenge;
 import com.ssafy.ChallenMungs.challenge.common.entity.MyChallenge;
 import com.ssafy.ChallenMungs.challenge.common.service.ChallengeService;
 import com.ssafy.ChallenMungs.challenge.common.service.MyChallengeService;
 import com.ssafy.ChallenMungs.common.util.Distance;
+import com.ssafy.ChallenMungs.common.util.FileManager;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import net.bytebuddy.asm.Advice;
-import org.apache.commons.math3.geometry.euclidean.threed.Vector3D;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,6 +39,11 @@ public class ChallengeController {
 
     @Autowired
     Distance distance;
+
+    @Autowired
+    FileManager fileManager;
+
+    ObjectMapper mapper = new ObjectMapper();
 
     @PostMapping("/tokenConfirm/getList")
     @ApiOperation(value = "챌린지 리스트를 불러오는 메서드에요")
@@ -149,42 +154,59 @@ public class ChallengeController {
 
 
     @PostMapping("/tokenConfirm/getInChallenge")
-    ResponseEntity getInChallenge(HttpServletRequest request, @RequestParam("challengeId") long challengeId, @RequestParam("teamId") Integer teamId) {
+    ResponseEntity getInChallenge(HttpServletRequest request, @RequestParam("challengeId") long challengeId, @RequestParam(name = "teamId", required = false) Integer teamId) {
         Challenge challenge = challengeService.findByChallengeId(challengeId);
-        if (challenge.getCurrentParticipantCount() >= challenge.getMaxParticipantCount()) {
-            log.info("이미 풀방이라 들어갈 수 없어요!");
-            return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).build();
-        }
-        if (teamId == null) {
-            challenge.setCurrentParticipantCount(challenge.getCurrentParticipantCount() + 1);
-            challengeService.save(challenge);
-            String loginId = request.getAttribute("loginId").toString();
-            myChallengeService.save(MyChallenge.builder().loginId(loginId).challengeId(challengeId).successCount(0).build());
-            return ResponseEntity.status(HttpStatus.OK).build();
-        } else {
-            if (challenge.getCurrentParticipantCount() >= challenge.getMaxParticipantCount() / 2) {
-                log.info("팀 정원 초과");
-                return ResponseEntity.status(HttpStatus.LOCKED).build(); //423
-            } else {
-                log.info("아직 수용 가능");
+        if (challenge.getStatus() == 0) {
+            if (challenge.getCurrentParticipantCount() >= challenge.getMaxParticipantCount()) {
+                log.info("이미 풀방이라 들어갈 수 없어요!");
+                return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).build();
+            }
+            if (teamId == null) {
                 challenge.setCurrentParticipantCount(challenge.getCurrentParticipantCount() + 1);
                 challengeService.save(challenge);
                 String loginId = request.getAttribute("loginId").toString();
-                myChallengeService.save(MyChallenge.builder().loginId(loginId).challengeId(challengeId).successCount(0).teamId(teamId).build());
+                myChallengeService.save(MyChallenge.builder().loginId(loginId).challengeId(challengeId).successCount(0).build());
                 return ResponseEntity.status(HttpStatus.OK).build();
+            } else {
+                if (challenge.getCurrentParticipantCount() >= challenge.getMaxParticipantCount() / 2) {
+                    log.info("팀 정원 초과");
+                    return ResponseEntity.status(HttpStatus.LOCKED).build(); //423
+                } else {
+                    log.info("아직 수용 가능");
+                    challenge.setCurrentParticipantCount(challenge.getCurrentParticipantCount() + 1);
+                    challengeService.save(challenge);
+                    String loginId = request.getAttribute("loginId").toString();
+                    myChallengeService.save(MyChallenge.builder().loginId(loginId).challengeId(challengeId).successCount(0).teamId(teamId).build());
+                    return ResponseEntity.status(HttpStatus.OK).build();
+                }
             }
+        } else if (challenge.getStatus() == 1) {
+            log.info("진행 중인 방이라 들어갈 수 없어요");
+            return ResponseEntity.status(HttpStatus.CONFLICT).build(); //409
+        } else { //status가 2인 경우
+            log.info("끝난 방이에요!");
+            if (challenge.getChallengeType() == 2) {
+                log.info("판넬 뒤집기네요. 결과를 가져 올게요");
+                String result = fileManager.loadResult(Long.toString(challengeId));
+                return new ResponseEntity(result, HttpStatus.CREATED); // 201
+            }
+            return ResponseEntity.status(HttpStatus.ACCEPTED).build(); //202
         }
     }
 
+    // 나갈 때 커런트인원 빼기 안함 방에 있었었는지 여부
     @PostMapping("/tokenConfirm/getOutChallenge")
     ResponseEntity getOutchallenge(HttpServletRequest request, @RequestParam("challengeId") long challengeId) {
         String loginId = request.getAttribute("loginId").toString();
         myChallengeService.findByLoginIdAndChallengeIdToDelete(loginId, challengeId);
         Challenge challenge = challengeService.findByChallengeId(challengeId);
+        System.out.println("::::" + challenge);
         challenge.setCurrentParticipantCount(challenge.getCurrentParticipantCount() - 1);
         if (challenge.getCurrentParticipantCount() == 0) {
             log.info("제가 나가서 이방엔 더이상 사람이 없어요!");
             challengeService.delete(challenge);
+        } else {
+            challengeService.save(challenge);
         }
         return ResponseEntity.status(HttpStatus.OK).build();
     }

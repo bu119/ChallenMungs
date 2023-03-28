@@ -1,5 +1,7 @@
 package com.ssafy.ChallenMungs.challenge.common.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ssafy.ChallenMungs.challenge.common.entity.Challenge;
 import com.ssafy.ChallenMungs.challenge.common.entity.MyChallenge;
 import com.ssafy.ChallenMungs.challenge.common.service.ChallengeService;
@@ -8,6 +10,8 @@ import com.ssafy.ChallenMungs.challenge.panel.handler.ChallengeVo;
 import com.ssafy.ChallenMungs.challenge.panel.handler.PanelSocketHandler;
 import com.ssafy.ChallenMungs.challenge.panel.handler.PlayerVo;
 import com.ssafy.ChallenMungs.challenge.panel.handler.RankVo;
+import com.ssafy.ChallenMungs.common.util.FileManager;
+import jnr.ffi.Struct;
 import org.apache.commons.math3.geometry.euclidean.threed.Vector3D;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,8 +35,13 @@ public class ChallengeScheduler {
     @Autowired
     PanelSocketHandler panelSocketHandler;
 
+    @Autowired
+    FileManager fileManager;
+
+    ObjectMapper mapper = new ObjectMapper();
+
     @Scheduled(cron = "0 0 0 * * ?") // 매일 자정에 동작해요
-//    @Scheduled(cron = "0/5 * * * * ?") // 5초마다 실행해요
+//    @Scheduled(cron = "0/20 * * * * ?") // 5초마다 실행해요
     public void startChallenge() {
         System.out.println("스케쥴러가 동작해요!");
         boolean flag;
@@ -52,7 +61,6 @@ public class ChallengeScheduler {
                 flag = true;
                 if (c.getChallengeType() == 2) {
                     List<MyChallenge> myChallenges = myChallengeService.findAllByChallengeId(c.getChallengeId());
-                    System.out.println("마챌" + myChallenges);
                     int teamIdx = 0;
                     ArrayList<RankVo> rankInfo = new ArrayList<>();
                     if (c.getGameType() == 1) {
@@ -60,7 +68,6 @@ public class ChallengeScheduler {
                             teamIdx++;
                             mc.setTeamId(teamIdx);
                             myChallengeService.save(mc);
-                            System.out.println("teamIdx는 " + teamIdx);
                             rankInfo.add(RankVo.builder().teamRank(1).PanelCount(0).teamId(teamIdx).build());
                         }
                     } else if (c.getGameType() == 2) {
@@ -77,9 +84,29 @@ public class ChallengeScheduler {
                 challengeService.save(c);
             }
             // 예를 들어 2일에 끝나는 겜이면 3일 자정에 끝나야됨
-            if (c.getEndDate().plusDays(1).equals(today)) {
+            if (c.getStatus() == 1 && c.getEndDate().plusDays(1).equals(today)) {
                 c.setStatus(2);
                 flag = true;
+                String saveValue;
+                StringBuilder sb = new StringBuilder();
+                if (c.getChallengeType() == 2) {
+                    log.info("판넬뒤집기 챌린지가 종료되었어요!");
+                    try {
+                        sb.append("{\nmapInfo:");
+                        sb.append(mapper.writeValueAsString(panelSocketHandler.challengeManager.get(c.getChallengeId()).getMapInfo()));
+                        sb.append(",\nrankInfo:");
+                        sb.append(mapper.writeValueAsString(panelSocketHandler.challengeManager.get(c.getChallengeId()).getRankInfo()));
+                        sb.append(",\ncenterLat:");
+                        sb.append(c.getCenterLat());
+                        sb.append(",\ncenterLng:");
+                        sb.append(c.getCenterLng());
+                        sb.append("\n}");
+                    } catch (JsonProcessingException e) {
+                        throw new RuntimeException(e);
+                    }
+                    fileManager.saveResult(Long.toString(c.getChallengeId()), sb.toString());
+                    panelSocketHandler.challengeManager.remove(c.getChallengeId());
+                }
             }
             if (flag) {
                 challengeService.save(c);

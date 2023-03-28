@@ -58,9 +58,6 @@ public class UserController {
     @Value("${secret.key}")
     String secretKey;
 
-    //사진을 저장할 경로를 properties로 부터 가져와요
-    @Value("${profile.path}")
-    String path;
 
     @PostMapping("/kakaoLogin")
     @ApiOperation(value = "로그인 하는 API에요!")

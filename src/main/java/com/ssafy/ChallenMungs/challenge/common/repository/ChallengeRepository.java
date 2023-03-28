@@ -4,6 +4,7 @@ import com.ssafy.ChallenMungs.challenge.common.entity.Challenge;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public interface ChallengeRepository extends JpaRepository<Challenge, Long>, QuerydslPredicateExecutor<Challenge> {
@@ -17,4 +18,5 @@ public interface ChallengeRepository extends JpaRepository<Challenge, Long>, Que
 
     List<Challenge> findAllByStatusAndChallengeType(int status, int challengeType);
 
+    ArrayList<Challenge> findAllByStatus(int i);
 }
