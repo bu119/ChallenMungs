@@ -156,12 +156,7 @@ public class DonateServiceImpl implements  DonateService{
 
         return true;
     }
-    public boolean isExistCampaign(String loginId){
-
-        return true;
-    }
-
-
+     
 
     //----내 기부내역 조회-----
     @Override
