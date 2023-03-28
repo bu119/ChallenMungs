@@ -56,7 +56,7 @@
         </activity>
 
         <activity
-            android:name=".presentation.splash.SplashActivity"
+            android:name=".presentation.common.MainActivity"
             android:exported="true">
 
             <intent-filter>
@@ -67,15 +67,11 @@
         </activity>
 
         <activity
-            android:name=".presentation.PermissionActivity"
-            android:exported="false" />
-
-        <activity
             android:name=".presentation.auth.AuthActivity"
             android:exported="false" />
 
         <activity
-            android:name=".presentation.home.MainActivity"
+            android:name=".presentation.home.HomeActivity"
             android:exported="false" />
 
     </application>

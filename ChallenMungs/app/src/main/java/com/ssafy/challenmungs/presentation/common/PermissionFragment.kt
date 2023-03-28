@@ -1,23 +1,18 @@
-package com.ssafy.challenmungs.presentation
+package com.ssafy.challenmungs.presentation.common
 
 import android.Manifest
 import android.content.pm.PackageManager
-import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.ssafy.challenmungs.ApplicationClass
-import com.ssafy.challenmungs.common.util.setImmersiveMode
-import com.ssafy.challenmungs.databinding.ActivityPermissionBinding
+import com.ssafy.challenmungs.R
+import com.ssafy.challenmungs.databinding.FragmentPermissionBinding
+import com.ssafy.challenmungs.presentation.base.BaseFragment
+import dagger.hilt.android.AndroidEntryPoint
 
-class PermissionActivity : AppCompatActivity() {
+@AndroidEntryPoint
+class PermissionFragment : BaseFragment<FragmentPermissionBinding>(R.layout.fragment_permission) {
 
-    private lateinit var binding: ActivityPermissionBinding
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = ActivityPermissionBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-        setImmersiveMode()
+    override fun initView() {
         ApplicationClass.preferences.isFirstRun = false
 
         initListener()
@@ -27,7 +22,7 @@ class PermissionActivity : AppCompatActivity() {
         binding.btnPermissionCheck.setOnClickListener {
             when {
                 ContextCompat.checkSelfPermission(
-                    this@PermissionActivity,
+                    requireContext(),
                     Manifest.permission.ACCESS_FINE_LOCATION
                 ) == PackageManager.PERMISSION_GRANTED -> {
                     // 로그인 체크 후 화면 분기
@@ -37,7 +32,7 @@ class PermissionActivity : AppCompatActivity() {
 
             when {
                 ContextCompat.checkSelfPermission(
-                    this@PermissionActivity,
+                    requireContext(),
                     Manifest.permission.ACCESS_BACKGROUND_LOCATION
                 ) == PackageManager.PERMISSION_GRANTED -> {
 
@@ -46,7 +41,7 @@ class PermissionActivity : AppCompatActivity() {
 
             when {
                 ContextCompat.checkSelfPermission(
-                    this@PermissionActivity,
+                    requireContext(),
                     Manifest.permission.READ_MEDIA_IMAGES
                 ) == PackageManager.PERMISSION_GRANTED -> {
 

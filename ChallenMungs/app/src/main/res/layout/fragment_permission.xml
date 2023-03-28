@@ -7,7 +7,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/white_linen"
-        tools:context=".presentation.PermissionActivity">
+        tools:context=".presentation.common.PermissionFragment">
 
         <TextView
             android:id="@+id/tv_title_permission"
