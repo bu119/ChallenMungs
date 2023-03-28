@@ -1,13 +1,18 @@
 package com.ssafy.ChallenMungs.common.util;
 
 import com.ssafy.ChallenMungs.challenge.common.controller.ChallengeController;
+import com.ssafy.ChallenMungs.challenge.common.entity.Challenge;
+import com.ssafy.ChallenMungs.challenge.common.service.ChallengeService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Component
 public class FileManager {
@@ -21,25 +26,21 @@ public class FileManager {
 
     private Logger log = LoggerFactory.getLogger(FileManager.class);
 
+    @Autowired
+    ChallengeService challengeService;
+
     @PostConstruct
     void init() {
+        List<Long> challenges = challengeService.findAllByStatus(2);
         if (System.getProperty("os.name").substring(0, 3).equals("Win")) directoryPath = windowsPath;
         else directoryPath = ubuntuPath;
-        System.out.println(directoryPath);
         File directory = new File(directoryPath);
-        System.out.println("디렉터리:::" + directory + "  " + directory.exists());
-        if (!directory.exists()) directory.mkdirs();
-        System.out.println("디렉터리:::" + directory + "  " + directory.exists());
-        File directory2 = new File("/home");
-        System.out.println("디렉터리:::" + directory2 + "  " + directory2.exists());
-//        File[] files = directory.listFiles();
-//        System.out.println("파일스:::" + files);
-//        for (File file : files) {
-//            System.out.println(file.getName());
-//            if (file.isFile()) {
-//                file.delete();
-//            }
-//        }
+        File[] files = directory.listFiles();
+        for (File file : files) {
+            if (file.isFile() && !challenges.contains(file.getName())) {
+                file.delete();
+            }
+        }
     }
 
     public void saveResult(String title, String content) {
