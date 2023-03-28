@@ -31,7 +31,7 @@
     <string name="content_logout">로그아웃</string>
     <string name="title_my_campaign">내가 기부한 캠페인</string>
     <string name="content_unit">KLAY</string>
-    <string name="title_cheer_campaign">응원한 캠페인</string>
+    <string name="title_cheer_campaign">내가 응원한 기부 캠페인</string>
 
     <!-- Splash -->
     <string name="image_logo">서비스 로고입니다.</string>
@@ -108,6 +108,20 @@
     <!-- Member - OnBoarding -->
     <string name="content_member_name">닉네임</string>
     <string name="title_member_onboarding">회원정보 입력</string>
+
+    <!--  Campaign Card  -->
+    <string name="content_campaign_amount">%d / %d KLAY</string>
+    <string name="content_progress">(%d%)</string>
+    <string name="image_heart_icon">image_heart_icon</string>
+    <string name="image_campaign_banner">image_banner</string>
+
+    <!--  Challenge Card  -->
+    <string name="content_period">%s ~ %s</string>
+    <string name="content_treasure">보물</string>
+    <string name="content_headcount">%d/%d</string>
+    <string name="content_normal">일반</string>
+    <string name="content_panel_individual">판넬(개)</string>
+    <string name="content_panel_team">판넬(팀)</string>
 
     <!--  Panel Game Create  -->
     <string name="title_title">제목</string>
