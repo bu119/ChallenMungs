@@ -6,10 +6,10 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
 import com.ssafy.challenmungs.R
-import com.ssafy.challenmungs.domain.entity.bank.BankStatementItem
+import com.ssafy.challenmungs.domain.entity.bank.BankStatement
 
 class BankStatementAdapter(
-    private val dataSet: ArrayList<BankStatementItem>
+    private val dataSet: ArrayList<BankStatement>
 ) : RecyclerView.Adapter<BankStatementViewHolder>() {
 
     enum class ViewType {
