@@ -27,7 +27,8 @@ import java.util.stream.Collectors;
 @RequestMapping("/challenge")
 @CrossOrigin("*")
 @Api(value = "challenge", description = "챌린지를 관리하는 컨트롤러에요!")
-public class ChallengeController {
+public class
+ChallengeController {
 //    전체 일반 판넬, 보물별로 검색결과 제공
     private Logger log = LoggerFactory.getLogger(ChallengeController.class);
 
