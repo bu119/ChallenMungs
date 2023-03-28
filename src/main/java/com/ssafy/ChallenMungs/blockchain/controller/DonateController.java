@@ -72,8 +72,6 @@ public class DonateController {
         return new ResponseEntity<Object>(service.getSummary(loginId,year),HttpStatus.OK);
     }
 
-
-
     //영수증 이미지 가지고 사용처, 사용일, 사용금액 반환
 
 

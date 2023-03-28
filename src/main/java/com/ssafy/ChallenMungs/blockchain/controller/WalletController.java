@@ -43,7 +43,14 @@ public class WalletController {
         }
     }
 
-    //todo 각종 송금 관련..
+    @GetMapping("/balance")
+    @ApiOperation(value = "계좌를 입력하면 잔액을 알려줍니다. 없는 계좌면 0, 잘못된 계좌면 에러를 반환합니다." ,notes="백엔드에서 캠페인 송금 가능여부 편하게 개발하려고 만들었어요. 혹시 필요하면 사용하세요. \n" +
+            "테스트용 지원이 계좌: 0xa82866b793c35b4742c5f637be56bbdba6662e41")
+    ResponseEntity<Object> getBalance(@RequestParam String address) {
+        String balance= service.getBalance(address);
+        if(balance.equals("error")) return new ResponseEntity<Object>(res.makeSimpleRes("계좌 번호 형식 확인!!"),HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<Object>(res.makeSimpleRes(service.getBalance(address)),HttpStatus.OK);
+    }
 
 
 

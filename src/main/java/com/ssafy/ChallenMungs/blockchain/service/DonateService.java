@@ -23,7 +23,7 @@ public interface DonateService {
 
     boolean checkCampaignTransferAble(int campaignId); //캠페인 이월 가능한지 체크
     void addDonation(Campaign campaign,int money,String loginId);
-    boolean checkTransferAble(String fromAddress,String toAddress); //잔액이 충분한지 체크
+
 
 
     List<DonationListDto> viewMyDonations(String loginId, int year);
