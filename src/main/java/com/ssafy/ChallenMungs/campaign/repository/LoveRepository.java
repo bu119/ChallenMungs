@@ -14,6 +14,8 @@ public interface LoveRepository extends JpaRepository<Love, Long> {
     int countByUserAndCampaign(User user, Campaign campaign); //유저 조아요 중복체크용
     int countByCampaign(Campaign campaign);
     List<Love> findAllByUser(User user);
-    @Query("select l.campaign from Love l")
-    List<Object> selectCampaign(List<Love> list);
+
+//    //select 문으로 추출
+//    @Query("select l.campaign from Love l")
+//    List<Object> selectCampaign(List<Love> list);
 }

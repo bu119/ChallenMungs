@@ -39,6 +39,7 @@ public class DonateServiceImpl implements  DonateService{
     private final CampaignListRepository campaignRepo;
     private final CommentRepository commentRepo;
     private final DonationRepository donationRepo;
+    private final WalletService walletService;
 
     //------기부 관련-------
     @Override
@@ -123,7 +124,7 @@ public class DonateServiceImpl implements  DonateService{
     }
     @Override
     public void plusWithdraw(int campaignId, int money) {
-        //만약 isEnd가 true고 출금금액이 목표금액 이상이면 계좌 회수
+        //만약 isEnd가 true면서 collectedAmount를 모두 빼냈으면 계좌 회수
         Campaign campaign=campaignRepo.findCampaignByCampaignId(campaignId);
         if(isEndCampaign(campaign,money)){
             campaign.setWalletAddress("none");
@@ -137,7 +138,8 @@ public class DonateServiceImpl implements  DonateService{
 
     @Override
     public boolean isEndCampaign(Campaign campaign, int money) {
-        if(campaign.isEnd()&&(campaign.getWithdrawAmount()+money)>=campaign.getTargetAmount()){
+
+        if(campaign.isEnd()&&(campaign.getWithdrawAmount()+money)>=campaign.getCollectAmount()){
             return true;
         }
         return false;
@@ -146,14 +148,15 @@ public class DonateServiceImpl implements  DonateService{
 
     @Override
     public boolean checkCampaignTransferAble(int campaignId) {
+        Campaign campaign=campaignRepo.findCampaignByCampaignId(campaignId);
+        //잔액이 없는 경우
+        if((campaign.getCollectAmount()-campaign.getWithdrawAmount())<=0)  return false;
+        //이월할 캠페인이 없는 경우
+        if(donationRepo.getRunningCampaignCnt(campaign.getUser().getName())!=2) return false;
 
-        return false;
+        return true;
     }
-    @Override
-    public boolean checkTransferAble(String fromAddress, String toAddress) {
-        return false;
-    }
-
+     
 
     //----내 기부내역 조회-----
     @Override
