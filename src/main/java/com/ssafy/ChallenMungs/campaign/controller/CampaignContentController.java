@@ -55,14 +55,13 @@ public class CampaignContentController {
 
 
     @PostMapping("/cheerup")
-    @ApiOperation(value = "캠페인을 응원합니다." ,notes="캠페인을 응원합니다. 이미 응원을 했는데 또 호출하면 아무일도 일어나지 않고, '중복' 문자열을 반환합니다.\n" +
-            "중복시 에러를 반환하길 원한다면 지원이에게 말하세요.")
+    @ApiOperation(value = "캠페인을 응원합니다." ,notes="캠페인을 응원합니다. 이미 응원을 했는데 또 호출하면 아무일도 일어나지 않고, '중복' 문자열을 반환합니다.\n" )
     ResponseEntity<Object> cheerUpCampaign(@RequestParam String loginId,@RequestParam int campaignId) {
          if(service.cheerUpCampaign(loginId,campaignId)==0){
              return new ResponseEntity<Object>(res.makeSimpleRes("성공"),HttpStatus.OK);
          }
          else if(service.cheerUpCampaign(loginId,campaignId)==1){
-             return new ResponseEntity<Object>(res.makeSimpleRes("중복"),HttpStatus.INTERNAL_SERVER_ERROR);
+             return new ResponseEntity<Object>(res.makeSimpleRes("중복"),HttpStatus.OK);
          }
         return new ResponseEntity<Object>(res.makeSimpleRes("실패"),HttpStatus.INTERNAL_SERVER_ERROR);
 
