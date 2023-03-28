@@ -29,9 +29,4 @@ public class GeneralReject {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private GeneralBoard board;
 
-//    @Column(name = "login_id")
-//    String loginId;
-//
-//    @Column(name = "board_id")
-//    int boardId;
 }

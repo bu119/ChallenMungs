@@ -22,22 +22,15 @@ public class GeneralBoard {
     @Column(name = "board_id")
     Integer boardId;
 
-    //    @Column(name = "challenge_id")
     @ManyToOne(fetch = FetchType.LAZY)  // 1:N
     @JoinColumn(name="challenge_id") //Join 기준
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Challenge challenge;
 
-
-//    @Column(name = "login_id")
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="login_id")
     @OnDelete(action = OnDeleteAction.CASCADE)
     private User user;
-
-
-//    @Column(name = "name")
-//    String name;
 
     @Column(name = "picture_uri", length = 2500)
     String pictureUri;

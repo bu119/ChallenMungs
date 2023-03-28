@@ -52,37 +52,11 @@ public class GeneralBoardService {
         return boardRepository.findByChallengeAndUserAndRegisterDay(challenge, user, registerDay);
     }
 
-    // 반려하기 (과반수이상이면 게시물 삭제)
-//    public ResponseEntity<Void> increaseRejectCountAndDelete(Long challengeId, String loginId, String userLoginId) {
-//        LocalDate registerDay = LocalDate.now();
-//        GeneralBoard generalBoard = boardRepository.findByChallengeIdAndLoginIdAndRegisterDay(challengeId, loginId, registerDay);
-//        if (generalBoard != null) {
-//            // 게시글의 loginId와 userLoginId가 다른 경우
-//            if (!userLoginId.equals(loginId)) {
-//
-//                int currentRejectCount = generalBoard.getRejectCount();
-//
-//                int maxParticipantCount = challengeRepository.findByChallengeId(challengeId).getMaxParticipantCount();
-//
-//                // rejectCount가 maxParticipantCount의 과반수 미만인 경우
-//                if (currentRejectCount + 1 < maxParticipantCount / 2) {
-//                    generalBoard.setRejectCount(currentRejectCount + 1);
-//                    boardRepository.save(generalBoard);
-//
-//                } else {
-//                    // rejectCount가 maxParticipantCount의 과반수 이상인 경우
-//                    boardRepository.delete(generalBoard);
-//                }
-//                return ResponseEntity.ok().build();
-//            }
-//        }
-//        return ResponseEntity.notFound().build();
-//    }
-
-    // 12시가 지나면 반려된 수가 과반수 이상인 게시물에 마이챌린지에 성공 +1
+//    12시가 지나면 반려된 수가 과반수 이상인 게시물에 마이챌린지에 성공 +1
     public List<GeneralBoard> findAllByRegisterDay(LocalDate yesterday) {
         return boardRepository.findAllByRegisterDay(yesterday);
     }
+
 }
 
 

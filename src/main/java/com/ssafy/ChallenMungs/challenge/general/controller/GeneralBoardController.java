@@ -6,6 +6,7 @@ import com.ssafy.ChallenMungs.challenge.common.service.ChallengeService;
 import com.ssafy.ChallenMungs.challenge.common.service.MyChallengeService;
 import com.ssafy.ChallenMungs.challenge.general.entity.GeneralBoard;
 import com.ssafy.ChallenMungs.challenge.general.service.GeneralBoardService;
+import com.ssafy.ChallenMungs.challenge.general.service.GeneralRejectService;
 import com.ssafy.ChallenMungs.image.service.FileServiceImpl;
 import com.ssafy.ChallenMungs.user.entity.User;
 import com.ssafy.ChallenMungs.user.service.UserService;
@@ -39,6 +40,9 @@ public class GeneralBoardController {
 
     @Autowired
     private GeneralBoardService boardService;
+
+    @Autowired
+    private GeneralRejectService rejectService;
 
     @Autowired
     FileServiceImpl fileService;
@@ -83,7 +87,7 @@ public class GeneralBoardController {
         // 해당 챌린지에 이미 인증을 완료한 사진이 있는지 확인
         GeneralBoard board = boardService.findByChallengeAndUserAndRegisterDay(challenge, user, LocalDate.now());
         if (board != null) {
-            log.info("이미 인증을 완료하였습니다.");
+            log.info("이미 사진 인증을 완료하였습니다.");
             return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
         }
 
@@ -143,16 +147,20 @@ public class GeneralBoardController {
         return boardService.getBoardsByChallengeAndUser(challenge, user);
     }
 
-//    @PutMapping("tokenConfirm/reject")
-//    @ApiOperation(value = "일반챌린지 인증을 반려하는 api입니다.", notes = "게시글의 challengeId와 loginId를 활용하여 반려합니다.")
-//    public ResponseEntity<Void> increaseRejectCountAndDelete(
-//            HttpServletRequest request,
-//            @RequestParam Long challengeId,
-//            @RequestParam String loginId
-//    ) {
-//        String userLoginId = request.getAttribute("loginId").toString();
-//        boardService.increaseRejectCountAndDelete(challengeId, loginId, userLoginId);
-//        return ResponseEntity.ok().build();
-//    }
+    // 반려하기
+    // boardId를 받아서 해당 board의 rejectCount를 1 증가하고, GeneralReject 테이블 추가
+    @PostMapping("tokenConfirm/reject")
+    @ApiOperation(value = "일반챌린지 인증을 반려하는 api입니다.", notes = "boradId를 활용하여 거절 횟수를 증가합니다.")
+    public ResponseEntity addReject(HttpServletRequest request, @RequestParam Integer boardId) {
+        String loginId = request.getAttribute("loginId").toString();
+        User user = userService.findUserByLoginId(loginId);
+        // 이 board를 거절 했었는지 확인
+        boolean result = rejectService.addReject(boardId, user);
+        if (result) {
+            return ResponseEntity.ok().build();
+        } else {
+            return ResponseEntity.badRequest().build();
+        }
+    }
 
 }
