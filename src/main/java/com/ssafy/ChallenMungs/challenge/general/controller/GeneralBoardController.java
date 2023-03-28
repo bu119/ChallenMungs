@@ -151,7 +151,7 @@ public class GeneralBoardController {
     // boardId를 받아서 해당 board의 rejectCount를 1 증가하고, GeneralReject 테이블 추가
     @PostMapping("tokenConfirm/reject")
     @ApiOperation(value = "일반챌린지 인증을 반려하는 api입니다.", notes = "boradId를 활용하여 거절 횟수를 증가합니다.")
-    public ResponseEntity addReject(HttpServletRequest request, @RequestParam Integer boardId) {
+    public ResponseEntity<Void> addReject(HttpServletRequest request, @RequestParam Integer boardId) {
         String loginId = request.getAttribute("loginId").toString();
         User user = userService.findUserByLoginId(loginId);
         // 이 board를 거절 했었는지 확인
