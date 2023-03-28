@@ -88,7 +88,7 @@
                 android:layout_marginHorizontal="26dp"
                 android:layout_marginBottom="18dp"
                 android:max="100"
-                android:progressDrawable="@drawable/bg_custom_progress"
+                android:progressDrawable="@drawable/bg_custom_progress_my_page"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
