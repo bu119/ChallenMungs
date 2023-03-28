@@ -1,6 +1,10 @@
 package com.ssafy.ChallenMungs.challenge.general.entity;
 
+import com.ssafy.ChallenMungs.challenge.common.entity.Challenge;
+import com.ssafy.ChallenMungs.user.entity.User;
 import lombok.*;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -18,11 +22,19 @@ public class GeneralBoard {
     @Column(name = "board_id")
     Integer boardId;
 
-    @Column(name = "challenge_id")
-    Long challengeId;
+    //    @Column(name = "challenge_id")
+    @ManyToOne(fetch = FetchType.LAZY)  // 1:N
+    @JoinColumn(name="challenge_id") //Join 기준
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private Challenge challenge;
 
-    @Column(name = "login_id")
-    String loginId;
+
+//    @Column(name = "login_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="login_id")
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private User user;
+
 
 //    @Column(name = "name")
 //    String name;

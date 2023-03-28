@@ -1,6 +1,9 @@
 package com.ssafy.ChallenMungs.challenge.general.entity;
 
+import com.ssafy.ChallenMungs.user.entity.User;
 import lombok.*;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 
@@ -16,9 +19,19 @@ public class GeneralReject {
     @Column(name = "idx")
     int idx;
 
-    @Column(name = "login_id")
-    String loginId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="login_id")
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private User user;
 
-    @Column(name = "board_id")
-    int boardId;
+    @ManyToOne(fetch = FetchType.LAZY)  // 1:N
+    @JoinColumn(name="board_id") //Join 기준
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private GeneralBoard board;
+
+//    @Column(name = "login_id")
+//    String loginId;
+//
+//    @Column(name = "board_id")
+//    int boardId;
 }
