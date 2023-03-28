@@ -3,14 +3,18 @@ package com.ssafy.challenmungs.presentation.common
 import android.Manifest
 import android.content.pm.PackageManager
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.activityViewModels
 import com.ssafy.challenmungs.ApplicationClass
 import com.ssafy.challenmungs.R
 import com.ssafy.challenmungs.databinding.FragmentPermissionBinding
+import com.ssafy.challenmungs.presentation.auth.MemberViewModel
 import com.ssafy.challenmungs.presentation.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class PermissionFragment : BaseFragment<FragmentPermissionBinding>(R.layout.fragment_permission) {
+
+    private val memberViewModel by activityViewModels<MemberViewModel>()
 
     override fun initView() {
         ApplicationClass.preferences.isFirstRun = false
