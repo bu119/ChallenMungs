@@ -108,4 +108,9 @@
     <!-- Member - OnBoarding -->
     <string name="content_member_name">닉네임</string>
     <string name="title_member_onboarding">회원정보 입력</string>
+
+    <!-- My Challenge -->
+    <string name="title_ongoing">진행</string>
+    <string name="title_wait">대기</string>
+    <string name="title_finish">완료</string>
 </resources>
