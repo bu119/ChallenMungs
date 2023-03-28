@@ -12,7 +12,7 @@ import com.ssafy.challenmungs.ApplicationClass
 import com.ssafy.challenmungs.R
 import com.ssafy.challenmungs.databinding.FragmentLogInBinding
 import com.ssafy.challenmungs.presentation.base.BaseFragment
-import com.ssafy.challenmungs.presentation.home.MainActivity
+import com.ssafy.challenmungs.presentation.home.HomeActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
@@ -90,7 +90,7 @@ class LogInFragment : BaseFragment<FragmentLogInBinding>(R.layout.fragment_log_i
     private fun observeMemberInfo() {
         memberViewModel.memberInfo.observe(viewLifecycleOwner) {
             if (it != null) {
-                val intent = Intent(requireActivity(), MainActivity::class.java)
+                val intent = Intent(requireActivity(), HomeActivity::class.java)
                 startActivity(intent)
                 requireActivity().finish()
             }

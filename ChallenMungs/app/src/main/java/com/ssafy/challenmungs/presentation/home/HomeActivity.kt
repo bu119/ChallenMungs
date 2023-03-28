@@ -11,16 +11,18 @@ import androidx.core.content.ContextCompat
 import com.ssafy.challenmungs.R
 import com.ssafy.challenmungs.common.util.px
 import com.ssafy.challenmungs.common.util.setImmersiveMode
-import com.ssafy.challenmungs.databinding.ActivityMainBinding
+import com.ssafy.challenmungs.databinding.ActivityHomeBinding
+import dagger.hilt.android.AndroidEntryPoint
 
-class MainActivity : AppCompatActivity() {
+@AndroidEntryPoint
+class HomeActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityMainBinding
+    private lateinit var binding: ActivityHomeBinding
     private val menus = arrayOf("challenge", "donate", "home", "map", "my_page")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
+        binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setImmersiveMode()
         initView()
@@ -41,7 +43,7 @@ class MainActivity : AppCompatActivity() {
         val ivMenu: ImageView = tab.findViewById(R.id.iv_menu)
         val tvMenu: TextView = tab.findViewById(R.id.tv_menu)
 
-        ivMenu.setImageDrawable(ContextCompat.getDrawable(this@MainActivity, imageId))
+        ivMenu.setImageDrawable(ContextCompat.getDrawable(this@HomeActivity, imageId))
         tvMenu.text = getText(stringId)
 
         tab.setOnClickListener {
@@ -58,14 +60,14 @@ class MainActivity : AppCompatActivity() {
             val tvMenu: TextView = tab.findViewById(R.id.tv_menu)
 
             if (menu == tabName) {
-                ivMenu.layoutParams.height = 33.px(this@MainActivity)
-                ivMenu.layoutParams.width = 33.px(this@MainActivity)
+                ivMenu.layoutParams.height = 33.px(this@HomeActivity)
+                ivMenu.layoutParams.width = 33.px(this@HomeActivity)
                 ivMenu.requestLayout()
 
                 tvMenu.setTypeface(null, Typeface.BOLD)
             } else {
-                ivMenu.layoutParams.height = 22.px(this@MainActivity)
-                ivMenu.layoutParams.width = 22.px(this@MainActivity)
+                ivMenu.layoutParams.height = 22.px(this@HomeActivity)
+                ivMenu.layoutParams.width = 22.px(this@HomeActivity)
                 ivMenu.requestLayout()
 
                 tvMenu.setTypeface(null, Typeface.NORMAL)
