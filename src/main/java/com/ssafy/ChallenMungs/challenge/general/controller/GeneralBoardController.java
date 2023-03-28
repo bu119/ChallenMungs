@@ -10,6 +10,7 @@ import com.ssafy.ChallenMungs.image.service.FileServiceImpl;
 import com.ssafy.ChallenMungs.user.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import kotlin.collections.ArrayDeque;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.websocket.server.PathParam;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 @RestController
@@ -92,7 +95,7 @@ public class GeneralBoardController {
         }
 
         LocalDate today = LocalDate.now();
-        String nickName = userService.findUserByLoginId(loginId).getName();
+//        String nickName = userService.findUserByLoginId(loginId).getName();
         int boardId = boardService.savePicture(
                 GeneralBoard.builder()
                         .challengeId(challengeId)
@@ -100,7 +103,7 @@ public class GeneralBoardController {
                         .pictureUri(url)
                         .rejectCount(0)
                         .registerDay(today)
-                        .nickName(nickName)
+//                        .nickName(nickName)
                         .build()
         );
         return ResponseEntity.ok(boardId);
@@ -108,9 +111,19 @@ public class GeneralBoardController {
 
     @GetMapping("tokenConfirm/getToday")
     @ApiOperation(value = "투데이 게시판을 조회하는 api입니다.", notes = "결과 값으로 오늘 등록된 주어진 challengeId와 일치하는 모든 GeneralBoard 객체들이 반환합니다.")
-    public ResponseEntity<List<GeneralBoard>> getBoardsByChallengeIdToday(
+    public ResponseEntity/*<List<GeneralBoard>>*/ getBoardsByChallengeIdToday(
             HttpServletRequest request, @PathParam("challengeId") Long challengeId) {
-        return boardService.getBoardsByChallengeIdToday(challengeId);
+        List<GeneralBoard> boards = boardService.getBoardsByChallengeIdToday(challengeId);
+        List<HashMap> dtoList = new ArrayList<>();
+        for (GeneralBoard gb : boards) {
+            HashMap<String, Object> dtoMap = new HashMap<>();
+            dtoMap.put("PictureUrl", gb.getPictureUri());
+            dtoMap.put("name", userService.findUserByLoginId(gb.getLoginId()).getName());
+            dtoMap.put("ProfileUrl", userService.findUserByLoginId(gb.getLoginId()).getProfile());
+            dtoList.add(dtoMap);
+        }
+//        return boardService.getBoardsByChallengeIdToday(challengeId);
+        return new ResponseEntity(dtoList, HttpStatus.OK);
     }
 
     @GetMapping("tokenConfirm/history")

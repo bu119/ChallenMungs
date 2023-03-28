@@ -27,13 +27,16 @@ public class GeneralBoardService {
     }
 
     // today에 등록된 글 가져오기
-    public ResponseEntity<List<GeneralBoard>> getBoardsByChallengeIdToday(Long challengeId) {
+//    public ResponseEntity<List<GeneralBoard>> getBoardsByChallengeIdToday(Long challengeId) {
+    public List<GeneralBoard> getBoardsByChallengeIdToday(Long challengeId) {
         LocalDate today = LocalDate.now();
         List<GeneralBoard> boards = boardRepository.findAllByChallengeIdAndRegisterDay(challengeId, today);
         if (boards.isEmpty()) {
-            return ResponseEntity.notFound().build();
+//            return ResponseEntity.notFound().build();
+            return null;
         }
-        return ResponseEntity.ok(boards);
+//        return ResponseEntity.ok(boards);
+        return boards;
     }
 
     // 히스토리 가져오기
