@@ -6,9 +6,4 @@ import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 
 public interface GeneralParticipantRepository extends JpaRepository<MyChallenge, Long>, QuerydslPredicateExecutor<MyChallenge> {
 
-    MyChallenge findUserByLoginId(String loginId);
-
-    // 챌린지 id와 로그인 id로 참가자 정보를 조회하는 함수
-    MyChallenge findByLoginIdAndChallengeId(String loginId, Long challengeId);
-
 }

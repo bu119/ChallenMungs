@@ -5,11 +5,10 @@ import com.ssafy.ChallenMungs.common.util.Response;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
 
 
 @RestController
@@ -72,9 +71,14 @@ public class DonateController {
         return new ResponseEntity<Object>(service.getSummary(loginId,year),HttpStatus.OK);
     }
 
+    @GetMapping("/isTransferAble")
+    @ApiOperation(value = "캠페인 이월이 가능한지 체크합니다. 이월가능이면 true, 불가능이면 false 반환" ,notes="으어.")
+    ResponseEntity<Object> isTransferAble(@RequestParam int campaignId) {
+
+        return new ResponseEntity<Object>(res.makeSimpleRes(service.checkCampaignTransferAble(campaignId)),HttpStatus.OK);
+    }
 
 
-    //영수증 이미지 가지고 사용처, 사용일, 사용금액 반환
 
 
 

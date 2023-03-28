@@ -40,7 +40,6 @@ public class CampaignContentServiceImpl implements CampaignContentService{
     private final CampaignContentRepository contentRepo;
     private final LoveRepository loveRepo;
     private final UserRepository userRepo;
-
     private final WalletRepository walletRepo;
 
     @Override
