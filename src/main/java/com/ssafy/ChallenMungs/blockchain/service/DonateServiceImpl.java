@@ -146,13 +146,15 @@ public class DonateServiceImpl implements  DonateService{
 
     @Override
     public boolean checkCampaignTransferAble(int campaignId) {
+        //이월할 캠페인이 없는 경우, 잔액이 없는 경우
 
         return false;
     }
-    @Override
-    public boolean checkTransferAble(String fromAddress, String toAddress) {
-        return false;
+    public boolean isExistCampaign(String loginId){
+
+        return true;
     }
+
 
 
     //----내 기부내역 조회-----
