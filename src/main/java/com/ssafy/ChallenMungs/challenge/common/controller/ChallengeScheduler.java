@@ -10,6 +10,8 @@ import com.ssafy.ChallenMungs.challenge.panel.handler.ChallengeVo;
 import com.ssafy.ChallenMungs.challenge.panel.handler.PanelSocketHandler;
 import com.ssafy.ChallenMungs.challenge.panel.handler.PlayerVo;
 import com.ssafy.ChallenMungs.challenge.panel.handler.RankVo;
+import com.ssafy.ChallenMungs.challenge.treasure.handler.TreasureSocketHandler;
+import com.ssafy.ChallenMungs.challenge.treasure.handler.TreasureVo;
 import com.ssafy.ChallenMungs.common.util.FileManager;
 import jnr.ffi.Struct;
 import org.apache.commons.math3.geometry.euclidean.threed.Vector3D;
@@ -34,6 +36,9 @@ public class ChallengeScheduler {
 
     @Autowired
     PanelSocketHandler panelSocketHandler;
+
+    @Autowired
+    TreasureSocketHandler treasureSocketHandler;
 
     @Autowired
     FileManager fileManager;
@@ -68,18 +73,52 @@ public class ChallengeScheduler {
                             teamIdx++;
                             mc.setTeamId(teamIdx);
                             myChallengeService.save(mc);
-                            rankInfo.add(RankVo.builder().teamRank(1).PanelCount(0).teamId(teamIdx).build());
+                            rankInfo.add(RankVo.builder().teamRank(1).PanelCount(0).teamId(teamIdx).loginId(mc.getLoginId()).build());
                         }
                     } else if (c.getGameType() == 2) {
+                        ArrayList<String> ids1 = new ArrayList<>();
+                        ArrayList<String> ids2 = new ArrayList<>();
                         for (MyChallenge mc : myChallenges) {
                             teamIdx++;
                             mc.setTeamId(teamIdx % 2 + 1);
                             myChallengeService.save(mc);
+                            if (teamIdx % 2 + 1 == 1) ids1.add(mc.getLoginId());
+                            else if (teamIdx % 2 + 1 == 2) ids2.add(mc.getLoginId());
                         }
-                        rankInfo.add(RankVo.builder().teamRank(1).PanelCount(0).teamId(1).build());
-                        rankInfo.add(RankVo.builder().teamRank(1).PanelCount(0).teamId(2).build());
+                        rankInfo.add(RankVo.builder().teamRank(1).PanelCount(0).teamId(1).loginId(ids1).build());
+                        rankInfo.add(RankVo.builder().teamRank(1).PanelCount(0).teamId(2).loginId(ids2).build());
                     }
                     panelSocketHandler.challengeManager.put(c.getChallengeId(), ChallengeVo.builder().players(new ArrayList<PlayerVo>()).mapInfo(new int [c.getCellD()] [c.getCellD()]).rankInfo(rankInfo).build());
+                // 시작되는 방이 보물 찾기라면
+                } else if (c.getChallengeType() == 3) {
+                    List<MyChallenge> myChallenges = myChallengeService.findAllByChallengeId(c.getChallengeId());
+                    int teamIdx = 0;
+                    ArrayList<com.ssafy.ChallenMungs.challenge.treasure.handler.RankVo> rankInfo = new ArrayList<>();
+                    for (MyChallenge mc : myChallenges) {
+                        teamIdx++;
+                        mc.setTeamId(teamIdx);
+                        myChallengeService.save(mc);
+                        rankInfo.add(com.ssafy.ChallenMungs.challenge.treasure.handler.RankVo.builder().point(0).teamRank(1).teamId(teamIdx).loginId(mc.getLoginId()).build());
+                    }
+                    ArrayList<TreasureVo> treasures = new ArrayList<>();
+                    int cc = (int) (c.getMap_size() / c.getCellSize());
+                    cc *= cc;
+                    int boomRatio = 5; // 만약 전체 보물의 1/5만큼은 폭탄으로 하고 싶다면 5로 해요 // 소켓이닛도 수정
+                    int idx = 0;
+                    for (int i = 0; i < (int) (cc / boomRatio * (boomRatio - 1)); i++) {
+                        double randomLat = Math.random() * (c.getMaxLat() - c.getMinLat()) + c.getMinLat();
+                        double randomLng = Math.random() * (c.getMaxLng() - c.getMinLng()) + c.getMinLng();
+                        int randomPoint = (int) (Math.random() * 30 - 10);
+                        treasures.add(TreasureVo.builder().idx(idx).lat(randomLat).lng(randomLng).point(randomPoint).isOpened(false).inPocket(false).type(true).build());
+                        idx++;
+                    }
+                    for (int i = 0; i < (int) (cc / boomRatio); i++) {
+                        double randomLat = Math.random() * (c.getMaxLat() - c.getMinLat()) + c.getMinLat();
+                        double randomLng = Math.random() * (c.getMaxLng() - c.getMinLng()) + c.getMinLng();
+                        treasures.add(TreasureVo.builder().idx(idx).lat(randomLat).lng(randomLng).point(null).isOpened(false).inPocket(false).type(false).build());
+                        idx++;
+                    }
+                    treasureSocketHandler.challengeManager.put(c.getChallengeId(), com.ssafy.ChallenMungs.challenge.treasure.handler.ChallengeVo.builder().sessions(new ArrayList<>()).treasureInfo(treasures).rankInfo(rankInfo).build());
                 }
                 challengeService.save(c);
             }

@@ -45,15 +45,19 @@ public class PanelSocketHandler extends TextWebSocketHandler {
         for (Challenge c : challenges) {
             List<MyChallenge> myChallenges = myChallengeService.findAllByChallengeId(c.getChallengeId());
             ArrayList<RankVo> rankInfo = new ArrayList<>();
-            int teamIdx = 0;
             if (c.getGameType() == 1) {
                 for (MyChallenge mc : myChallenges) {
-                    teamIdx++;
-                    rankInfo.add(RankVo.builder().teamRank(1).PanelCount(0).teamId(teamIdx).build());
+                    rankInfo.add(RankVo.builder().teamRank(1).PanelCount(0).teamId(mc.getTeamId()).loginId(mc.getLoginId()).build());
                 }
             } else if (c.getGameType() == 2) {
-                rankInfo.add(RankVo.builder().teamRank(1).PanelCount(0).teamId(1).build());
-                rankInfo.add(RankVo.builder().teamRank(1).PanelCount(0).teamId(2).build());
+                ArrayList<String> ids1 = new ArrayList<>();
+                ArrayList<String> ids2 = new ArrayList<>();
+                for (MyChallenge mc : myChallenges) {
+                    if (mc.getTeamId() == 1) ids1.add(mc.getLoginId());
+                    else if (mc.getTeamId() == 2) ids2.add(mc.getLoginId());
+                }
+                rankInfo.add(RankVo.builder().teamRank(1).PanelCount(0).teamId(1).loginId(ids1).build());
+                rankInfo.add(RankVo.builder().teamRank(1).PanelCount(0).teamId(2).loginId(ids2).build());
             }
             challengeManager.put(c.getChallengeId(), ChallengeVo.builder().players(new ArrayList<PlayerVo>()).mapInfo(new int[c.getCellD()][c.getCellD()]).rankInfo(rankInfo).build());
         }
@@ -70,7 +74,7 @@ public class PanelSocketHandler extends TextWebSocketHandler {
     @Override
     public void afterConnectionEstablished(WebSocketSession session) throws Exception {
         super.afterConnectionEstablished(session);
-        log.info("누군가가 소켓에 연결되었어요!");
+        log.info("누군가가 판넬소켓에 연결되었어요!");
     }
 
     @Override
@@ -119,7 +123,7 @@ public class PanelSocketHandler extends TextWebSocketHandler {
             challengeManager.get(challengeId).rankInfo.get(myChallenge.getTeamId() - 1).PanelCount++;
 
             challengeManager.get(challengeId).rankInfo.sort((o1, o2) -> {
-                return o1.PanelCount;
+                return o2.PanelCount - o1.PanelCount;
             });
 
             int rank = 0;
@@ -145,7 +149,7 @@ public class PanelSocketHandler extends TextWebSocketHandler {
             for (PlayerVo pv : challengeManager.get(challengeId).players) {
                 pv.session.sendMessage(dto);
             }
-        } else if (event.equals("getInfo")) {
+        } /*else if (event.equals("getInfo")) {
             log.info("게임 중 정보를 불러와요");
             Long challengeId = data.getAsJsonObject().get("challengeId").getAsLong();
             Challenge challenge = challengeService.findByChallengeId(challengeId);
@@ -160,7 +164,7 @@ public class PanelSocketHandler extends TextWebSocketHandler {
             subMap.put("rankInfo", challengeManager.get(challengeId).rankInfo);
             TextMessage dto = new TextMessage(mapper.writeValueAsString(mapDto));
             session.sendMessage(dto);
-        }
+        }*/
     }
 
     @Override

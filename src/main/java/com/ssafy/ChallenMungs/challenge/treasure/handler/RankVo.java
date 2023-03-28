@@ -1,8 +1,6 @@
-package com.ssafy.ChallenMungs.challenge.panel.handler;
+package com.ssafy.ChallenMungs.challenge.treasure.handler;
 
 import lombok.*;
-
-import java.util.ArrayList;
 
 @Getter@Setter
 @NoArgsConstructor
@@ -10,7 +8,7 @@ import java.util.ArrayList;
 @Builder
 public class RankVo {
     Integer teamId;
-    Integer PanelCount;
+    Integer point;
     Integer teamRank;
     Object loginId;
 }
