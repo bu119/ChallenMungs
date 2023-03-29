@@ -8,8 +8,10 @@ import com.ssafy.challenmungs.databinding.FragmentOnBoardingBinding
 import com.ssafy.challenmungs.presentation.base.BaseFragment
 import com.ssafy.challenmungs.presentation.home.HomeActivity
 import com.ssafy.challenmungs.presentation.klaytn.WalletViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
+@AndroidEntryPoint
 class OnBoardingFragment : BaseFragment<FragmentOnBoardingBinding>(R.layout.fragment_on_boarding) {
 
     private val authViewModel by activityViewModels<AuthViewModel>()
@@ -27,6 +29,10 @@ class OnBoardingFragment : BaseFragment<FragmentOnBoardingBinding>(R.layout.frag
             if (authViewModel.accessToken.value != null) {
                 authViewModel.requestJoin(binding.etNickname.text.toString())
             }
+        }
+
+        binding.toolbar.ivBack.setOnClickListener {
+            popBackStack()
         }
     }
 
@@ -63,5 +69,6 @@ class OnBoardingFragment : BaseFragment<FragmentOnBoardingBinding>(R.layout.frag
     private fun moveToHomeActivity() {
         val intent = Intent(activity, HomeActivity::class.java)
         startActivity(intent)
+        requireActivity().finish()
     }
 }
