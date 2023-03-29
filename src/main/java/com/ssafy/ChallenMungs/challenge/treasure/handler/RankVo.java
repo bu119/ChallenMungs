@@ -15,5 +15,4 @@ public class RankVo {
     String loginId;
     ArrayList<Integer> myTreasureList;
 
-    Integer obtainKlay;
 }
