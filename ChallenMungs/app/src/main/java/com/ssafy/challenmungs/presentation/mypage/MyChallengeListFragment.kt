@@ -8,10 +8,8 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MyChallengeListFragment(
-    private val position: Int,
-    private val dataList: ArrayList<ChallengeCard>
-) :
-    BaseFragment<FragmentMyChallengeListBinding>(R.layout.fragment_my_challenge_list) {
+    private val position: Int, private val dataList: ArrayList<ChallengeCard>
+) : BaseFragment<FragmentMyChallengeListBinding>(R.layout.fragment_my_challenge_list) {
 
     override fun initView() {
         binding.rvList.adapter = MyChallengeListAdapter(position, dataList)

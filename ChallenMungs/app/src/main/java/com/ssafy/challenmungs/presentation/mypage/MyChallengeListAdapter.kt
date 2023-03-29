@@ -11,14 +11,11 @@ import com.ssafy.challenmungs.databinding.ItemChallengeCardWaitingBinding
 import com.ssafy.challenmungs.domain.entity.challenge.ChallengeCard
 
 class MyChallengeListAdapter(
-    private val position: Int,
-    private val dataList: ArrayList<ChallengeCard>
-) :
-    RecyclerView.Adapter<MyChallengeListAdapter.MyChallengeListViewHolder>() {
+    private val position: Int, private val dataList: ArrayList<ChallengeCard>
+) : RecyclerView.Adapter<MyChallengeListAdapter.MyChallengeListViewHolder>() {
 
     override fun onCreateViewHolder(
-        parent: ViewGroup,
-        viewType: Int
+        parent: ViewGroup, viewType: Int
     ): MyChallengeListViewHolder = when (position) {
         // 대기 챌린지
         ChallengeState.WAIT.ordinal -> {
@@ -52,10 +49,12 @@ class MyChallengeListAdapter(
 
     sealed class MyChallengeListViewHolder(binding: ViewDataBinding) :
         RecyclerView.ViewHolder(binding.root) {
+
         abstract fun onBind(data: ChallengeCard)
 
         class OnGoingOrFinishViewHolder(private val binding: ItemChallengeCardOngoingFinishBinding) :
             MyChallengeListViewHolder(binding) {
+
             override fun onBind(data: ChallengeCard) {
                 binding.challenge = data
             }
@@ -63,6 +62,7 @@ class MyChallengeListAdapter(
 
         class WaitViewHolder(private val binding: ItemChallengeCardWaitingBinding) :
             MyChallengeListViewHolder(binding) {
+
             override fun onBind(data: ChallengeCard) {
                 binding.challenge = data
             }
