@@ -6,16 +6,21 @@ import android.os.Bundle
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.ssafy.challenmungs.R
 import com.ssafy.challenmungs.common.util.px
 import com.ssafy.challenmungs.common.util.setImmersiveMode
 import com.ssafy.challenmungs.databinding.ActivityHomeBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class HomeActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityHomeBinding
+    private lateinit var toast: Toast
+    var backPressedTime: Long = 0
     private val menus = arrayOf("challenge", "donate", "home", "map", "my_page")
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -24,6 +29,17 @@ class HomeActivity : AppCompatActivity() {
         setContentView(binding.root)
         setImmersiveMode()
         initView()
+    }
+
+    override fun finish() {
+        if (System.currentTimeMillis() > backPressedTime + 2000) {
+            toast = Toast.makeText(this@HomeActivity, "한번 더 누르면 종료됩니다.", Toast.LENGTH_SHORT)
+            toast.show()
+            backPressedTime = System.currentTimeMillis()
+        } else {
+            super.finish()
+            toast.cancel()
+        }
     }
 
     private fun initView() {

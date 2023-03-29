@@ -60,12 +60,10 @@ object NetworkModule {
     @Provides
     @Singleton
     @WalletInterceptorClient
-    fun provideWalletHttpClient(
-        @ApplicationContext context: Context
-    ): OkHttpClient {
+    fun provideWalletHttpClient(): OkHttpClient {
         val loggingInterceptor = HttpLoggingInterceptor()
         loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
-        val walletAuthInterceptor = WalletAuthInterceptor(SharedPreferences(context))
+        val walletAuthInterceptor = WalletAuthInterceptor()
         return OkHttpClient.Builder()
             .readTimeout(10, TimeUnit.SECONDS)
             .connectTimeout(10, TimeUnit.SECONDS)

@@ -1,6 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/navigation_main">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation_main"
+    app:startDestination="@id/splash_fragment">
 
+    <fragment
+        android:id="@+id/splash_fragment"
+        android:name="com.ssafy.challenmungs.presentation.common.SplashFragment"
+        android:label="Splash Fragment"
+        tools:layout="@layout/fragment_splash">
+
+        <action
+            android:id="@+id/action_to_permission_fragment"
+            app:destination="@id/permission_fragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/permission_fragment"
+        android:name="com.ssafy.challenmungs.presentation.common.PermissionFragment"
+        android:label="Permission Fragment"
+        tools:layout="@layout/fragment_permission" />
 </navigation>

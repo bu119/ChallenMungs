@@ -1,7 +1,9 @@
 package com.ssafy.challenmungs.presentation.auth
 
+import android.content.Context
 import android.content.Intent
 import android.util.Log
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import com.kakao.sdk.auth.model.OAuthToken
@@ -10,9 +12,10 @@ import com.kakao.sdk.common.model.ClientErrorCause
 import com.kakao.sdk.user.UserApiClient
 import com.ssafy.challenmungs.ApplicationClass
 import com.ssafy.challenmungs.R
+import com.ssafy.challenmungs.common.util.backDoublePressedFragmentCallback
 import com.ssafy.challenmungs.databinding.FragmentLogInBinding
-import com.ssafy.challenmungs.presentation.MainActivity
 import com.ssafy.challenmungs.presentation.base.BaseFragment
+import com.ssafy.challenmungs.presentation.home.HomeActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
@@ -21,6 +24,7 @@ import okhttp3.RequestBody.Companion.toRequestBody
 @AndroidEntryPoint
 class LogInFragment : BaseFragment<FragmentLogInBinding>(R.layout.fragment_log_in) {
 
+    private lateinit var pressedCallback: OnBackPressedCallback
     private val TAG = "KaKao-Login"
     private val authViewModel by activityViewModels<AuthViewModel>()
     private val memberViewModel by activityViewModels<MemberViewModel>()
@@ -38,6 +42,16 @@ class LogInFragment : BaseFragment<FragmentLogInBinding>(R.layout.fragment_log_i
         observeAccessToken()
         observeFlag()
         observeMemberInfo()
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        pressedCallback = backDoublePressedFragmentCallback(this@LogInFragment)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        pressedCallback.remove()
     }
 
     private fun initListener() {
@@ -90,8 +104,9 @@ class LogInFragment : BaseFragment<FragmentLogInBinding>(R.layout.fragment_log_i
     private fun observeMemberInfo() {
         memberViewModel.memberInfo.observe(viewLifecycleOwner) {
             if (it != null) {
-                val intent = Intent(activity, MainActivity::class.java)
+                val intent = Intent(requireActivity(), HomeActivity::class.java)
                 startActivity(intent)
+                requireActivity().finish()
             }
         }
     }

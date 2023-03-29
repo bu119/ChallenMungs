@@ -19,8 +19,9 @@ import com.ssafy.challenmungs.common.util.Map.defaultPosition
 import com.ssafy.challenmungs.common.util.px
 import com.ssafy.challenmungs.databinding.FragmentPanelPlayBinding
 import com.ssafy.challenmungs.presentation.base.BaseFragment
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class PanelPlayFragment : BaseFragment<FragmentPanelPlayBinding>(R.layout.fragment_panel_play),
     OnMapReadyCallback {
 
