@@ -104,7 +104,7 @@ public class CampaignContentServiceImpl implements CampaignContentService{
         if(userRepo.findUserByLoginId(loginId).getType()=='n') return false;
 
         String address=getAddress(loginId);
-        System.out.println("address: "+address);
+        
         if(address.equals("disable")) return false;
         return true;
     }
