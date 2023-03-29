@@ -52,7 +52,7 @@ public class ChallengeScheduler {
     ObjectMapper mapper = new ObjectMapper();
 
     @Scheduled(cron = "0 0 0 * * ?") // 매일 자정에 동작해요
-//    @Scheduled(cron = "0/20 * * * * ?") // 5초마다 실행해요
+//    @Scheduled(cron = "0/20 * * * * ?") // 20초마다 실행해요
     public void startChallenge() {
         System.out.println("스케쥴러가 동작해요!");
         boolean flag;
@@ -127,6 +127,8 @@ public class ChallengeScheduler {
             }
             // 예를 들어 2일에 끝나는 겜이면 3일 자정에 끝나야됨
             if (c.getStatus() == 1 && c.getEndDate().plusDays(1).equals(today)) {
+                int totalKlay = c.getEntryFee() * c.getCurrentParticipantCount();
+
                 c.setStatus(2);
                 flag = true;
                 String saveValue;
@@ -146,6 +148,7 @@ public class ChallengeScheduler {
                             newRankInfoMap.put("teamId", rv.getTeamId());
                             newRankInfoMap.put("point", rv.getPanelCount());
                             newRankInfoList.add(newRankInfoMap);
+//                            sendKlay(u, );
                         }
                     } else if (c.getGameType() == 2) {
                         for (int i = 0; i < 2; i++) {
@@ -215,5 +218,8 @@ public class ChallengeScheduler {
                 challengeService.save(c);
             }
         }
+    }
+    void sendKlay(User user, Integer klay) {
+
     }
 }
