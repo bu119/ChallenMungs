@@ -24,6 +24,21 @@
             app:destination="@id/home_activity" />
     </fragment>
 
+    <fragment
+        android:id="@+id/permission_fragment"
+        android:name="com.ssafy.challenmungs.presentation.common.PermissionFragment"
+        android:label="Permission Fragment"
+        tools:layout="@layout/fragment_permission">
+
+        <action
+            android:id="@+id/action_to_auth_activity"
+            app:destination="@id/auth_activity" />
+
+        <action
+            android:id="@+id/action_to_home_activity"
+            app:destination="@id/home_activity" />
+    </fragment>
+
     <activity
         android:id="@+id/home_activity"
         android:name="com.ssafy.challenmungs.presentation.home.HomeActivity"
@@ -35,11 +50,5 @@
         android:name="com.ssafy.challenmungs.presentation.auth.AuthActivity"
         android:label="Auth Activity"
         tools:layout="@layout/activity_auth" />
-
-    <fragment
-        android:id="@+id/permission_fragment"
-        android:name="com.ssafy.challenmungs.presentation.common.PermissionFragment"
-        android:label="Permission Fragment"
-        tools:layout="@layout/fragment_permission" />
 
 </navigation>
