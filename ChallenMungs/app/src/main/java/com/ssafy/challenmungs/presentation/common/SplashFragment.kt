@@ -9,6 +9,7 @@ import com.ssafy.challenmungs.ApplicationClass
 import com.ssafy.challenmungs.R
 import com.ssafy.challenmungs.common.util.backDoublePressedFragmentCallback
 import com.ssafy.challenmungs.databinding.FragmentSplashBinding
+import com.ssafy.challenmungs.presentation.auth.AuthActivity
 import com.ssafy.challenmungs.presentation.auth.MemberViewModel
 import com.ssafy.challenmungs.presentation.base.BaseFragment
 import com.ssafy.challenmungs.presentation.home.HomeActivity
@@ -40,7 +41,7 @@ class SplashFragment : BaseFragment<FragmentSplashBinding>(R.layout.fragment_spl
                 startActivity(intent)
                 requireActivity().finish()
             } else {
-                val intent = Intent(requireContext(), HomeActivity::class.java)
+                val intent = Intent(requireContext(), AuthActivity::class.java)
                 startActivity(intent)
                 requireActivity().finish()
             }
