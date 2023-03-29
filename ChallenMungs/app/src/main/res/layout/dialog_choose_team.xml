@@ -4,8 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
+        android:background="@drawable/bg_rect_white_radius10"
         tools:context=".presentation.mypage.ChooseTeamDialog">
 
         <TextView
