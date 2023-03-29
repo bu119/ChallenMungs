@@ -39,7 +39,8 @@ public class GeneralBoardService {
     }
 
     // 히스토리 가져오기
-    public ResponseEntity<List<GeneralBoard>> getBoardsByChallengeAndUser(Challenge challenge, User user) {
+    public ResponseEntity<List<GeneralBoard>> getBoardsByChallengeAndUser(Challenge challenge, User user, String loginId) {
+        // 보드 유저 꺼 누르면 보드유저꺼 보이고 반려하기 여부 보이기
         List<GeneralBoard> boards = boardRepository.findAllByChallengeAndUser(challenge, user);
         if (boards.isEmpty()) {
             return ResponseEntity.notFound().build();

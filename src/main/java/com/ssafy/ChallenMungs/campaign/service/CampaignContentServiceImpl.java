@@ -104,6 +104,7 @@ public class CampaignContentServiceImpl implements CampaignContentService{
         if(userRepo.findUserByLoginId(loginId).getType()=='n') return false;
 
         String address=getAddress(loginId);
+        
         if(address.equals("disable")) return false;
         return true;
     }
@@ -113,20 +114,28 @@ public class CampaignContentServiceImpl implements CampaignContentService{
         User user=userRepo.findUserByLoginId(loginId);
         //그 유저의 캠페인을 모두 가져와서, none이 아닌 계좌가 2개 미만이면
         List <Campaign> campaigns=listRepo.findAllByUser(user);
-        int campaignCnt=0;
-
+        int campaignCnt=0; //사용한 슬롯의 수
+        String existAddress="";
         for(Campaign campaign:campaigns){
             if(!campaign.getWalletAddress().equals("none"))
                 campaignCnt++;
+            else{
+                existAddress=campaign.getWalletAddress();
+            }
         }
 
-        //사용가능한 add가 2개이면 첫번째 캠페인 계좌주소를 반환
+        //사용가능한 add가 2개이면(슬롯 하나도 안 쓴 상태면) 첫번째 캠페인 계좌주소를 반환
         if(campaignCnt==0){
              return walletRepo.findByUserAndType(user,'1').getAddress();
         }
-        //사용가능한 add가 1개이면 두번째 캠페인 계좌주소를 반환
+        //사용가능한 add가 1개이면 사용하지 않는 것을 반환
         else if(campaignCnt==1){
-            return walletRepo.findByUserAndType(user,'2').getAddress();
+            //1번 슬롯 사용중이면 2번을 반환
+            if(walletRepo.findByUserAndType(user,'1').getAddress().equals(existAddress))
+                return walletRepo.findByUserAndType(user,'2').getAddress();
+            //2번 슬롯 사용중이면 1번을 반환
+            else
+                return walletRepo.findByUserAndType(user,'1').getAddress();
         }
 
         return "disable";
