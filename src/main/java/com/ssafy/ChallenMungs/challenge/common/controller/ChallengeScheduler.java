@@ -56,7 +56,7 @@ public class ChallengeScheduler {
     public void startChallenge() {
         System.out.println("스케쥴러가 동작해요!");
         boolean flag;
-        // 시작하면 teamId를 다시 정의해줘요
+        // 시작하면 teamId를 다시 정의해줘요//
         List<Challenge> challenges = challengeService.findAll();
         Loop1:
         for (Challenge c : challenges) {
