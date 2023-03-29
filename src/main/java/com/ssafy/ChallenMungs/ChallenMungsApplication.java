@@ -17,6 +17,7 @@ public class ChallenMungsApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(ChallenMungsApplication.class, args);
+		System.out.println("야호! 성공적인 빌드에요!");
 	}
 
 }

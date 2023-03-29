@@ -2,16 +2,26 @@ package com.ssafy.ChallenMungs.challenge.treasure.controller;
 
 import com.ssafy.ChallenMungs.challenge.common.entity.Challenge;
 import com.ssafy.ChallenMungs.challenge.common.service.ChallengeService;
+import com.ssafy.ChallenMungs.challenge.panel.controller.PanelController;
+import com.ssafy.ChallenMungs.challenge.treasure.handler.RankVo;
+import com.ssafy.ChallenMungs.challenge.treasure.handler.TreasureSocketHandler;
 import com.ssafy.ChallenMungs.common.util.Distance;
+import com.ssafy.ChallenMungs.user.entity.User;
+import com.ssafy.ChallenMungs.user.service.UserService;
 import io.swagger.annotations.Api;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 @RestController
 @RequestMapping("/treasure")
@@ -23,6 +33,14 @@ public class TreasureController {
 
     @Autowired
     ChallengeService challengeService;
+
+    @Autowired
+    TreasureSocketHandler treasureSocketHandler;
+
+    @Autowired
+    UserService userService;
+
+    private Logger log = LoggerFactory.getLogger(TreasureController.class);
 
     @PostMapping("/tokenConfirm/makeTreasureChallenge")
     ResponseEntity makePanelChallenge(
@@ -58,11 +76,74 @@ public class TreasureController {
                 .centerLat(centerLat)
                 .centerLng(centerLng)
                 .maxLat(maxLat).minLat(minLat).maxLng(maxLng).minLng(minLng)
-                .cellSize(cellSize).map_size(mapSize)
-                .cellD(cellD)
+                .map_size(mapSize).cellSize(cellSize)
                 .currentParticipantCount(0)
                 .status(0)
                 .build());
         return ResponseEntity.status(HttpStatus.OK).build();
     }
+    @PostMapping("/tokenConfirm/getInfo")
+    ResponseEntity makePanelChallenge(@RequestParam("challengeId") Long challengeId) {
+        if (treasureSocketHandler.challengeManager.get(challengeId) == null) {
+            log.info("소켓이 관리하고 있지 않아서 정보를 가져오는데 실패 했어요ㅜㅜ");
+            return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).build();
+        }
+        log.info("게임 중 정보를 불러와요");
+        Challenge challenge = challengeService.findByChallengeId(challengeId);
+        HashMap<String, Object> mapDto = new HashMap<String, Object>();
+        mapDto.put("startDate", challenge.getStartDate().toString());
+        mapDto.put("endDate", challenge.getEndDate().toString());
+        mapDto.put("entryFee", challenge.getEntryFee());
+        ArrayList<HashMap> newRankInfoList = new ArrayList<>();
+        for (RankVo rv : treasureSocketHandler.challengeManager.get(challenge.getChallengeId()).rankInfo) {
+            User u = userService.findUserByLoginId(rv.getLoginId());
+            HashMap<String, Object> newRankInfoMap = new HashMap<>();
+            newRankInfoMap.put("name", u.getName());
+            newRankInfoMap.put("profile", u.getProfile());
+            newRankInfoMap.put("rank", rv.getTeamRank());
+            newRankInfoMap.put("point", rv.getPoint());
+            newRankInfoMap.put("myTreasureList", rv.getMyTreasureList());
+            newRankInfoList.add(newRankInfoMap);
+        }
+        mapDto.put("rankInfo", newRankInfoList);
+        return new ResponseEntity(mapDto, HttpStatus.OK);
+    }
+
+//    @PostMapping("/tokenConfirm/selectComplete")
+//    ResponseEntity selectComplete(HttpServletRequest request, @RequestParam("selectList") List<Integer> selectList, @RequestParam("challengeId") Long challengeId) {
+//        String loginId = request.getAttribute("loginId").toString();
+//        Challenge challenge = challengeService.findByChallengeId(challengeId);
+//        for (int idx : selectList) {
+//            treasureSocketHandler.challengeManager.get(challengeId).treasureInfo.get(idx).setIsOpened(true);
+//            if (treasureSocketHandler.challengeManager.get(challengeId).treasureInfo.get(idx).getType() == true) { // 폭탄이 아니라면
+//                int point = treasureSocketHandler.challengeManager.get(challengeId).treasureInfo.get(idx).getPoint();
+//                for (RankVo rv : treasureSocketHandler.challengeManager.get(challengeId).rankInfo) {
+//                    if (rv.getLoginId().equals(loginId)) {
+//                        rv.setPoint(rv.getPoint() + point);
+//                        break;
+//                    }
+//                }
+//            } else { // 폭탄이라면
+//                for (RankVo rv : treasureSocketHandler.challengeManager.get(challengeId).rankInfo) {
+//                    if (rv.getLoginId().equals(loginId)) {
+//                        rv.setPoint(0);
+//                        break;
+//                    }
+//                }
+//            }
+//        }
+//        treasureSocketHandler.challengeManager.get(challengeId).rankInfo.sort((o1, o2) -> {
+//            return o2.getPoint() - o1.getPoint();
+//        });
+//        int rank = 0;
+//        int count = Integer.MAX_VALUE;
+//        for (RankVo r : treasureSocketHandler.challengeManager.get(challengeId).rankInfo) {
+//            if (count > r.getPoint()) {
+//                count = r.getPoint();
+//                rank++;
+//            }
+//            r.setTeamRank(rank);
+//        }
+//        return null;
+//    }
 }

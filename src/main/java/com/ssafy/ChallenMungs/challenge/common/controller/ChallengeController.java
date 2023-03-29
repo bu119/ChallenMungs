@@ -7,6 +7,7 @@ import com.ssafy.ChallenMungs.challenge.common.service.ChallengeService;
 import com.ssafy.ChallenMungs.challenge.common.service.MyChallengeService;
 import com.ssafy.ChallenMungs.common.util.Distance;
 import com.ssafy.ChallenMungs.common.util.FileManager;
+import com.ssafy.ChallenMungs.user.entity.User;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
@@ -17,6 +18,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.lang.reflect.Array;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -53,7 +55,7 @@ ChallengeController {
         log.info("거리제한은 3km에요!");
         double distanceLimit = 3.0;
         List<Challenge> challenges = null;
-        List<Challenge> temp = null;
+        List<Challenge> temp;
         switch (type) {
             case 1:
                 log.info("타입이 1이에요 모든 챌린지를 가져올게요");
@@ -153,6 +155,23 @@ ChallengeController {
         return new ResponseEntity(challenges, HttpStatus.OK);
     }
 
+    @PostMapping("/getChallengeInfo")
+    ResponseEntity getChallengeInfo(@RequestParam("challengeId") long challengeId) {
+        Challenge challenge = challengeService.findByChallengeId(challengeId);
+        List<MyChallenge> myChallengeList = myChallengeService.findAllByChallengeId(challengeId);
+        ArrayList<HashMap> newList = new ArrayList<>();
+        for (MyChallenge mc : myChallengeList) {
+            User u = myChallengeService.findByLoginId(mc.getLoginId());
+            HashMap<String, Object> newMap = new HashMap<>();
+            newMap.put("profile", u.getProfile());
+            newMap.put("name", u.getName());
+            newList.add(newMap);
+        }
+        HashMap<String, Object> dto = new HashMap<>();
+        dto.put("challenge", challenge);
+        dto.put("participant", newList);
+        return new ResponseEntity(dto, HttpStatus.OK);
+    }
 
     @PostMapping("/tokenConfirm/getInChallenge")
     ResponseEntity getInChallenge(HttpServletRequest request, @RequestParam("challengeId") long challengeId, @RequestParam(name = "teamId", required = false) Integer teamId) {
@@ -186,8 +205,8 @@ ChallengeController {
             return ResponseEntity.status(HttpStatus.CONFLICT).build(); //409
         } else { //status가 2인 경우
             log.info("끝난 방이에요!");
-            if (challenge.getChallengeType() == 2) {
-                log.info("판넬 뒤집기네요. 결과를 가져 올게요");
+            if (challenge.getChallengeType() >= 2) {
+                log.info("특별 챌린지네요. 결과를 가져 올게요");
                 String result = fileManager.loadResult(Long.toString(challengeId));
                 return new ResponseEntity(result, HttpStatus.CREATED); // 201
             }

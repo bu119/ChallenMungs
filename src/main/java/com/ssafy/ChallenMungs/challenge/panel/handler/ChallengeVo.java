@@ -12,6 +12,6 @@ import java.util.ArrayList;
 public class ChallengeVo {
     ArrayList<PlayerVo> players;
     int [] [] mapInfo;
-    ArrayList<RankVo> rankInfo;
+    public ArrayList<RankVo> rankInfo;
 
 }
