@@ -118,6 +118,9 @@ public class GeneralBoardController {
     public ResponseEntity<List<HashMap<String, Object>>> getBoardsByChallengeIdToday(
             HttpServletRequest request, @PathParam("challengeId") Long challengeId) {
 
+        String loginId = request.getAttribute("loginId").toString();
+        User user = userService.findUserByLoginId(loginId);
+
         Challenge challenge = challengeService.findByChallengeId(challengeId);
         List<GeneralBoard> boards = boardService.getBoardsByChallengeToday(challenge);
         List<HashMap<String, Object>> dtoList = new ArrayList<>();
@@ -130,6 +133,9 @@ public class GeneralBoardController {
             dtoMap.put("ProfileUrl", userService.findUserByLoginId(gb.getUser().getLoginId()).getProfile());
             // 등록사진
             dtoMap.put("PictureUrl", gb.getPictureUri());
+            // 글을 조회한 사용자가 이 글을 반려했는지 true/flase 형태로 추가 해서 보내기
+            System.out.println(gb);
+            dtoMap.put("myRejectState", rejectService.existsByBoardAndUser(gb, user));
             dtoList.add(dtoMap);
         }
         return new ResponseEntity<>(dtoList, HttpStatus.OK);
