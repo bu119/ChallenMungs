@@ -6,6 +6,8 @@ import com.ssafy.ChallenMungs.challenge.panel.controller.PanelController;
 import com.ssafy.ChallenMungs.challenge.treasure.handler.RankVo;
 import com.ssafy.ChallenMungs.challenge.treasure.handler.TreasureSocketHandler;
 import com.ssafy.ChallenMungs.common.util.Distance;
+import com.ssafy.ChallenMungs.user.entity.User;
+import com.ssafy.ChallenMungs.user.service.UserService;
 import io.swagger.annotations.Api;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -33,6 +36,9 @@ public class TreasureController {
 
     @Autowired
     TreasureSocketHandler treasureSocketHandler;
+
+    @Autowired
+    UserService userService;
 
     private Logger log = LoggerFactory.getLogger(TreasureController.class);
 
@@ -88,7 +94,18 @@ public class TreasureController {
         mapDto.put("startDate", challenge.getStartDate().toString());
         mapDto.put("endDate", challenge.getEndDate().toString());
         mapDto.put("entryFee", challenge.getEntryFee());
-        mapDto.put("rankInfo", treasureSocketHandler.challengeManager.get(challengeId).rankInfo);
+        ArrayList<HashMap> newRankInfoList = new ArrayList<>();
+        for (RankVo rv : treasureSocketHandler.challengeManager.get(challenge.getChallengeId()).rankInfo) {
+            User u = userService.findUserByLoginId(rv.getLoginId());
+            HashMap<String, Object> newRankInfoMap = new HashMap<>();
+            newRankInfoMap.put("name", u.getName());
+            newRankInfoMap.put("profile", u.getProfile());
+            newRankInfoMap.put("rank", rv.getTeamRank());
+            newRankInfoMap.put("point", rv.getPoint());
+            newRankInfoMap.put("myTreasureList", rv.getMyTreasureList());
+            newRankInfoList.add(newRankInfoMap);
+        }
+        mapDto.put("rankInfo", newRankInfoList);
         return new ResponseEntity(mapDto, HttpStatus.OK);
     }
 

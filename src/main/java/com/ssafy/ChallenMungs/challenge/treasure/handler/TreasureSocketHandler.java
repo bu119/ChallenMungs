@@ -119,11 +119,13 @@ public class TreasureSocketHandler extends TextWebSocketHandler {
             for (int i = 0; i < selectList.size(); i++) {
                 int idx = selectList.get(i).getAsInt();
                 challengeManager.get(challengeId).treasureInfo.get(idx).setIsOpened(true);
+
                 if (challengeManager.get(challengeId).treasureInfo.get(idx).getType() == true) { // 폭탄이 아니라면
                     int point = challengeManager.get(challengeId).treasureInfo.get(idx).getPoint();
                     for (RankVo rv : challengeManager.get(challengeId).rankInfo) {
                         if (rv.getLoginId().equals(loginId)) {
                             rv.setPoint(rv.getPoint() + point);
+                            rv.myTreasureList.add(idx);
                             break;
                         }
                     }
@@ -131,6 +133,7 @@ public class TreasureSocketHandler extends TextWebSocketHandler {
                     for (RankVo rv : challengeManager.get(challengeId).rankInfo) {
                         if (rv.getLoginId().equals(loginId)) {
                             rv.setPoint(0);
+                            rv.myTreasureList.add(idx);
                             break;
                         }
                     }

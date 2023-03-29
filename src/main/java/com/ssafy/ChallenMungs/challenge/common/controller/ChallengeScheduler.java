@@ -13,6 +13,8 @@ import com.ssafy.ChallenMungs.challenge.panel.handler.RankVo;
 import com.ssafy.ChallenMungs.challenge.treasure.handler.TreasureSocketHandler;
 import com.ssafy.ChallenMungs.challenge.treasure.handler.TreasureVo;
 import com.ssafy.ChallenMungs.common.util.FileManager;
+import com.ssafy.ChallenMungs.user.entity.User;
+import com.ssafy.ChallenMungs.user.service.UserService;
 import jnr.ffi.Struct;
 import org.apache.commons.math3.geometry.euclidean.threed.Vector3D;
 import org.slf4j.Logger;
@@ -23,6 +25,7 @@ import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 @Component
@@ -42,6 +45,9 @@ public class ChallengeScheduler {
 
     @Autowired
     FileManager fileManager;
+
+    @Autowired
+    UserService userService;
 
     ObjectMapper mapper = new ObjectMapper();
 
@@ -79,11 +85,8 @@ public class ChallengeScheduler {
                         ArrayList<String> ids1 = new ArrayList<>();
                         ArrayList<String> ids2 = new ArrayList<>();
                         for (MyChallenge mc : myChallenges) {
-                            teamIdx++;
-                            mc.setTeamId(teamIdx % 2 + 1);
-                            myChallengeService.save(mc);
-                            if (teamIdx % 2 + 1 == 1) ids1.add(mc.getLoginId());
-                            else if (teamIdx % 2 + 1 == 2) ids2.add(mc.getLoginId());
+                            if (mc.getTeamId() == 1) ids1.add(mc.getLoginId());
+                            else if (mc.getTeamId() == 2) ids2.add(mc.getLoginId());
                         }
                         rankInfo.add(RankVo.builder().teamRank(1).PanelCount(0).teamId(1).loginId(ids1).build());
                         rankInfo.add(RankVo.builder().teamRank(1).PanelCount(0).teamId(2).loginId(ids2).build());
@@ -130,11 +133,68 @@ public class ChallengeScheduler {
                 StringBuilder sb = new StringBuilder();
                 if (c.getChallengeType() == 2) {
                     log.info("판넬뒤집기 챌린지가 종료되었어요!");
+                    ArrayList<HashMap> newRankInfoList = new ArrayList<>();
+                    if (c.getGameType() == 1) {
+                        for (com.ssafy.ChallenMungs.challenge.panel.handler.RankVo rv : panelSocketHandler.challengeManager.get(c.getChallengeId()).rankInfo) {
+                            User u = userService.findUserByLoginId((String) rv.getLoginId()); // 팀전일 경우 LoginId가 ArrayList라 고쳐야햄
+                            HashMap<String, Object> newRankInfoMap = new HashMap<>();
+                            newRankInfoMap.put("name", u.getName());
+                            newRankInfoMap.put("profile", u.getProfile());
+                            newRankInfoMap.put("rank", rv.getTeamRank());
+                            newRankInfoMap.put("teamId", rv.getTeamId());
+                            newRankInfoMap.put("point", rv.getPanelCount());
+                            newRankInfoList.add(newRankInfoMap);
+                        }
+                    } else if (c.getGameType() == 2) {
+                        for (int i = 0; i < 2; i++) {
+                            for (String loginId : (ArrayList<String>) panelSocketHandler.challengeManager.get(c.getChallengeId()).rankInfo.get(i).getLoginId()) {
+                                User u = userService.findUserByLoginId(loginId); // 팀전일 경우 LoginId가 ArrayList라 고쳐야햄
+                                HashMap<String, Object> newRankInfoMap = new HashMap<>();
+                                newRankInfoMap.put("name", u.getName());
+                                newRankInfoMap.put("profile", u.getProfile());
+                                newRankInfoMap.put("rank", panelSocketHandler.challengeManager.get(c.getChallengeId()).rankInfo.get(i).getTeamRank());
+                                newRankInfoMap.put("teamId", i + 1);
+                                newRankInfoMap.put("point", panelSocketHandler.challengeManager.get(c.getChallengeId()).rankInfo.get(i).getPanelCount());
+                                newRankInfoList.add(newRankInfoMap);
+                            }
+                        }
+                    }
                     try {
                         sb.append("{\nmapInfo:");
                         sb.append(mapper.writeValueAsString(panelSocketHandler.challengeManager.get(c.getChallengeId()).getMapInfo()));
                         sb.append(",\nrankInfo:");
-                        sb.append(mapper.writeValueAsString(panelSocketHandler.challengeManager.get(c.getChallengeId()).getRankInfo()));
+                        sb.append(mapper.writeValueAsString(newRankInfoList));
+                        sb.append(",\ncenterLat:");
+                        sb.append(c.getCenterLat());
+                        sb.append(",\ncenterLng:");
+                        sb.append(c.getCenterLng());
+                        sb.append(",\ngameType:");
+                        sb.append(c.getGameType());
+                        sb.append("\n}");
+                    } catch (JsonProcessingException e) {
+                        throw new RuntimeException(e);
+                    }
+                    fileManager.saveResult(Long.toString(c.getChallengeId()), sb.toString());
+                    panelSocketHandler.challengeManager.remove(c.getChallengeId());
+                } else if (c.getChallengeType() == 3) {
+                    log.info("보물찾기 챌린지가 종료되었어요!");
+                    log.info("랭킹정보를 생성해요");
+                    ArrayList<HashMap> newRankInfoList = new ArrayList<>();
+                    for (com.ssafy.ChallenMungs.challenge.treasure.handler.RankVo rv : treasureSocketHandler.challengeManager.get(c.getChallengeId()).rankInfo) {
+                        User u = userService.findUserByLoginId(rv.getLoginId());
+                        HashMap<String, Object> newRankInfoMap = new HashMap<>();
+                        newRankInfoMap.put("name", u.getName());
+                        newRankInfoMap.put("profile", u.getProfile());
+                        newRankInfoMap.put("rank", rv.getTeamRank());
+                        newRankInfoMap.put("point", rv.getPoint());
+                        newRankInfoMap.put("myTreasureList", rv.getMyTreasureList());
+                        newRankInfoList.add(newRankInfoMap);
+                    }
+                    try {
+                        sb.append("{\nmapInfo:");
+                        sb.append(mapper.writeValueAsString(panelSocketHandler.challengeManager.get(c.getChallengeId()).getMapInfo()));
+                        sb.append(",\nrankInfo:");
+                        sb.append(mapper.writeValueAsString(newRankInfoList));
                         sb.append(",\ncenterLat:");
                         sb.append(c.getCenterLat());
                         sb.append(",\ncenterLng:");
@@ -143,8 +203,6 @@ public class ChallengeScheduler {
                     } catch (JsonProcessingException e) {
                         throw new RuntimeException(e);
                     }
-                    fileManager.saveResult(Long.toString(c.getChallengeId()), sb.toString());
-                    panelSocketHandler.challengeManager.remove(c.getChallengeId());
                 }
             }
             if (flag) {
