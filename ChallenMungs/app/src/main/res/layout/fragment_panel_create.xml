@@ -42,7 +42,7 @@
 
                 <EditText
                     android:id="@+id/et_title"
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:background="@drawable/bg_rect_white_smoke_radius10"
                     android:fontFamily="sans-serif"
