@@ -1,5 +1,6 @@
 package com.ssafy.ChallenMungs.challenge.general.service;
 
+import com.ssafy.ChallenMungs.challenge.common.entity.Challenge;
 import com.ssafy.ChallenMungs.challenge.general.entity.GeneralBoard;
 import com.ssafy.ChallenMungs.challenge.general.entity.GeneralReject;
 import com.ssafy.ChallenMungs.challenge.general.repository.GeneralBoardRepository;
@@ -22,6 +23,11 @@ public class GeneralRejectService {
 
     @Autowired
     private GeneralRejectRepository rejectRepository;
+
+    public boolean existsByBoardAndUser(GeneralBoard board, User user) {
+        return rejectRepository.existsByBoardAndUser(board, user);
+    }
+
 
     // boardId와 user를 받아서 해당 board의 rejectCount를 1 증가하고, GeneralReject 테이블 추가
     @Transactional
