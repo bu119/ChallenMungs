@@ -128,7 +128,6 @@ public class ChallengeScheduler {
             // 예를 들어 2일에 끝나는 겜이면 3일 자정에 끝나야됨
             if (c.getStatus() == 1 && c.getEndDate().plusDays(1).equals(today)) {
                 int totalKlay = c.getEntryFee() * c.getCurrentParticipantCount();
-
                 c.setStatus(2);
                 flag = true;
                 String saveValue;
@@ -136,7 +135,15 @@ public class ChallengeScheduler {
                 if (c.getChallengeType() == 2) {
                     log.info("판넬뒤집기 챌린지가 종료되었어요!");
                     ArrayList<HashMap> newRankInfoList = new ArrayList<>();
-                    if (c.getGameType() == 1) {
+                    if (c.getGameType() == 1) { // 판넬뒤집기 개인전
+                        int [] myklay = new int [panelSocketHandler.challengeManager.get(c.getChallengeId()).rankInfo.size()];
+                        int klaySum = 0;
+                        for (int i = 1; i < myklay.length; i++) {
+                            myklay[i] = c.getEntryFee() * 2 / c.getCurrentParticipantCount() * (myklay.length - i - 1);
+                            klaySum += myklay[i];
+                        }
+                        myklay[0] = totalKlay - klaySum;
+                        int idx = 1;
                         for (com.ssafy.ChallenMungs.challenge.panel.handler.RankVo rv : panelSocketHandler.challengeManager.get(c.getChallengeId()).rankInfo) {
                             User u = userService.findUserByLoginId((String) rv.getLoginId()); // 팀전일 경우 LoginId가 ArrayList라 고쳐야햄
                             MyChallenge mc = myChallengeService.findByLoginIdAndChallengeId(u.getLoginId(), c.getChallengeId());
@@ -148,10 +155,19 @@ public class ChallengeScheduler {
                             newRankInfoMap.put("teamId", rv.getTeamId());
                             newRankInfoMap.put("point", rv.getPanelCount());
                             newRankInfoList.add(newRankInfoMap);
-//                            sendKlay(u, );
+                            sendKlay(u, myklay[idx-1]);
+                            idx++;
                         }
-                    } else if (c.getGameType() == 2) {
+                    } else if (c.getGameType() == 2) { // 판넬뒤집기 팀전
+                        int [] myklay = new int [((ArrayList) panelSocketHandler.challengeManager.get(c.getChallengeId()).rankInfo.get(0).getLoginId()).size()];
+                        int klaySum = 0;
+                        for (int i = 1; i < myklay.length; i++) {
+                            myklay[i] = c.getEntryFee() / myklay.length;
+                            klaySum += myklay[i];
+                        }
+                        myklay[0] = totalKlay - klaySum;
                         for (int i = 0; i < 2; i++) {
+                            int idx = 0;
                             for (String loginId : (ArrayList<String>) panelSocketHandler.challengeManager.get(c.getChallengeId()).rankInfo.get(i).getLoginId()) {
                                 User u = userService.findUserByLoginId(loginId); // 팀전일 경우 LoginId가 ArrayList라 고쳐야햄
                                 MyChallenge mc = myChallengeService.findByLoginIdAndChallengeId(u.getLoginId(), c.getChallengeId());
@@ -160,9 +176,13 @@ public class ChallengeScheduler {
                                 newRankInfoMap.put("name", u.getName());
                                 newRankInfoMap.put("profile", u.getProfile());
                                 newRankInfoMap.put("rank", panelSocketHandler.challengeManager.get(c.getChallengeId()).rankInfo.get(i).getTeamRank());
-                                newRankInfoMap.put("teamId", i + 1);
+                                newRankInfoMap.put("teamId", panelSocketHandler.challengeManager.get(c.getChallengeId()).rankInfo.get(i).getTeamId());
                                 newRankInfoMap.put("point", panelSocketHandler.challengeManager.get(c.getChallengeId()).rankInfo.get(i).getPanelCount());
                                 newRankInfoList.add(newRankInfoMap);
+                                if (i == 0) {
+                                    sendKlay(u, myklay[idx]);
+                                    idx++;
+                                }
                             }
                         }
                     }
@@ -186,6 +206,14 @@ public class ChallengeScheduler {
                 } else if (c.getChallengeType() == 3) {
                     log.info("보물찾기 챌린지가 종료되었어요!");
                     log.info("랭킹정보를 생성해요");
+                    int [] myklay = new int [treasureSocketHandler.challengeManager.get(c.getChallengeId()).rankInfo.size()];
+                    int klaySum = 0;
+                    for (int i = 1; i < myklay.length; i++) {
+                        myklay[i] = c.getEntryFee() * 2 / c.getCurrentParticipantCount() * (myklay.length - i - 1);
+                        klaySum += myklay[i];
+                    }
+                    myklay[0] = totalKlay - klaySum;
+                    int idx = 1;
                     ArrayList<HashMap> newRankInfoList = new ArrayList<>();
                     for (com.ssafy.ChallenMungs.challenge.treasure.handler.RankVo rv : treasureSocketHandler.challengeManager.get(c.getChallengeId()).rankInfo) {
                         User u = userService.findUserByLoginId(rv.getLoginId());
@@ -198,6 +226,8 @@ public class ChallengeScheduler {
                         newRankInfoMap.put("point", rv.getPoint());
                         newRankInfoMap.put("myTreasureList", rv.getMyTreasureList());
                         newRankInfoList.add(newRankInfoMap);
+                        sendKlay(u, myklay[idx-1]);
+                        idx++;
                     }
                     try {
                         sb.append("{\nmapInfo:");
