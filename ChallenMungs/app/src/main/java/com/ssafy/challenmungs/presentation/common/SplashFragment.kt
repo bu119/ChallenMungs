@@ -1,6 +1,7 @@
 package com.ssafy.challenmungs.presentation.common
 
 import android.content.Context
+import android.content.Intent
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
@@ -10,6 +11,7 @@ import com.ssafy.challenmungs.common.util.backDoublePressedFragmentCallback
 import com.ssafy.challenmungs.databinding.FragmentSplashBinding
 import com.ssafy.challenmungs.presentation.auth.MemberViewModel
 import com.ssafy.challenmungs.presentation.base.BaseFragment
+import com.ssafy.challenmungs.presentation.home.HomeActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -29,14 +31,19 @@ class SplashFragment : BaseFragment<FragmentSplashBinding>(R.layout.fragment_spl
             if (ApplicationClass.preferences.accessToken != null)
                 result = memberViewModel.getMemberInfo()
 
-            val destination = when ("${ApplicationClass.preferences.isFirstRun}, $result") {
-                "false, true" -> SplashFragmentDirections.actionToHomeActivity()
-                "false, false" -> SplashFragmentDirections.actionToAuthActivity()
-                else -> SplashFragmentDirections.actionToPermissionFragment()
-            }
-
             delay(_splashViewTime)
-            navigate(destination)
+
+            if (ApplicationClass.preferences.isFirstRun) {
+                navigate(SplashFragmentDirections.actionToPermissionFragment())
+            } else if (result) {
+                val intent = Intent(requireContext(), HomeActivity::class.java)
+                startActivity(intent)
+                requireActivity().finish()
+            } else {
+                val intent = Intent(requireContext(), HomeActivity::class.java)
+                startActivity(intent)
+                requireActivity().finish()
+            }
         }
     }
 
