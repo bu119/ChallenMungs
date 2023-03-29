@@ -1,11 +1,11 @@
 package com.ssafy.challenmungs.presentation.common
 
-import android.Manifest
-import android.content.pm.PackageManager
-import androidx.core.content.ContextCompat
+import android.content.Context
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.activityViewModels
 import com.ssafy.challenmungs.ApplicationClass
 import com.ssafy.challenmungs.R
+import com.ssafy.challenmungs.common.util.backDoublePressedFragmentCallback
 import com.ssafy.challenmungs.databinding.FragmentPermissionBinding
 import com.ssafy.challenmungs.presentation.auth.MemberViewModel
 import com.ssafy.challenmungs.presentation.base.BaseFragment
@@ -15,41 +15,31 @@ import dagger.hilt.android.AndroidEntryPoint
 class PermissionFragment : BaseFragment<FragmentPermissionBinding>(R.layout.fragment_permission) {
 
     private val memberViewModel by activityViewModels<MemberViewModel>()
+    private lateinit var callback: OnBackPressedCallback
 
     override fun initView() {
         ApplicationClass.preferences.isFirstRun = false
-
         initListener()
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        callback = backDoublePressedFragmentCallback(this@PermissionFragment)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        callback.remove()
     }
 
     private fun initListener() {
         binding.btnPermissionCheck.setOnClickListener {
-            when {
-                ContextCompat.checkSelfPermission(
-                    requireContext(),
-                    Manifest.permission.ACCESS_FINE_LOCATION
-                ) == PackageManager.PERMISSION_GRANTED -> {
-                    // 로그인 체크 후 화면 분기
-                }
-//                shouldShowRequestPermissionRationale()
-            }
-
-            when {
-                ContextCompat.checkSelfPermission(
-                    requireContext(),
-                    Manifest.permission.ACCESS_BACKGROUND_LOCATION
-                ) == PackageManager.PERMISSION_GRANTED -> {
-
-                }
-            }
-
-            when {
-                ContextCompat.checkSelfPermission(
-                    requireContext(),
-                    Manifest.permission.READ_MEDIA_IMAGES
-                ) == PackageManager.PERMISSION_GRANTED -> {
-
-                }
+            if (memberViewModel.memberInfo.value != null) {
+                navigate(PermissionFragmentDirections.actionToHomeActivity())
+                requireActivity().finish()
+            } else {
+                navigate(PermissionFragmentDirections.actionToAuthActivity())
+                requireActivity().finish()
             }
         }
     }

@@ -5,7 +5,10 @@ import android.os.Build
 import android.view.View
 import android.view.WindowInsets
 import android.view.WindowInsetsController
+import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import kotlinx.coroutines.*
 
 private const val HIDE_DELAY_MS = 3000L
@@ -60,4 +63,29 @@ fun AppCompatActivity.setImmersiveMode() {
             }
         }
     }
+}
+
+fun backDoublePressedFragmentCallback(fragment: Fragment): OnBackPressedCallback {
+    var backPressedTime: Long = 0
+    var toast: Toast = Toast.makeText(fragment.requireActivity(), "", Toast.LENGTH_SHORT)
+    val callback: OnBackPressedCallback = object : OnBackPressedCallback(true) {
+        override fun handleOnBackPressed() {
+            if (System.currentTimeMillis() > backPressedTime + 2000) {
+                toast = Toast.makeText(
+                    fragment.requireActivity(),
+                    "한번 더 누르면 종료됩니다.",
+                    Toast.LENGTH_SHORT
+                )
+                toast.show()
+                backPressedTime = System.currentTimeMillis()
+            } else {
+                fragment.requireActivity().finish()
+                toast.cancel()
+            }
+        }
+    }
+
+    fragment.requireActivity().onBackPressedDispatcher.addCallback(fragment, callback)
+
+    return callback
 }
