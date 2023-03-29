@@ -9,4 +9,5 @@ import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 public interface GeneralRejectRepository extends JpaRepository<GeneralReject, Long>,QuerydslPredicateExecutor<GeneralReject> {
 
     boolean existsByBoardAndUser(GeneralBoard board, User user);
+    GeneralReject findByBoardAndUser(GeneralBoard board, User user);
 }
