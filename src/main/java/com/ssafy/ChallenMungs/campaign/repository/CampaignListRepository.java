@@ -1,5 +1,6 @@
 package com.ssafy.ChallenMungs.campaign.repository;
 
+import com.ssafy.ChallenMungs.Test.entity.Test;
 import com.ssafy.ChallenMungs.campaign.entity.Campaign;
 import com.ssafy.ChallenMungs.user.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -27,6 +28,9 @@ public interface CampaignListRepository extends JpaRepository<Campaign, Long>  {
 
     // 내가 참여한 캠페인
 
+
+    //캠페인 검색
+    List<Campaign> findByTitleContaining(String title);
 
 
 

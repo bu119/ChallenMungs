@@ -27,7 +27,7 @@ public class CampaignListController {
     @GetMapping("/ongoing")
     @ApiOperation(value = "기부탭", notes = "기부탭에서 캠페인 목록을 조회하는 api 입니다.\n type : date(등록일), amount(누적 금액), love(캠페인 응원수) \n sort(default = 1) : 1(내림차순), 0(오름차순)     * 파라 미터 없이 보내면 기본 내림차순 정렬 \n 기부탭 처음 선택 시 : 파라미터를 넣지 않고 호출하면 캠페인 최신순으로 기본 정렬 됩니다." )
     public ResponseEntity<List<CampaignDto>> getCampaign(@RequestParam(required = false, defaultValue="default") String type, @RequestParam(required = false, defaultValue = "1") int sort){
-        //return service.getCampaign(type, sort);
+
         return new ResponseEntity<List<CampaignDto>>(service.getCampaign(type, sort), HttpStatus.OK);
 
     }
@@ -52,5 +52,13 @@ public class CampaignListController {
     public ResponseEntity<List<CampaignDto>> getUserDonate(@RequestParam String loginId){
         return new ResponseEntity<List<CampaignDto>>(service.getUserDonate(loginId), HttpStatus.OK);
     }
+
+    //캠페인 검색
+    @GetMapping("/search")
+    @ApiOperation(value = "캠페인 검색", notes = "캠페인 제목으로 캠페인을 검색합니다.")
+    public ResponseEntity<List<CampaignDto>> search(@RequestParam String word){
+        return new ResponseEntity<List<CampaignDto>>(service.search(word), HttpStatus.OK);
+    }
+
     
 }

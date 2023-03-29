@@ -17,5 +17,4 @@ public class CampaignDto {
     int targetAmount;
     int loveCount;
 
-
 }
