@@ -122,4 +122,20 @@
     <string name="content_normal">일반</string>
     <string name="content_panel_individual">판넬(개)</string>
     <string name="content_panel_team">판넬(팀)</string>
+
+    <!--  Panel Game Create  -->
+    <string name="title_title">제목</string>
+    <string name="title_date">일정</string>
+    <string name="content_enter_title">제목을 입력해주세요.</string>
+    <string name="content_choice_date">일정을 선택해주세요.</string>
+    <string name="title_max_headcount">최대인원</string>
+    <string name="title_type">유형</string>
+    <string name="image_calendar">image_calendar_button</string>
+    <string name="content_individual">개인전</string>
+    <string name="content_team">팀전</string>
+    <string name="content_participation_money">참가비</string>
+    <string name="content_do_set">설정하기</string>
+    <string name="content_not_set">미설정</string>
+    <string name="title_play_area_setting">경기구역 설정</string>
+    <string name="image_reset">image_reset_button_icon</string>
 </resources>
