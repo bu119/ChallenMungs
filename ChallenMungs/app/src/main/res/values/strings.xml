@@ -138,4 +138,12 @@
     <string name="content_not_set">미설정</string>
     <string name="title_play_area_setting">경기구역 설정</string>
     <string name="image_reset">image_reset_button_icon</string>
+
+    <!-- My Challenge -->
+    <string name="title_ongoing">진행</string>
+    <string name="title_wait">대기</string>
+    <string name="title_finish">완료</string>
+
+    <!--  Choose Team Dialog  -->
+    <string name="title_choose_team">팀을 선택해주세요.</string>
 </resources>
