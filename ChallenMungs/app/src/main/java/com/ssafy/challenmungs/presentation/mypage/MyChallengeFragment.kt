@@ -4,6 +4,7 @@ import android.graphics.Typeface
 import android.widget.TextView
 import androidx.core.view.children
 import com.google.android.material.tabs.TabLayout
+import com.google.android.material.tabs.TabLayoutMediator
 import com.ssafy.challenmungs.R
 import com.ssafy.challenmungs.databinding.FragmentMyChallengeBinding
 import com.ssafy.challenmungs.presentation.base.BaseFragment
@@ -40,8 +41,18 @@ class MyChallengeFragment :
                     }
                 }
             })
+            vpChallengeList.adapter = MyChallengeViewPagerAdapter(this@MyChallengeFragment)
+            val tabTitles = listOf(
+                getString(R.string.title_ongoing),
+                getString(R.string.title_wait),
+                getString(R.string.title_finish)
+            )
+            TabLayoutMediator(
+                tlChallengeState,
+                vpChallengeList
+            ) { tab, position ->
+                tab.text = tabTitles[position]
+            }.attach()
         }
-
     }
-
 }
