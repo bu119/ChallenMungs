@@ -138,4 +138,15 @@
     <string name="content_not_set">미설정</string>
     <string name="title_play_area_setting">경기구역 설정</string>
     <string name="image_reset">image_reset_button_icon</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!--  HomeFragment  -->
+    <string name="pharse_catch_pharse">재미있게 기부하자!</string>
+    <string name="pharse_user_total_donation">전체 이용자 기부총액</string>
+    <string name="pharse_ongoing_my_challenge">진행 중인 내 챌린지</string>
+    <string name="pharse_show_all_my_challenge">+전체보기</string>
+    <string name="pharse_only_tomorrow_my_challenge">내일 시작하는 챌린지</string>
+    <string name="pharse_show_more">+더보기</string>
+    <string name="pharse_recently_added_campaign">최근 추가된 모금</string>
 </resources>
