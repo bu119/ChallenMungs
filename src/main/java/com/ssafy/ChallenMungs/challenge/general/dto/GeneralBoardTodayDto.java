@@ -19,6 +19,8 @@ public class GeneralBoardTodayDto {
     private String name;
     private String profileUrl;
     private String pictureUrl;
+    private Boolean myRejectState;
 
-    List<GeneralBoardTodayDto> todayList;
+
+//    List<GeneralBoardTodayDto> todayList;
 }

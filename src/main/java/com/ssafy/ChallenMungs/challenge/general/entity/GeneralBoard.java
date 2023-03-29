@@ -32,8 +32,8 @@ public class GeneralBoard {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private User user;
 
-    @Column(name = "picture_uri", length = 2500)
-    String pictureUri;
+    @Column(name = "picture_url", length = 2500)
+    String pictureUrl;
 
     @Column(name = "reject_count")
     Integer rejectCount;
