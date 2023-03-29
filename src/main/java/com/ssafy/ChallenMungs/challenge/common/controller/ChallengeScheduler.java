@@ -137,6 +137,8 @@ public class ChallengeScheduler {
                     if (c.getGameType() == 1) {
                         for (com.ssafy.ChallenMungs.challenge.panel.handler.RankVo rv : panelSocketHandler.challengeManager.get(c.getChallengeId()).rankInfo) {
                             User u = userService.findUserByLoginId((String) rv.getLoginId()); // 팀전일 경우 LoginId가 ArrayList라 고쳐야햄
+                            MyChallenge mc = myChallengeService.findByLoginIdAndChallengeId(u.getLoginId(), c.getChallengeId());
+                            mc.setSuccessCount(rv.getTeamRank());
                             HashMap<String, Object> newRankInfoMap = new HashMap<>();
                             newRankInfoMap.put("name", u.getName());
                             newRankInfoMap.put("profile", u.getProfile());
@@ -149,6 +151,8 @@ public class ChallengeScheduler {
                         for (int i = 0; i < 2; i++) {
                             for (String loginId : (ArrayList<String>) panelSocketHandler.challengeManager.get(c.getChallengeId()).rankInfo.get(i).getLoginId()) {
                                 User u = userService.findUserByLoginId(loginId); // 팀전일 경우 LoginId가 ArrayList라 고쳐야햄
+                                MyChallenge mc = myChallengeService.findByLoginIdAndChallengeId(u.getLoginId(), c.getChallengeId());
+                                mc.setSuccessCount(panelSocketHandler.challengeManager.get(c.getChallengeId()).rankInfo.get(i).getTeamRank());
                                 HashMap<String, Object> newRankInfoMap = new HashMap<>();
                                 newRankInfoMap.put("name", u.getName());
                                 newRankInfoMap.put("profile", u.getProfile());
@@ -182,6 +186,8 @@ public class ChallengeScheduler {
                     ArrayList<HashMap> newRankInfoList = new ArrayList<>();
                     for (com.ssafy.ChallenMungs.challenge.treasure.handler.RankVo rv : treasureSocketHandler.challengeManager.get(c.getChallengeId()).rankInfo) {
                         User u = userService.findUserByLoginId(rv.getLoginId());
+                        MyChallenge mc = myChallengeService.findByLoginIdAndChallengeId(u.getLoginId(), c.getChallengeId());
+                        mc.setSuccessCount(rv.getTeamRank());
                         HashMap<String, Object> newRankInfoMap = new HashMap<>();
                         newRankInfoMap.put("name", u.getName());
                         newRankInfoMap.put("profile", u.getProfile());

@@ -152,7 +152,31 @@ ChallengeController {
             challenges.remove(r);
         }
 
-        return new ResponseEntity(challenges, HttpStatus.OK);
+        HashMap<Integer, ArrayList> dto = new HashMap<>();
+        dto.put(0, new ArrayList<Challenge>());
+        dto.put(1, new ArrayList<Challenge>());
+        dto.put(2, new ArrayList<Object>());
+        for (Challenge c : challenges) {
+            switch (c.getStatus()) {
+                case 0:
+                    dto.get(0).add(c);
+                    break;
+                case 1:
+                    dto.get(1).add(c);
+                    break;
+                case 2:
+                    HashMap<String, Object> subMap = new HashMap<String, Object>();
+                    subMap.put("challengeInfo", c);
+                    String loginId = request.getAttribute("loginId").toString();
+                    subMap.put("successInfo", myChallengeService.findByLoginIdAndChallengeId(loginId, c.getChallengeId()).getSuccessCount());
+                    dto.get(2).add(subMap);
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        return new ResponseEntity(dto, HttpStatus.OK);
     }
 
     @PostMapping("/getChallengeInfo")

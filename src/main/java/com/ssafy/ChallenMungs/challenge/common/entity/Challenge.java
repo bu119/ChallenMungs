@@ -80,5 +80,4 @@ public class Challenge {
 
     @Column(name = "map_size")
     Double map_size;
-
 }
