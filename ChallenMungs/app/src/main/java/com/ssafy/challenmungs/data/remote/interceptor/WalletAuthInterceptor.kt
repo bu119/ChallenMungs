@@ -12,7 +12,6 @@ class WalletAuthInterceptor() : Interceptor {
             .addHeader("x-chain-id", BuildConfig.KLAYTN_X_CHAIN_ID)
             .build()
 
-
         return chain.proceed(request)
     }
 }
