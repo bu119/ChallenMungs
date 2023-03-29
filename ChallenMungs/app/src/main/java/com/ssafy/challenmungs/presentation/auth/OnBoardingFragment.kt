@@ -30,6 +30,10 @@ class OnBoardingFragment : BaseFragment<FragmentOnBoardingBinding>(R.layout.frag
                 authViewModel.requestJoin(binding.etNickname.text.toString())
             }
         }
+
+        binding.toolbar.ivBack.setOnClickListener {
+            popBackStack()
+        }
     }
 
     private fun observe() {
@@ -65,5 +69,6 @@ class OnBoardingFragment : BaseFragment<FragmentOnBoardingBinding>(R.layout.frag
     private fun moveToHomeActivity() {
         val intent = Intent(activity, HomeActivity::class.java)
         startActivity(intent)
+        requireActivity().finish()
     }
 }

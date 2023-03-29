@@ -18,9 +18,9 @@ import kotlinx.coroutines.launch
 @AndroidEntryPoint
 class SplashFragment : BaseFragment<FragmentSplashBinding>(R.layout.fragment_splash) {
 
+    private lateinit var callback: OnBackPressedCallback
     private val _splashViewTime: Long = 3000
     private val memberViewModel by activityViewModels<MemberViewModel>()
-    private lateinit var callback: OnBackPressedCallback
 
     override fun initView() {
         lifecycleScope.launch {

@@ -14,8 +14,8 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class PermissionFragment : BaseFragment<FragmentPermissionBinding>(R.layout.fragment_permission) {
 
-    private val memberViewModel by activityViewModels<MemberViewModel>()
     private lateinit var callback: OnBackPressedCallback
+    private val memberViewModel by activityViewModels<MemberViewModel>()
 
     override fun initView() {
         ApplicationClass.preferences.isFirstRun = false
