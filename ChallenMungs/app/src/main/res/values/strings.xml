@@ -146,4 +146,7 @@
 
     <!--  Choose Team Dialog  -->
     <string name="title_choose_team">팀을 선택해주세요.</string>
+
+    <!--  Member Withdrawal Dialog  -->
+    <string name="content_withdrawal_comment">이별인가요? 너무 아쉬워요..</string>
 </resources>
