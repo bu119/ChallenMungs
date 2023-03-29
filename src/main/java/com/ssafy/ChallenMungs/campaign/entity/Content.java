@@ -32,5 +32,4 @@ public class Content {
     int seq;
 
 
-
 }
