@@ -1,20 +1,20 @@
-package com.ssafy.challenmungs.presentation
+package com.ssafy.challenmungs.presentation.common
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.ssafy.challenmungs.R
+import androidx.appcompat.app.AppCompatActivity
 import com.ssafy.challenmungs.common.util.setImmersiveMode
 import com.ssafy.challenmungs.databinding.ActivityMainBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        setTheme(R.style.Theme_ChallenMungs)
         super.onCreate(savedInstanceState)
+        setImmersiveMode()
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        setImmersiveMode()
     }
 }
