@@ -174,4 +174,13 @@ public class CampaignListServiceImpl implements CampaignListService {
                 .map(b -> new CampaignDto(b.getCampaignId(),b.getThumbnail(),b.getTitle(), b.getName(), b.getCollectAmount(), b.getTargetAmount(), loveRepo.countByCampaign(b)))
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public List<CampaignDto> search(String title) {
+        List <Campaign> list=jpaRepo.findByTitleContaining(title);
+        return  list.stream()
+                .map(b -> new CampaignDto(b.getCampaignId(),b.getThumbnail(),b.getTitle(), b.getName(), b.getCollectAmount(), b.getTargetAmount(), loveRepo.countByCampaign(b)))
+                .collect(Collectors.toList());
+
+    }
 }

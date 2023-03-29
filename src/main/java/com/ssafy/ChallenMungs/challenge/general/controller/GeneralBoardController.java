@@ -59,7 +59,7 @@ public class GeneralBoardController {
 
     // 인증사진을 등록하는 API
     @PostMapping("/tokenConfirm/registerPicture")
-    @ApiOperation(value = "인증사진을 등록하는 api입니다.", notes = "결과 값으로 boardId를 반환합니다.")
+    @ApiOperation(value = "인증사진을 등록하는 api입니다.", notes = "challengeId와 pictureUri을 활용하여 결과 값으로 boardId를 반환합니다.")
     public ResponseEntity<Integer> savePicture(
             HttpServletRequest request,
             @RequestParam("challengeId") Long challengeId,
@@ -114,7 +114,7 @@ public class GeneralBoardController {
     }
 
     @GetMapping("tokenConfirm/getToday")
-    @ApiOperation(value = "투데이 게시판을 조회하는 api입니다.", notes = "결과 값으로 오늘 등록된 주어진 challengeId와 일치하는 모든 GeneralBoard 객체들이 반환합니다.")
+    @ApiOperation(value = "투데이 게시판을 조회하는 api입니다.", notes = "challengeId를 활용하여 결과 값으로 오늘 등록된 주어진 challengeId와 일치하는 모든 GeneralBoard 객체들이 반환합니다.")
     public ResponseEntity<List<HashMap<String, Object>>> getBoardsByChallengeIdToday(
             HttpServletRequest request, @PathParam("challengeId") Long challengeId) {
 
@@ -136,7 +136,7 @@ public class GeneralBoardController {
     }
 
     @GetMapping("tokenConfirm/history")
-    @ApiOperation(value = "히스토리 게시판을 조회하는 api입니다.", notes = "결과 값으로 challengeI에 해당하는 유저의 데이터들을 반환합니다.")
+    @ApiOperation(value = "히스토리 게시판을 조회하는 api입니다.", notes = "challengeId를 활용하여 결과 값으로 challengeId에 해당하는 유저의 데이터들을 반환합니다.")
     public ResponseEntity<List<GeneralBoard>> getBoardsByChallengeIdAndLoginId(
             HttpServletRequest request,@PathParam("challengeId") Long challengeId) {
 
@@ -151,11 +151,13 @@ public class GeneralBoardController {
     // boardId를 받아서 해당 board의 rejectCount를 1 증가하고, GeneralReject 테이블 추가
     @PostMapping("tokenConfirm/reject")
     @ApiOperation(value = "일반챌린지 인증을 반려하는 api입니다.", notes = "boradId를 활용하여 거절 횟수를 증가합니다.")
-    public ResponseEntity<Void> addReject(HttpServletRequest request, @RequestParam Integer boardId) {
+    public ResponseEntity<Void> addOrCancelReject(HttpServletRequest request, @RequestParam Integer boardId) {
         String loginId = request.getAttribute("loginId").toString();
         User user = userService.findUserByLoginId(loginId);
-        // 이 board를 거절 했었는지 확인
-        boolean result = rejectService.addReject(boardId, user);
+        // 이 board를 이미 반려했는지, 반려안했는지, 내 게시글인지 확인
+        // 이미 반려했는지, 반려안했는지 == true를 반환하고 데이터 수정
+        // 내 게시글이면 false
+        boolean result = rejectService.addOrCancelReject(boardId, user);
         if (result) {
             return ResponseEntity.ok().build();
         } else {

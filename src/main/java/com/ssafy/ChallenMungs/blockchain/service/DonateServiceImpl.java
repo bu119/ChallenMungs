@@ -26,7 +26,9 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 @Transactional
@@ -160,14 +162,16 @@ public class DonateServiceImpl implements  DonateService{
 
     //----내 기부내역 조회-----
     @Override
-    public List<DonationListDto> viewMyDonations(String loginId, int year) {
-        List <DonationListDto> result=new ArrayList<>();
+    public Map<String,List<DonationItemDto>> viewMyDonations(String loginId, int year) {
+
+        Map<String,List<DonationItemDto>> result=new HashMap<>();
         List <Donation> list=donationRepo.findAllByUserAndYearOrderByDonateDateDesc(userRepo.findUserByLoginId(loginId),year);
         for(Donation donate:list){
             DonationItemDto item=new DonationItemDto(donate.getShelter(),donate.getMoney(),donate.getTotalMoney(),donate.getDonateDate().getHour()+":"+donate.getDonateDate().getMinute());
             String day=donate.getDonateDate().getMonthValue()+"."+donate.getDonateDate().getDayOfMonth();
-            DonationListDto listItem=new DonationListDto(donate.getDonationId(),day,item);
-            result.add(listItem);
+            List <DonationItemDto> dayList=result.getOrDefault(day,new ArrayList<DonationItemDto>());
+            dayList.add(item);
+            result.put(day,dayList);
         }
         return result;
     }
