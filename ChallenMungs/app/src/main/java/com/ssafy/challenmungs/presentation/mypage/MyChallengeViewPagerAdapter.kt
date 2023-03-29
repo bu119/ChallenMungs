@@ -8,8 +8,8 @@ class MyChallengeViewPagerAdapter(fragment: Fragment) : FragmentStateAdapter(fra
     override fun getItemCount(): Int = 3
 
     override fun createFragment(position: Int): Fragment = when (position) {
-        0 -> MyChallengeOngoingFragment()
-        1 -> MyChallengeWaitFragment()
-        else -> MyChallengeFinishFragment()
+        ChallengeState.ONGOING.ordinal -> MyChallengeListFragment(position, arrayListOf())
+        ChallengeState.WAIT.ordinal -> MyChallengeListFragment(position, arrayListOf())
+        else -> MyChallengeListFragment(position, arrayListOf())
     }
 }
