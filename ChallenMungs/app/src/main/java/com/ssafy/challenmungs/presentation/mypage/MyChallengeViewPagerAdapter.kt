@@ -3,7 +3,7 @@ package com.ssafy.challenmungs.presentation.mypage
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
 
-class MyChallengeListAdapter(fragment: Fragment) : FragmentStateAdapter(fragment) {
+class MyChallengeViewPagerAdapter(fragment: Fragment) : FragmentStateAdapter(fragment) {
 
     override fun getItemCount(): Int = 3
 
