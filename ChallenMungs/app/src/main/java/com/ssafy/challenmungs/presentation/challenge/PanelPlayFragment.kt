@@ -14,6 +14,8 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.*
 import com.ssafy.challenmungs.R
+import com.ssafy.challenmungs.common.util.Map.createRectangle
+import com.ssafy.challenmungs.common.util.Map.defaultPosition
 import com.ssafy.challenmungs.common.util.px
 import com.ssafy.challenmungs.databinding.FragmentPanelPlayBinding
 import com.ssafy.challenmungs.presentation.base.BaseFragment
@@ -53,22 +55,11 @@ class PanelPlayFragment : BaseFragment<FragmentPanelPlayBinding>(R.layout.fragme
 
     private fun setTile(googleMap: GoogleMap, fillColorArgb: Int, center: LatLng) {
         val rectOptions = PolygonOptions().apply {
-            addAll(createRectangle(center))
+            addAll(createRectangle(center, DISTANCE))
             fillColor(ContextCompat.getColor(requireContext(), fillColorArgb))
             strokeWidth(0f)
         }
         panels.add(googleMap.addPolygon(rectOptions))
-    }
-
-    private fun createRectangle(
-        center: LatLng,
-    ): List<LatLng> {
-        return listOf(
-            LatLng(center.latitude - DISTANCE, center.longitude - DISTANCE),
-            LatLng(center.latitude - DISTANCE, center.longitude + DISTANCE),
-            LatLng(center.latitude + DISTANCE, center.longitude + DISTANCE),
-            LatLng(center.latitude + DISTANCE, center.longitude - DISTANCE),
-        )
     }
 
     private fun createMyMarker(googleMap: GoogleMap, profileImg: String) {
@@ -126,6 +117,5 @@ class PanelPlayFragment : BaseFragment<FragmentPanelPlayBinding>(R.layout.fragme
 
     companion object {
         private const val DISTANCE = 0.001
-        private val defaultPosition = LatLng(36.107102, 128.416558)
     }
 }
