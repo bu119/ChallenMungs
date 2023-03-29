@@ -106,19 +106,18 @@ public class WalletServiceImpl implements  WalletService{
         return itemsNode;
     }
     private Logger log = LoggerFactory.getLogger(WalletController.class);
+    String normalChallenge = "0x50Aa5B30442cd67659bF1CA81E7cD4e351898cfd";
+    String specialChallenge = "0x6aC40a06633BcF319F0ebd124F189D29d9A390bF";
+
+    // 사용내역의 모든 주소들은 lowercase로 온다.
+    String lowerN = normalChallenge.toLowerCase();
+    String lowerS = specialChallenge.toLowerCase();
     // for문 돌면서 item 만들기
     @Override
     public Map<String, List<WalletItemDto>> viewMyWallet(String address) throws JsonProcessingException {
         JsonNode items = getHistory(address);
 
         Map<String, List<WalletItemDto>> result = new HashMap<>();
-
-        String normalChallenge = "0x50Aa5B30442cd67659bF1CA81E7cD4e351898cfd";
-        String specialChallenge = "0x6aC40a06633BcF319F0ebd124F189D29d9A390bF";
-
-        // 사용내역의 모든 주소들은 lowercase로 온다.
-        String lowerN = normalChallenge.toLowerCase();
-        String lowerS = specialChallenge.toLowerCase();
         String lowerA = address.toLowerCase();
 
         //사용 내역 바꾸기
@@ -133,7 +132,7 @@ public class WalletServiceImpl implements  WalletService{
                 } else if (to.equals(lowerS)) {
                     title = "특별 챌린지 참여";
                 } else {
-                    title = "error";
+                    title = "잘못된 계좌";
                 }
             }
             // 충전
@@ -169,65 +168,59 @@ public class WalletServiceImpl implements  WalletService{
 
     @Override
     public Map<String, List<WalletItemDto>> viewMyPiggyBank(String address) throws JsonProcessingException {
-//        JsonNode items = getHistory(address);
-//
-//        Map<String, List<WalletItemDto>> result = new HashMap<>();
-//
-//        String normalChallenge = "0x50Aa5B30442cd67659bF1CA81E7cD4e351898cfd";
-//        String specialChallenge = "0x6aC40a06633BcF319F0ebd124F189D29d9A390bF";
-//
-//        // 사용내역의 모든 주소들은 lowercase로 온다.
-//        String lowerN = normalChallenge.toLowerCase();
-//        String lowerS = specialChallenge.toLowerCase();
-//        String lowerA = address.toLowerCase();
-//
-//        //사용 내역 바꾸기
-//        for (JsonNode item : items) {
-//            String from = item.get("from").asText();
-//            String to = item.get("to").asText();
-//            String title;
-//            if (to.equals(lowerA)) {
-//                log.info(to);
-//                if (from.equals(lowerN)) {
-//                    title = "일반 챌린지 보상";
-//                } else if (to.equals(lowerS)) {
-//                    title = "특별 챌린지 보상";
-//                } else {
-//                    title = "error";
-//                }
-//            }
-//            // 충전
-//            else {
-//                title = "충전";
-//            }
-//
-//            //전송 시간
-//            long timstamp = item.get("timestamp").asLong();
-//            Date date = new Date(timstamp * 1000L);
-//            Calendar calendar = Calendar.getInstance();
-//            calendar.setTime(date);
-//
-//            // 전송 Klaytn(hex)
-//            String hexvalue = item.get("value").asText();
-//            // 0x slicing
-//            hexvalue = hexvalue.substring(2);
-//            // Decimal로 변환
-//            BigInteger decimal = new BigInteger(hexvalue, 16);
-//            BigInteger divisor = new BigInteger("1000000000000000000");
-//            // 최종값으로 변환
-//            BigDecimal amount = new BigDecimal(decimal).divide(new BigDecimal(divisor));
-//
-//            // 값 넣기
-//            WalletItemDto tmp = new WalletItemDto(title, amount, String.valueOf(calendar.get(Calendar.HOUR_OF_DAY)+":"+calendar.get(Calendar.MINUTE)));
-//            String day = String.valueOf(calendar.get(Calendar.MONTH) + 1) + "." + String.valueOf(calendar.get(Calendar.DATE));
-//            List<WalletItemDto> dayList = result.getOrDefault(day, new ArrayList<WalletItemDto>());
-//            dayList.add(tmp);
-//            result.put(day, dayList);
-//        }
-//        return result;
+        JsonNode items = getHistory(address);
+
+        Map<String, List<WalletItemDto>> result = new HashMap<>();
+        String lowerA = address.toLowerCase();
+
+        //사용 내역 바꾸기
+        for (JsonNode item : items) {
+            String from = item.get("from").asText();
+            String to = item.get("to").asText();
+            String title;
+            if (to.equals(lowerA)) {
+                log.info(to);
+                if (from.equals(lowerN)) {
+                    title = "일반 챌린지 보상";
+                } else if (to.equals(lowerS)) {
+                    title = "특별 챌린지 보상";
+                } else {
+                    title = "error";
+                }
+            }
+            // 충전
+            else {
+                Wallet shelter = walletRepo.findByAddress(to);
+                title = shelter.getUser().getName() + "에 기부";
+            }
+
+            //전송 시간
+            long timstamp = item.get("timestamp").asLong();
+            Date date = new Date(timstamp * 1000L);
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(date);
+
+            // 전송 Klaytn(hex)
+            String hexvalue = item.get("value").asText();
+            // 0x slicing
+            hexvalue = hexvalue.substring(2);
+            // Decimal로 변환
+            BigInteger decimal = new BigInteger(hexvalue, 16);
+            BigInteger divisor = new BigInteger("1000000000000000000");
+            // 최종값으로 변환
+            BigDecimal amount = new BigDecimal(decimal).divide(new BigDecimal(divisor));
+
+            // 값 넣기
+            WalletItemDto tmp = new WalletItemDto(title, amount, String.valueOf(calendar.get(Calendar.HOUR_OF_DAY)+":"+calendar.get(Calendar.MINUTE)));
+            String day = String.valueOf(calendar.get(Calendar.MONTH) + 1) + "." + String.valueOf(calendar.get(Calendar.DATE));
+            List<WalletItemDto> dayList = result.getOrDefault(day, new ArrayList<WalletItemDto>());
+            dayList.add(tmp);
+            result.put(day, dayList);
+        }
+        return result;
 
 
-        return null;
+//        return null;
     }
 
 }

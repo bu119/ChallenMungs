@@ -62,71 +62,15 @@ public class WalletController {
     }
     private Logger logger = LoggerFactory.getLogger(CampaignContentController.class);
     @GetMapping("/myWalletHistory")
-    @ApiOperation(value = "계좌를 입력하면 사용내역을 조회합니다." ,notes="테스트용 계좌: 0x8fF38b2DCD450747f7dF9B709Fb764d48E4AE77A \n일반챌린지 계좌 : 0x50Aa5B30442cd67659bF1CA81E7cD4e351898cfd \n특별챌린지 계좌 : 0x6aC40a06633BcF319F0ebd124F189D29d9A390bF")
-    ResponseEntity<Object> myWalletHistory(@RequestParam String address) throws JsonProcessingException {
+    @ApiOperation(value = "계좌를 입력하면 내 지갑의 사용내역을 조회합니다." ,notes="테스트용 계좌: 0x8fF38b2DCD450747f7dF9B709Fb764d48E4AE77A \n일반챌린지 계좌 : 0x50Aa5B30442cd67659bF1CA81E7cD4e351898cfd \n특별챌린지 계좌 : 0x6aC40a06633BcF319F0ebd124F189D29d9A390bF")
+    ResponseEntity<Object> viewMyWallet(@RequestParam String address) throws JsonProcessingException {
         return new ResponseEntity<Object>(service.viewMyWallet(address),HttpStatus.OK);
     }
 
+    @GetMapping("/myPiggyBankHistory")
+    @ApiOperation(value = "계좌를 입력하면 내 저금통의 사용내역을 조회합니다." ,notes="테스트용 계좌: 0x11DF180C2B89fEd295780D5D89cc5f9d596A4027 \n일반챌린지 계좌 : 0x50Aa5B30442cd67659bF1CA81E7cD4e351898cfd \n특별챌린지 계좌 : 0x6aC40a06633BcF319F0ebd124F189D29d9A390bF")
+    ResponseEntity<Object> viewMyPiggyBank(@RequestParam String address) throws JsonProcessingException {
+        return new ResponseEntity<Object>(service.viewMyPiggyBank(address),HttpStatus.OK);
+    }
 
-//    ResponseEntity<Object> getWalletHistory(@RequestParam String address) throws JsonMappingException, JsonProcessingException {
-//        log.info("-----------------------------------------");
-////        JsonNode items = service.getHistory(address);
-//        String normalChallenge = "0x50Aa5B30442cd67659bF1CA81E7cD4e351898cfd";
-//        String specialChallenge = "0x6aC40a06633BcF319F0ebd124F189D29d9A390bF";
-//
-////        // 사용내역의 모든 주소들은 lowercase로 온다.
-////        String lowerN = normalChallenge.toLowerCase();
-////        String lowerS = specialChallenge.toLowerCase();
-////
-////         //사용 내역 바꾸기
-////        for (JsonNode item : items){
-////            String from = item.get("from").asText();
-////            String to = item.get("to").asText();
-////            String title;
-////            if (from.equals(address)){
-////                if(to.equals(lowerN)){
-////                    title = "일반 챌린지 참여";
-////                } else if (to.equals(lowerS)) {
-////                    title = "특별 챌린지 참여";
-////                } else{
-////                    title = "error";
-////                }
-////            }
-////            // 충전
-////            else{
-////                title = "충전";
-////            }
-////
-////            //전송 시간
-////            long timstamp = item.get("timestamp").asLong();
-////            Date date = new Date(timstamp * 1000L);
-////            Calendar calendar = Calendar.getInstance();
-////            calendar.setTime(date);
-////
-////            // 전송 Klaytn(hex)
-////            String hexvalue = item.get("value").asText();
-////            // 0x slicing
-////            hexvalue = hexvalue.substring(2);
-////            // Decimal로 변환
-////            BigInteger decimal = new BigInteger(hexvalue, 16);
-////            BigInteger divisor = new BigInteger("1000000000000000000");
-////            // 최종값으로 변환
-////            BigDecimal result = new BigDecimal(decimal).divide(new BigDecimal(divisor));
-//
-//
-////            log.info(from);
-////            log.info(to);
-////            log.info(title);
-////            log.info(String.valueOf(calendar.get(Calendar.YEAR)));
-////            log.info(String.valueOf(calendar.get(Calendar.MONTH)));
-////            log.info(String.valueOf(calendar.get(Calendar.DATE)));
-////            log.info(String.valueOf(result));
-//
-//        }
-//
-//
-//
-//
-//        return new ResponseEntity<Object>(items,HttpStatus.OK);
-//        }
 }
