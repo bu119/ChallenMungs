@@ -150,12 +150,15 @@ public class ChallengeScheduler {
                     for (MyChallenge mc : myChallenges) {
                         generalBoardService.updateSuccessCount(mc.getLoginId(), c.getChallengeId());
                         mc.setSuccessRatio(mc.getSuccessCount() / (((int) Duration.between(c.getStartDate(), c.getEndDate()).toDays()) + 1) * 100);
-                        // 성공 결과
                         if (mc.getSuccessRatio() >= c.getSuccessCondition()) {
                             mc.setSuccessResult(true);
+
                         } else {
                             mc.setSuccessResult(false);
                         }
+                        // 성공한 사람들 유저 리스트 만들어 놓고
+                        // 전체 엔빵 int로
+
                     }
 
                 } else if (c.getChallengeType() == 2) {
