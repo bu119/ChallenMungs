@@ -5,7 +5,10 @@ import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.view.Window
+import android.view.LayoutInflater
+import androidx.databinding.DataBindingUtil
+import com.ssafy.challenmungs.R
+import com.ssafy.challenmungs.common.util.DialogSizeHelper.dialogResize
 import com.ssafy.challenmungs.databinding.DialogSimpleCustomBinding
 
 class SimpleCustomDialog(
@@ -19,10 +22,22 @@ class SimpleCustomDialog(
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        requestWindowFeature(Window.FEATURE_NO_TITLE)
-        window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        binding = DataBindingUtil.inflate(
+            LayoutInflater.from(context),
+            R.layout.dialog_simple_custom,
+            null, false
+        )
+        setContentView(binding.root)
+        initSetting()
         initText()
         initListener()
+    }
+
+    private fun initSetting() {
+        context.dialogResize(this, 0.8f)
+        window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        setCanceledOnTouchOutside(false)
+        setCancelable(false)
     }
 
     private fun initListener() {
