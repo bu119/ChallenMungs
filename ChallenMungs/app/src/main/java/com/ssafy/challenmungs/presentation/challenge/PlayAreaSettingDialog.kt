@@ -59,6 +59,7 @@ class PlayAreaSettingDialog(
             setRect(map, R.color.trans30_golden_poppy, defaultPosition)
             map.animateCamera(CameraUpdateFactory.newLatLngZoom(defaultPosition, DEFAULT_ZOOM))
         }
+
         with(map) {
             moveCamera(CameraUpdateFactory.newLatLngZoom(defaultPosition, DEFAULT_ZOOM))
             mapType = GoogleMap.MAP_TYPE_NORMAL
@@ -67,7 +68,6 @@ class PlayAreaSettingDialog(
                 isMapToolbarEnabled = false
                 isTiltGesturesEnabled = false
             }
-
             setMarker(map, defaultPosition)
             setRect(map, R.color.trans30_golden_poppy, defaultPosition)
             setOnMapClickListener { touchPosition ->
@@ -88,6 +88,7 @@ class PlayAreaSettingDialog(
         binding.btnClose.setOnClickListener {
             dismiss()
         }
+
         binding.btnOk.setOnClickListener {
             playAreaSettingInterface.setArea()
         }

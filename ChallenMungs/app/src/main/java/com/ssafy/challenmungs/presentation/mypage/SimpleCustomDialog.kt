@@ -45,6 +45,7 @@ class SimpleCustomDialog(
             btnCancel.setOnClickListener {
                 dismiss()
             }
+
             btnOk.setOnClickListener {
                 dismiss()
                 customDialogInterface.onPositiveButton()
