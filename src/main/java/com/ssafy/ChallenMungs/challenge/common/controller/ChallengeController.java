@@ -236,6 +236,9 @@ ChallengeController {
             return ResponseEntity.status(HttpStatus.CONFLICT).build(); //409
         } else { //status가 2인 경우
             log.info("끝난 방이에요!");
+            if (challenge.getChallengeType() == 1) {
+                // 여기에 끝난 일반챌린지에 들어갈 때 필요한 정보를 리턴할 수 있게 코드를 작성해 주세요
+            }
             if (challenge.getChallengeType() >= 2) {
                 log.info("특별 챌린지네요. 결과를 가져 올게요");
                 String result = fileManager.loadResult(Long.toString(challengeId));

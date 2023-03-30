@@ -6,6 +6,7 @@ import com.ssafy.ChallenMungs.challenge.common.entity.Challenge;
 import com.ssafy.ChallenMungs.challenge.common.entity.MyChallenge;
 import com.ssafy.ChallenMungs.challenge.common.service.ChallengeService;
 import com.ssafy.ChallenMungs.challenge.common.service.MyChallengeService;
+import com.ssafy.ChallenMungs.challenge.general.service.GeneralBoardService;
 import com.ssafy.ChallenMungs.challenge.panel.handler.ChallengeVo;
 import com.ssafy.ChallenMungs.challenge.panel.handler.PanelSocketHandler;
 import com.ssafy.ChallenMungs.challenge.panel.handler.PlayerVo;
@@ -24,6 +25,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
+import java.time.Duration;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -50,12 +52,16 @@ public class ChallengeScheduler {
     @Autowired
     UserService userService;
 
+    @Autowired
+    GeneralBoardService generalBoardService;
+
     ObjectMapper mapper = new ObjectMapper();
 
     @Scheduled(cron = "0 0 0 * * ?") // 매일 자정에 동작해요
 //    @Scheduled(cron = "0/20 * * * * ?") // 20초마다 실행해요
     public void startChallenge() {
         System.out.println("스케쥴러가 동작해요!");
+//        generalBoardService.updateSuccessCount("sa01023@naver.com", 9L);
         boolean flag;
         // 시작하면 teamId를 다시 정의해줘요//
         List<Challenge> challenges = challengeService.findAll();
@@ -133,7 +139,19 @@ public class ChallengeScheduler {
                 flag = true;
                 String saveValue;
                 StringBuilder sb = new StringBuilder();
-                if (c.getChallengeType() == 2) {
+                if (c.getChallengeId() == 1) {
+                    List<MyChallenge> myChallenges = myChallengeService.findAllByChallengeId(c.getChallengeId());
+                    for (MyChallenge mc : myChallenges) {
+                        generalBoardService.updateSuccessCount(mc.getLoginId(), c.getChallengeId());
+                        mc.setSuccessRatio(mc.getSuccessCount() / (((int) Duration.between(c.getStartDate(), c.getEndDate()).toDays()) + 1) * 100);
+                        if (mc.getSuccessRatio() >= c.getSuccessCondition()) {
+                            mc.setSuccessResult(true);
+                        } else {
+                            mc.setSuccessResult(false);
+                        }
+                    }
+
+                } else if (c.getChallengeType() == 2) {
                     log.info("판넬뒤집기 챌린지가 종료되었어요!");
                     ArrayList<HashMap> newRankInfoList = new ArrayList<>();
                     if (c.getGameType() == 1) { // 판넬뒤집기 개인전

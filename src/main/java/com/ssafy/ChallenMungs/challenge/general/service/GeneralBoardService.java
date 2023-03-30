@@ -1,10 +1,14 @@
 package com.ssafy.ChallenMungs.challenge.general.service;
 
 import com.ssafy.ChallenMungs.challenge.common.entity.Challenge;
+import com.ssafy.ChallenMungs.challenge.common.entity.MyChallenge;
 import com.ssafy.ChallenMungs.challenge.common.repository.ChallengeRepository;
+import com.ssafy.ChallenMungs.challenge.common.repository.MyChallengeRepository;
+import com.ssafy.ChallenMungs.challenge.common.service.ChallengeService;
 import com.ssafy.ChallenMungs.challenge.general.entity.GeneralBoard;
 import com.ssafy.ChallenMungs.challenge.general.repository.GeneralBoardRepository;
 import com.ssafy.ChallenMungs.user.entity.User;
+import com.ssafy.ChallenMungs.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -21,6 +25,15 @@ public class GeneralBoardService {
 
     @Autowired
     ChallengeRepository challengeRepository;
+
+    @Autowired
+    MyChallengeRepository myChallengeRepository;
+
+    @Autowired
+    UserService userService;
+
+    @Autowired
+    ChallengeService challengeService;
 
     // 인증을 사진을 등록하는 함수
     public Integer savePicture(GeneralBoard generalBoard) {
@@ -51,16 +64,16 @@ public class GeneralBoardService {
 
     // 히스토리 전체 목록 가져오기기
    public List<GeneralBoard> getBoardsByChallenge(Challenge challenge) {
-
         // 해당 챌린지의 모든 기록 가져옴
         List<GeneralBoard> boards = boardRepository.findAllByChallenge(challenge);
         if (boards.isEmpty()) {
             return null;
         }
         return boards;
-    }
 
+   }
 
+   // 과반주 이상의 반려를 받았는지 확인
     public boolean isReject(GeneralBoard board) {
 
         if (board == null) {
@@ -68,7 +81,6 @@ public class GeneralBoardService {
         }
 
         Challenge challenge = board.getChallenge();
-
         if (challenge == null) {
             throw new IllegalStateException("Board has no associated challenge");
         }
@@ -88,10 +100,33 @@ public class GeneralBoardService {
         return boardRepository.findByChallengeAndUserAndRegisterDay(challenge, user, registerDay);
     }
 
-//    12시가 지나면 반려된 수가 과반수 이상인 게시물에 마이챌린지에 성공 +1
+    // 12시가 지나면 반려된 수가 과반수 이상인 게시물에 마이챌린지에 성공 +1
     public List<GeneralBoard> findAllByRegisterDay(LocalDate yesterday) {
         return boardRepository.findAllByRegisterDay(yesterday);
     }
+
+    // SuccessCount를 갱신하는 함수
+    public void updateSuccessCount(String loginId, Long challengeId) {
+        // 해당 유저
+        User user = userService.findUserByLoginId(loginId);
+        // 해당 챌린지
+        Challenge challenge = challengeService.findByChallengeId(challengeId);
+
+        int maxParticipantCount = challenge.getMaxParticipantCount();
+        List<GeneralBoard> boardList = boardRepository.findAllByChallengeAndUser(challenge,user);
+        int successCount = 0;
+        for (GeneralBoard board : boardList) {
+            if (board.getRejectCount() < maxParticipantCount / 2) {
+                successCount++;
+            }
+        }
+
+        MyChallenge myChallenge = myChallengeRepository.findByLoginIdAndChallengeId(loginId, challengeId);
+        myChallenge.setSuccessCount(successCount);
+        myChallengeRepository.save(myChallenge);
+    }
+
+
 
 }
 

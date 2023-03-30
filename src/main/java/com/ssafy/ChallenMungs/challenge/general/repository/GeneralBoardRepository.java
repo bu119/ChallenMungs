@@ -30,5 +30,4 @@ public interface GeneralBoardRepository extends JpaRepository<GeneralBoard, Long
     // 반려하기 누르면 boardId에 해당하는 게시글 조회
     GeneralBoard findByBoardId(int boardId);
 
-
 }
