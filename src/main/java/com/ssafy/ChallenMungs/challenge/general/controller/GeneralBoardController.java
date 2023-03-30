@@ -238,7 +238,7 @@ public class GeneralBoardController {
         }
     }
 
-    // 해당하는 board 목록에서 rejectCount가 maxParticipantCount의 과반수 이상인 board의 개수 구하기
+    // successCount 갱신
     @PutMapping("/tokenConfirm/successCount")
     @ApiOperation(value = "일반챌린지 성공횟수를 갱신하는 api입니다.", notes = "challengeId를 활용하여 나의 챌린지 성공횟수를 갱신합니다.")
     public ResponseEntity<String> updateSuccessCount(HttpServletRequest request, @PathParam("challengeId") Long challengeId) {
