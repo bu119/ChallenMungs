@@ -18,6 +18,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
         myTotalDonation = 12345;
         val decimalFormat = DecimalFormat("#,###")
         val formattedNumber: String = decimalFormat.format(myTotalDonation)
-        binding.myTotalDonation.text = formattedNumber
+        binding.tvMyTotalDonation.text = formattedNumber
     }
 }

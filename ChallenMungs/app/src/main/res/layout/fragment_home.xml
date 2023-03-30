@@ -13,8 +13,8 @@
 
         <ImageView
             android:id="@+id/iv_main_logo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="187sp"
+            android:layout_height="63sp"
             android:layout_marginTop="18dp"
             android:layout_marginBottom="1dp"
             app:layout_constraintBottom_toTopOf="@+id/sv_container"
@@ -40,6 +40,7 @@
                 android:id="@+id/cl_all_container"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
+
 
                 <TextView
                     android:id="@+id/tv_pharse_catch_pharse"
@@ -70,7 +71,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="21dp"
-                    android:text="1, 344"
+                    android:text="1,344"
                     android:textColor="@color/black"
                     android:textSize="30sp"
                     android:textStyle="bold"
@@ -111,10 +112,71 @@
                     app:layout_constraintTop_toTopOf="@id/tv_ongoing_title_phrase" />
 
                 <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_ongoing"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_ongoing_title_phrase"
-                    tools:layout_editor_absoluteX="0dp" />
+                    android:layout_marginTop="11dp"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_ongoing_title_phrase" />
+
+                <TextView
+                    android:id="@+id/tv_pharse_only_tomorrow_my_challenge"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/pharse_only_tomorrow_my_challenge"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:layout_marginTop="19dp"
+                    app:layout_constraintTop_toBottomOf="@id/rv_ongoing"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_show_more"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:textSize="12sp"
+                    android:text="@string/pharse_show_more"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_pharse_only_tomorrow_my_challenge"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/tv_pharse_only_tomorrow_my_challenge" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_only_tomorrow"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="11dp"
+                    app:layout_constraintTop_toBottomOf="@id/tv_pharse_only_tomorrow_my_challenge" />
+
+                <TextView
+                    android:id="@+id/tv_recently_added_campaign"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/pharse_recently_added_campaign"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:layout_marginTop="27sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/rv_only_tomorrow" />
+
+                <TextView
+                    android:id="@+id/tv_show_more_for_recent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/pharse_show_more"
+                    android:textColor="@color/black"
+                    android:textSize="12sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/tv_recently_added_campaign"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/tv_recently_added_campaign" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_recently_added_campaign"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="11dp"
+                    app:layout_constraintTop_toBottomOf="@id/tv_recently_added_campaign" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
