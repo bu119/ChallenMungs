@@ -39,13 +39,48 @@ public class GeneralBoardService {
     }
 
     // 히스토리 가져오기
-    public ResponseEntity<List<GeneralBoard>> getBoardsByChallengeAndUser(Challenge challenge, User user, String loginId) {
+    public List<GeneralBoard> getBoardsByChallengeAndUser(Challenge challenge, User boardUser) {
         // 보드 유저 꺼 누르면 보드유저꺼 보이고 반려하기 여부 보이기
-        List<GeneralBoard> boards = boardRepository.findAllByChallengeAndUser(challenge, user);
+        // 챌린지에 해당유저의 기록 가져옴
+        List<GeneralBoard> boards = boardRepository.findAllByChallengeAndUser(challenge, boardUser);
         if (boards.isEmpty()) {
-            return ResponseEntity.notFound().build();
+            return null;
         }
-        return ResponseEntity.ok(boards);
+        return boards;
+    }
+
+    // 히스토리 전체 목록 가져오기기
+   public List<GeneralBoard> getBoardsByChallenge(Challenge challenge) {
+
+        // 해당 챌린지의 모든 기록 가져옴
+        List<GeneralBoard> boards = boardRepository.findAllByChallenge(challenge);
+        if (boards.isEmpty()) {
+            return null;
+        }
+        return boards;
+    }
+
+
+    public boolean isReject(GeneralBoard board) {
+
+        if (board == null) {
+            throw new IllegalArgumentException("Invalid board ID");
+        }
+
+        Challenge challenge = board.getChallenge();
+
+        if (challenge == null) {
+            throw new IllegalStateException("Board has no associated challenge");
+        }
+
+        Integer maxParticipantCount = challenge.getMaxParticipantCount();
+        Integer rejectCount = board.getRejectCount();
+
+        if (rejectCount >= (maxParticipantCount / 2)) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
 
