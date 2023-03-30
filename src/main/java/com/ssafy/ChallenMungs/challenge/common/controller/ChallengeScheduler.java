@@ -144,11 +144,13 @@ public class ChallengeScheduler {
                 flag = true;
                 String saveValue;
                 StringBuilder sb = new StringBuilder();
+                // 일반챌린지 끝날때
                 if (c.getChallengeId() == 1) {
                     List<MyChallenge> myChallenges = myChallengeService.findAllByChallengeId(c.getChallengeId());
                     for (MyChallenge mc : myChallenges) {
                         generalBoardService.updateSuccessCount(mc.getLoginId(), c.getChallengeId());
                         mc.setSuccessRatio(mc.getSuccessCount() / (((int) Duration.between(c.getStartDate(), c.getEndDate()).toDays()) + 1) * 100);
+                        // 성공 결과
                         if (mc.getSuccessRatio() >= c.getSuccessCondition()) {
                             mc.setSuccessResult(true);
                         } else {
