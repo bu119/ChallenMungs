@@ -23,6 +23,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -254,7 +255,7 @@ public class ChallengeScheduler {
             }
         }
     }
-    void sendKlay(User user, Integer klay) {
-
+    void sendKlay(User user, Integer intklay) {
+        BigDecimal klay = new BigDecimal(intklay);
     }
 }
