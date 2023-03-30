@@ -156,6 +156,7 @@ public class ChallengeScheduler {
                         } else {
                             mc.setSuccessResult(false);
                         }
+                        
                     }
 
                 } else if (c.getChallengeType() == 2) {
