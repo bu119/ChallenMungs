@@ -2,6 +2,7 @@ package com.ssafy.ChallenMungs.challenge.common.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.ssafy.ChallenMungs.blockchain.repository.WalletRepository;
 import com.ssafy.ChallenMungs.challenge.common.entity.Challenge;
 import com.ssafy.ChallenMungs.challenge.common.entity.MyChallenge;
 import com.ssafy.ChallenMungs.challenge.common.service.ChallengeService;
@@ -15,15 +16,16 @@ import com.ssafy.ChallenMungs.challenge.treasure.handler.TreasureVo;
 import com.ssafy.ChallenMungs.common.util.FileManager;
 import com.ssafy.ChallenMungs.user.entity.User;
 import com.ssafy.ChallenMungs.user.service.UserService;
-import jnr.ffi.Struct;
-import org.apache.commons.math3.geometry.euclidean.threed.Vector3D;
+import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.*;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
+import org.springframework.web.client.RestTemplate;
 
-import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -52,8 +54,11 @@ public class ChallengeScheduler {
 
     ObjectMapper mapper = new ObjectMapper();
 
+    @Autowired
+    WalletRepository walletRepo;
+
     @Scheduled(cron = "0 0 0 * * ?") // 매일 자정에 동작해요
-//    @Scheduled(cron = "0/20 * * * * ?") // 20초마다 실행해요
+//    @Scheduled(cron = "0/5 * * * * ?") // 20초마다 실행해요
     public void startChallenge() {
         System.out.println("스케쥴러가 동작해요!");
         boolean flag;
@@ -157,7 +162,7 @@ public class ChallengeScheduler {
                             newRankInfoMap.put("point", rv.getPanelCount());
                             newRankInfoMap.put("obtainKlay", myklay[idx-1]);
                             newRankInfoList.add(newRankInfoMap);
-                            sendKlay(u, myklay[idx-1]);
+                            sendKlaySpecial(u, myklay[idx-1]);
                             idx++;
                         }
                     } else if (c.getGameType() == 2) { // 판넬뒤집기 팀전
@@ -182,7 +187,7 @@ public class ChallengeScheduler {
                                 newRankInfoMap.put("point", panelSocketHandler.challengeManager.get(c.getChallengeId()).rankInfo.get(i).getPanelCount());
                                 if (i == 0) {
                                     newRankInfoMap.put("obtainKlay", myklay[idx]);
-                                    sendKlay(u, myklay[idx]);
+                                    sendKlaySpecial(u, myklay[idx]);
                                     idx++;
                                 } else {
                                     newRankInfoMap.put("obtainKlay", 0);
@@ -232,7 +237,7 @@ public class ChallengeScheduler {
                         newRankInfoMap.put("obtainKlay", myklay[idx-1]);
                         newRankInfoMap.put("myTreasureList", rv.getMyTreasureList());
                         newRankInfoList.add(newRankInfoMap);
-                        sendKlay(u, myklay[idx-1]);
+                        sendKlaySpecial(u, myklay[idx-1]);
                         idx++;
                     }
                     try {
@@ -255,7 +260,36 @@ public class ChallengeScheduler {
             }
         }
     }
-    void sendKlay(User user, Integer intklay) {
-        BigDecimal klay = new BigDecimal(intklay);
+
+    // 특별챌린지 보상 나누기(특별챌린지 지갑 -> 고객 지갑 클레이튼 전송)
+    void sendKlaySpecial(User user, Integer intklay) {
+        long klayForm = ((long)intklay) * 1000000000000000000L;
+        String hexString ="0x" + Long.toHexString(new BigInteger(String.valueOf(klayForm)).longValue());
+        String specialChallenge = "0x6aC40a06633BcF319F0ebd124F189D29d9A390bF";
+
+        RestTemplate restTemplate = new RestTemplate();
+
+        // 요청 헤더 설정
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        headers.set("x-chain-id", "1001"); // 1001(Baobob 테스트넷)
+        headers.set("Authorization", "Basic S0FTS1dDQUdINjkwRkFRV0lPVDE4QkhUOnNTYThjQlI1akhncXRwbnUtWWltMHV5dkVpb1V2REVQRGpMSmJjRkM="); //AccountPool 등록
+
+        // 요청 바디 설정
+        JSONObject requestBody = new JSONObject();
+        requestBody.put("from", specialChallenge);
+        requestBody.put("value", hexString);
+        requestBody.put("to", walletRepo.findByUserAndType(user,'p').getAddress());
+        requestBody.put("submit", true);
+
+        // 요청 엔티티 생성
+        HttpEntity<String> requestEntity = new HttpEntity<>(requestBody.toString(), headers);
+
+        // POST 요청 보내기
+        String url = "https://wallet-api.klaytnapi.com/v2/tx/fd/value";
+        ResponseEntity<String> responseEntity = restTemplate.exchange(url, HttpMethod.POST, requestEntity, String.class);
+        String responseBody = responseEntity.getBody();
+
+
     }
 }

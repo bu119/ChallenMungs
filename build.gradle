@@ -61,6 +61,9 @@ dependencies {
 	//web3j
 	implementation 'org.web3j:core:4.9.2'
 
+	//json 파싱관련
+	implementation 'org.json:json:20201115'
+
 }
 
 tasks.named('test') {
