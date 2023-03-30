@@ -37,7 +37,7 @@ class MyChallengeFragment :
     }
 
     private fun initToolbar() {
-        binding.toolbar.tvTitle.text = getString(R.string.title_my_challenge)
+        binding.toolbar.title = getString(R.string.title_my_challenge)
     }
 
     private fun initListener() {
