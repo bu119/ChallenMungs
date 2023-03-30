@@ -62,8 +62,8 @@ public class ChallengeScheduler {
     @Autowired
     WalletRepository walletRepo;
 
-    @Scheduled(cron = "0 0 0 * * ?") // 매일 자정에 동작해요
-//    @Scheduled(cron = "0/5 * * * * ?") // 20초마다 실행해요
+//    @Scheduled(cron = "0 0 0 * * ?") // 매일 자정에 동작해요
+    @Scheduled(cron = "0/5 * * * * ?") // 20초마다 실행해요
     public void startChallenge() {
         System.out.println("스케쥴러가 동작해요!");
 //        generalBoardService.updateSuccessCount("sa01023@naver.com", 9L);
@@ -148,16 +148,19 @@ public class ChallengeScheduler {
                 if (c.getChallengeId() == 1) {
                     List<MyChallenge> myChallenges = myChallengeService.findAllByChallengeId(c.getChallengeId());
                     for (MyChallenge mc : myChallenges) {
+                        int successCount = 0;
                         generalBoardService.updateSuccessCount(mc.getLoginId(), c.getChallengeId());
                         mc.setSuccessRatio(mc.getSuccessCount() / (((int) Duration.between(c.getStartDate(), c.getEndDate()).toDays()) + 1) * 100);
                         if (mc.getSuccessRatio() >= c.getSuccessCondition()) {
                             mc.setSuccessResult(true);
-
+                            successCount ++;
                         } else {
                             mc.setSuccessResult(false);
                         }
-                        // 성공한 사람들 유저 리스트 만들어 놓고
-                        // 전체 엔빵 int로
+                        // 성공한 사람들 리스트 - loginId 들어있음
+                        List<MyChallenge> successUsers = myChallengeService.findByChallengeIdAndSuccessResult(mc.getChallengeId());
+                        // 전체 금액을 성공한 사람 n빵 금액
+                        int getCoin = c.getMaxParticipantCount() * c.getEntryFee() / successCount;
 
                     }
 
