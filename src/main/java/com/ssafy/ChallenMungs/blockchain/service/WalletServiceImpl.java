@@ -10,12 +10,10 @@ import com.ssafy.ChallenMungs.blockchain.repository.WalletRepository;
 import com.ssafy.ChallenMungs.user.entity.User;
 import com.ssafy.ChallenMungs.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.web3j.protocol.Web3j;
@@ -70,7 +68,8 @@ public class WalletServiceImpl implements  WalletService{
         Web3j web3j = Web3j.build(new HttpService(nodeUrl));
         // 최신 블록 번호
         DefaultBlockParameterName blockParameter = DefaultBlockParameterName.LATEST;
-
+        String hexString = Integer.toHexString(150).toUpperCase();
+//        log.info(hexString);
         try {
             // 계좌 잔액 가져오기
             EthGetBalance balanceResponse = web3j.ethGetBalance(address, blockParameter).send();
@@ -126,7 +125,6 @@ public class WalletServiceImpl implements  WalletService{
             String to = item.get("to").asText();
             String title;
             if (from.equals(lowerA)) {
-                log.info(to);
                 if (to.equals(lowerN)) {
                     title = "일반 챌린지 참여";
                 } else if (to.equals(lowerS)) {
@@ -148,6 +146,7 @@ public class WalletServiceImpl implements  WalletService{
 
             // 전송 Klaytn(hex)
             String hexvalue = item.get("value").asText();
+//            log.info(hexvalue);
             // 0x slicing
             hexvalue = hexvalue.substring(2);
             // Decimal로 변환
@@ -179,10 +178,9 @@ public class WalletServiceImpl implements  WalletService{
             String to = item.get("to").asText();
             String title;
             if (to.equals(lowerA)) {
-                log.info(to);
                 if (from.equals(lowerN)) {
                     title = "일반 챌린지 보상";
-                } else if (to.equals(lowerS)) {
+                } else if (from.equals(lowerS)) {
                     title = "특별 챌린지 보상";
                 } else {
                     title = "error";
@@ -202,6 +200,7 @@ public class WalletServiceImpl implements  WalletService{
 
             // 전송 Klaytn(hex)
             String hexvalue = item.get("value").asText();
+//            log.info(hexvalue);
             // 0x slicing
             hexvalue = hexvalue.substring(2);
             // Decimal로 변환
@@ -217,10 +216,8 @@ public class WalletServiceImpl implements  WalletService{
             dayList.add(tmp);
             result.put(day, dayList);
         }
+
         return result;
-
-
-//        return null;
     }
 
 }
