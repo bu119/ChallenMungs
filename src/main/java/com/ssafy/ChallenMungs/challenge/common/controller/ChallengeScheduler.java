@@ -250,6 +250,6 @@ public class ChallengeScheduler {
         }
     }
     void sendKlay(User user, Integer klay) {
-
+        
     }
 }
