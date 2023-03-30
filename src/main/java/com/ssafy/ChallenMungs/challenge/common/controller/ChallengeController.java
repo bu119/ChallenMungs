@@ -1,13 +1,17 @@
 package com.ssafy.ChallenMungs.challenge.common.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.ssafy.ChallenMungs.challenge.common.dto.ChallengeParticipantDto;
 import com.ssafy.ChallenMungs.challenge.common.entity.Challenge;
 import com.ssafy.ChallenMungs.challenge.common.entity.MyChallenge;
 import com.ssafy.ChallenMungs.challenge.common.service.ChallengeService;
 import com.ssafy.ChallenMungs.challenge.common.service.MyChallengeService;
+import com.ssafy.ChallenMungs.challenge.general.dto.GeneralBoardTodayDto;
+import com.ssafy.ChallenMungs.challenge.general.entity.GeneralBoard;
 import com.ssafy.ChallenMungs.common.util.Distance;
 import com.ssafy.ChallenMungs.common.util.FileManager;
 import com.ssafy.ChallenMungs.user.entity.User;
+import com.ssafy.ChallenMungs.user.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
@@ -39,6 +43,9 @@ ChallengeController {
 
     @Autowired
     MyChallengeService myChallengeService;
+
+    @Autowired
+    UserService userService;
 
     @Autowired
     Distance distance;
@@ -265,6 +272,31 @@ ChallengeController {
         } else {
             return ResponseEntity.notFound().build();
         }
+    }
+
+    @GetMapping("/tokenConfirm/participants")
+    @ApiOperation(value = "동일 챌린지에 참여한 모든 유저를 가져오는 api입니다.", notes = "challengeId를 활용하여 조회합니다.")
+    public ResponseEntity<List<ChallengeParticipantDto>> findAllByChallengeId(@RequestParam("challengeId") Long challengeId) {
+
+        List<MyChallenge> participants = myChallengeService.findAllByChallengeId(challengeId);
+
+        List<ChallengeParticipantDto> dtoList = new ArrayList<>();
+        for (MyChallenge my : participants) {
+            String boardUserId = my.getLoginId();
+            String name = userService.findUserByLoginId(boardUserId).getName();
+            String profileUrl = userService.findUserByLoginId(boardUserId).getProfile();
+
+            ChallengeParticipantDto dto = new ChallengeParticipantDto(
+                    my.getIdx(),
+                    my.getChallengeId(),
+                    my.getLoginId(),
+                    name,
+                    profileUrl,
+                    my.getSuccessCount()
+            );
+            dtoList.add(dto);
+        }
+        return new ResponseEntity<>(dtoList, HttpStatus.OK);
     }
 
 }
