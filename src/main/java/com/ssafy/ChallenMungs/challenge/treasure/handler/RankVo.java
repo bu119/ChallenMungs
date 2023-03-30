@@ -14,4 +14,5 @@ public class RankVo {
     Integer teamRank;
     String loginId;
     ArrayList<Integer> myTreasureList;
+
 }

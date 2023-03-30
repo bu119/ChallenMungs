@@ -23,6 +23,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -154,6 +155,7 @@ public class ChallengeScheduler {
                             newRankInfoMap.put("rank", rv.getTeamRank());
                             newRankInfoMap.put("teamId", rv.getTeamId());
                             newRankInfoMap.put("point", rv.getPanelCount());
+                            newRankInfoMap.put("obtainKlay", myklay[idx-1]);
                             newRankInfoList.add(newRankInfoMap);
                             sendKlay(u, myklay[idx-1]);
                             idx++;
@@ -178,11 +180,14 @@ public class ChallengeScheduler {
                                 newRankInfoMap.put("rank", panelSocketHandler.challengeManager.get(c.getChallengeId()).rankInfo.get(i).getTeamRank());
                                 newRankInfoMap.put("teamId", panelSocketHandler.challengeManager.get(c.getChallengeId()).rankInfo.get(i).getTeamId());
                                 newRankInfoMap.put("point", panelSocketHandler.challengeManager.get(c.getChallengeId()).rankInfo.get(i).getPanelCount());
-                                newRankInfoList.add(newRankInfoMap);
                                 if (i == 0) {
+                                    newRankInfoMap.put("obtainKlay", myklay[idx]);
                                     sendKlay(u, myklay[idx]);
                                     idx++;
+                                } else {
+                                    newRankInfoMap.put("obtainKlay", 0);
                                 }
+                                newRankInfoList.add(newRankInfoMap);
                             }
                         }
                     }
@@ -224,6 +229,7 @@ public class ChallengeScheduler {
                         newRankInfoMap.put("profile", u.getProfile());
                         newRankInfoMap.put("rank", rv.getTeamRank());
                         newRankInfoMap.put("point", rv.getPoint());
+                        newRankInfoMap.put("obtainKlay", myklay[idx-1]);
                         newRankInfoMap.put("myTreasureList", rv.getMyTreasureList());
                         newRankInfoList.add(newRankInfoMap);
                         sendKlay(u, myklay[idx-1]);
@@ -249,7 +255,7 @@ public class ChallengeScheduler {
             }
         }
     }
-    void sendKlay(User user, Integer klay) {
-        
+    void sendKlay(User user, Integer intklay) {
+        BigDecimal klay = new BigDecimal(intklay);
     }
 }
