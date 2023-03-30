@@ -9,21 +9,28 @@ import android.view.LayoutInflater
 import androidx.databinding.DataBindingUtil
 import com.ssafy.challenmungs.R
 import com.ssafy.challenmungs.common.util.DialogSizeHelper.dialogResize
-import com.ssafy.challenmungs.databinding.DialogDonationCertificateBinding
+import com.ssafy.challenmungs.databinding.DialogSimpleCustomBinding
 
-class DonationCertificateDialog(context: Context) : Dialog(context) {
+class SimpleCustomDialog(
+    context: Context,
+    private val customDialogInterface: CustomDialogInterface,
+    private val content: String,
+    private val positiveMessage: String
+) : Dialog(context) {
 
-    private lateinit var binding: DialogDonationCertificateBinding
+    private lateinit var binding: DialogSimpleCustomBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.inflate(
             LayoutInflater.from(context),
-            R.layout.dialog_donation_certificate,
+            R.layout.dialog_simple_custom,
             null, false
         )
         setContentView(binding.root)
         initSetting()
+        initText()
+        initListener()
     }
 
     private fun initSetting() {
@@ -31,5 +38,25 @@ class DonationCertificateDialog(context: Context) : Dialog(context) {
         window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         setCanceledOnTouchOutside(false)
         setCancelable(false)
+    }
+
+    private fun initListener() {
+        binding.apply {
+            btnCancel.setOnClickListener {
+                dismiss()
+            }
+
+            btnOk.setOnClickListener {
+                dismiss()
+                customDialogInterface.onPositiveButton()
+            }
+        }
+    }
+
+    private fun initText() {
+        binding.apply {
+            tvContent.text = content
+            btnOk.text = positiveMessage
+        }
     }
 }

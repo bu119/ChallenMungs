@@ -6,8 +6,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:background="@drawable/bg_rect_white_radius10"
-        tools:context=".presentation.mypage.ChooseTeamDialog">
+        android:background="@drawable/bg_rect_white_radius10">
 
         <TextView
             android:id="@+id/tv_choose_title"
@@ -15,7 +14,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="58dp"
             android:gravity="center"
-            android:text="@string/title_choose_team"
+            android:text="@string/title_play_area_setting"
             android:textColor="@color/black"
             android:textSize="20sp"
             android:textStyle="bold"
@@ -36,33 +35,45 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <androidx.appcompat.widget.AppCompatImageButton
-            android:id="@+id/btn_a_team"
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/fcv_google_map"
+            android:name="com.google.android.gms.maps.SupportMapFragment"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="18dp"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/bg_rect_mandy_radius10"
-            android:paddingVertical="38dp"
-            android:src="@drawable/ic_a_team"
+            android:layout_height="268dp"
+            android:layout_margin="18dp"
+            app:layout_constraintBottom_toTopOf="@+id/btn_reset"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_choose_title" />
+            app:layout_constraintTop_toBottomOf="@+id/btn_close"
+            tools:context="com.ssafy.challenmungs.presentation.challenge.PlayAreaSettingDialog" />
 
         <androidx.appcompat.widget.AppCompatImageButton
-            android:id="@+id/btn_b_team"
+            android:id="@+id/btn_reset"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:contentDescription="@string/image_reset"
+            android:padding="18dp"
+            android:src="@drawable/ic_reset"
+            app:layout_constraintBottom_toBottomOf="@id/btn_ok"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/btn_ok" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_ok"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="18dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="24dp"
-            android:background="@drawable/bg_rect_royal_blue_radius10"
-            android:paddingVertical="38dp"
-            android:src="@drawable/ic_b_team"
+            android:layout_marginEnd="18dp"
+            android:layout_marginBottom="30dp"
+            android:background="@drawable/bg_rect_golden_glow_radius5"
+            android:minWidth="0dp"
+            android:minHeight="0dp"
+            android:paddingVertical="13dp"
+            android:text="@string/content_do_set"
+            android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/btn_a_team" />
+            app:layout_constraintStart_toEndOf="@id/btn_reset" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
