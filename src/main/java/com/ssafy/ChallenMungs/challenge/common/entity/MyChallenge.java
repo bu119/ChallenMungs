@@ -32,4 +32,5 @@ public class MyChallenge {
 
     @Column(name = "success_result")
     Boolean successResult;
+
 }
