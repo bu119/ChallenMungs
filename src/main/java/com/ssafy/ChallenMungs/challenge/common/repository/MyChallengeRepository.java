@@ -17,5 +17,8 @@ public interface MyChallengeRepository extends JpaRepository<MyChallenge, Long>,
 
     MyChallenge findByLoginIdAndChallengeId(String loginId, Long challengeId);
 
+    // 챌린지 id가 같고 같은 successResult 결과를 반환
+    List<MyChallenge> findByChallengeIdAndSuccessResult(Long challengeId, Boolean successResult);
+
 
 }

@@ -148,15 +148,20 @@ public class ChallengeScheduler {
                 if (c.getChallengeId() == 1) {
                     List<MyChallenge> myChallenges = myChallengeService.findAllByChallengeId(c.getChallengeId());
                     for (MyChallenge mc : myChallenges) {
+                        int successCount = 0;
                         generalBoardService.updateSuccessCount(mc.getLoginId(), c.getChallengeId());
                         mc.setSuccessRatio(mc.getSuccessCount() / (((int) Duration.between(c.getStartDate(), c.getEndDate()).toDays()) + 1) * 100);
-                        // 성공 결과
                         if (mc.getSuccessRatio() >= c.getSuccessCondition()) {
                             mc.setSuccessResult(true);
+                            successCount ++;
                         } else {
                             mc.setSuccessResult(false);
                         }
-                        
+                        // 성공한 사람들 리스트 - loginId 들어있음
+                        List<MyChallenge> successUsers = myChallengeService.findByChallengeIdAndSuccessResult(mc.getChallengeId());
+                        // 전체 금액을 성공한 사람 n빵 금액
+                        int getCoin = c.getMaxParticipantCount() * c.getEntryFee() / successCount;
+
                     }
 
                 } else if (c.getChallengeType() == 2) {
