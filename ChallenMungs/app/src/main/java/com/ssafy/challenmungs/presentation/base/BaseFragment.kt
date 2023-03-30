@@ -47,8 +47,4 @@ abstract class BaseFragment<T : ViewDataBinding>(
     fun popBackStack() {
         navController.popBackStack()
     }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-    }
 }
