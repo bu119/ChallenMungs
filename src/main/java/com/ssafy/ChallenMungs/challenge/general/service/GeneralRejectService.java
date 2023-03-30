@@ -29,6 +29,8 @@ public class GeneralRejectService {
     }
 
 
+
+
     // boardId와 user를 받아서 해당 board의 rejectCount를 1 증가하고, GeneralReject 테이블 추가
     @Transactional
     public boolean addOrCancelReject(Integer boardId, User user) {

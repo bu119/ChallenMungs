@@ -21,6 +21,9 @@ public interface GeneralBoardRepository extends JpaRepository<GeneralBoard, Long
     // 유저의 인증 히스토리 가져오기 (challenge와 user에 해당하는 게시글을 모두 조회)
     List<GeneralBoard> findAllByChallengeAndUser(Challenge challenge, User user);
 
+    // 해당 challenge에 해당하는 모든 Board를 찾아서 리스트 형태로 반환
+    List<GeneralBoard> findAllByChallenge(Challenge challenge);
+
     // 반려하기 누르면 challenge, user, registerDay에 해당하는 게시글 조회
     GeneralBoard findByChallengeAndUserAndRegisterDay(Challenge challenge, User user, LocalDate registerDay);
 
