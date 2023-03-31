@@ -60,9 +60,6 @@ public class Campaign {
     @Column(name = "regist_date")
     private LocalDate registDate;
 
-    @Column(name = "start_unix")
-    private long startUnix;
-
     // 모금 종료 여부
     @Column(name = "is_end")
     private boolean isEnd;
@@ -71,8 +68,6 @@ public class Campaign {
     @Column(name = "end_date")
     private LocalDate endDate;
 
-    @Column(name = "end_unix")
-    private long endUnix;
 
 
 
