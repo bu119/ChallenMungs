@@ -53,8 +53,6 @@ ChallengeController {
     @Autowired
     FileManager fileManager;
 
-    @Autowired
-    UserService userService;
 
     ObjectMapper mapper = new ObjectMapper();
 
