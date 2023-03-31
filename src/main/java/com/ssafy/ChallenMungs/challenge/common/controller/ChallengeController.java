@@ -53,6 +53,7 @@ ChallengeController {
     @Autowired
     FileManager fileManager;
 
+
     ObjectMapper mapper = new ObjectMapper();
 
     @PostMapping("/tokenConfirm/getList")
@@ -188,11 +189,13 @@ ChallengeController {
 
     @PostMapping("/getChallengeInfo")
     ResponseEntity getChallengeInfo(@RequestParam("challengeId") long challengeId) {
+        log.info("들어온 값은 : " + challengeId);
         Challenge challenge = challengeService.findByChallengeId(challengeId);
         List<MyChallenge> myChallengeList = myChallengeService.findAllByChallengeId(challengeId);
         ArrayList<HashMap> newList = new ArrayList<>();
+        System.out.println("::::::" + myChallengeList.size());
         for (MyChallenge mc : myChallengeList) {
-            User u = myChallengeService.findByLoginId(mc.getLoginId());
+            User u = userService.findByLoginId(mc.getLoginId());
             HashMap<String, Object> newMap = new HashMap<>();
             newMap.put("profile", u.getProfile());
             newMap.put("name", u.getName());

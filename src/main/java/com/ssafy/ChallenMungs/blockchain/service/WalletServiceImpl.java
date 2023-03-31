@@ -21,6 +21,7 @@ import org.web3j.protocol.core.DefaultBlockParameterName;
 import org.web3j.protocol.core.methods.response.EthGetBalance;
 import org.web3j.protocol.http.HttpService;
 import org.web3j.utils.Convert;
+import software.amazon.ion.Decimal;
 
 import javax.transaction.Transactional;
 import java.io.IOException;
@@ -199,6 +200,7 @@ public class WalletServiceImpl implements  WalletService{
             // 충전
             else {
                 Wallet shelter = walletRepo.findByAddress(to);
+                System.out.println("왔어요");
                 title = shelter.getUser().getName() + "에 기부";
             }
 
@@ -226,6 +228,32 @@ public class WalletServiceImpl implements  WalletService{
             dayList.add(tmp);
             result.put(day, dayList);
         }
+
+        return result;
+    }
+
+    @Override
+    public String getTotalDonate(String address) throws JsonProcessingException {
+        JsonNode items = getHistory(address);
+        String lowerA = address.toLowerCase();
+        BigDecimal totalAmount = new BigDecimal("0");
+
+        for (JsonNode item : items) {
+            String from = item.get("from").asText();
+            if (from.equals(lowerA)) {
+                String hexvalue = item.get("value").asText();
+                // 0x slicing
+                hexvalue = hexvalue.substring(2);
+                // Decimal로 변환
+                BigInteger decimal = new BigInteger(hexvalue, 16);
+                BigInteger divisor = new BigInteger("1000000000000000000");
+                // 최종값으로 변환
+                BigDecimal amount = new BigDecimal(decimal).divide(new BigDecimal(divisor));
+                totalAmount = totalAmount.add(amount);
+            }
+
+        }
+        String result = totalAmount.toString();
 
         return result;
     }

@@ -73,4 +73,10 @@ public class WalletController {
         return new ResponseEntity<Object>(service.viewMyPiggyBank(address),HttpStatus.OK);
     }
 
+    @GetMapping("/totalDonate")
+    @ApiOperation(value = "계좌를 누적 기부총액을 반환합니다." ,notes="")
+    ResponseEntity<Object> getTotalDonate(@RequestParam String address) throws JsonProcessingException {
+        return new ResponseEntity<Object>(service.getTotalDonate(address),HttpStatus.OK);
+    }
+
 }
