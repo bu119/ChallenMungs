@@ -26,4 +26,11 @@ public class MyChallenge {
 
     @Column(name = "success_count")
     Integer successCount;
+
+    @Column(name = "success_ratio")
+    Integer successRatio;
+
+    @Column(name = "success_result")
+    Boolean successResult;
+
 }

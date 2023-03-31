@@ -4,6 +4,7 @@ import com.ssafy.ChallenMungs.challenge.common.entity.Challenge;
 import com.ssafy.ChallenMungs.challenge.common.entity.MyChallenge;
 import com.ssafy.ChallenMungs.challenge.common.service.ChallengeService;
 import com.ssafy.ChallenMungs.challenge.common.service.MyChallengeService;
+import com.ssafy.ChallenMungs.challenge.general.dto.GeneralBoardHistoryDto;
 import com.ssafy.ChallenMungs.challenge.general.dto.GeneralBoardTodayDto;
 import com.ssafy.ChallenMungs.challenge.general.entity.GeneralBoard;
 import com.ssafy.ChallenMungs.challenge.general.service.GeneralBoardService;
@@ -145,18 +146,78 @@ public class GeneralBoardController {
     }
     
     @GetMapping("tokenConfirm/history")
-    @ApiOperation(value = "히스토리 게시판을 조회하는 api입니다.", notes = "challengeId를 활용하여 결과 값으로 challengeId에 해당하는 유저의 데이터들을 반환합니다.")
-    public ResponseEntity<List<GeneralBoard>> getBoardsByChallengeIdAndLoginId(
+    @ApiOperation(value = "히스토리 게시판을 조회하는 api입니다.", notes = "challengeId, boardUserId를 활용하여 결과 값으로 challengeId와 boardUserId에 해당하는 유저의 데이터들을 반환합니다.")
+    public ResponseEntity<List<GeneralBoardHistoryDto>> getBoardsByChallengeIdAndLoginId(
             HttpServletRequest request,
             @PathParam("challengeId") Long challengeId,
             @PathParam("boardUserId") String boardUserId
     ) {
 
         String loginId = request.getAttribute("loginId").toString();
+        // 로그인된 유저
+        User loginUser = userService.findUserByLoginId(loginId);
+        // 게시글의 유저
         User boardUser = userService.findUserByLoginId(boardUserId);
+        // 해당 챌린지
         Challenge challenge = challengeService.findByChallengeId(challengeId);
+        // 해당 챌린지의 선택한 게시글 유저의 기록을 가져옴
+        List<GeneralBoard> boards = boardService.getBoardsByChallengeAndUser(challenge, boardUser);
+        List<GeneralBoardHistoryDto> dtoList = new ArrayList<>();
+        for (GeneralBoard gb : boards) {
 
-        return boardService.getBoardsByChallengeAndUser(challenge, boardUser, loginId);
+            boolean myRejectState = rejectService.existsByBoardAndUser(gb, loginUser);
+            boolean rejectResult = boardService.isReject(gb);
+
+            GeneralBoardHistoryDto dto = new GeneralBoardHistoryDto(
+                    gb.getBoardId(),
+                    boardUserId,
+                    gb.getUser().getName(),
+                    gb.getUser().getProfile(),
+                    gb.getRegisterDay(),
+                    gb.getPictureUrl(),
+                    myRejectState,
+                    rejectResult
+            );
+            dtoList.add(dto);
+        }
+        return new ResponseEntity<>(dtoList, HttpStatus.OK);
+
+    }
+
+    @GetMapping("tokenConfirm/allHistory")
+    @ApiOperation(value = "히스토리 게시판을 전체 조회하는 api입니다.", notes = "challengeId 활용하여 결과 값으로 challengeId에 해당하는 모든 데이터들을 반환합니다.")
+    public ResponseEntity<List<GeneralBoardHistoryDto>> getBoardsByChallengeId(
+            HttpServletRequest request,
+            @PathParam("challengeId") Long challengeId
+    ) {
+
+        String loginId = request.getAttribute("loginId").toString();
+        // 로그인된 유저
+        User loginUser = userService.findUserByLoginId(loginId);
+        // 해당 챌린지
+        Challenge challenge = challengeService.findByChallengeId(challengeId);
+        // 해당 챌린지의 선택한 게시글 유저의 기록을 가져옴
+        List<GeneralBoard> boards = boardService.getBoardsByChallenge(challenge);
+        List<GeneralBoardHistoryDto> dtoList = new ArrayList<>();
+        for (GeneralBoard gb : boards) {
+
+            boolean myRejectState = rejectService.existsByBoardAndUser(gb, loginUser);
+            boolean rejectResult = boardService.isReject(gb);
+
+            GeneralBoardHistoryDto dto = new GeneralBoardHistoryDto(
+                    gb.getBoardId(),
+                    gb.getUser().getLoginId(),
+                    gb.getUser().getName(),
+                    gb.getUser().getProfile(),
+                    gb.getRegisterDay(),
+                    gb.getPictureUrl(),
+                    myRejectState,
+                    rejectResult
+            );
+            dtoList.add(dto);
+        }
+        return new ResponseEntity<>(dtoList, HttpStatus.OK);
+
     }
 
     // 반려하기
@@ -175,6 +236,16 @@ public class GeneralBoardController {
         } else {
             return ResponseEntity.badRequest().build();
         }
+    }
+
+    // successCount 갱신
+    @PutMapping("/tokenConfirm/successCount")
+    @ApiOperation(value = "일반챌린지 성공횟수를 갱신하는 api입니다.", notes = "challengeId를 활용하여 나의 챌린지 성공횟수를 갱신합니다.")
+    public ResponseEntity<String> updateSuccessCount(HttpServletRequest request, @PathParam("challengeId") Long challengeId) {
+
+        String loginId = request.getAttribute("loginId").toString();
+        boardService.updateSuccessCount(loginId, challengeId);
+        return ResponseEntity.ok("Success Count updated");
     }
 
 }

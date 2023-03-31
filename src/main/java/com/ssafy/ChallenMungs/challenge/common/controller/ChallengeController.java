@@ -1,10 +1,13 @@
 package com.ssafy.ChallenMungs.challenge.common.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.ssafy.ChallenMungs.challenge.common.dto.ChallengeParticipantDto;
 import com.ssafy.ChallenMungs.challenge.common.entity.Challenge;
 import com.ssafy.ChallenMungs.challenge.common.entity.MyChallenge;
 import com.ssafy.ChallenMungs.challenge.common.service.ChallengeService;
 import com.ssafy.ChallenMungs.challenge.common.service.MyChallengeService;
+import com.ssafy.ChallenMungs.challenge.general.dto.GeneralBoardTodayDto;
+import com.ssafy.ChallenMungs.challenge.general.entity.GeneralBoard;
 import com.ssafy.ChallenMungs.common.util.Distance;
 import com.ssafy.ChallenMungs.common.util.FileManager;
 import com.ssafy.ChallenMungs.user.entity.User;
@@ -40,6 +43,9 @@ ChallengeController {
 
     @Autowired
     MyChallengeService myChallengeService;
+
+    @Autowired
+    UserService userService;
 
     @Autowired
     Distance distance;
@@ -235,6 +241,14 @@ ChallengeController {
             return ResponseEntity.status(HttpStatus.CONFLICT).build(); //409
         } else { //status가 2인 경우
             log.info("끝난 방이에요!");
+            if (challenge.getChallengeType() == 1) {
+                // 여기에 끝난 일반챌린지에 들어갈 때 필요한 정보를 리턴할 수 있게 코드를 작성해 주세요
+                log.info("일반 챌린지네요. 결과를 가져 올게요");
+                // 모든 사람의 결과를 가져옴
+                List<MyChallenge> myChallenges = myChallengeService.findAllByChallengeId(challengeId);
+                return new ResponseEntity(myChallenges, HttpStatus.CREATED); // 201
+
+            }
             if (challenge.getChallengeType() >= 2) {
                 log.info("특별 챌린지네요. 결과를 가져 올게요");
                 String result = fileManager.loadResult(Long.toString(challengeId));
@@ -271,6 +285,31 @@ ChallengeController {
         } else {
             return ResponseEntity.notFound().build();
         }
+    }
+
+    @GetMapping("/tokenConfirm/participants")
+    @ApiOperation(value = "동일 챌린지에 참여한 모든 유저를 가져오는 api입니다.", notes = "challengeId를 활용하여 조회합니다.")
+    public ResponseEntity<List<ChallengeParticipantDto>> findAllByChallengeId(@RequestParam("challengeId") Long challengeId) {
+
+        List<MyChallenge> participants = myChallengeService.findAllByChallengeId(challengeId);
+
+        List<ChallengeParticipantDto> dtoList = new ArrayList<>();
+        for (MyChallenge my : participants) {
+            String boardUserId = my.getLoginId();
+            String name = userService.findUserByLoginId(boardUserId).getName();
+            String profileUrl = userService.findUserByLoginId(boardUserId).getProfile();
+
+            ChallengeParticipantDto dto = new ChallengeParticipantDto(
+                    my.getIdx(),
+                    my.getChallengeId(),
+                    my.getLoginId(),
+                    name,
+                    profileUrl,
+                    my.getSuccessCount()
+            );
+            dtoList.add(dto);
+        }
+        return new ResponseEntity<>(dtoList, HttpStatus.OK);
     }
 
 }

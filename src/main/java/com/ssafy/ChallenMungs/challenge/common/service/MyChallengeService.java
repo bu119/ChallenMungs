@@ -25,6 +25,7 @@ public class MyChallengeService {
         myChallengeRepository.deleteByLoginIdAndChallengeId(loginId, challengeId);
     }
 
+    // 동일 챌린지에 참여한 모든 유저 목록 가져오기
     public List<MyChallenge> findAllByChallengeId(Long challengeId) {
         return myChallengeRepository.findAllByChallengeId(challengeId);
     }
@@ -33,7 +34,13 @@ public class MyChallengeService {
         return myChallengeRepository.findByLoginIdAndChallengeId(loginId, challengeId);
     }
 
+    // 동일 챌린지에 참여한 모든 유저 목록 가져오기
+    public List<MyChallenge> findByChallengeIdAndSuccessResult(Long challengeId) {
+        return myChallengeRepository.findByChallengeIdAndSuccessResult(challengeId, true);
+    }
+
     public User findByLoginId(String loginId) {
         return findByLoginId(loginId);
     }
+
 }

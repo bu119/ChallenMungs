@@ -1,21 +1,23 @@
 package com.ssafy.ChallenMungs.challenge.general.service;
 
 import com.ssafy.ChallenMungs.challenge.common.entity.MyChallenge;
-import com.ssafy.ChallenMungs.challenge.general.repository.GeneralParticipantRepository;
+import com.ssafy.ChallenMungs.challenge.common.repository.MyChallengeRepository;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class GeneralParticipantService {
 
-    private final GeneralParticipantRepository generalParticipantRepository;
+    private final MyChallengeRepository participantRepository;
 
-    public GeneralParticipantService(GeneralParticipantRepository generalParticipantRepository) {
-        this.generalParticipantRepository = generalParticipantRepository;
+    public GeneralParticipantService(MyChallengeRepository participantRepository) {
+        this.participantRepository = participantRepository;
     }
 
     // 참가자 추가
     public void saveParticipant(MyChallenge generalParticipant) {
-        generalParticipantRepository.save(generalParticipant);
+        participantRepository.save(generalParticipant);
     }
 
 }

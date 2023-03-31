@@ -10,12 +10,10 @@ import com.ssafy.ChallenMungs.blockchain.repository.WalletRepository;
 import com.ssafy.ChallenMungs.user.entity.User;
 import com.ssafy.ChallenMungs.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.web3j.protocol.Web3j;
@@ -23,6 +21,7 @@ import org.web3j.protocol.core.DefaultBlockParameterName;
 import org.web3j.protocol.core.methods.response.EthGetBalance;
 import org.web3j.protocol.http.HttpService;
 import org.web3j.utils.Convert;
+import software.amazon.ion.Decimal;
 
 import javax.transaction.Transactional;
 import java.io.IOException;
@@ -54,6 +53,16 @@ public class WalletServiceImpl implements  WalletService{
 
     }
 
+    // 후원처 출금계좌 생성
+    @Override
+    public void insertSpecialWithdrawalWallet(String walletAddress, String loginId) throws Exception {
+        User user = userRepo.findUserByLoginId(loginId);
+        if(user==null) throw new Exception("로그인아이디 확인");
+        walletRepo.save(initWallet(user,'3',walletAddress));
+    }
+
+
+
     
     public Wallet initWallet(User user,char type,String address){
         Wallet wallet=new Wallet();
@@ -70,7 +79,8 @@ public class WalletServiceImpl implements  WalletService{
         Web3j web3j = Web3j.build(new HttpService(nodeUrl));
         // 최신 블록 번호
         DefaultBlockParameterName blockParameter = DefaultBlockParameterName.LATEST;
-
+        String hexString = Integer.toHexString(150).toUpperCase();
+//        log.info(hexString);
         try {
             // 계좌 잔액 가져오기
             EthGetBalance balanceResponse = web3j.ethGetBalance(address, blockParameter).send();
@@ -126,7 +136,6 @@ public class WalletServiceImpl implements  WalletService{
             String to = item.get("to").asText();
             String title;
             if (from.equals(lowerA)) {
-                log.info(to);
                 if (to.equals(lowerN)) {
                     title = "일반 챌린지 참여";
                 } else if (to.equals(lowerS)) {
@@ -148,6 +157,7 @@ public class WalletServiceImpl implements  WalletService{
 
             // 전송 Klaytn(hex)
             String hexvalue = item.get("value").asText();
+//            log.info(hexvalue);
             // 0x slicing
             hexvalue = hexvalue.substring(2);
             // Decimal로 변환
@@ -179,10 +189,9 @@ public class WalletServiceImpl implements  WalletService{
             String to = item.get("to").asText();
             String title;
             if (to.equals(lowerA)) {
-                log.info(to);
                 if (from.equals(lowerN)) {
                     title = "일반 챌린지 보상";
-                } else if (to.equals(lowerS)) {
+                } else if (from.equals(lowerS)) {
                     title = "특별 챌린지 보상";
                 } else {
                     title = "error";
@@ -191,6 +200,7 @@ public class WalletServiceImpl implements  WalletService{
             // 충전
             else {
                 Wallet shelter = walletRepo.findByAddress(to);
+                System.out.println("왔어요");
                 title = shelter.getUser().getName() + "에 기부";
             }
 
@@ -202,6 +212,7 @@ public class WalletServiceImpl implements  WalletService{
 
             // 전송 Klaytn(hex)
             String hexvalue = item.get("value").asText();
+//            log.info(hexvalue);
             // 0x slicing
             hexvalue = hexvalue.substring(2);
             // Decimal로 변환
@@ -217,10 +228,34 @@ public class WalletServiceImpl implements  WalletService{
             dayList.add(tmp);
             result.put(day, dayList);
         }
+
         return result;
+    }
 
+    @Override
+    public String getTotalDonate(String address) throws JsonProcessingException {
+        JsonNode items = getHistory(address);
+        String lowerA = address.toLowerCase();
+        BigDecimal totalAmount = new BigDecimal("0");
 
-//        return null;
+        for (JsonNode item : items) {
+            String from = item.get("from").asText();
+            if (from.equals(lowerA)) {
+                String hexvalue = item.get("value").asText();
+                // 0x slicing
+                hexvalue = hexvalue.substring(2);
+                // Decimal로 변환
+                BigInteger decimal = new BigInteger(hexvalue, 16);
+                BigInteger divisor = new BigInteger("1000000000000000000");
+                // 최종값으로 변환
+                BigDecimal amount = new BigDecimal(decimal).divide(new BigDecimal(divisor));
+                totalAmount = totalAmount.add(amount);
+            }
+
+        }
+        String result = totalAmount.toString();
+
+        return result;
     }
 
 }

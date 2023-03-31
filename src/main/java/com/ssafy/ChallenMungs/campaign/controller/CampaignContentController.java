@@ -3,6 +3,7 @@ package com.ssafy.ChallenMungs.campaign.controller;
 
 import com.ssafy.ChallenMungs.campaign.dto.CampaignInsertDto;
 import com.ssafy.ChallenMungs.campaign.service.CampaignContentService;
+import com.ssafy.ChallenMungs.campaign.service.CampaignContentServiceImpl;
 import com.ssafy.ChallenMungs.common.util.Response;
 import com.ssafy.ChallenMungs.user.controller.UserController;
 
@@ -21,7 +22,7 @@ import org.springframework.web.multipart.MultipartFile;
 @CrossOrigin("*")
 @Api(value = "login", description = "캠페인 작성, 응원, 기부와 관련된 컨트롤러입니다. ")
 public class CampaignContentController {
-     private final CampaignContentService  service;
+     private CampaignContentService service;
      Response res=new Response();
 
     private Logger logger = LoggerFactory.getLogger(CampaignContentController.class);

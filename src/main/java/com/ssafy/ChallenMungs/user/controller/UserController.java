@@ -4,6 +4,9 @@ package com.ssafy.ChallenMungs.user.controller;
 import com.amazonaws.Response;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
+import com.ssafy.ChallenMungs.blockchain.repository.WalletRepository;
+import com.ssafy.ChallenMungs.blockchain.service.WalletService;
+import com.ssafy.ChallenMungs.blockchain.service.WalletServiceImpl;
 import com.ssafy.ChallenMungs.image.service.FileServiceImpl;
 import com.ssafy.ChallenMungs.user.dto.Res1;
 import com.ssafy.ChallenMungs.user.dto.Res2;
@@ -14,6 +17,7 @@ import com.ssafy.ChallenMungs.user.service.UserService;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.swagger.annotations.*;
+import org.hibernate.event.spi.SaveOrUpdateEvent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,6 +57,9 @@ public class UserController {
 
     @Autowired
     CodeService codeService;
+
+    @Autowired
+    WalletService walletService;
 
     //토큰을 만들기 위한 비밀 키를 properties로 부터 가져와요
     @Value("${secret.key}")
@@ -192,12 +199,17 @@ public class UserController {
     }
 
     @PostMapping("/tokenConfirm/updateProfileAndName")
-    @ApiOperation(value = "유저의 프로필과 닉네임 정보를 변경해요!")
+    @ApiOperation(value = "유저의 프로필과 닉네임 정보를 변경해요!", notes = "후원처는 출금주소를 등록하세요")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "변경 성공"),
             @ApiResponse(code = 417, message = "변경 실패ㅜㅜ")
     })
-    ResponseEntity updateProfileAndName(HttpServletRequest request, @RequestParam("name") String name, @RequestParam("profile") MultipartFile file) {
+    ResponseEntity updateProfileAndName(
+            HttpServletRequest request,
+            @RequestParam("name") String name,
+            @RequestParam("profile") MultipartFile file,
+            @RequestParam(value = "walletAddress", required = false) String walletAddress
+    ) throws Exception {
         String loginId = request.getAttribute("loginId").toString();
         String url = null;
         try {
@@ -206,6 +218,11 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).build();
         }
         userService.updateProfileAndName(loginId, name, url);
+
+        if (walletAddress != null) {
+            walletService.insertSpecialWithdrawalWallet(walletAddress,loginId);
+        }
+
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 
