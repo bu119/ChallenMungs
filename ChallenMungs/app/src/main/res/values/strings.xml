@@ -150,4 +150,18 @@
     <!--  Member Withdrawal Dialog  -->
     <string name="content_withdrawal_comment">이별인가요? 너무 아쉬워요..</string>
     <string name="content_create_challenge_comment">챌린지 생성 후 수정이 불가능합니다.\n생성하시겠습까?</string>
+
+    <!--  Panel Participate  -->
+    <string name="image_category">image_category_icon</string>
+    <string name="content_category">종목</string>
+    <string name="content_panel_game">판넬 뒤집기</string>
+    <string name="image_period">image_period_icon</string>
+    <string name="image_participation_money">image_participation_money_icon</string>
+    <string name="image_tag">image_tag_icon</string>
+    <string name="image_play_area">image_play_area_icon</string>
+    <string name="content_play_area">경기구역</string>
+    <string name="content_current_participants">현재 참가 인원 (%d/%d)</string>
+    <string name="image_participants">image_participants_icon</string>
+    <string name="image_calendar_icon">image_calendar_icon</string>
+    <string name="content_participate">참가하기</string>
 </resources>
