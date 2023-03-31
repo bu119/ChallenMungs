@@ -136,10 +136,8 @@ public class ChallengeScheduler {
                     }
                     treasureSocketHandler.challengeManager.put(c.getChallengeId(), com.ssafy.ChallenMungs.challenge.treasure.handler.ChallengeVo.builder().sessions(new ArrayList<>()).treasureInfo(treasures).rankInfo(rankInfo).build());
                 }
-                if (c.getChallengeId() == 9) System.out.println(":::" + "누구냐너");
                 challengeService.save(c);
             }
-            if (c.getChallengeId() == 9) System.out.println(":::::::" + c.getChallengeId() + " " + c.getStatus() + " " + c.getEndDate().plusDays(1).equals(today));
             // 예를 들어 2일에 끝나는 겜이면 3일 자정에 끝나야됨
 //            if (c.getStatus() == 1 && c.getEndDate().plusDays(1).equals(today)) {
             if (c.getStatus() == 1) {
