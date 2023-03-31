@@ -112,6 +112,7 @@ public class UserController {
                 .signWith(SignatureAlgorithm.HS512, secretKey) // 암호화 방식
                 .compact(); // 묶어
     }
+
     @PostMapping("/registerUser")
     @ApiOperation(value = "이메일, 닉네임로 유저를 등록하는 api에요!")
     ResponseEntity<Map<String, Object>> registerUser(@RequestParam("name") String name, @RequestParam("accessKey") String accessKey) {
@@ -158,6 +159,7 @@ public class UserController {
         }
         return v;
     }
+
     @GetMapping("/getLoginId")
     ResponseEntity getLoginId(HttpServletRequest request) {
         return new ResponseEntity(request.getAttribute("loginId").toString(), HttpStatus.OK);
@@ -281,6 +283,7 @@ public class UserController {
         emailService.sendHtmlEmail(email, charityName);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
+
     @PostMapping("/charityLogin")
     @ApiOperation(value = "자선단체가 로그인하는 메서드에요!")
     ResponseEntity charityLogin(@RequestParam("loginId") String loginId, @RequestParam("password") String password) {
@@ -310,6 +313,7 @@ public class UserController {
             return new ResponseEntity<>(v, HttpStatus.EXPECTATION_FAILED); // 417
         }
     }
+    
     @GetMapping("/charity/checkId")
     @ApiOperation(value = "기부처 아이디 중복체크")
 //    ResponseEntity<Boolean> checkLoginIdDuplicate(@RequestParam("loginId") String loginId) {
