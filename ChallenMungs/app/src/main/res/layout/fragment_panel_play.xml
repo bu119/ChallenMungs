@@ -10,7 +10,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".presentation.challenge.PanelPlayFragment">
+        tools:context=".presentation.challenge.panel.PanelPlayFragment">
 
         <include
             android:id="@+id/toolbar"
@@ -27,7 +27,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/toolbar"
-            tools:context=".presentation.challenge.PanelPlayFragment" />
+            tools:context=".presentation.challenge.panel.PanelPlayFragment" />
 
         <TextView
             android:layout_width="wrap_content"
