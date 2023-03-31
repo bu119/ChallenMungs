@@ -313,7 +313,7 @@ public class UserController {
             return new ResponseEntity<>(v, HttpStatus.EXPECTATION_FAILED); // 417
         }
     }
-    
+
     @GetMapping("/charity/checkId")
     @ApiOperation(value = "기부처 아이디 중복체크")
 //    ResponseEntity<Boolean> checkLoginIdDuplicate(@RequestParam("loginId") String loginId) {
