@@ -164,4 +164,13 @@
     <string name="image_participants">image_participants_icon</string>
     <string name="image_calendar_icon">image_calendar_icon</string>
     <string name="content_participate">참가하기</string>
+
+    <!-- Panel Result -->
+    <string name="title_get_result">보상획득</string>
+    <string name="content_result_gain_comment">획득한 코인은 기부 저금통에 적립됩니다!</string>
+    <string name="title_final_rank">최종순위</string>
+    <string name="content_panel_count">뒤집은 판넬 수 : %d개</string>
+    <string name="content_rank">%d위</string>
+    <string name="image_crown">image_crown_icon</string>
+    <string name="content_result_gain_addition">(+%d)</string>
 </resources>
