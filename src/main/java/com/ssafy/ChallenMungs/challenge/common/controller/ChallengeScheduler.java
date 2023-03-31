@@ -29,6 +29,7 @@ import org.springframework.web.client.RestTemplate;
 import java.time.Duration;
 import java.math.BigInteger;
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -135,17 +136,20 @@ public class ChallengeScheduler {
                     }
                     treasureSocketHandler.challengeManager.put(c.getChallengeId(), com.ssafy.ChallenMungs.challenge.treasure.handler.ChallengeVo.builder().sessions(new ArrayList<>()).treasureInfo(treasures).rankInfo(rankInfo).build());
                 }
+                if (c.getChallengeId() == 9) System.out.println(":::" + "누구냐너");
                 challengeService.save(c);
             }
+            if (c.getChallengeId() == 9) System.out.println(":::::::" + c.getChallengeId() + " " + c.getStatus() + " " + c.getEndDate().plusDays(1).equals(today));
             // 예를 들어 2일에 끝나는 겜이면 3일 자정에 끝나야됨
-            if (c.getStatus() == 1 && c.getEndDate().plusDays(1).equals(today)) {
+//            if (c.getStatus() == 1 && c.getEndDate().plusDays(1).equals(today)) {
+            if (c.getStatus() == 1) {
                 int totalKlay = c.getEntryFee() * c.getCurrentParticipantCount();
                 c.setStatus(2);
                 flag = true;
                 String saveValue;
                 StringBuilder sb = new StringBuilder();
                 // 일반챌린지 끝날때
-                if (c.getChallengeId() == 1) {
+                if (c.getChallengeType() == 1) {
                     List<MyChallenge> myChallenges = myChallengeService.findAllByChallengeId(c.getChallengeId());
                     for (MyChallenge mc : myChallenges) {
                         int successCount = 0;
@@ -153,7 +157,7 @@ public class ChallengeScheduler {
                         List<User> successUser = new ArrayList<>();
 
                         generalBoardService.updateSuccessCount(mc.getLoginId(), c.getChallengeId());
-                        mc.setSuccessRatio(mc.getSuccessCount() / (((int) Duration.between(c.getStartDate(), c.getEndDate()).toDays()) + 1) * 100);
+                        mc.setSuccessRatio((int) (mc.getSuccessCount() / (ChronoUnit.DAYS.between(c.getStartDate(), c.getEndDate()) + 2) * 100));
                         if (mc.getSuccessRatio() >= c.getSuccessCondition()) {
                             mc.setSuccessResult(true);
 
@@ -164,11 +168,16 @@ public class ChallengeScheduler {
                         } else {
                             mc.setSuccessResult(false);
                         }
+
                         // 성공한 사람들 리스트 - loginId 들어있음
 //                        List<MyChallenge> successUsers = myChallengeService.findByChallengeIdAndSuccessResult(mc.getChallengeId());
                         // 전체 금액을 성공한 사람 n빵 금액
-                        int getCoin = c.getMaxParticipantCount() * c.getEntryFee() / successCount;
-
+                        if (successCount != 0) {
+                            int getCoin = c.getMaxParticipantCount() * c.getEntryFee() / successCount;
+                        } else {
+                            // 다 실패
+                            int getCoin = 0;
+                        }
                     }
 
                 } else if (c.getChallengeType() == 2) {
