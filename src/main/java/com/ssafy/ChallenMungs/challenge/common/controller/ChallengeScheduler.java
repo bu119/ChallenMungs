@@ -62,8 +62,8 @@ public class ChallengeScheduler {
     @Autowired
     WalletRepository walletRepo;
 
-//    @Scheduled(cron = "0 0 0 * * ?") // 매일 자정에 동작해요
-    @Scheduled(cron = "0/5 * * * * ?") // 20초마다 실행해요
+    @Scheduled(cron = "0 0 0 * * ?") // 매일 자정에 동작해요
+//    @Scheduled(cron = "0/5 * * * * ?") // 20초마다 실행해요
     public void startChallenge() {
         System.out.println("스케쥴러가 동작해요!");
 //        generalBoardService.updateSuccessCount("sa01023@naver.com", 9L);
@@ -169,6 +169,11 @@ public class ChallengeScheduler {
                         // 전체 금액을 성공한 사람 n빵 금액
                         int getCoin = c.getMaxParticipantCount() * c.getEntryFee() / successCount;
 
+                        for(User user: successUser){
+                            sendKlay(user, getCoin, true);
+                        }
+
+
                     }
 
                 } else if (c.getChallengeType() == 2) {
@@ -195,7 +200,7 @@ public class ChallengeScheduler {
                             newRankInfoMap.put("point", rv.getPanelCount());
                             newRankInfoMap.put("obtainKlay", myklay[idx-1]);
                             newRankInfoList.add(newRankInfoMap);
-                            sendKlaySpecial(u, myklay[idx-1]);
+                            sendKlay(u, myklay[idx-1], false);
                             idx++;
                         }
                     } else if (c.getGameType() == 2) { // 판넬뒤집기 팀전
@@ -220,7 +225,7 @@ public class ChallengeScheduler {
                                 newRankInfoMap.put("point", panelSocketHandler.challengeManager.get(c.getChallengeId()).rankInfo.get(i).getPanelCount());
                                 if (i == 0) {
                                     newRankInfoMap.put("obtainKlay", myklay[idx]);
-                                    sendKlaySpecial(u, myklay[idx]);
+                                    sendKlay(u, myklay[idx], false);
                                     idx++;
                                 } else {
                                     newRankInfoMap.put("obtainKlay", 0);
@@ -270,7 +275,7 @@ public class ChallengeScheduler {
                         newRankInfoMap.put("obtainKlay", myklay[idx-1]);
                         newRankInfoMap.put("myTreasureList", rv.getMyTreasureList());
                         newRankInfoList.add(newRankInfoMap);
-                        sendKlaySpecial(u, myklay[idx-1]);
+                        sendKlay(u, myklay[idx-1], false);
                         idx++;
                     }
                     try {
@@ -295,11 +300,17 @@ public class ChallengeScheduler {
     }
 
     // 특별챌린지 보상 나누기(특별챌린지 지갑 -> 고객 지갑 클레이튼 전송)
-    void sendKlaySpecial(User user, Integer intklay) {
+    void sendKlay(User user, Integer intklay, boolean normal) {
         long klayForm = ((long)intklay) * 1000000000000000000L;
         String hexString ="0x" + Long.toHexString(new BigInteger(String.valueOf(klayForm)).longValue());
-        String specialChallenge = "0x6aC40a06633BcF319F0ebd124F189D29d9A390bF";
-
+        String fromAddress;
+        if(normal){
+            fromAddress = "0x50Aa5B30442cd67659bF1CA81E7cD4e351898cfd";
+        }
+        else{
+            fromAddress = "0x6aC40a06633BcF319F0ebd124F189D29d9A390bF";
+        }
+        String userAddress = walletRepo.findByUserAndType(user,'p').getAddress();
         RestTemplate restTemplate = new RestTemplate();
 
         // 요청 헤더 설정
@@ -310,9 +321,9 @@ public class ChallengeScheduler {
 
         // 요청 바디 설정
         JSONObject requestBody = new JSONObject();
-        requestBody.put("from", specialChallenge);
+        requestBody.put("from", fromAddress);
         requestBody.put("value", hexString);
-        requestBody.put("to", walletRepo.findByUserAndType(user,'p').getAddress());
+        requestBody.put("to", userAddress);
         requestBody.put("submit", true);
 
         // 요청 엔티티 생성
@@ -323,6 +334,31 @@ public class ChallengeScheduler {
         ResponseEntity<String> responseEntity = restTemplate.exchange(url, HttpMethod.POST, requestEntity, String.class);
         String responseBody = responseEntity.getBody();
 
+        if(normal){
+            RestTemplate restTemplate2 = new RestTemplate();
+
+            // 요청 헤더 설정
+            HttpHeaders headers2 = new HttpHeaders();
+            headers2.setContentType(MediaType.APPLICATION_JSON);
+            headers2.set("x-chain-id", "1001"); // 1001(Baobob 테스트넷)
+            headers2.set("Authorization", "Basic S0FTS1dDQUdINjkwRkFRV0lPVDE4QkhUOnNTYThjQlI1akhncXRwbnUtWWltMHV5dkVpb1V2REVQRGpMSmJjRkM="); //AccountPool 등록
+
+            // 요청 바디 설정
+            JSONObject requestBody2 = new JSONObject();
+            requestBody2.put("from", userAddress);
+            requestBody2.put("value", hexString);
+            requestBody2.put("to", "0xbfCa49F6aa3613dbc94FE808c7123E227DB6C5DF");
+            requestBody2.put("submit", true);
+
+            // 요청 엔티티 생성
+            HttpEntity<String> requestEntity2 = new HttpEntity<>(requestBody.toString(), headers);
+
+            // POST 요청 보내기
+            ResponseEntity<String> responseEntity2 = restTemplate.exchange(url, HttpMethod.POST, requestEntity, String.class);
+            String responseBody2 = responseEntity2.getBody();
+        }
+
 
     }
+
 }
