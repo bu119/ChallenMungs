@@ -5,6 +5,10 @@
 
     <data>
 
+        <variable
+            name="participant"
+            type="com.ssafy.challenmungs.domain.entity.challenge.Participant" />
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -20,7 +24,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:src="@drawable/ic_profile_default" />
+            tools:src="@{participant.profileImageUrl ?? @drawable/ic_profile_default}" />
 
         <TextView
             android:id="@+id/tv_nickname"
@@ -30,6 +34,7 @@
             android:ellipsize="end"
             android:gravity="center"
             android:maxLines="1"
+            android:text="@{participant.name}"
             android:textColor="@color/black"
             android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="parent"

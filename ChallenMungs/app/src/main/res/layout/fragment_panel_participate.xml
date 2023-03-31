@@ -158,9 +158,9 @@
                     android:id="@+id/ll_participation_fee_area"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center"
                     android:layout_marginTop="10dp"
+                    android:gravity="center"
+                    android:orientation="horizontal"
                     app:layout_constraintEnd_toEndOf="@id/ll_participation_fee"
                     app:layout_constraintStart_toStartOf="@id/ll_participation_fee"
                     app:layout_constraintTop_toBottomOf="@id/ll_participation_fee">
@@ -312,6 +312,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/ll_participants"
+                    app:participant="@{info.participant}"
                     tools:listitem="@layout/item_participants" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
