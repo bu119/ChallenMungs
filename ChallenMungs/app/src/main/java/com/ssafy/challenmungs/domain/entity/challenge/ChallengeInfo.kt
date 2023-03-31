@@ -6,10 +6,15 @@ data class ChallengeInfo(
     val startDate: String,
     val endDate: String,
     val fee: String,
+    val totalFee: String,
     val type: String,
-    val centerLat: String,
-    val centerLng: String,
-    val maxParticipantCount: Int,
-    val currentParticipantCount: Int,
-    val participant: ArrayList<Participant>,
+    val currentRank: ArrayList<RankDetail>,
+)
+
+data class RankDetail(
+    val profileImageUrl: String?,
+    val name: String,
+    val count: Int,
+    val rank: Int,
+    val crown: Int?
 )
