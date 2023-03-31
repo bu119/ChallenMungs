@@ -7,6 +7,6 @@ import com.ssafy.challenmungs.presentation.base.BaseFragment
 class MyCheerCampaignFragment : BaseFragment<BaseListBinding>(R.layout.base_list) {
 
     override fun initView() {
-        binding.toolbar.tvTitle.text = getString(R.string.title_cheer_campaign)
+        binding.toolbar.title = getString(R.string.title_cheer_campaign)
     }
 }
