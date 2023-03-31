@@ -21,10 +21,10 @@
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:contentDescription="@string/image_default_profile"
+            android:profileImgString="@{participant.profileImageUrl}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:src="@{participant.profileImageUrl ?? @drawable/ic_profile_default}" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/tv_nickname"

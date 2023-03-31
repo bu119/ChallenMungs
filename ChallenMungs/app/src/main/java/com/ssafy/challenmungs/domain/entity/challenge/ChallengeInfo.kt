@@ -11,5 +11,5 @@ data class ChallengeInfo(
     val centerLng: String,
     val maxParticipantCount: Int,
     val currentParticipantCount: Int,
-    val participant: Participant,
+    val participant: ArrayList<Participant>,
 )
