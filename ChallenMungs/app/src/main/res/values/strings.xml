@@ -173,4 +173,10 @@
     <string name="content_rank">%d위</string>
     <string name="image_crown">image_crown_icon</string>
     <string name="content_result_gain_addition">(+%d)</string>
+
+    <!--  Panel Info  -->
+    <string name="image_current_rank">image_current_rank_icon</string>
+    <string name="content_current_rank">현재 순위</string>
+    <string name="content_total_fee">모인 참가비</string>
+    <string name="content_my_fee">나의 참가비</string>
 </resources>
