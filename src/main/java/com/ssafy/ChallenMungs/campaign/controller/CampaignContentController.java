@@ -22,7 +22,7 @@ import org.springframework.web.multipart.MultipartFile;
 @CrossOrigin("*")
 @Api(value = "login", description = "캠페인 작성, 응원, 기부와 관련된 컨트롤러입니다. ")
 public class CampaignContentController {
-     private CampaignContentService service;
+     private final CampaignContentService service;
      Response res=new Response();
 
     private Logger logger = LoggerFactory.getLogger(CampaignContentController.class);
@@ -71,7 +71,6 @@ public class CampaignContentController {
     @PostMapping("/isCampaignAble")
     @ApiOperation(value = "캠페인을 만들 수 있는지 체크합니다" ,notes="후원처의 아이디이고, 현재 진행중인 캠페인이 2개 미만인 경우에만 true를 반환합니다.")
     ResponseEntity<Object> isCampaignAble(@RequestParam String loginId) {
-
         return new ResponseEntity<Object>(res.makeSimpleRes(service.isCampaignAble(loginId)),HttpStatus.OK);
     }
 
