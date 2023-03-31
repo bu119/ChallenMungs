@@ -52,6 +52,16 @@ public class WalletServiceImpl implements  WalletService{
 
     }
 
+    // 후원처 출금계좌 생성
+    @Override
+    public void insertSpecialWithdrawalWallet(String walletAddress, String loginId) throws Exception {
+        User user = userRepo.findUserByLoginId(loginId);
+        if(user==null) throw new Exception("로그인아이디 확인");
+        walletRepo.save(initWallet(user,'3',walletAddress));
+    }
+
+
+
     
     public Wallet initWallet(User user,char type,String address){
         Wallet wallet=new Wallet();

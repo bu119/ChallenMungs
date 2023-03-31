@@ -25,6 +25,7 @@ public class Wallet {
 
     @Column(name="address")
     private String address;
+
     @Column(name="type")
     private char type;
 
