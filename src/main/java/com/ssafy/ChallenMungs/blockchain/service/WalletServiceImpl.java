@@ -21,8 +21,10 @@ import org.web3j.protocol.core.DefaultBlockParameterName;
 import org.web3j.protocol.core.methods.response.EthGetBalance;
 import org.web3j.protocol.http.HttpService;
 import org.web3j.utils.Convert;
+import software.amazon.ion.Decimal;
 
 import javax.transaction.Transactional;
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.*;
@@ -113,30 +115,6 @@ public class WalletServiceImpl implements  WalletService{
 
         return itemsNode;
     }
-
-    public JsonNode getHistoryRange(String address) throws JsonProcessingException {
-        RestTemplate restTemplate = new RestTemplate();
-        // 사용할 API 주소
-        String url = "https://th-api.klaytnapi.com/v2/transfer/account/";
-        // Header 설정
-        HttpHeaders headers = new HttpHeaders();
-        headers.set("x-chain-id", "1001"); // 1001(Baobob 테스트넷)
-        headers.set("Authorization", "Basic S0FTS1dDQUdINjkwRkFRV0lPVDE4QkhUOnNTYThjQlI1akhncXRwbnUtWWltMHV5dkVpb1V2REVQRGpMSmJjRkM="); //AccountPool 등록
-
-        JSONObject requestBody = new JSONObject();
-        requestBody.put("range", "1680070850,1680074996");
-
-        HttpEntity<String> entity = new HttpEntity<>(requestBody.toString(), headers);
-
-        // Klaytn에서 사용 내역 받기
-        ResponseEntity<String> response = restTemplate.exchange(url+address, HttpMethod.GET, entity, String.class);
-        ObjectMapper objectMapper = new ObjectMapper();
-        JsonNode rootNode = objectMapper.readTree(response.getBody());
-        JsonNode itemsNode = rootNode.get("items");
-
-        return itemsNode;
-    }
-
     private Logger log = LoggerFactory.getLogger(WalletController.class);
     String normalChallenge = "0x50Aa5B30442cd67659bF1CA81E7cD4e351898cfd";
     String specialChallenge = "0x6aC40a06633BcF319F0ebd124F189D29d9A390bF";
@@ -222,6 +200,7 @@ public class WalletServiceImpl implements  WalletService{
             // 충전
             else {
                 Wallet shelter = walletRepo.findByAddress(to);
+                System.out.println("왔어요");
                 title = shelter.getUser().getName() + "에 기부";
             }
 
