@@ -34,6 +34,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import static com.ssafy.ChallenMungs.challenge.general.service.GeneralBoardService.*;
+
 @Component
 public class ChallengeScheduler {
     private Logger log = LoggerFactory.getLogger(ChallengeScheduler.class);
@@ -140,6 +142,7 @@ public class ChallengeScheduler {
             }
             // 예를 들어 2일에 끝나는 겜이면 3일 자정에 끝나야됨
 //            if (c.getStatus() == 1 && c.getEndDate().plusDays(1).equals(today)) {
+            // 일반 챌린지
             if (c.getStatus() == 1) {
                 int totalKlay = c.getEntryFee() * c.getCurrentParticipantCount();
                 c.setStatus(2);
@@ -148,33 +151,32 @@ public class ChallengeScheduler {
                 StringBuilder sb = new StringBuilder();
                 // 일반챌린지 끝날때
                 if (c.getChallengeType() == 1) {
+                    // 같은 챌린지 참여자들 가져와
                     List<MyChallenge> myChallenges = myChallengeService.findAllByChallengeId(c.getChallengeId());
+                    List<User> successUsers = new ArrayList<>();
+                    // 모든 챌린지 참여자들 돌면서
                     for (MyChallenge mc : myChallenges) {
-                        int successCount = 0;
-
-                        List<User> successUser = new ArrayList<>();
+                        int successPeopleCount = 0;
 
                         generalBoardService.updateSuccessCount(mc.getLoginId(), c.getChallengeId());
-                        mc.setSuccessRatio((int) (mc.getSuccessCount() / (ChronoUnit.DAYS.between(c.getStartDate(), c.getEndDate()) + 2) * 100));
+//                        mc.setSuccessRatio(calculateSuccessRatio(mc.getSuccessCount(), c.getStartDate(), c.getEndDate()));
+                        long daysBetween = ChronoUnit.DAYS.between(c.getStartDate(), c.getEndDate()) + 1;
+                        double successRatio = (double) mc.getSuccessCount() / daysBetween * 100;
+                        mc.setSuccessRatio((int) Math.floor(successRatio));
                         if (mc.getSuccessRatio() >= c.getSuccessCondition()) {
                             mc.setSuccessResult(true);
-
-                            successCount ++;
-
+                            successPeopleCount ++;
                             // user entity 내역
-                            successUser.add(userService.findUserByLoginId(mc.getLoginId()));
+                            successUsers.add(userService.findUserByLoginId(mc.getLoginId()));
+
                         } else {
                             mc.setSuccessResult(false);
                         }
-
                         // 성공한 사람들 리스트 - loginId 들어있음
 //                        List<MyChallenge> successUsers = myChallengeService.findByChallengeIdAndSuccessResult(mc.getChallengeId());
                         // 전체 금액을 성공한 사람 n빵 금액
-                        if (successCount != 0) {
-                            int getCoin = c.getMaxParticipantCount() * c.getEntryFee() / successCount;
-                            for(User user: successUser){
-                                sendKlay(user, getCoin, true);
-                            }
+                        if (successPeopleCount != 0) {
+                            int getCoin = c.getMaxParticipantCount() * c.getEntryFee() / successPeopleCount;
                         } else {
                             // 다 실패
                             int getCoin = 0;
