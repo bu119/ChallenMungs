@@ -65,8 +65,8 @@ public class ChallengeScheduler {
     @Autowired
     WalletRepository walletRepo;
 
-    @Scheduled(cron = "0 0 0 * * ?") // 매일 자정에 동작해요
-//    @Scheduled(cron = "0/5 * * * * ?") // 20초마다 실행해요
+//    @Scheduled(cron = "0 0 0 * * ?") // 매일 자정에 동작해요
+    @Scheduled(cron = "0/5 * * * * ?") // 20초마다 실행해요
     public void startChallenge() {
         System.out.println("스케쥴러가 동작해요!");
 //        generalBoardService.updateSuccessCount("sa01023@naver.com", 9L);
@@ -154,9 +154,9 @@ public class ChallengeScheduler {
                     // 같은 챌린지 참여자들 가져와
                     List<MyChallenge> myChallenges = myChallengeService.findAllByChallengeId(c.getChallengeId());
                     List<User> successUsers = new ArrayList<>();
+                    int successPeopleCount = 0;
                     // 모든 챌린지 참여자들 돌면서
                     for (MyChallenge mc : myChallenges) {
-                        int successPeopleCount = 0;
 
                         generalBoardService.updateSuccessCount(mc.getLoginId(), c.getChallengeId());
 //                        mc.setSuccessRatio(calculateSuccessRatio(mc.getSuccessCount(), c.getStartDate(), c.getEndDate()));
@@ -168,20 +168,23 @@ public class ChallengeScheduler {
                             successPeopleCount ++;
                             // user entity 내역
                             successUsers.add(userService.findUserByLoginId(mc.getLoginId()));
-
                         } else {
                             mc.setSuccessResult(false);
                         }
-                        // 성공한 사람들 리스트 - loginId 들어있음
-//                        List<MyChallenge> successUsers = myChallengeService.findByChallengeIdAndSuccessResult(mc.getChallengeId());
-                        // 전체 금액을 성공한 사람 n빵 금액
-                        if (successPeopleCount != 0) {
-                            int getCoin = c.getMaxParticipantCount() * c.getEntryFee() / successPeopleCount;
-                        } else {
-                            // 다 실패
-                            int getCoin = 0;
-                        }
                     }
+                    // 성공한 사람들 리스트 - loginId 들어있음
+                    //  List<MyChallenge> successUsers = myChallengeService.findByChallengeIdAndSuccessResult(mc.getChallengeId());
+                    int getCoin = 0;
+                    // 전체 금액을 성공한 사람 n빵 금액
+                    if (successPeopleCount != 0) {
+                        getCoin = c.getMaxParticipantCount() * c.getEntryFee() / successPeopleCount;
+                    }
+
+//                    if (successUsers != null) {
+//                        for(User user: successUsers){
+//                            sendKlay(user, getCoin, true);
+//                        }
+//                    }
 
                 } else if (c.getChallengeType() == 2) {
                     log.info("판넬뒤집기 챌린지가 종료되었어요!");
