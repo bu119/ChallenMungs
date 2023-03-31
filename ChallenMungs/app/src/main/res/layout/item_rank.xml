@@ -34,9 +34,9 @@
             android:text="@{@string/content_rank(rank.rank)}"
             android:textColor="@color/black"
             android:textSize="14sp"
-            app:layout_constraintBottom_toBottomOf="@+id/iv_profile"
-            app:layout_constraintStart_toEndOf="@+id/iv_crown"
-            app:layout_constraintTop_toTopOf="@+id/iv_profile" />
+            app:layout_constraintBottom_toBottomOf="@id/iv_profile"
+            app:layout_constraintStart_toEndOf="@id/iv_crown"
+            app:layout_constraintTop_toTopOf="@id/iv_profile" />
 
         <ImageView
             android:id="@+id/iv_profile"
@@ -47,7 +47,7 @@
             android:profileImgString="@{rank.profileImageUrl}"
             android:src="@drawable/ic_profile_default"
             app:layout_constraintBottom_toBottomOf="@id/tv_panel_count"
-            app:layout_constraintStart_toEndOf="@+id/tv_rank"
+            app:layout_constraintStart_toEndOf="@id/tv_rank"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
@@ -59,7 +59,7 @@
             android:textColor="@color/black"
             android:textSize="16sp"
             android:textStyle="bold"
-            app:layout_constraintStart_toEndOf="@+id/iv_profile"
+            app:layout_constraintStart_toEndOf="@id/iv_profile"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="이름" />
 
