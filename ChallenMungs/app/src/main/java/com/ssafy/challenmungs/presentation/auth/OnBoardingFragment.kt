@@ -26,12 +26,14 @@ class OnBoardingFragment : BaseFragment<FragmentOnBoardingBinding>(R.layout.frag
 
     private fun initListener() {
         binding.btnSave.setOnClickListener {
+            hideKeyboard()
             if (authViewModel.accessToken.value != null) {
-                authViewModel.requestJoin(binding.etNickname.text.toString())
+                authViewModel.requestJoin(binding.tilEtNickname.text.toString())
             }
         }
 
         binding.toolbar.ivBack.setOnClickListener {
+            hideKeyboard()
             popBackStack()
         }
     }
@@ -60,15 +62,12 @@ class OnBoardingFragment : BaseFragment<FragmentOnBoardingBinding>(R.layout.frag
                         walletViewModel.address.value!![1]
                     )
 
-                    if (result)
-                        moveToHomeActivity()
+                    if (result) {
+                        val intent = Intent(activity, HomeActivity::class.java)
+                        startActivity(intent)
+                        requireActivity().finish()
+                    }
                 }
         }
-    }
-
-    private fun moveToHomeActivity() {
-        val intent = Intent(activity, HomeActivity::class.java)
-        startActivity(intent)
-        requireActivity().finish()
     }
 }
