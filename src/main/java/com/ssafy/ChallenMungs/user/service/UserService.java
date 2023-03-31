@@ -69,5 +69,9 @@ public class UserService {
     public boolean charityLogin(String loginId, String password) {
         return userRepository.existsUserByLoginIdAndPassword(loginId, password);
     }
+
+    public User findByLoginId(String loginId) {
+        return userRepository.findUserByLoginId(loginId);
+    }
 }
 

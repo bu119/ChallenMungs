@@ -8,6 +8,7 @@ import com.ssafy.ChallenMungs.challenge.common.service.MyChallengeService;
 import com.ssafy.ChallenMungs.common.util.Distance;
 import com.ssafy.ChallenMungs.common.util.FileManager;
 import com.ssafy.ChallenMungs.user.entity.User;
+import com.ssafy.ChallenMungs.user.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
@@ -45,6 +46,9 @@ ChallengeController {
 
     @Autowired
     FileManager fileManager;
+
+    @Autowired
+    UserService userService;
 
     ObjectMapper mapper = new ObjectMapper();
 
@@ -181,11 +185,13 @@ ChallengeController {
 
     @PostMapping("/getChallengeInfo")
     ResponseEntity getChallengeInfo(@RequestParam("challengeId") long challengeId) {
+        log.info("들어온 값은 : " + challengeId);
         Challenge challenge = challengeService.findByChallengeId(challengeId);
         List<MyChallenge> myChallengeList = myChallengeService.findAllByChallengeId(challengeId);
         ArrayList<HashMap> newList = new ArrayList<>();
+        System.out.println("::::::" + myChallengeList.size());
         for (MyChallenge mc : myChallengeList) {
-            User u = myChallengeService.findByLoginId(mc.getLoginId());
+            User u = userService.findByLoginId(mc.getLoginId());
             HashMap<String, Object> newMap = new HashMap<>();
             newMap.put("profile", u.getProfile());
             newMap.put("name", u.getName());
