@@ -58,7 +58,7 @@ ChallengeController {
 
     @PostMapping("/tokenConfirm/getList")
     @ApiOperation(value = "챌린지 리스트를 불러오는 메서드에요")
-    ResponseEntity getList(HttpServletRequest request, @RequestParam("lat") double lat, @RequestParam("lng") double lng, @RequestParam("type") int type, @RequestParam("searchValue") String searchValue, @RequestParam("myChallenge") boolean myChallenge, @RequestParam("onlyTomorrow") boolean onlyTomorrow) { // type 1: 전체, 2: 일반, 3: 판넬 4: 보물
+    ResponseEntity getList(HttpServletRequest request, @RequestParam("lat") Double lat, @RequestParam("lng") Double lng, @RequestParam("type") int type, @RequestParam("searchValue") String searchValue, @RequestParam("myChallenge") boolean myChallenge, @RequestParam("onlyTomorrow") boolean onlyTomorrow) { // type 1: 전체, 2: 일반, 3: 판넬 4: 보물
         log.info("챌린지 리스트를 구할게요!");
         log.info("거리제한은 3km에요!");
         double distanceLimit = 3.0;
@@ -74,6 +74,7 @@ ChallengeController {
                 }
                 challenges = temp.stream().filter(c -> {
                     if (
+                            (lat != null && lng != null) &&
                             !((c.getChallengeType() == 2 || c.getChallengeType() == 3) &&
                                     distance.getDistance(lat, lng, c.getCenterLat(), c.getCenterLng()) > distanceLimit)
                     ) return true;
@@ -98,6 +99,7 @@ ChallengeController {
                 }
                 challenges = temp.stream().filter(c -> {
                     if (
+                            (lat != null && lng != null) &&
                             distance.getDistance(lat, lng, c.getCenterLat(), c.getCenterLng()) <= distanceLimit
                     ) return true;
                     return false;
@@ -112,6 +114,7 @@ ChallengeController {
                 }
                 challenges = temp.stream().filter(c -> {
                     if (
+                            (lat != null && lng != null) &&
                             distance.getDistance(lat, lng, c.getCenterLat(), c.getCenterLng()) <= distanceLimit
                     ) return true;
                     return false;
