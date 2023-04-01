@@ -82,7 +82,7 @@ public class WalletController {
     @ApiOperation(value = "계좌를 누적 기부총액을 반환합니다.")
     ResponseEntity<Object> getTotalDonate(HttpServletRequest request) throws JsonProcessingException {
         String loginId = request.getAttribute("loginId").toString();
-        return new ResponseEntity<Object>(service.getTotalDonate(loginId),HttpStatus.OK);
+        return new ResponseEntity<Object>(res.makeSimpleRes(service.getTotalDonate(loginId)),HttpStatus.OK);
     }
 
 }
