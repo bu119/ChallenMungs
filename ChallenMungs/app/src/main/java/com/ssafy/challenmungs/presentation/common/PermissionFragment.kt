@@ -11,7 +11,6 @@ import com.ssafy.challenmungs.databinding.FragmentPermissionBinding
 import com.ssafy.challenmungs.presentation.auth.AuthActivity
 import com.ssafy.challenmungs.presentation.auth.MemberViewModel
 import com.ssafy.challenmungs.presentation.base.BaseFragment
-import com.ssafy.challenmungs.presentation.home.HomeActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -38,9 +37,7 @@ class PermissionFragment : BaseFragment<FragmentPermissionBinding>(R.layout.frag
     private fun initListener() {
         binding.btnPermissionCheck.setOnClickListener {
             if (memberViewModel.memberInfo.value != null) {
-                val intent = Intent(requireContext(), HomeActivity::class.java)
-                startActivity(intent)
-                requireActivity().finish()
+                navigate(PermissionFragmentDirections.actionToMainFragment())
             } else {
                 val intent = Intent(requireContext(), AuthActivity::class.java)
                 startActivity(intent)

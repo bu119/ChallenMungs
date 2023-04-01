@@ -1,12 +1,10 @@
 package com.ssafy.challenmungs.presentation.auth
 
-import android.content.Intent
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import com.ssafy.challenmungs.R
 import com.ssafy.challenmungs.databinding.FragmentOnBoardingBinding
 import com.ssafy.challenmungs.presentation.base.BaseFragment
-import com.ssafy.challenmungs.presentation.home.HomeActivity
 import com.ssafy.challenmungs.presentation.klaytn.WalletViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -62,11 +60,8 @@ class OnBoardingFragment : BaseFragment<FragmentOnBoardingBinding>(R.layout.frag
                         walletViewModel.address.value!![1]
                     )
 
-                    if (result) {
-                        val intent = Intent(activity, HomeActivity::class.java)
-                        startActivity(intent)
-                        requireActivity().finish()
-                    }
+                    if (result)
+                        navigate(OnBoardingFragmentDirections.actionToMainFragment())
                 }
         }
     }

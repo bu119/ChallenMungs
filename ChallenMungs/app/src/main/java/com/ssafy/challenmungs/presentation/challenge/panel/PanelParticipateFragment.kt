@@ -1,4 +1,4 @@
-package com.ssafy.challenmungs.presentation.challenge
+package com.ssafy.challenmungs.presentation.challenge.panel
 
 import com.ssafy.challenmungs.R
 import com.ssafy.challenmungs.databinding.FragmentPanelParticipateBinding

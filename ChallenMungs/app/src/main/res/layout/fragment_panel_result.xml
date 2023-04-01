@@ -6,7 +6,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".presentation.challenge.PanelResultFragment">
+        tools:context=".presentation.challenge.panel.PanelResultFragment">
 
         <include
             android:id="@+id/toolbar"
@@ -101,7 +101,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tv_result_gain_comment"
-                    tools:context="com.ssafy.challenmungs.presentation.challenge.PanelResultFragment" />
+                    tools:context="com.ssafy.challenmungs.presentation.challenge.panel.PanelResultFragment" />
 
                 <TextView
                     android:id="@+id/tv_final_rank"
