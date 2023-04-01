@@ -14,12 +14,26 @@
         <action
             android:id="@+id/action_to_on_boarding_fragment"
             app:destination="@id/on_boarding_fragment" />
+
+        <action
+            android:id="@+id/action_to_main_fragment"
+            app:destination="@id/main_fragment" />
     </fragment>
 
     <fragment
         android:id="@+id/on_boarding_fragment"
         android:name="com.ssafy.challenmungs.presentation.auth.OnBoardingFragment"
         android:label="OnBoardingFragment"
-        tools:layout="@layout/fragment_on_boarding" />
+        tools:layout="@layout/fragment_on_boarding">
 
+        <action
+            android:id="@+id/action_to_main_fragment"
+            app:destination="@id/main_fragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/main_fragment"
+        android:name="com.ssafy.challenmungs.presentation.common.MainFragment"
+        android:label="Main Fragment"
+        tools:layout="@layout/fragment_main" />
 </navigation>

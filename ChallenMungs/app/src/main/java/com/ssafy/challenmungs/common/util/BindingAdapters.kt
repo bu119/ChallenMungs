@@ -8,8 +8,8 @@ import com.bumptech.glide.Glide
 import com.ssafy.challenmungs.R
 import com.ssafy.challenmungs.domain.entity.challenge.Participant
 import com.ssafy.challenmungs.domain.entity.challenge.RankDetail
-import com.ssafy.challenmungs.presentation.challenge.ParticipantsListAdapter
-import com.ssafy.challenmungs.presentation.challenge.RankListAdapter
+import com.ssafy.challenmungs.presentation.challenge.panel.ParticipantsListAdapter
+import com.ssafy.challenmungs.presentation.challenge.panel.RankListAdapter
 
 object BindingAdapters {
 

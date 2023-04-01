@@ -1,7 +1,6 @@
 package com.ssafy.challenmungs.presentation.auth
 
 import android.content.Context
-import android.content.Intent
 import android.util.Log
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.activityViewModels
@@ -15,7 +14,6 @@ import com.ssafy.challenmungs.R
 import com.ssafy.challenmungs.common.util.backDoublePressedFragmentCallback
 import com.ssafy.challenmungs.databinding.FragmentLogInBinding
 import com.ssafy.challenmungs.presentation.base.BaseFragment
-import com.ssafy.challenmungs.presentation.home.HomeActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
@@ -103,11 +101,8 @@ class LogInFragment : BaseFragment<FragmentLogInBinding>(R.layout.fragment_log_i
 
     private fun observeMemberInfo() {
         memberViewModel.memberInfo.observe(viewLifecycleOwner) {
-            if (it != null) {
-                val intent = Intent(requireActivity(), HomeActivity::class.java)
-                startActivity(intent)
-                requireActivity().finish()
-            }
+            if (it != null)
+                navigate(LogInFragmentDirections.actionToMainFragment())
         }
     }
 }

@@ -12,7 +12,6 @@ import com.ssafy.challenmungs.databinding.FragmentSplashBinding
 import com.ssafy.challenmungs.presentation.auth.AuthActivity
 import com.ssafy.challenmungs.presentation.auth.MemberViewModel
 import com.ssafy.challenmungs.presentation.base.BaseFragment
-import com.ssafy.challenmungs.presentation.home.HomeActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -37,9 +36,7 @@ class SplashFragment : BaseFragment<FragmentSplashBinding>(R.layout.fragment_spl
             if (ApplicationClass.preferences.isFirstRun) {
                 navigate(SplashFragmentDirections.actionToPermissionFragment())
             } else if (result) {
-                val intent = Intent(requireContext(), HomeActivity::class.java)
-                startActivity(intent)
-                requireActivity().finish()
+                navigate(SplashFragmentDirections.actionToMainFragment())
             } else {
                 val intent = Intent(requireContext(), AuthActivity::class.java)
                 startActivity(intent)
