@@ -180,4 +180,14 @@
     <string name="content_current_rank">현재 순위</string>
     <string name="content_total_fee">모인 참가비</string>
     <string name="content_my_fee">나의 참가비</string>
+
+    <!-- Challenge - Home -->
+    <string-array name="challenge_category">
+        <item>전체</item>
+        <item>일반</item>
+        <item>판넬 뒤집기</item>
+        <item>보물찾기</item>
+    </string-array>
+    <string name="content_challenge_help">챌린지 설명을 볼 수 있는 버튼입니다.</string>
+    <string name="content_search_hint">검색할 챌린지 이름을 입력하세요.</string>
 </resources>

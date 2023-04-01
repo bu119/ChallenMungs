@@ -14,11 +14,26 @@
         <action
             android:id="@+id/action_to_permission_fragment"
             app:destination="@id/permission_fragment" />
+
+        <action
+            android:id="@+id/action_to_main_fragment"
+            app:destination="@id/main_fragment" />
     </fragment>
 
     <fragment
         android:id="@+id/permission_fragment"
         android:name="com.ssafy.challenmungs.presentation.common.PermissionFragment"
         android:label="Permission Fragment"
-        tools:layout="@layout/fragment_permission" />
+        tools:layout="@layout/fragment_permission">
+
+        <action
+            android:id="@+id/action_to_main_fragment"
+            app:destination="@id/main_fragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/main_fragment"
+        android:name="com.ssafy.challenmungs.presentation.common.MainFragment"
+        android:label="Main Fragment"
+        tools:layout="@layout/fragment_main" />
 </navigation>

@@ -1,4 +1,4 @@
-package com.ssafy.challenmungs.presentation.challenge
+package com.ssafy.challenmungs.presentation.challenge.panel
 
 import android.annotation.SuppressLint
 import android.graphics.Bitmap

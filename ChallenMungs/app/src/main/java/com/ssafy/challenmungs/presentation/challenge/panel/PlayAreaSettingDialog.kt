@@ -1,6 +1,5 @@
-package com.ssafy.challenmungs.presentation.challenge
+package com.ssafy.challenmungs.presentation.challenge.panel
 
-import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.VectorDrawable
@@ -22,10 +21,8 @@ import com.ssafy.challenmungs.common.util.MapHelper
 import com.ssafy.challenmungs.common.util.MapHelper.defaultPosition
 import com.ssafy.challenmungs.databinding.DialogPlayAreaSettingBinding
 
-class PlayAreaSettingDialog(
-    context: Context,
-    private val playAreaSettingInterface: PlayAreaSettingInterface
-) : DialogFragment(), OnMapReadyCallback {
+class PlayAreaSettingDialog(private val playAreaSettingInterface: PlayAreaSettingInterface) :
+    DialogFragment(), OnMapReadyCallback {
 
     private lateinit var binding: DialogPlayAreaSettingBinding
     private var myMarker: Marker? = null
