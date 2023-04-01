@@ -18,8 +18,8 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.*
 import com.ssafy.challenmungs.R
 import com.ssafy.challenmungs.common.util.DialogSizeHelper.dialogFragmentResize
-import com.ssafy.challenmungs.common.util.Map
-import com.ssafy.challenmungs.common.util.Map.defaultPosition
+import com.ssafy.challenmungs.common.util.MapHelper
+import com.ssafy.challenmungs.common.util.MapHelper.defaultPosition
 import com.ssafy.challenmungs.databinding.DialogPlayAreaSettingBinding
 
 class PlayAreaSettingDialog(
@@ -110,7 +110,7 @@ class PlayAreaSettingDialog(
     private fun setRect(googleMap: GoogleMap, fillColorArgb: Int, center: LatLng) {
         rect?.remove()
         val rectOptions = PolygonOptions().apply {
-            addAll(Map.createRectangle(center, DISTANCE))
+            addAll(MapHelper.createRectangle(center, DISTANCE))
             fillColor(ContextCompat.getColor(requireContext(), fillColorArgb))
             strokeWidth(0f)
         }
