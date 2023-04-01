@@ -13,6 +13,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Calendar;
@@ -28,10 +29,11 @@ public class WalletController {
     private Logger log = LoggerFactory.getLogger(WalletController.class);
 
     //후원처 계좌 생성
-    @PostMapping("/special")
-    @ApiOperation(value = "후원처 유저의 계좌를 db에 넣어요" ,notes="캠페인슬롯주소1, 캠페인슬롯주소2, 유저아이디(꼭 db에 있는걸로!)가 필요합니다.")
-    ResponseEntity<Object> specialUser(@RequestParam String campaign1, @RequestParam String campaign2,@RequestParam String loginId) {
+    @PostMapping("tokenConfirm/special")
+    @ApiOperation(value = "후원처 유저의 계좌를 db에 넣어요" ,notes="캠페인슬롯주소1, 캠페인슬롯주소2")
+    ResponseEntity<Object> specialUser(HttpServletRequest request, @RequestParam String campaign1, @RequestParam String campaign2) {
         try{
+            String loginId = request.getAttribute("loginId").toString();
             service.insertSpecialWallet(campaign1,campaign2,loginId);
             return new ResponseEntity<Object>(res.makeSimpleRes("성공"),HttpStatus.OK);
 
@@ -41,10 +43,11 @@ public class WalletController {
     }
 
     //일반 유저 계좌 생성
-    @PostMapping("/normal")
-    @ApiOperation(value = "일반 유저의 계좌를 db에 넣어요." ,notes="저금통 주소, 지갑주소, 유저아이디(꼭 db에 있는걸로!)가 필요합니다. 순서 지켜서 넣어주세요.")
-    ResponseEntity<Object> nomalUser(@RequestParam String piggybank, @RequestParam String wallet,@RequestParam String loginId) {
+    @PostMapping("tokenConfirm/normal")
+    @ApiOperation(value = "일반 유저의 계좌를 db에 넣어요." ,notes="저금통 주소, 지갑주소")
+    ResponseEntity<Object> nomalUser(HttpServletRequest request, @RequestParam String piggybank, @RequestParam String wallet) {
         try{
+            String loginId = request.getAttribute("loginId").toString();
             service.insertNomalWallet(piggybank,wallet,loginId);
             return new ResponseEntity<Object>(res.makeSimpleRes("성공"),HttpStatus.OK);
         }catch(Exception e){
@@ -52,31 +55,34 @@ public class WalletController {
         }
     }
 
-    @GetMapping("/balance")
-    @ApiOperation(value = "계좌를 입력하면 잔액을 알려줍니다. 없는 계좌면 0, 잘못된 계좌면 에러를 반환합니다." ,notes="백엔드에서 캠페인 송금 가능여부 편하게 개발하려고 만들었어요. 혹시 필요하면 사용하세요. \n" +
-            "테스트용 지원이 계좌: 0xa82866b793c35b4742c5f637be56bbdba6662e41")
-    ResponseEntity<Object> getBalance(@RequestParam String address) {
-        String balance= service.getBalance(address);
+    @GetMapping("tokenConfirm/balance")
+    @ApiOperation(value = "계좌를 입력하면 잔액을 알려줍니다. 없는 계좌면 0, 잘못된 계좌면 에러를 반환합니다." ,notes="type: w(고객 지갑 잔액 조회), p(고객 저금통 잔액 조회)" )
+    ResponseEntity<Object> getBalance(HttpServletRequest request, @RequestParam char type) {
+        String loginId = request.getAttribute("loginId").toString();
+        String balance= service.getBalance(loginId, type);
         if(balance.equals("error")) return new ResponseEntity<Object>(res.makeSimpleRes("계좌 번호 형식 확인!!"),HttpStatus.BAD_REQUEST);
-        return new ResponseEntity<Object>(res.makeSimpleRes(service.getBalance(address)),HttpStatus.OK);
+        return new ResponseEntity<Object>(res.makeSimpleRes(service.getBalance(loginId, type)),HttpStatus.OK);
     }
     private Logger logger = LoggerFactory.getLogger(CampaignContentController.class);
-    @GetMapping("/myWalletHistory")
-    @ApiOperation(value = "계좌를 입력하면 내 지갑의 사용내역을 조회합니다." ,notes="테스트용 계좌: 0x8fF38b2DCD450747f7dF9B709Fb764d48E4AE77A \n일반챌린지 계좌 : 0x50Aa5B30442cd67659bF1CA81E7cD4e351898cfd \n특별챌린지 계좌 : 0x6aC40a06633BcF319F0ebd124F189D29d9A390bF")
-    ResponseEntity<Object> viewMyWallet(@RequestParam String address) throws JsonProcessingException {
-        return new ResponseEntity<Object>(service.viewMyWallet(address),HttpStatus.OK);
+    @GetMapping("tokenConfirm/myWalletHistory")
+    @ApiOperation(value = "계좌를 입력하면 내 지갑의 사용내역을 조회합니다." )
+    ResponseEntity<Object> viewMyWallet(HttpServletRequest request) throws JsonProcessingException {
+        String loginId = request.getAttribute("loginId").toString();
+        return new ResponseEntity<Object>(service.viewMyWallet(loginId),HttpStatus.OK);
     }
 
-    @GetMapping("/myPiggyBankHistory")
-    @ApiOperation(value = "계좌를 입력하면 내 저금통의 사용내역을 조회합니다." ,notes="테스트용 계좌: 0x11DF180C2B89fEd295780D5D89cc5f9d596A4027 \n일반챌린지 계좌 : 0x50Aa5B30442cd67659bF1CA81E7cD4e351898cfd \n특별챌린지 계좌 : 0x6aC40a06633BcF319F0ebd124F189D29d9A390bF")
-    ResponseEntity<Object> viewMyPiggyBank(@RequestParam String address) throws JsonProcessingException {
-        return new ResponseEntity<Object>(service.viewMyPiggyBank(address),HttpStatus.OK);
+    @GetMapping("tokenConfirm/myPiggyBankHistory")
+    @ApiOperation(value = "계좌를 입력하면 내 저금통의 사용내역을 조회합니다." )
+    ResponseEntity<Object> viewMyPiggyBank(HttpServletRequest request) throws JsonProcessingException {
+        String loginId = request.getAttribute("loginId").toString();
+        return new ResponseEntity<Object>(service.viewMyPiggyBank(loginId),HttpStatus.OK);
     }
 
-    @GetMapping("/totalDonate")
-    @ApiOperation(value = "계좌를 누적 기부총액을 반환합니다." ,notes="")
-    ResponseEntity<Object> getTotalDonate(@RequestParam String address) throws JsonProcessingException {
-        return new ResponseEntity<Object>(service.getTotalDonate(address),HttpStatus.OK);
+    @GetMapping("tokenConfirm/totalDonate")
+    @ApiOperation(value = "계좌를 누적 기부총액을 반환합니다.")
+    ResponseEntity<Object> getTotalDonate(HttpServletRequest request) throws JsonProcessingException {
+        String loginId = request.getAttribute("loginId").toString();
+        return new ResponseEntity<Object>(res.makeSimpleRes(service.getTotalDonate(loginId)),HttpStatus.OK);
     }
 
 }
