@@ -9,6 +9,8 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.navigation.NavController
+import androidx.navigation.fragment.NavHostFragment
 import com.ssafy.challenmungs.R
 import com.ssafy.challenmungs.common.util.px
 import com.ssafy.challenmungs.common.util.setImmersiveMode
@@ -20,14 +22,23 @@ class HomeActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityHomeBinding
     private lateinit var toast: Toast
+    private lateinit var navController: NavController
     var backPressedTime: Long = 0
     private val menus = arrayOf("challenge", "donate", "home", "map", "my_page")
+    private val menusNavigation = arrayOf(R.id.challenge_fragment, 0, 0, 0, 0)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setImmersiveMode()
+
+        val navHostFragment =
+            supportFragmentManager.findFragmentById(R.id.nav_home) as NavHostFragment
+        navController = navHostFragment.navController
+        val navGraph = navController.navInflater.inflate(R.navigation.navigation_home)
+        navController.graph = navGraph
+
         initView()
     }
 
@@ -43,13 +54,13 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private fun initView() {
-        for (menu in menus) {
-            setMenu(menu)
+        menus.forEachIndexed { tabIndex, tabName ->
+            setMenu(tabName, tabIndex)
         }
     }
 
     @SuppressLint("DiscouragedApi")
-    private fun setMenu(tabName: String) {
+    private fun setMenu(tabName: String, tabIndex: Int) {
         val tabId = resources.getIdentifier("tab_$tabName", "id", packageName)
         val imageId = resources.getIdentifier("ic_$tabName", "drawable", packageName)
         val stringId: Int = resources.getIdentifier("title_tab_$tabName", "string", packageName)
@@ -62,6 +73,7 @@ class HomeActivity : AppCompatActivity() {
 
         tab.setOnClickListener {
             selected(tabName)
+            navController.navigate(menusNavigation[tabIndex])
         }
     }
 
