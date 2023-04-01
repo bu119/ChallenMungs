@@ -18,6 +18,7 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 @RestController
 @RequestMapping("/wallet")
@@ -34,7 +35,7 @@ public class WalletController {
     ResponseEntity<Object> specialUser(HttpServletRequest request, @RequestParam String campaign1, @RequestParam String campaign2) {
         try{
             String loginId = request.getAttribute("loginId").toString();
-            service.insertSpecialWallet(campaign1,campaign2,loginId);
+            service.insertSpecialWallet(campaign1.toLowerCase(),campaign2.toLowerCase(),loginId);
             return new ResponseEntity<Object>(res.makeSimpleRes("성공"),HttpStatus.OK);
 
         }catch(Exception e){
@@ -48,7 +49,7 @@ public class WalletController {
     ResponseEntity<Object> nomalUser(HttpServletRequest request, @RequestParam String piggybank, @RequestParam String wallet) {
         try{
             String loginId = request.getAttribute("loginId").toString();
-            service.insertNomalWallet(piggybank,wallet,loginId);
+            service.insertNomalWallet(piggybank.toLowerCase(),wallet.toLowerCase(),loginId);
             return new ResponseEntity<Object>(res.makeSimpleRes("성공"),HttpStatus.OK);
         }catch(Exception e){
             return new ResponseEntity<Object>(res.makeSimpleRes("실패 "+e.getMessage()),HttpStatus.INTERNAL_SERVER_ERROR);
@@ -83,6 +84,12 @@ public class WalletController {
     ResponseEntity<Object> getTotalDonate(HttpServletRequest request) throws JsonProcessingException {
         String loginId = request.getAttribute("loginId").toString();
         return new ResponseEntity<Object>(res.makeSimpleRes(service.getTotalDonate(loginId)),HttpStatus.OK);
+    }
+
+    @GetMapping("viewCampaignWallet")
+    @ApiOperation(value = "캠페인 모금액 출,입금 기록을 반환합니다.")
+    ResponseEntity<Object> viewCampaignWallet(int campaignId) throws JsonProcessingException {
+        return new ResponseEntity<Object>(service.viewCampaignWallet(campaignId),HttpStatus.OK);
     }
 
 }

@@ -9,4 +9,6 @@ import java.util.List;
 public interface CampaignContentRepository extends JpaRepository<Content, Long> {
 
     List <Content>findAllByCampaign(Campaign campaign);
+//    Campaign findByCampaignId(int campaignId);
+
 }
