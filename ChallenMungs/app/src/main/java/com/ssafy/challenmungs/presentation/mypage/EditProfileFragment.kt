@@ -19,8 +19,7 @@ class EditProfileFragment :
     }
 
     private fun setData() {
-        val toolbar = binding.toolbar
-        toolbar.tvTitle.text = getString(R.string.title_edit_profile)
+        binding.toolbar.title = getString(R.string.title_edit_profile)
 
         editProfileViewModel.profileImgUrl.observe(viewLifecycleOwner) {
             binding.ivProfile.setProfileImg(it)

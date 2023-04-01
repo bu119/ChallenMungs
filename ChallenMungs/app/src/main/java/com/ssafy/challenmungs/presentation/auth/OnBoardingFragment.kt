@@ -19,7 +19,7 @@ class OnBoardingFragment : BaseFragment<FragmentOnBoardingBinding>(R.layout.frag
     private val walletViewModel by activityViewModels<WalletViewModel>()
 
     override fun initView() {
-        binding.toolbar.tvTitle.text = getString(R.string.title_member_onboarding)
+        binding.toolbar.title = getString(R.string.title_member_onboarding)
         initListener()
         observe()
     }

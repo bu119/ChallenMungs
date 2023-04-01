@@ -12,10 +12,9 @@ class PiggyBankFragment : BaseFragment<FragmentMyWalletBinding>(R.layout.fragmen
     override fun initView() {
         binding.apply {
             tvAddressCopy.visibility = View.GONE
-            toolbar.tvTitle.text = getString(R.string.title_donate_bank)
+            toolbar.title = getString(R.string.title_donate_bank)
             tvCurrentBalanceTitle.text = getString(R.string.content_donation_possible_amount)
             btnParticipation.text = getString(R.string.content_donate)
         }
     }
-
 }

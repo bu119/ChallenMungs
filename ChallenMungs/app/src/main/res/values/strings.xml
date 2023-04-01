@@ -151,6 +151,35 @@
     <string name="content_withdrawal_comment">이별인가요? 너무 아쉬워요..</string>
     <string name="content_create_challenge_comment">챌린지 생성 후 수정이 불가능합니다.\n생성하시겠습까?</string>
 
+    <!--  Panel Participate  -->
+    <string name="image_category">image_category_icon</string>
+    <string name="content_category">종목</string>
+    <string name="content_panel_game">판넬 뒤집기</string>
+    <string name="image_period">image_period_icon</string>
+    <string name="image_participation_money">image_participation_money_icon</string>
+    <string name="image_tag">image_tag_icon</string>
+    <string name="image_play_area">image_play_area_icon</string>
+    <string name="content_play_area">경기구역</string>
+    <string name="content_current_participants">현재 참가 인원 (%d/%d)</string>
+    <string name="image_participants">image_participants_icon</string>
+    <string name="image_calendar_icon">image_calendar_icon</string>
+    <string name="content_participate">참가하기</string>
+
+    <!-- Panel Result -->
+    <string name="title_get_result">보상획득</string>
+    <string name="content_result_gain_comment">획득한 코인은 기부 저금통에 적립됩니다!</string>
+    <string name="title_final_rank">최종순위</string>
+    <string name="content_panel_count">뒤집은 판넬 수 : %d개</string>
+    <string name="content_rank">%d위</string>
+    <string name="image_crown">image_crown_icon</string>
+    <string name="content_result_gain_addition">(+%d)</string>
+
+    <!--  Panel Info  -->
+    <string name="image_current_rank">image_current_rank_icon</string>
+    <string name="content_current_rank">현재 순위</string>
+    <string name="content_total_fee">모인 참가비</string>
+    <string name="content_my_fee">나의 참가비</string>
+
     <!-- Challenge - Home -->
     <string-array name="challenge_category">
         <item>전체</item>
