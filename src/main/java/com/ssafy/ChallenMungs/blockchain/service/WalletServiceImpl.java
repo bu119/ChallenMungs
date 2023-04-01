@@ -293,7 +293,6 @@ public class WalletServiceImpl implements  WalletService{
 
 
         ResponseEntity<String> response = restTemplate.exchange(builder.toUriString(), HttpMethod.GET, requestEntity, String.class);
-        System.out.println(requestBody);
         ObjectMapper objectMapper = new ObjectMapper();
         JsonNode rootNode = objectMapper.readTree(response.getBody());
         JsonNode itemsNode = rootNode.get("items");
