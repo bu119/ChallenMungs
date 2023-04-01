@@ -15,9 +15,9 @@ public interface WalletService {
     // 후원처 출금주소 받기
     void insertSpecialWithdrawalWallet(String walletAddress, String loginId) throws Exception;
 
-    String getBalance(String address);
+    String getBalance(String address, char type);
 //    JsonNode getHistory(String address) throws JsonProcessingException;
     Map<String, List<WalletItemDto>> viewMyWallet(String address) throws JsonProcessingException;
-    Map<String, List<WalletItemDto>> viewMyPiggyBank(String address) throws JsonProcessingException;
-    String getTotalDonate(String address) throws JsonProcessingException;
+    Map<String, List<WalletItemDto>> viewMyPiggyBank(String loginId) throws JsonProcessingException;
+    String getTotalDonate(String loginId) throws JsonProcessingException;
 }
