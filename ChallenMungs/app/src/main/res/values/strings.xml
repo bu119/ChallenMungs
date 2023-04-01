@@ -138,6 +138,7 @@
     <string name="content_not_set">미설정</string>
     <string name="title_play_area_setting">경기구역 설정</string>
     <string name="image_reset">image_reset_button_icon</string>
+    <string name="location_permission_warning_message">챌린지에 참여하려면 위치 권한이 필요합니다. 권한을 허용해 주세요.</string>
 
     <!-- My Challenge -->
     <string name="title_ongoing">진행</string>
