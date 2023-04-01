@@ -73,7 +73,9 @@ public class WalletServiceImpl implements  WalletService{
     }
 
     @Override
-    public String getBalance(String address) {
+    public String getBalance(String loginId, char type) {
+        User user = userRepo.findUserByLoginId(loginId);
+        String address = walletRepo.findByUserAndType(user, type).getAddress();
         String nodeUrl = "https://api.baobab.klaytn.net:8651";
         // Web3j 인스턴스 생성
         Web3j web3j = Web3j.build(new HttpService(nodeUrl));
@@ -116,15 +118,18 @@ public class WalletServiceImpl implements  WalletService{
         return itemsNode;
     }
     private Logger log = LoggerFactory.getLogger(WalletController.class);
-    String normalChallenge = "0x50Aa5B30442cd67659bF1CA81E7cD4e351898cfd";
-    String specialChallenge = "0x6aC40a06633BcF319F0ebd124F189D29d9A390bF";
+    String normalChallenge = "0x2649eadC4C15bac554940A0A702fa759bddf0dBe";
+    String specialChallenge = "0xee43BB5476e52B04175d698C56cC4516b96A85A5";
 
     // 사용내역의 모든 주소들은 lowercase로 온다.
     String lowerN = normalChallenge.toLowerCase();
     String lowerS = specialChallenge.toLowerCase();
     // for문 돌면서 item 만들기
     @Override
-    public Map<String, List<WalletItemDto>> viewMyWallet(String address) throws JsonProcessingException {
+    public Map<String, List<WalletItemDto>> viewMyWallet(String loginId) throws JsonProcessingException {
+        User user = userRepo.findUserByLoginId(loginId);
+        String address = walletRepo.findByUserAndType(user, 'w').getAddress();
+
         JsonNode items = getHistory(address);
 
         Map<String, List<WalletItemDto>> result = new HashMap<>();
@@ -177,7 +182,9 @@ public class WalletServiceImpl implements  WalletService{
     }
 
     @Override
-    public Map<String, List<WalletItemDto>> viewMyPiggyBank(String address) throws JsonProcessingException {
+    public Map<String, List<WalletItemDto>> viewMyPiggyBank(String loginId) throws JsonProcessingException {
+        User user = userRepo.findUserByLoginId(loginId);
+        String address = walletRepo.findByUserAndType(user, 'p').getAddress();
         JsonNode items = getHistory(address);
 
         Map<String, List<WalletItemDto>> result = new HashMap<>();
@@ -200,7 +207,8 @@ public class WalletServiceImpl implements  WalletService{
             // 충전
             else {
                 Wallet shelter = walletRepo.findByAddress(to);
-                System.out.println("왔어요");
+                System.out.println("왔어요!!!" + shelter);
+                System.out.println("!!!!!" + shelter.getUser() + "::::" + shelter.getUser().getName());
                 title = shelter.getUser().getName() + "에 기부";
             }
 
@@ -233,7 +241,9 @@ public class WalletServiceImpl implements  WalletService{
     }
 
     @Override
-    public String getTotalDonate(String address) throws JsonProcessingException {
+    public String getTotalDonate(String loginId) throws JsonProcessingException {
+        User user = userRepo.findUserByLoginId(loginId);
+        String address = walletRepo.findByUserAndType(user, 'p').getAddress();
         JsonNode items = getHistory(address);
         String lowerA = address.toLowerCase();
         BigDecimal totalAmount = new BigDecimal("0");
