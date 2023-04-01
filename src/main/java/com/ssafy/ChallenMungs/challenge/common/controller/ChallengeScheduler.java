@@ -63,8 +63,8 @@ public class ChallengeScheduler {
     @Autowired
     WalletRepository walletRepo;
 
-    @Scheduled(cron = "0 0 0 * * ?") // 매일 자정에 동작해요
-//    @Scheduled(cron = "0/5 * * * * ?") // 20초마다 실행해요
+//    @Scheduled(cron = "0 0 0 * * ?") // 매일 자정에 동작해요
+    @Scheduled(cron = "0/5 * * * * ?") // 20초마다 실행해요
     public void startChallenge() {
         System.out.println("스케쥴러가 동작해요!");
 //        generalBoardService.updateSuccessCount("sa01023@naver.com", 9L);
@@ -119,7 +119,7 @@ public class ChallengeScheduler {
                     ArrayList<TreasureVo> treasures = new ArrayList<>();
                     int cc = (int) (c.getMap_size() / c.getCellSize());
                     cc *= cc;
-                    int boomRatio = 5; // 만약 전체 보물의 1/5만큼은 폭탄으로 하고 싶다면 5로 해요 // 소켓이닛도 수정
+                    int boomRatio = 5; // 만약 전체 보물의 1/5만큼은 폭탄으로 하고 싶다면 5로  해요 // 소켓이닛도 수정
                     int idx = 0;
                     for (int i = 0; i < (int) (cc / boomRatio * (boomRatio - 1)); i++) {
                         double randomLat = Math.random() * (c.getMaxLat() - c.getMinLat()) + c.getMinLat();
@@ -139,8 +139,8 @@ public class ChallengeScheduler {
                 challengeService.save(c);
             }
             // 예를 들어 2일에 끝나는 겜이면 3일 자정에 끝나야됨
-//            if (c.getStatus() == 1 && c.getEndDate().plusDays(1).equals(today)) {
-            if (c.getStatus() == 1) {
+            if (c.getStatus() == 1 && c.getEndDate().plusDays(1).equals(today)) {
+//            if (c.getStatus() == 1) {
                 int totalKlay = c.getEntryFee() * c.getCurrentParticipantCount();
                 c.setStatus(2);
                 flag = true;
@@ -265,8 +265,11 @@ public class ChallengeScheduler {
                     myklay[0] = totalKlay - klaySum;
                     int idx = 1;
                     ArrayList<HashMap> newRankInfoList = new ArrayList<>();
+                    System.out.println(treasureSocketHandler.challengeManager.get(c.getChallengeId()) + " " + treasureSocketHandler.challengeManager.get(c.getChallengeId()).rankInfo);
                     for (com.ssafy.ChallenMungs.challenge.treasure.handler.RankVo rv : treasureSocketHandler.challengeManager.get(c.getChallengeId()).rankInfo) {
                         User u = userService.findUserByLoginId(rv.getLoginId());
+                        System.out.println(rv.getLoginId());
+                        System.out.println(u.getLoginId() + " " + c.getChallengeId());
                         MyChallenge mc = myChallengeService.findByLoginIdAndChallengeId(u.getLoginId(), c.getChallengeId());
                         mc.setSuccessCount(rv.getTeamRank());
                         HashMap<String, Object> newRankInfoMap = new HashMap<>();
@@ -281,8 +284,6 @@ public class ChallengeScheduler {
                         idx++;
                     }
                     try {
-                        sb.append("{\nmapInfo:");
-                        sb.append(mapper.writeValueAsString(panelSocketHandler.challengeManager.get(c.getChallengeId()).getMapInfo()));
                         sb.append(",\nrankInfo:");
                         sb.append(mapper.writeValueAsString(newRankInfoList));
                         sb.append(",\ncenterLat:");
@@ -293,6 +294,8 @@ public class ChallengeScheduler {
                     } catch (JsonProcessingException e) {
                         throw new RuntimeException(e);
                     }
+                    fileManager.saveResult(Long.toString(c.getChallengeId()), sb.toString());
+                    panelSocketHandler.challengeManager.remove(c.getChallengeId());
                 }
             }
             if (flag) {
