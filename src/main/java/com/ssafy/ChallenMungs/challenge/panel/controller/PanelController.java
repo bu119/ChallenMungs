@@ -103,6 +103,7 @@ public class PanelController {
     }
     @PostMapping("/tokenConfirm/getInfo")
     ResponseEntity makePanelChallenge(Long challengeId) {
+        System.out.println("파넬이 관리하고 있어요!:" + panelSocketHandler.challengeManager + " " + challengeId);
         if (panelSocketHandler.challengeManager.get(challengeId) == null) {
             log.info("소켓이 관리하고 있지 않아서 정보를 가져오는데 실패 했어요ㅜㅜ");
             return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).build();
@@ -110,6 +111,7 @@ public class PanelController {
         log.info("게임 중 정보를 불러와요");
         Challenge challenge = challengeService.findByChallengeId(challengeId);
         HashMap<String, Object> mapDto = new HashMap<String, Object>();
+        mapDto.put("title", challenge.getTitle());
         mapDto.put("startDate", challenge.getStartDate().toString());
         mapDto.put("mapInfo", panelSocketHandler.challengeManager.get(challenge.getChallengeId()).getMapInfo());
         mapDto.put("endDate", challenge.getEndDate().toString());

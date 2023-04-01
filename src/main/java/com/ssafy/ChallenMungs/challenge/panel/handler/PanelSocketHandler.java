@@ -61,6 +61,7 @@ public class PanelSocketHandler extends TextWebSocketHandler {
             }
             challengeManager.put(c.getChallengeId(), ChallengeVo.builder().players(new ArrayList<PlayerVo>()).mapInfo(new int[c.getCellD()][c.getCellD()]).rankInfo(rankInfo).build());
         }
+        System.out.println("관리하고 있는 아이디:" + challengeManager.keySet());
     }
 
     //있어야 되는거
