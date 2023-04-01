@@ -181,4 +181,13 @@
     <string name="content_my_fee">나의 참가비</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!-- fragment home -->
+    <string name="pharse_catch_pharse">재미있게 기부하자!</string>
+    <string name="pharse_user_total_donation">전체 이용자 기부총액</string>
+    <string name="pharse_ongoing_my_challenge">진행 중인 내 챌린지</string>
+    <string name="pharse_show_all_my_challenge">+전체보기</string>
+    <string name="pharse_only_tomorrow_my_challenge">내일 시작하는 챌린지</string>
+    <string name="pharse_show_more">+더보기</string>
+    <string name="pharse_recently_added_campaign">최근 추가된 모금</string>
 </resources>
