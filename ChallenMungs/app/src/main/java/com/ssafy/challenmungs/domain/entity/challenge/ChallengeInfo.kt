@@ -16,5 +16,6 @@ data class RankDetail(
     val name: String,
     val count: Int,
     val rank: Int,
+    val teamId: Int,
     val crown: Int?
 )
