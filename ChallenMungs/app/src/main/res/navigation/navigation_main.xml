@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation_main"
-    app:startDestination="@id/splash_fragment">
+    app:startDestination="@id/homeFragment">
 
     <fragment
         android:id="@+id/splash_fragment"
@@ -21,4 +21,9 @@
         android:name="com.ssafy.challenmungs.presentation.common.PermissionFragment"
         android:label="Permission Fragment"
         tools:layout="@layout/fragment_permission" />
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.ssafy.challenmungs.presentation.home.HomeFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home" />
 </navigation>
