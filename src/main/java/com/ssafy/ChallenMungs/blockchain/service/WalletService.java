@@ -13,7 +13,8 @@ public interface WalletService {
     void insertNomalWallet(String piggyBank,String wallet,String loginId) throws Exception;
     void insertSpecialWallet(String campaign1, String campaign2,String loginId) throws Exception;
     // 후원처 출금주소 받기
-    void insertSpecialWithdrawalWallet(String walletAddress, String loginId) throws Exception;
+//    void insertSpecialWithdrawalWallet(String walletAddress, String loginId) throws Exception;
+    void saveOrUpdateWallet(String loginId, String walletAddress) throws Exception;
 
     String getBalance(String address, char type);
 //    JsonNode getHistory(String address) throws JsonProcessingException;
