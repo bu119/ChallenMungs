@@ -65,8 +65,8 @@ public class ChallengeScheduler {
     @Autowired
     WalletRepository walletRepo;
 
-//    @Scheduled(cron = "0 0 0 * * ?") // 매일 자정에 동작해요
-    @Scheduled(cron = "0/5 * * * * ?") // 20초마다 실행해요
+    @Scheduled(cron = "0 0 0 * * ?") // 매일 자정에 동작해요
+//    @Scheduled(cron = "0/5 * * * * ?") // 20초마다 실행해요
     public void startChallenge() {
         System.out.println("스케쥴러가 동작해요!");
 //        generalBoardService.updateSuccessCount("sa01023@naver.com", 9L);

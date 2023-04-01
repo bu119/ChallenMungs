@@ -97,6 +97,7 @@ public class PanelController {
                 .currentParticipantCount(0)
                 .status(0)
                 .build());
+        System.out.println("gogogo");
 
         return ResponseEntity.status(HttpStatus.OK).build();
     }
@@ -110,6 +111,7 @@ public class PanelController {
         Challenge challenge = challengeService.findByChallengeId(challengeId);
         HashMap<String, Object> mapDto = new HashMap<String, Object>();
         mapDto.put("startDate", challenge.getStartDate().toString());
+        mapDto.put("mapInfo", panelSocketHandler.challengeManager.get(challenge.getChallengeId()).getMapInfo());
         mapDto.put("endDate", challenge.getEndDate().toString());
         mapDto.put("entryFee", challenge.getEntryFee());
         mapDto.put("gameType", challenge.getGameType());
