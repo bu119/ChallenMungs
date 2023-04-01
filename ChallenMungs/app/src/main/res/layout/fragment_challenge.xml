@@ -58,7 +58,7 @@
                 android:paddingHorizontal="14dp"
                 android:paddingVertical="12dp"
                 android:textSize="16sp"
-                tools:ignore="TouchTargetSizeCheck" />
+                tools:ignore="TouchTargetSizeCheck,TextContrastCheck" />
 
         </com.google.android.material.textfield.TextInputLayout>
 

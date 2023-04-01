@@ -3,7 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation_home"
-    app:startDestination="@id/challenge_fragment">
+    app:startDestination="@id/start">
+
+    <fragment
+        android:id="@+id/start"
+        android:name="com.ssafy.challenmungs.presentation.mypage.EditProfileFragment"
+        tools:layout="@layout/fragment_on_boarding" />
 
     <fragment
         android:id="@+id/challenge_fragment"
