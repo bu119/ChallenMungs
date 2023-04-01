@@ -201,7 +201,7 @@ public class UserController {
     }
 
     @PostMapping("/tokenConfirm/updateProfileAndName")
-    @ApiOperation(value = "유저의 프로필과 닉네임 정보를 변경해요!", notes = "후원처는 출금주소를 등록하세요")
+    @ApiOperation(value = "유저의 프로필과 닉네임 정보를 변경하는 api입니다.", notes = "후원처는 출금주소를 등록하세요")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "변경 성공"),
             @ApiResponse(code = 417, message = "변경 실패ㅜㅜ")
@@ -222,7 +222,8 @@ public class UserController {
         userService.updateProfileAndName(loginId, name, url);
 
         if (walletAddress != null) {
-            walletService.insertSpecialWithdrawalWallet(walletAddress,loginId);
+//            walletService.insertSpecialWithdrawalWallet(walletAddress,loginId);
+            walletService.saveOrUpdateWallet(loginId, walletAddress);
         }
 
         return ResponseEntity.status(HttpStatus.OK).build();
