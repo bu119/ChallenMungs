@@ -60,7 +60,7 @@
             android:exported="false" />
 
         <activity
-            android:name=".presentation.common.HomeActivity"
+            android:name=".presentation.common.MainFragment"
             android:exported="false" />
 
     </application>

@@ -18,7 +18,7 @@ import com.ssafy.challenmungs.databinding.ActivityHomeBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class HomeActivity : AppCompatActivity() {
+class MainFragment : AppCompatActivity() {
 
     private lateinit var binding: ActivityHomeBinding
     private lateinit var toast: Toast
@@ -44,7 +44,7 @@ class HomeActivity : AppCompatActivity() {
 
     override fun finish() {
         if (System.currentTimeMillis() > backPressedTime + 2000) {
-            toast = Toast.makeText(this@HomeActivity, "한번 더 누르면 종료됩니다.", Toast.LENGTH_SHORT)
+            toast = Toast.makeText(this@MainFragment, "한번 더 누르면 종료됩니다.", Toast.LENGTH_SHORT)
             toast.show()
             backPressedTime = System.currentTimeMillis()
         } else {
@@ -68,7 +68,7 @@ class HomeActivity : AppCompatActivity() {
         val ivMenu: ImageView = tab.findViewById(R.id.iv_menu)
         val tvMenu: TextView = tab.findViewById(R.id.tv_menu)
 
-        ivMenu.setImageDrawable(ContextCompat.getDrawable(this@HomeActivity, imageId))
+        ivMenu.setImageDrawable(ContextCompat.getDrawable(this@MainFragment, imageId))
         tvMenu.text = getText(stringId)
 
         tab.setOnClickListener {
@@ -86,14 +86,14 @@ class HomeActivity : AppCompatActivity() {
             val tvMenu: TextView = tab.findViewById(R.id.tv_menu)
 
             if (menu == tabName) {
-                ivMenu.layoutParams.height = 33.px(this@HomeActivity)
-                ivMenu.layoutParams.width = 33.px(this@HomeActivity)
+                ivMenu.layoutParams.height = 33.px(this@MainFragment)
+                ivMenu.layoutParams.width = 33.px(this@MainFragment)
                 ivMenu.requestLayout()
 
                 tvMenu.setTypeface(null, Typeface.BOLD)
             } else {
-                ivMenu.layoutParams.height = 22.px(this@HomeActivity)
-                ivMenu.layoutParams.width = 22.px(this@HomeActivity)
+                ivMenu.layoutParams.height = 22.px(this@MainFragment)
+                ivMenu.layoutParams.width = 22.px(this@MainFragment)
                 ivMenu.requestLayout()
 
                 tvMenu.setTypeface(null, Typeface.NORMAL)

@@ -6,7 +6,7 @@ import androidx.lifecycle.lifecycleScope
 import com.ssafy.challenmungs.R
 import com.ssafy.challenmungs.databinding.FragmentOnBoardingBinding
 import com.ssafy.challenmungs.presentation.base.BaseFragment
-import com.ssafy.challenmungs.presentation.common.HomeActivity
+import com.ssafy.challenmungs.presentation.common.MainFragment
 import com.ssafy.challenmungs.presentation.klaytn.WalletViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -63,7 +63,7 @@ class OnBoardingFragment : BaseFragment<FragmentOnBoardingBinding>(R.layout.frag
                     )
 
                     if (result) {
-                        val intent = Intent(activity, HomeActivity::class.java)
+                        val intent = Intent(activity, MainFragment::class.java)
                         startActivity(intent)
                         requireActivity().finish()
                     }

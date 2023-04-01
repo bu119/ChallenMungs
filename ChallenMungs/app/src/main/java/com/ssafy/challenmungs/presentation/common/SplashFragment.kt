@@ -36,7 +36,7 @@ class SplashFragment : BaseFragment<FragmentSplashBinding>(R.layout.fragment_spl
             if (ApplicationClass.preferences.isFirstRun) {
                 navigate(SplashFragmentDirections.actionToPermissionFragment())
             } else if (result) {
-                val intent = Intent(requireContext(), HomeActivity::class.java)
+                val intent = Intent(requireContext(), MainFragment::class.java)
                 startActivity(intent)
                 requireActivity().finish()
             } else {
