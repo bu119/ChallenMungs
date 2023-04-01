@@ -37,9 +37,7 @@ class PermissionFragment : BaseFragment<FragmentPermissionBinding>(R.layout.frag
     private fun initListener() {
         binding.btnPermissionCheck.setOnClickListener {
             if (memberViewModel.memberInfo.value != null) {
-                val intent = Intent(requireContext(), MainFragment::class.java)
-                startActivity(intent)
-                requireActivity().finish()
+                navigate(PermissionFragmentDirections.actionToMainFragment())
             } else {
                 val intent = Intent(requireContext(), AuthActivity::class.java)
                 startActivity(intent)
