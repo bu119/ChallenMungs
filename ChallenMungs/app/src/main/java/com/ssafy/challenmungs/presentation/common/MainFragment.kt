@@ -14,13 +14,13 @@ import androidx.navigation.fragment.NavHostFragment
 import com.ssafy.challenmungs.R
 import com.ssafy.challenmungs.common.util.px
 import com.ssafy.challenmungs.common.util.setImmersiveMode
-import com.ssafy.challenmungs.databinding.ActivityHomeBinding
+import com.ssafy.challenmungs.databinding.FragmentMainBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainFragment : AppCompatActivity() {
 
-    private lateinit var binding: ActivityHomeBinding
+    private lateinit var binding: FragmentMainBinding
     private lateinit var toast: Toast
     private lateinit var navController: NavController
     var backPressedTime: Long = 0
@@ -29,7 +29,7 @@ class MainFragment : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityHomeBinding.inflate(layoutInflater)
+        binding = FragmentMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setImmersiveMode()
 
