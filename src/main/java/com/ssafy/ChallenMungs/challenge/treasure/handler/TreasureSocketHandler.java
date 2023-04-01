@@ -47,7 +47,7 @@ public class TreasureSocketHandler extends TextWebSocketHandler {
             List<MyChallenge> myChallenges = myChallengeService.findAllByChallengeId(c.getChallengeId());
             ArrayList<RankVo> rankInfo = new ArrayList<>();
             for (MyChallenge mc : myChallenges) {
-                rankInfo.add(RankVo.builder().point(0).teamRank(1).teamId(mc.getTeamId()).loginId(mc.getLoginId()).build());
+                rankInfo.add(RankVo.builder().point(0).teamRank(1).teamId(mc.getTeamId()).loginId(mc.getLoginId()).myTreasureList(new ArrayList<>()).build());
             }
             ArrayList<TreasureVo> treasures = new ArrayList<>();
             int cc = (int) (c.getMap_size() / c.getCellSize());
@@ -88,6 +88,7 @@ public class TreasureSocketHandler extends TextWebSocketHandler {
         if (event.equals("access")) {
             log.info("누군가가 보물찾기를 시작했어요 데이터:" + data);
             Long challengeId = data.getAsJsonObject().get("challengeId").getAsLong();
+            System.out.println(challengeId + " " + challengeManager.get(challengeId));
             challengeManager.get(challengeId).sessions.add(session);
             HashMap<String, Object> dto = new HashMap<>();
             dto.put("code", "access");

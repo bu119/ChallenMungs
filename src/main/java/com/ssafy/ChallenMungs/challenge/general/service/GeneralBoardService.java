@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 @Service
@@ -126,7 +127,11 @@ public class GeneralBoardService {
         myChallengeRepository.save(myChallenge);
     }
 
-
+//    public static int calculateSuccessRatio(int successCount, LocalDate startDate, LocalDate endDate) {
+//        long daysBetween = ChronoUnit.DAYS.between(startDate, endDate) + 2;
+//        double successRatio = (double) successCount / daysBetween * 100;
+//        return (int) Math.round(successRatio);
+//    }
 
 }
 
