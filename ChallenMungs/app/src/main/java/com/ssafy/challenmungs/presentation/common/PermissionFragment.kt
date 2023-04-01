@@ -11,7 +11,6 @@ import com.ssafy.challenmungs.databinding.FragmentPermissionBinding
 import com.ssafy.challenmungs.presentation.auth.AuthActivity
 import com.ssafy.challenmungs.presentation.auth.MemberViewModel
 import com.ssafy.challenmungs.presentation.base.BaseFragment
-import com.ssafy.challenmungs.presentation.home.HomeActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

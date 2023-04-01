@@ -1,4 +1,4 @@
-package com.ssafy.challenmungs.presentation.home
+package com.ssafy.challenmungs.presentation.common
 
 import android.annotation.SuppressLint
 import android.graphics.Typeface

@@ -15,7 +15,7 @@ import com.ssafy.challenmungs.R
 import com.ssafy.challenmungs.common.util.backDoublePressedFragmentCallback
 import com.ssafy.challenmungs.databinding.FragmentLogInBinding
 import com.ssafy.challenmungs.presentation.base.BaseFragment
-import com.ssafy.challenmungs.presentation.home.HomeActivity
+import com.ssafy.challenmungs.presentation.common.HomeActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
