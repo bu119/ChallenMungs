@@ -1,4 +1,4 @@
-package com.ssafy.challenmungs.presentation.challenge
+package com.ssafy.challenmungs.presentation.challenge.panel
 
 import android.graphics.Bitmap
 import android.graphics.drawable.Drawable

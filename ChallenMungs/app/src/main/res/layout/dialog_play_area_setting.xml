@@ -45,7 +45,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/btn_close"
-            tools:context="com.ssafy.challenmungs.presentation.challenge.PlayAreaSettingDialog" />
+            tools:context="com.ssafy.challenmungs.presentation.challenge.panel.PlayAreaSettingDialog" />
 
         <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/btn_reset"
