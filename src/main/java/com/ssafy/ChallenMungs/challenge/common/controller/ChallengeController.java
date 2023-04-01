@@ -58,7 +58,7 @@ ChallengeController {
 
     @PostMapping("/tokenConfirm/getList")
     @ApiOperation(value = "챌린지 리스트를 불러오는 메서드에요")
-    ResponseEntity getList(HttpServletRequest request, @RequestParam("lat") Double lat, @RequestParam("lng") Double lng, @RequestParam("type") int type, @RequestParam("searchValue") String searchValue, @RequestParam("myChallenge") boolean myChallenge, @RequestParam("onlyTomorrow") boolean onlyTomorrow) { // type 1: 전체, 2: 일반, 3: 판넬 4: 보물
+    ResponseEntity getList(HttpServletRequest request, @RequestParam(name = "lat", required = false) Double lat, @RequestParam(name = "lng", required = false) Double lng, @RequestParam("type") int type, @RequestParam(name = "searchValue", required = false) String searchValue, @RequestParam("myChallenge") boolean myChallenge, @RequestParam("onlyTomorrow") boolean onlyTomorrow) { // type 1: 전체, 2: 일반, 3: 판넬 4: 보물
         log.info("챌린지 리스트를 구할게요!");
         log.info("거리제한은 3km에요!");
         double distanceLimit = 3.0;
@@ -72,14 +72,16 @@ ChallengeController {
                 } else {
                     temp = challengeService.findAll();
                 }
+                System.out.println(temp.size());
                 challenges = temp.stream().filter(c -> {
                     if (
-                            (lat != null && lng != null) &&
+                            (lat == null && lng == null) ||
                             !((c.getChallengeType() == 2 || c.getChallengeType() == 3) &&
                                     distance.getDistance(lat, lng, c.getCenterLat(), c.getCenterLng()) > distanceLimit)
                     ) return true;
                     return false;
                 }).collect(Collectors.toList());
+                System.out.println(":::" + challenges.size());
                 break;
             case 2:
                 log.info("타입이 2이에요 일반 챌린지를 가져올게요");
@@ -151,16 +153,6 @@ ChallengeController {
             for (Challenge r : removeList) {
                 challenges.remove(r);
             }
-        }
-
-        List<Challenge> removeList = new ArrayList<>();
-        log.info("시작안한 챌린지만을 걸러요!");
-        for (int i = 0; i < challenges.size(); i++) {
-            if (challenges.get(i).getStatus() != 0) continue;
-            removeList.add(challenges.get(i));
-        }
-        for (Challenge r : removeList) {
-            challenges.remove(r);
         }
 
         HashMap<Integer, ArrayList> dto = new HashMap<>();
