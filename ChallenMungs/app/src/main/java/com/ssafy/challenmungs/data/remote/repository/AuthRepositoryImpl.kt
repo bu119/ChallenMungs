@@ -22,12 +22,4 @@ class AuthRepositoryImpl @Inject constructor(
         wrapToResource(Dispatchers.IO) {
             authRemoteDataSource.requestJoin(name, accessToken).toDomainModel()
         }
-
-    override suspend fun setWallet(
-        memberId: String,
-        piggyBank: String,
-        wallet: String
-    ): Resource<String> = wrapToResource(Dispatchers.IO) {
-        authRemoteDataSource.setWallet(memberId, piggyBank, wallet).toDomainModel()
-    }
 }
