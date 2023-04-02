@@ -67,6 +67,9 @@ dependencies {
 
     // GoogleMap
     implementation libs.google.map
+
+    // 현재위치를 받아오기 위한 Fused Location Provider API
+    implementation 'com.google.android.gms:play-services-location:21.0.1'
 }
 
 kapt {
