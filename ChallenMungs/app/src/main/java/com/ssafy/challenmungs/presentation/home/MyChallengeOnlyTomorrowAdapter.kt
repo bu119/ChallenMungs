@@ -34,14 +34,18 @@ class MyChallengeOnlyTomorrowAdapter(private val arrayList: List<Map<String, Any
 
 class MyChallengeOnlyTomorrowViewHolder(private val binding: ItemMyChallengeOnlyTomorrowBinding) :
     RecyclerView.ViewHolder(binding.root) {
+
     fun bind(dto: Map<String, Any>) {
         binding.tvTitle.text = dto.get("title").toString()
+
         val dateFormat = SimpleDateFormat("yyyy-MM-dd")
         val startMonth = dateFormat.parse(dto.get("startDate").toString()).month
         val startDate = dateFormat.parse(dto.get("startDate").toString()).date
         val endMonth = dateFormat.parse(dto.get("endDate").toString()).month
         val endDate = dateFormat.parse(dto.get("endDate").toString()).date
+
         binding.tvPeriod.text = "${startMonth}.${startDate} ~ ${endMonth}.${endDate}"
+
         when (dto.get("challengeType")) {
             1 -> {
                 binding.tvTag.text = "일반"

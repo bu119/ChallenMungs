@@ -36,6 +36,7 @@ RecyclerView.Adapter<RecentlyAddedCampaignViewHolder>() {
 
 class RecentlyAddedCampaignViewHolder(private val binding: ItemRecentlyAddedCampaignCardBinding) :
     RecyclerView.ViewHolder(binding.root) {
+
     fun bind(dto: Map<String, Any>) {
         Glide.with(binding.ivBanner.context)
             .load(dto.get("thumbnail"))
