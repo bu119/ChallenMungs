@@ -196,4 +196,10 @@
     <string name="content_filter_recent">최신순</string>
     <string name="image_filter">필터 버튼의 아이콘입니다.</string>
     <string name="image_sort_option">오름차순인지 내림차순인지 나타내는 이미지입니다</string>
+
+    <!-- Donate - Campaign page -->
+    <string name="image_campaign_main">기부 캠페인의 메인 이미지 입니다.</string>
+    <string name="image_share">공유 버튼입니다.</string>
+    <string name="image_cheer_up">응원받은 수 이미지입니다.</string>
+    <string name="content_cheer_up">응원하기</string>
 </resources>

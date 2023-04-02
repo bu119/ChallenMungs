@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/iv_main"
+            android:layout_width="0dp"
+            android:layout_height="240dp"
+            android:contentDescription="@string/image_campaign_main"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@drawable/ic_map" />
+
+        <ImageView
+            android:id="@+id/iv_main_dimens"
+            android:layout_width="0dp"
+            android:layout_height="240dp"
+            android:background="@color/trans45_black"
+            android:contentDescription="@string/image_campaign_main"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/btn_back"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_margin="12dp"
+            android:background="@drawable/ic_back"
+            android:backgroundTint="@color/white"
+            android:contentDescription="@string/image_back"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/btn_share"
+            android:layout_width="19dp"
+            android:layout_height="21dp"
+            android:layout_margin="18dp"
+            android:background="@drawable/ic_share"
+            android:contentDescription="@string/image_share"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_title_campaign"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="30dp"
+            android:layout_marginBottom="115dp"
+            android:gravity="center"
+            android:lineSpacingExtra="5dp"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@id/iv_main"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:text="일이삼사오육칠팔구십일이삼사오육칠\n일이삼사오육칠팔구십일이삼사오육칠" />
+
+        <TextView
+            android:id="@+id/tv_shelter_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:textColor="@color/gainsboro"
+            android:textSize="11sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_title_campaign"
+            tools:text="by ㅇㅇ보호소" />
+
+
+        <ProgressBar
+            android:id="@+id/progress_bar"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="0dp"
+            android:layout_height="19dp"
+            android:layout_marginHorizontal="31dp"
+            android:layout_marginTop="6dp"
+            android:max="100"
+            android:progressDrawable="@drawable/bg_custom_progress_campaign"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_shelter_name" />
+
+        <LinearLayout
+            android:id="@+id/ll_progress_amount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@id/progress_bar"
+            app:layout_constraintEnd_toEndOf="@id/progress_bar"
+            app:layout_constraintStart_toStartOf="@id/progress_bar"
+            app:layout_constraintTop_toTopOf="@id/progress_bar">
+
+            <TextView
+                android:id="@+id/tv_campaign_amount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textAlignment="center"
+                android:textColor="@color/zambezi"
+                android:textSize="11sp"
+                tools:text="%d / %d KLAY" />
+
+            <TextView
+                android:id="@+id/tv_progress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:gravity="center"
+                android:textAlignment="center"
+                android:textColor="@color/zambezi"
+                android:textSize="11sp"
+                tools:text="(34%)" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="12dp"
+            android:background="@drawable/bg_rect_zambezi_radius34"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingHorizontal="14dp"
+            android:paddingVertical="4dp"
+            app:layout_constraintBottom_toBottomOf="@id/iv_main"
+            app:layout_constraintEnd_toEndOf="@id/iv_main">
+
+            <ImageView
+                android:layout_width="13dp"
+                android:layout_height="13dp"
+                android:layout_marginTop="1.5dp"
+                android:contentDescription="@string/image_cheer_up"
+                android:src="@drawable/ic_heart_filled" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:gravity="center"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="11sp"
+                tools:text="256" />
+
+        </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_content"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="34dp"
+            app:layout_constraintBottom_toTopOf="@id/ll_btn"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/iv_main" />
+
+        <LinearLayout
+            android:id="@+id/ll_btn"
+            android:layout_width="0dp"
+            android:layout_height="44dp"
+            android:baselineAligned="false"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <LinearLayout
+                android:id="@+id/ll_cheer_up"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/bg_rect_festival"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <androidx.appcompat.widget.AppCompatImageButton
+                    android:id="@+id/btn_cheer_up"
+                    android:layout_width="23dp"
+                    android:layout_height="23dp"
+                    android:background="@drawable/bg_oval_white_smoke"
+                    android:elevation="4dp"
+                    android:src="@drawable/ic_heart_empty" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="7dp"
+                    android:text="@string/content_cheer_up"
+                    android:textColor="@color/white"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_donate"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/bg_rect_festival_white_stroke2"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <androidx.appcompat.widget.AppCompatImageButton
+                    android:id="@+id/btn_donate"
+                    android:layout_width="23dp"
+                    android:layout_height="23dp"
+                    android:background="@drawable/bg_oval_white_smoke"
+                    android:elevation="4dp"
+                    android:src="@drawable/ic_dog_footprint_toast" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="7dp"
+                    android:text="@string/content_donate"
+                    android:textColor="@color/toast"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
