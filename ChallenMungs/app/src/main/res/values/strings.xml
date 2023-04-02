@@ -189,4 +189,10 @@
     </string-array>
     <string name="content_challenge_help">챌린지 설명을 볼 수 있는 버튼입니다.</string>
     <string name="content_search_hint">검색할 챌린지 이름을 입력하세요.</string>
+
+    <!-- Donate - Campaign page -->
+    <string name="image_campaign_main">기부 캠페인의 메인 이미지 입니다.</string>
+    <string name="image_share">공유 버튼입니다.</string>
+    <string name="image_cheer_up">응원받은 수 이미지입니다.</string>
+    <string name="content_cheer_up">응원하기</string>
 </resources>
