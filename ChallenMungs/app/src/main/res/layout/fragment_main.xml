@@ -5,7 +5,17 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".presentation.home.HomeActivity">
+        tools:context=".presentation.common.MainFragment">
+
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/nav_home"
+            android:name="androidx.navigation.fragment.NavHostFragment"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:defaultNavHost="true"
+            app:layout_constraintBottom_toTopOf="@id/ll_menu"
+            app:layout_constraintTop_toTopOf="parent"
+            app:navGraph="@navigation/navigation_home" />
 
         <LinearLayout
             android:id="@+id/ll_menu"
