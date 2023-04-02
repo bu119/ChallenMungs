@@ -118,32 +118,16 @@ public class PanelController {
         mapDto.put("entryFee", challenge.getEntryFee());
         mapDto.put("gameType", challenge.getGameType());
         ArrayList<HashMap> newRankInfoList = new ArrayList<>();
-        if (challenge.getGameType() == 1) {
-            for (com.ssafy.ChallenMungs.challenge.panel.handler.RankVo rv : panelSocketHandler.challengeManager.get(challenge.getChallengeId()).rankInfo) {
-                User u = userService.findUserByLoginId((String) rv.getLoginId()); // 팀전일 경우 LoginId가 ArrayList라 고쳐야햄
-                HashMap<String, Object> newRankInfoMap = new HashMap<>();
-                newRankInfoMap.put("loginId", u.getLoginId());
-                newRankInfoMap.put("name", u.getName());
-                newRankInfoMap.put("profile", u.getProfile());
-                newRankInfoMap.put("rank", rv.getTeamRank());
-                newRankInfoMap.put("teamId", rv.getTeamId());
-                newRankInfoMap.put("point", rv.getPanelCount());
-                newRankInfoList.add(newRankInfoMap);
-            }
-        } else if (challenge.getGameType() == 2) {
-            for (int i = 0; i < 2; i++) {
-                for (String loginId : (ArrayList<String>) panelSocketHandler.challengeManager.get(challenge.getChallengeId()).rankInfo.get(i).getLoginId()) {
-                    User u = userService.findUserByLoginId(loginId); // 팀전일 경우 LoginId가 ArrayList라 고쳐야햄
-                    HashMap<String, Object> newRankInfoMap = new HashMap<>();
-                    newRankInfoMap.put("loginId", u.getLoginId());
-                    newRankInfoMap.put("name", u.getName());
-                    newRankInfoMap.put("profile", u.getProfile());
-                    newRankInfoMap.put("rank", panelSocketHandler.challengeManager.get(challenge.getChallengeId()).rankInfo.get(i).getTeamRank());
-                    newRankInfoMap.put("teamId", i + 1);
-                    newRankInfoMap.put("point", panelSocketHandler.challengeManager.get(challenge.getChallengeId()).rankInfo.get(i).getPanelCount());
-                    newRankInfoList.add(newRankInfoMap);
-                }
-            }
+        for (com.ssafy.ChallenMungs.challenge.panel.handler.RankVo rv : panelSocketHandler.challengeManager.get(challenge.getChallengeId()).rankInfo) {
+            User u = userService.findUserByLoginId((String) rv.getLoginId()); // 팀전일 경우 LoginId가 ArrayList라 고쳐야햄
+            HashMap<String, Object> newRankInfoMap = new HashMap<>();
+            newRankInfoMap.put("loginId", u.getLoginId());
+            newRankInfoMap.put("name", u.getName());
+            newRankInfoMap.put("profile", u.getProfile());
+            newRankInfoMap.put("rank", rv.getTeamRank());
+            newRankInfoMap.put("teamId", rv.getTeamId());
+            newRankInfoMap.put("point", rv.getPanelCount());
+            newRankInfoList.add(newRankInfoMap);
         }
         mapDto.put("rankInfo", newRankInfoList);
         return new ResponseEntity(mapDto, HttpStatus.OK);

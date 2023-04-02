@@ -45,23 +45,11 @@ public class PanelSocketHandler extends TextWebSocketHandler {
         for (Challenge c : challenges) {
             List<MyChallenge> myChallenges = myChallengeService.findAllByChallengeId(c.getChallengeId());
             ArrayList<RankVo> rankInfo = new ArrayList<>();
-            if (c.getGameType() == 1) {
-                for (MyChallenge mc : myChallenges) {
-                    rankInfo.add(RankVo.builder().teamRank(1).PanelCount(0).teamId(mc.getTeamId()).loginId(mc.getLoginId()).build());
-                }
-            } else if (c.getGameType() == 2) {
-                ArrayList<String> ids1 = new ArrayList<>();
-                ArrayList<String> ids2 = new ArrayList<>();
-                for (MyChallenge mc : myChallenges) {
-                    if (mc.getTeamId() == 1) ids1.add(mc.getLoginId());
-                    else if (mc.getTeamId() == 2) ids2.add(mc.getLoginId());
-                }
-                rankInfo.add(RankVo.builder().teamRank(1).PanelCount(0).teamId(1).loginId(ids1).build());
-                rankInfo.add(RankVo.builder().teamRank(1).PanelCount(0).teamId(2).loginId(ids2).build());
+            for (MyChallenge mc : myChallenges) {
+                rankInfo.add(RankVo.builder().teamRank(1).PanelCount(0).teamId(mc.getTeamId()).loginId(mc.getLoginId()).build());
             }
             challengeManager.put(c.getChallengeId(), ChallengeVo.builder().players(new ArrayList<PlayerVo>()).mapInfo(new int[c.getCellD()][c.getCellD()]).rankInfo(rankInfo).build());
         }
-        System.out.println("관리하고 있는 아이디:" + challengeManager.keySet());
     }
 
     //있어야 되는거
@@ -127,14 +115,38 @@ public class PanelSocketHandler extends TextWebSocketHandler {
                 return o2.PanelCount - o1.PanelCount;
             });
 
-            int rank = 0;
-            int count = -1;
-            for (RankVo r : challengeManager.get(challengeId).rankInfo) {
-                if (count < r.PanelCount) {
-                    count = r.PanelCount;
-                    rank++;
+            if (challenge.getGameType() == 1) {
+                int rank = 0;
+                int count = -1;
+                for (RankVo r : challengeManager.get(challengeId).rankInfo) {
+                    if (count < r.PanelCount) {
+                        count = r.PanelCount;
+                        rank++;
+                    }
+                    r.teamRank = rank;
                 }
-                r.teamRank = rank;
+            } else if (challenge.getGameType() == 2) {
+                int sum1 = 0;
+                int sum2 = 0;
+                for (RankVo r : challengeManager.get(challengeId).rankInfo) {
+                    if (r.getTeamId() == 1) sum1 += r.getPanelCount();
+                    else if (r.getTeamId() == 2) sum2 += r.getPanelCount();
+                }
+                if (sum1 > sum2) {
+                    for (RankVo r : challengeManager.get(challengeId).rankInfo) {
+                        if (r.getTeamId() == 1) r.setTeamRank(1);
+                        else if (r.getTeamId() == 2) r.setTeamRank(2);
+                    }
+                } else if (sum1 < sum2) {
+                    for (RankVo r : challengeManager.get(challengeId).rankInfo) {
+                        if (r.getTeamId() == 1) r.setTeamRank(2);
+                        else if (r.getTeamId() == 2) r.setTeamRank(1);
+                    }
+                } else if (sum1 == sum2) {
+                    for (RankVo r : challengeManager.get(challengeId).rankInfo) {
+                        r.setTeamRank(1);
+                    }
+                }
             }
 
             HashMap<String, Object> mapDto = new HashMap<String, Object>();
