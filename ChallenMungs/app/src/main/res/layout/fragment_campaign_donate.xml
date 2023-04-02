@@ -73,19 +73,24 @@
             app:layout_constraintStart_toEndOf="@id/tv_shelter_name" />
 
         <EditText
-            android:id="@+id/tv_donate_amount"
+            android:id="@+id/et_donate_amount"
             android:layout_width="wrap_content"
+            android:textCursorDrawable="@drawable/bg_rect_golden_glow_width2"
+            android:cursorVisible="true"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
-            android:background="@drawable/bg_rect_pinkswan_under_stroke1"
+            android:background="@drawable/bg_rect_pink_swan_to_golden_glow_stroke1"
             android:hint="@string/content_donate_amount"
             android:imeOptions="actionDone"
             android:importantForAutofill="no"
-            android:inputType="text"
+            android:inputType="number"
+            android:maxLines="1"
             android:minWidth="50dp"
             android:paddingHorizontal="2dp"
             android:paddingBottom="4dp"
+            android:scrollHorizontally="true"
             android:textColorHint="@color/pink_swan"
+            android:textDirection="rtl"
             android:textSize="30sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@id/tv_shelter_name"
@@ -99,8 +104,8 @@
             android:textColor="@color/pink_swan"
             android:textSize="20sp"
             android:textStyle="bold"
-            app:layout_constraintBaseline_toBaselineOf="@id/tv_donate_amount"
-            app:layout_constraintStart_toEndOf="@id/tv_donate_amount" />
+            app:layout_constraintBaseline_toBaselineOf="@id/et_donate_amount"
+            app:layout_constraintStart_toEndOf="@id/et_donate_amount" />
 
         <LinearLayout
             android:id="@+id/ll_donate_all"
@@ -115,8 +120,8 @@
             android:orientation="horizontal"
             android:paddingHorizontal="11dp"
             android:paddingVertical="4dp"
-            app:layout_constraintStart_toStartOf="@id/tv_donate_amount"
-            app:layout_constraintTop_toBottomOf="@id/tv_donate_amount">
+            app:layout_constraintStart_toStartOf="@id/et_donate_amount"
+            app:layout_constraintTop_toBottomOf="@id/et_donate_amount">
 
             <TextView
                 android:id="@+id/tv_my_piggy_bank_amount_in_btn"
@@ -233,7 +238,8 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="18dp"
             android:layout_marginBottom="24dp"
-            android:background="@drawable/bg_rect_golden_glow_radius5"
+            android:background="@drawable/bg_btn_enable_gainsboro_to_golden_glow_radius5"
+            android:enabled="false"
             android:paddingVertical="15dp"
             android:stateListAnimator="@null"
             android:text="@string/content_donate"

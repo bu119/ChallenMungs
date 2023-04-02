@@ -206,7 +206,7 @@
     <string name="content_my_piggy_bank">내 기부 저금통</string>
     <string name="content_from">에서</string>
     <string name="content_to">(으)로</string>
-    <string name="content_donate_amount">얼마를 보낼까요?</string>
+    <string name="content_donate_amount">\?얼마를 보낼까요</string>
     <string name="content_input">입력</string>
     <string name="title_campaign_comment">응원 댓글 쓰기</string>
     <string name="content_character_limit_init">0</string>
