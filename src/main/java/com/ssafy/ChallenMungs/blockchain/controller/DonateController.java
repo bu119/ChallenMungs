@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 
 
 @RestController
@@ -28,6 +29,7 @@ public class DonateController {
             "캠페인 아이디,기부한 금액,응원문구,기부자의 로그인아이디가 필요합니다.")
     ResponseEntity<Object> donate(@RequestParam int campaignId,@RequestParam int money,@RequestParam String memo, @RequestParam String loginId) {
         service.donate(campaignId,money,memo,loginId);
+        HashMap<String, Object> dto = new HashMap<>();
         return new ResponseEntity<Object>(res.makeSimpleRes("성공"),HttpStatus.OK);
     }
 

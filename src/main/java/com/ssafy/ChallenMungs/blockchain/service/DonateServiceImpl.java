@@ -35,8 +35,6 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class DonateServiceImpl implements  DonateService{
 
-    private Logger logger = LoggerFactory.getLogger(DonateServiceImpl.class);
-
     private final UserRepository userRepo;
     private final CampaignListRepository campaignRepo;
     private final CommentRepository commentRepo;

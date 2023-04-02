@@ -353,6 +353,7 @@ public class ChallengeScheduler {
 
         // POST 요청 보내기
         String url = "https://wallet-api.klaytnapi.com/v2/tx/fd/value";
+        System.out.println(requestEntity);
         ResponseEntity<String> responseEntity = restTemplate.exchange(url, HttpMethod.POST, requestEntity, String.class);
         String responseBody = responseEntity.getBody();
 

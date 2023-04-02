@@ -4,9 +4,13 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ssafy.ChallenMungs.blockchain.controller.WalletController;
+import com.ssafy.ChallenMungs.blockchain.dto.CampaignItemDto;
 import com.ssafy.ChallenMungs.blockchain.dto.WalletItemDto;
 import com.ssafy.ChallenMungs.blockchain.entity.Wallet;
 import com.ssafy.ChallenMungs.blockchain.repository.WalletRepository;
+import com.ssafy.ChallenMungs.campaign.entity.Campaign;
+import com.ssafy.ChallenMungs.campaign.repository.CampaignContentRepository;
+import com.ssafy.ChallenMungs.campaign.repository.CampaignListRepository;
 import com.ssafy.ChallenMungs.user.entity.User;
 import com.ssafy.ChallenMungs.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -16,6 +20,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.util.UriComponentsBuilder;
 import org.web3j.protocol.Web3j;
 import org.web3j.protocol.core.DefaultBlockParameterName;
 import org.web3j.protocol.core.methods.response.EthGetBalance;
@@ -35,6 +40,7 @@ import java.util.*;
 public class WalletServiceImpl implements  WalletService{
     private final WalletRepository walletRepo;
     private final UserRepository userRepo;
+    private final CampaignListRepository campaignRepo;
 
     @Override
     public void insertNomalWallet(String piggyBank, String wallet,String loginId) throws Exception{
@@ -148,14 +154,13 @@ public class WalletServiceImpl implements  WalletService{
         JsonNode items = getHistory(address);
 
         Map<String, List<WalletItemDto>> result = new HashMap<>();
-        String lowerA = address.toLowerCase();
 
         //사용 내역 바꾸기
         for (JsonNode item : items) {
             String from = item.get("from").asText();
             String to = item.get("to").asText();
             String title;
-            if (from.equals(lowerA)) {
+            if (from.equals(address)) {
                 if (to.equals(lowerN)) {
                     title = "일반 챌린지 참여";
                 } else if (to.equals(lowerS)) {
@@ -203,14 +208,13 @@ public class WalletServiceImpl implements  WalletService{
         JsonNode items = getHistory(address);
 
         Map<String, List<WalletItemDto>> result = new HashMap<>();
-        String lowerA = address.toLowerCase();
 
         //사용 내역 바꾸기
         for (JsonNode item : items) {
             String from = item.get("from").asText();
             String to = item.get("to").asText();
             String title;
-            if (to.equals(lowerA)) {
+            if (to.equals(address)) {
                 if (from.equals(lowerN)) {
                     title = "일반 챌린지 보상";
                 } else if (from.equals(lowerS)) {
@@ -222,8 +226,6 @@ public class WalletServiceImpl implements  WalletService{
             // 충전
             else {
                 Wallet shelter = walletRepo.findByAddress(to);
-                System.out.println("왔어요!!!" + shelter);
-                System.out.println("!!!!!" + shelter.getUser() + "::::" + shelter.getUser().getName());
                 title = shelter.getUser().getName() + "에 기부";
             }
 
@@ -248,6 +250,102 @@ public class WalletServiceImpl implements  WalletService{
             WalletItemDto tmp = new WalletItemDto(title, amount, String.valueOf(calendar.get(Calendar.HOUR_OF_DAY)+":"+calendar.get(Calendar.MINUTE)));
             String day = String.valueOf(calendar.get(Calendar.MONTH) + 1) + "." + String.valueOf(calendar.get(Calendar.DATE));
             List<WalletItemDto> dayList = result.getOrDefault(day, new ArrayList<WalletItemDto>());
+            dayList.add(tmp);
+            result.put(day, dayList);
+        }
+
+        return result;
+    }
+
+
+    public JsonNode getCampaignHistory(int campaignId) throws JsonProcessingException {
+        RestTemplate restTemplate = new RestTemplate();
+
+        // Header 설정
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("x-chain-id", "1001"); // 1001(Baobob 테스트넷)
+        headers.set("Authorization", "Basic S0FTS1dDQUdINjkwRkFRV0lPVDE4QkhUOnNTYThjQlI1akhncXRwbnUtWWltMHV5dkVpb1V2REVQRGpMSmJjRkM="); //AccountPool 등록
+
+
+        // 요청 바디 설정
+        JSONObject requestBody = new JSONObject();
+
+        Campaign campaign = campaignRepo.findCampaignByCampaignId(campaignId);
+        String registUnix = String.valueOf(campaign.getRegistUnix());
+        String endUnix = String.valueOf(campaign.getEndUnix());
+        String address = campaign.getWalletAddress();
+        String url = "https://th-api.klaytnapi.com/v2/transfer/account/"+ address;
+        UriComponentsBuilder builder;
+
+
+        if(endUnix.equals("0")){
+            builder = UriComponentsBuilder.fromHttpUrl(url)
+                    .queryParam("range", registUnix);
+            System.out.println("진행중");
+        }
+        else{
+            builder = UriComponentsBuilder.fromHttpUrl(url)
+                    .queryParam("range", registUnix + "," + endUnix);
+            System.out.println("종료");
+        }
+        // 요청 엔티티 생성
+        HttpEntity<String> requestEntity = new HttpEntity<>(headers);
+
+
+        ResponseEntity<String> response = restTemplate.exchange(builder.toUriString(), HttpMethod.GET, requestEntity, String.class);
+        ObjectMapper objectMapper = new ObjectMapper();
+        JsonNode rootNode = objectMapper.readTree(response.getBody());
+        JsonNode itemsNode = rootNode.get("items");
+
+        return itemsNode;
+    }
+
+
+    @Override
+    public Map<String, List<CampaignItemDto>> viewCampaignWallet(int campaignId) throws JsonProcessingException {
+        JsonNode items = getCampaignHistory(campaignId);
+        String address = campaignRepo.findCampaignByCampaignId(campaignId).getWalletAddress();
+
+        Map<String, List<CampaignItemDto>> result = new HashMap<>();
+
+        //사용 내역 바꾸기
+        for (JsonNode item : items) {
+            String from = item.get("from").asText();
+            String to = item.get("to").asText();
+            String title;
+            String receipt = null;
+
+            // 모금
+            if (to.equals(address)) {
+                title = walletRepo.findByAddress(from).getUser().getName() + "님의 후원";
+            }
+            // 출금
+            else {
+                title = "출금";
+                receipt = "url";
+            }
+
+            //전송 시간
+            long timstamp = item.get("timestamp").asLong();
+            Date date = new Date(timstamp * 1000L);
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(date);
+
+            // 전송 Klaytn(hex)
+            String hexvalue = item.get("value").asText();
+//            log.info(hexvalue);
+            // 0x slicing
+            hexvalue = hexvalue.substring(2);
+            // Decimal로 변환
+            BigInteger decimal = new BigInteger(hexvalue, 16);
+            BigInteger divisor = new BigInteger("1000000000000000000");
+            // 최종값으로 변환
+            BigDecimal amount = new BigDecimal(decimal).divide(new BigDecimal(divisor));
+
+            // 값 넣기
+            CampaignItemDto tmp = new CampaignItemDto(title, amount, String.valueOf(calendar.get(Calendar.HOUR_OF_DAY)+":"+calendar.get(Calendar.MINUTE)), receipt);
+            String day = String.valueOf(calendar.get(Calendar.MONTH) + 1) + "." + String.valueOf(calendar.get(Calendar.DATE));
+            List<CampaignItemDto> dayList = result.getOrDefault(day, new ArrayList<CampaignItemDto>());
             dayList.add(tmp);
             result.put(day, dayList);
         }
