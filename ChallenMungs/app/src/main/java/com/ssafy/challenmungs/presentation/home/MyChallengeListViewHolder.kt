@@ -4,7 +4,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.ssafy.challenmungs.databinding.ItemChallengeCardMyOngoingBinding
 import java.text.SimpleDateFormat
 
-class MyChallengeListViewHolder(private val binding: ItemChallengeCardMyOngoingBinding) : RecyclerView.ViewHolder(binding.root) {
+class MyChallengeListViewHolder(private val binding: ItemChallengeCardMyOngoingBinding) :
+    RecyclerView.ViewHolder(binding.root) {
     fun bind(dto: Map<String, Any>) {
         binding.tvTitle.text = dto.get("title").toString()
         val dateFormat = SimpleDateFormat("yyyy-MM-dd")
@@ -14,9 +15,15 @@ class MyChallengeListViewHolder(private val binding: ItemChallengeCardMyOngoingB
         val endDate = dateFormat.parse(dto.get("endDate").toString()).date
         binding.tvPeriod.text = "${startMonth}.${startDate} ~ ${endMonth}.${endDate}"
         when (dto.get("challengeType")) {
-            1 -> { binding.tvTag.text = "일반" }
-            2 -> { binding.tvTag.text = "판넬" }
-            3 -> { binding.tvTag.text = "보물" }
+            1 -> {
+                binding.tvTag.text = "일반"
+            }
+            2 -> {
+                binding.tvTag.text = "판넬"
+            }
+            3 -> {
+                binding.tvTag.text = "보물"
+            }
         }
         initListener()
     }
