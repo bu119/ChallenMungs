@@ -111,7 +111,7 @@
 
     <!--  Campaign Card  -->
     <string name="content_campaign_amount">%d / %d KLAY</string>
-    <string name="content_progress">(%d%)</string>
+    <string name="content_progress">(%d)</string>
     <string name="image_heart_icon">image_heart_icon</string>
     <string name="image_campaign_banner">image_banner</string>
 
