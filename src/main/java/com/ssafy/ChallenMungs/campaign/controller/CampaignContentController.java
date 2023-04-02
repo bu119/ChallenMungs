@@ -2,19 +2,24 @@ package com.ssafy.ChallenMungs.campaign.controller;
 
 
 import com.ssafy.ChallenMungs.campaign.dto.CampaignInsertDto;
+import com.ssafy.ChallenMungs.campaign.repository.ReceiptRepository;
 import com.ssafy.ChallenMungs.campaign.service.CampaignContentService;
 import com.ssafy.ChallenMungs.campaign.service.CampaignContentServiceImpl;
 import com.ssafy.ChallenMungs.common.util.Response;
+import com.ssafy.ChallenMungs.image.service.FileServiceImpl;
 import com.ssafy.ChallenMungs.user.controller.UserController;
 
 import io.swagger.annotations.*;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
 
 @RestController
 @RequestMapping("/campaign/content")
@@ -24,6 +29,8 @@ import org.springframework.web.multipart.MultipartFile;
 public class CampaignContentController {
      private final CampaignContentService service;
      Response res=new Response();
+    @Autowired
+    FileServiceImpl fileService;
 
     private Logger logger = LoggerFactory.getLogger(CampaignContentController.class);
      @PostMapping("/create")
@@ -72,6 +79,14 @@ public class CampaignContentController {
     @ApiOperation(value = "캠페인을 만들 수 있는지 체크합니다" ,notes="후원처의 아이디이고, 현재 진행중인 캠페인이 2개 미만인 경우에만 true를 반환합니다.")
     ResponseEntity<Object> isCampaignAble(@RequestParam String loginId) {
         return new ResponseEntity<Object>(res.makeSimpleRes(service.isCampaignAble(loginId)),HttpStatus.OK);
+    }
+
+    @PostMapping("/uploadReceipt")
+    @ApiOperation(value = "영수증 사진을 등록합니다" )
+    ResponseEntity uploadReceipt(@RequestParam int CampaignId, @RequestParam MultipartFile file) throws Exception {
+         String url = fileService.saveFile(file, "receipt");
+         service.uploadReceipt(url, CampaignId);
+        return new ResponseEntity<Object>(res.makeSimpleRes("성공"),HttpStatus.OK);
     }
 
 

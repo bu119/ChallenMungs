@@ -5,6 +5,7 @@ import com.ssafy.ChallenMungs.campaign.dto.CampaignInsertDto;
 
 public interface CampaignContentService {
     void createCampaign(CampaignInsertDto info);
+    void uploadReceipt(String url, int campaignId);
     boolean isCampaignAble(String loginId);
 
     int cheerUpCampaign(String loginId, int campaignId);
