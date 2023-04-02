@@ -64,7 +64,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            app:iconRes="@drawable/ic_dog_footprint"
+            app:iconRes="@drawable/ic_dog_footprint_suva_grey"
             app:layout_constraintStart_toEndOf="@id/cfc_cheer_up"
             app:layout_constraintTop_toTopOf="@id/cfc_amount"
             app:text="@string/content_filter_recent" />
