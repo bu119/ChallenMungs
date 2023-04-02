@@ -16,4 +16,12 @@ class MemberRepositoryImpl @Inject constructor(
         wrapToResource(Dispatchers.IO) {
             memberRemoteDataSource.getMemberInfo().toDomainModel()
         }
+
+    override suspend fun setWallet(
+        memberId: String,
+        piggyBank: String,
+        wallet: String
+    ): Resource<String> = wrapToResource(Dispatchers.IO) {
+        memberRemoteDataSource.setWallet(memberId, piggyBank, wallet).toDomainModel()
+    }
 }
