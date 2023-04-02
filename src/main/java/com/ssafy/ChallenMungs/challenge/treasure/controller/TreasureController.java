@@ -98,6 +98,7 @@ public class TreasureController {
         for (RankVo rv : treasureSocketHandler.challengeManager.get(challenge.getChallengeId()).rankInfo) {
             User u = userService.findUserByLoginId(rv.getLoginId());
             HashMap<String, Object> newRankInfoMap = new HashMap<>();
+            newRankInfoMap.put("loginId", u.getLoginId());
             newRankInfoMap.put("name", u.getName());
             newRankInfoMap.put("profile", u.getProfile());
             newRankInfoMap.put("rank", rv.getTeamRank());

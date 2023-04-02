@@ -122,6 +122,7 @@ public class PanelController {
             for (com.ssafy.ChallenMungs.challenge.panel.handler.RankVo rv : panelSocketHandler.challengeManager.get(challenge.getChallengeId()).rankInfo) {
                 User u = userService.findUserByLoginId((String) rv.getLoginId()); // 팀전일 경우 LoginId가 ArrayList라 고쳐야햄
                 HashMap<String, Object> newRankInfoMap = new HashMap<>();
+                newRankInfoMap.put("loginId", u.getLoginId());
                 newRankInfoMap.put("name", u.getName());
                 newRankInfoMap.put("profile", u.getProfile());
                 newRankInfoMap.put("rank", rv.getTeamRank());
@@ -134,6 +135,7 @@ public class PanelController {
                 for (String loginId : (ArrayList<String>) panelSocketHandler.challengeManager.get(challenge.getChallengeId()).rankInfo.get(i).getLoginId()) {
                     User u = userService.findUserByLoginId(loginId); // 팀전일 경우 LoginId가 ArrayList라 고쳐야햄
                     HashMap<String, Object> newRankInfoMap = new HashMap<>();
+                    newRankInfoMap.put("loginId", u.getLoginId());
                     newRankInfoMap.put("name", u.getName());
                     newRankInfoMap.put("profile", u.getProfile());
                     newRankInfoMap.put("rank", panelSocketHandler.challengeManager.get(challenge.getChallengeId()).rankInfo.get(i).getTeamRank());

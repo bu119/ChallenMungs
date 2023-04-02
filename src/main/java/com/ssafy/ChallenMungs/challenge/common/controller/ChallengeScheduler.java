@@ -201,6 +201,7 @@ public class ChallengeScheduler {
                             MyChallenge mc = myChallengeService.findByLoginIdAndChallengeId(u.getLoginId(), c.getChallengeId());
                             mc.setSuccessCount(rv.getTeamRank());
                             HashMap<String, Object> newRankInfoMap = new HashMap<>();
+                            newRankInfoMap.put("loginId", u.getLoginId());
                             newRankInfoMap.put("name", u.getName());
                             newRankInfoMap.put("profile", u.getProfile());
                             newRankInfoMap.put("rank", rv.getTeamRank());
@@ -226,6 +227,7 @@ public class ChallengeScheduler {
                                 MyChallenge mc = myChallengeService.findByLoginIdAndChallengeId(u.getLoginId(), c.getChallengeId());
                                 mc.setSuccessCount(panelSocketHandler.challengeManager.get(c.getChallengeId()).rankInfo.get(i).getTeamRank());
                                 HashMap<String, Object> newRankInfoMap = new HashMap<>();
+                                newRankInfoMap.put("loginId", u.getLoginId());
                                 newRankInfoMap.put("name", u.getName());
                                 newRankInfoMap.put("profile", u.getProfile());
                                 newRankInfoMap.put("rank", panelSocketHandler.challengeManager.get(c.getChallengeId()).rankInfo.get(i).getTeamRank());
@@ -282,6 +284,7 @@ public class ChallengeScheduler {
                         MyChallenge mc = myChallengeService.findByLoginIdAndChallengeId(u.getLoginId(), c.getChallengeId());
                         mc.setSuccessCount(rv.getTeamRank());
                         HashMap<String, Object> newRankInfoMap = new HashMap<>();
+                        newRankInfoMap.put("loginId", u.getLoginId());
                         newRankInfoMap.put("name", u.getName());
                         newRankInfoMap.put("profile", u.getProfile());
                         newRankInfoMap.put("rank", rv.getTeamRank());
