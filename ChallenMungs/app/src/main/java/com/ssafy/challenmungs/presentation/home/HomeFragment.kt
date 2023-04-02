@@ -51,15 +51,15 @@ class HomeFragment() : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home)
         ).execute()
 
         binding.tvShowTotalButton.setOnClickListener {
-            Toast.makeText(context, "전체 보기가 눌렸어요", Toast.LENGTH_SHORT).show()
+            // 전체 보기가 눌렸어요
         }
 
         binding.tvShowMore.setOnClickListener {
-            Toast.makeText(context, "내일 시작하는 챌린지 더보기 버튼이 눌렸어요", Toast.LENGTH_SHORT).show()
+            // 내일 시작하는 챌린지 더보기 버튼이 눌렸어요
         }
 
         binding.tvShowMoreForRecent.setOnClickListener {
-            Toast.makeText(context, "최근 추가된 모금의 더보기 버튼이 눌렸어요", Toast.LENGTH_SHORT).show()
+            // 최근 추가된 모금의 더보기 버튼이 눌렸어요
         }
     }
 
@@ -68,16 +68,16 @@ class HomeFragment() : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home)
         private val token: String,
         private val binding: FragmentHomeBinding
     ) : AsyncTask<Void, Void, String>() {
+
         override fun doInBackground(vararg params: Void?): String {
             val client = OkHttpClient()
             val request = Request.Builder()
                 .url(url)
                 .header("Authorization", token)
                 .build()
-
             val response = client.newCall(request).execute()
-
             val responseBody = response.body?.string()
+
             response.close()
 
             return responseBody ?: ""
@@ -98,6 +98,7 @@ class HomeFragment() : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home)
         private val binding: FragmentHomeBinding,
         private val context: Context
     ) : AsyncTask<Void, Void, String>() {
+
         override fun doInBackground(vararg params: Void?): String {
             val requestBody = FormBody.Builder()
                 .add("type", "1")
@@ -111,8 +112,8 @@ class HomeFragment() : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home)
                 .post(requestBody)
                 .build()
             val response = client.newCall(request).execute()
-
             val responseBody = response.body?.string()
+
             response.close()
 
             return responseBody ?: ""
@@ -121,10 +122,12 @@ class HomeFragment() : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home)
         override fun onPostExecute(result: String?) {
             val jsonArray = JSONObject(result).getJSONArray("1")
             val list = mutableListOf<Map<String, Any>>()
+
             for (i in 0 until jsonArray.length()) {
                 val jsonObj = jsonArray.getJSONObject(i)
                 val map = mutableMapOf<String, Any>()
                 val keys = jsonObj.keys()
+
                 while (keys.hasNext()) {
                     val key = keys.next()
                     val value = jsonObj.get(key)
@@ -132,7 +135,6 @@ class HomeFragment() : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home)
                 }
                 list.add(map)
             }
-            Log.d("gggg", "::${list}")
             val rv = binding.rvOngoing
             val adapter = MyChallengeListAdapter(list)
             rv.adapter = adapter
@@ -146,6 +148,7 @@ class HomeFragment() : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home)
         private val binding: FragmentHomeBinding,
         private val context: Context
     ) : AsyncTask<Void, Void, String>() {
+
         override fun doInBackground(vararg params: Void?): String {
             val requestBody = FormBody.Builder()
                 .add("type", "1")
@@ -159,21 +162,22 @@ class HomeFragment() : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home)
                 .post(requestBody)
                 .build()
             val response = client.newCall(request).execute()
-
             val responseBody = response.body?.string()
+
             response.close()
 
             return responseBody ?: ""
         }
 
         override fun onPostExecute(result: String?) {
-//            Log.d("gggg", JSONObject(result).toString())
             val jsonArray = JSONObject(result).getJSONArray("0")
             val list = mutableListOf<Map<String, Any>>()
+
             for (i in 0 until jsonArray.length()) {
                 val jsonObj = jsonArray.getJSONObject(i)
                 val map = mutableMapOf<String, Any>()
                 val keys = jsonObj.keys()
+
                 while (keys.hasNext()) {
                     val key = keys.next()
                     val value = jsonObj.get(key)
