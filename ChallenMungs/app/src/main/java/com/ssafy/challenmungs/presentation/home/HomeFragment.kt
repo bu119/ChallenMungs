@@ -212,7 +212,6 @@ class HomeFragment() : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home)
 
         override fun onPostExecute(result: String?) {
             val jsonArray = JSONArray(result)
-            Log.d("gggg", jsonArray.toString());
             val list = mutableListOf<Map<String, Any>>()
             for (i in 0 until jsonArray.length()) {
                 val jsonObj = jsonArray.getJSONObject(i)
