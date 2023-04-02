@@ -9,9 +9,11 @@ import com.ssafy.ChallenMungs.campaign.dto.ContentDto;
 import com.ssafy.ChallenMungs.campaign.entity.Campaign;
 import com.ssafy.ChallenMungs.campaign.entity.Content;
 import com.ssafy.ChallenMungs.campaign.entity.Love;
+import com.ssafy.ChallenMungs.campaign.entity.Receipt;
 import com.ssafy.ChallenMungs.campaign.repository.CampaignContentRepository;
 import com.ssafy.ChallenMungs.campaign.repository.CampaignListRepository;
 import com.ssafy.ChallenMungs.campaign.repository.LoveRepository;
+import com.ssafy.ChallenMungs.campaign.repository.ReceiptRepository;
 import com.ssafy.ChallenMungs.user.controller.UserController;
 import com.ssafy.ChallenMungs.user.entity.User;
 import com.ssafy.ChallenMungs.user.repository.UserRepository;
@@ -41,6 +43,8 @@ public class CampaignContentServiceImpl implements CampaignContentService{
     private final LoveRepository loveRepo;
     private final UserRepository userRepo;
     private final WalletRepository walletRepo;
+    private final ReceiptRepository receiptRepo;
+
 
     @Override
     public void createCampaign(CampaignInsertDto info) {
@@ -59,12 +63,23 @@ public class CampaignContentServiceImpl implements CampaignContentService{
         }
 
     }
+
+    @Override
+    public void uploadReceipt(String url, int campaignId) {
+        Receipt receipt = new Receipt();
+        receipt.setReceipt(url);
+        receipt.setCampaign(listRepo.findCampaignByCampaignId(campaignId));
+        receiptRepo.save(receipt);
+
+    }
+
     public Content initContent(ContentDto dto){
         Content content=new Content();
         content.setBody(dto.getBody());
         content.setType(dto.getType());
         return content;
     }
+
     public Campaign initCampaign(CampaignInsertDto info){
         User shelter=getUser(info.getLoginId());
         String account=getAddress(info.getLoginId());
