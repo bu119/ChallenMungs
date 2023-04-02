@@ -108,7 +108,6 @@
                 android:textColor="@color/zambezi"
                 android:textSize="11sp"
                 tools:text="%d / %d KLAY" />
-            <!--            android:text="@{@string/content_campaign_amount(campaign.achievement, campaign.target)}"-->
 
             <TextView
                 android:id="@+id/tv_progress"
@@ -120,7 +119,7 @@
                 android:textColor="@color/zambezi"
                 android:textSize="11sp"
                 tools:text="(34%)" />
-            <!--            android:text="@{@string/content_progress(campaign.progress)}"-->
+
         </LinearLayout>
 
         <LinearLayout
