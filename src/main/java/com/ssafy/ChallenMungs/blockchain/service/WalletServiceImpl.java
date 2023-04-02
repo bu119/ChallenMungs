@@ -258,7 +258,7 @@ public class WalletServiceImpl implements  WalletService{
     }
 
 
-    public JsonNode getCampaignHistory(int campaignId, boolean fromOnly) throws JsonProcessingException {
+    public JsonNode getCampaignHistory(int campaignId, boolean fromOnly, boolean toOnly) throws JsonProcessingException {
         RestTemplate restTemplate = new RestTemplate();
 
         // Header 설정
@@ -286,10 +286,14 @@ public class WalletServiceImpl implements  WalletService{
         else{
             builder = UriComponentsBuilder.fromHttpUrl(url)
                     .queryParam("range", registUnix + "," + endUnix);
-            if(fromOnly){
-                builder = builder.queryParam("from-only", true);
-            }
             System.out.println("종료");
+        }
+
+        if(fromOnly){
+            builder = builder.queryParam("from-only", true);
+        }
+        if(toOnly){
+            builder = builder.queryParam("to-only", true);
         }
         // 요청 엔티티 생성
         HttpEntity<String> requestEntity = new HttpEntity<>(headers);
@@ -305,8 +309,8 @@ public class WalletServiceImpl implements  WalletService{
 
 
     @Override
-    public Map<String, List<CampaignItemDto>> viewCampaignWallet(int campaignId, boolean fromOnly) throws JsonProcessingException {
-        JsonNode items = getCampaignHistory(campaignId, fromOnly);
+    public Map<String, List<CampaignItemDto>> viewCampaignWallet(int campaignId, boolean fromOnly, boolean toOnly) throws JsonProcessingException {
+        JsonNode items = getCampaignHistory(campaignId, fromOnly, toOnly);
         Campaign campaign = campaignRepo.findCampaignByCampaignId(campaignId);
         String address = campaign.getWalletAddress();
         List<Receipt> receipt_list = receiptRepo.findAllByCampaignOrderByReceiptIdDesc(campaign);

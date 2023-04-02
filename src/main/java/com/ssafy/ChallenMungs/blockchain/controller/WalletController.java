@@ -87,9 +87,10 @@ public class WalletController {
     }
 
     @GetMapping("viewCampaignWallet")
-    @ApiOperation(value = "캠페인 모금액 출,입금 기록을 반환합니다.",notes="fromOnly : true(출금내역만 조회 (캠페인 상세내역 사용내역) ), false(보호소 캠페인 별 사용내역)\nreceipt : null(후원), url일 때(출금) ")
-    ResponseEntity<Object> viewCampaignWallet(int campaignId, boolean fromOnly) throws JsonProcessingException {
-        return new ResponseEntity<Object>(service.viewCampaignWallet(campaignId, fromOnly),HttpStatus.OK);
+    @ApiOperation(value = "캠페인 모금액 출,입금 기록을 반환합니다.",notes="fromOnly : true(출금내역만 조회)\n toOnly : true(모금내역만 조회)\nreceipt : null(후원), url일 때(출금) ")
+    ResponseEntity<Object> viewCampaignWallet(int campaignId, boolean fromOnly, boolean toOnly) throws JsonProcessingException {
+        if(fromOnly && toOnly) return new ResponseEntity<Object>(res.makeSimpleRes("둘 중 하나만 ture가 가능합니다."),HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<Object>(service.viewCampaignWallet(campaignId, fromOnly, toOnly),HttpStatus.OK);
     }
 
 }
