@@ -9,6 +9,4 @@ interface AuthRepository {
     suspend fun requestLogin(body: RequestBody): Resource<Auth>
 
     suspend fun requestJoin(name: String, accessToken: String): Resource<String>
-
-    suspend fun setWallet(memberId: String, piggyBank: String, wallet: String): Resource<String>
 }

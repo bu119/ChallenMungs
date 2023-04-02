@@ -30,8 +30,8 @@ object UseCaseModule {
 
     @Singleton
     @Provides
-    fun provideSetWalletUseCase(authRepository: AuthRepository): SetWalletUseCase =
-        SetWalletUseCase(authRepository)
+    fun provideSetWalletUseCase(memberRepository: MemberRepository): SetWalletUseCase =
+        SetWalletUseCase(memberRepository)
 
     @Singleton
     @Provides
