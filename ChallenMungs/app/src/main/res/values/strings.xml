@@ -203,4 +203,15 @@
     <string name="image_cheer_up">응원받은 수 이미지입니다.</string>
     <string name="content_cheer_up">응원하기</string>
     <string name="image_member_profile">사용자의 프로필 이미지입니다.</string>
+    <string name="content_my_piggy_bank">내 기부 저금통</string>
+    <string name="content_from">에서</string>
+    <string name="content_to">(으)로</string>
+    <string name="content_donate_amount">얼마를 보낼까요?</string>
+    <string name="content_input">입력</string>
+    <string name="title_campaign_comment">응원 댓글 쓰기</string>
+    <string name="content_character_limit_init">0</string>
+    <string name="content_slash">/</string>
+    <string name="content_character_limit">300</string>
+    <string name="content_campaign_comment_hint">따듯한 한마디를 남겨주세요.</string>
+    <string name="content_about_fee">수수료는 챌린멍스가 대신 부담합니다.</string>
 </resources>
