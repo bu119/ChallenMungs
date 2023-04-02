@@ -202,4 +202,5 @@
     <string name="image_share">공유 버튼입니다.</string>
     <string name="image_cheer_up">응원받은 수 이미지입니다.</string>
     <string name="content_cheer_up">응원하기</string>
+    <string name="image_member_profile">사용자의 프로필 이미지입니다.</string>
 </resources>
