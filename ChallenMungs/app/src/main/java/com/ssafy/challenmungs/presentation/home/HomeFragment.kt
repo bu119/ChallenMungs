@@ -188,7 +188,6 @@ class HomeFragment() : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home)
             val rv = binding.rvOnlyTomorrow
             rv.adapter = MyChallengeOnlyTomorrowAdapter(list)
             rv.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-
         }
     }
 
@@ -232,5 +231,3 @@ class HomeFragment() : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home)
         }
     }
 }
-
-
