@@ -203,6 +203,11 @@
     <string name="image_cheer_up">응원받은 수 이미지입니다.</string>
     <string name="content_cheer_up">응원하기</string>
     <string name="image_member_profile">사용자의 프로필 이미지입니다.</string>
+    <string name="title_usage_history">사용내역</string>
+    <string name="content_view_receipt">영수증 확인 ></string>
+    <string name="image_receipt">영수증 인증 사진입니다.</string>
+
+    <!-- Donate - Donate -->
     <string name="content_my_piggy_bank">내 기부 저금통</string>
     <string name="content_from">에서</string>
     <string name="content_to">(으)로</string>
