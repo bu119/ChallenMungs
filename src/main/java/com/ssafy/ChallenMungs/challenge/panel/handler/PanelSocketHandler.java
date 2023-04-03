@@ -144,12 +144,12 @@ public class PanelSocketHandler extends TextWebSocketHandler {
 //            System.out.println(challengeManager.get(challengeId).mapCoordinate[0][0]);
 //            System.out.println(challengeManager.get(challengeId).mapCoordinate[0][0][0]);
 //            System.out.println(challengeManager.get(challengeId).mapCoordinate[0][0][0].lat);
-//            for (int i = 0; i < challengeManager.get(challengeId).mapCoordinate.length; i++) {
-//                for (int j = 0; j < challengeManager.get(challengeId).mapCoordinate.length; j++) {
-//                    System.out.printf("(%d, %d)[%7.5f, %7.5f]", i, j, challengeManager.get(challengeId).mapCoordinate[i][j][3].lat, challengeManager.get(challengeId).mapCoordinate[i][j][0].lng);
-//                }
-//                System.out.println();
-//            }
+            for (int i = 0; i < challengeManager.get(challengeId).mapCoordinate.length; i++) {
+                for (int j = 0; j < challengeManager.get(challengeId).mapCoordinate.length; j++) {
+                    System.out.printf("(%d, %d)[%7.5f, %7.5f]", i, j, challengeManager.get(challengeId).mapCoordinate[i][j][3].lat, challengeManager.get(challengeId).mapCoordinate[i][j][0].lng);
+                }
+                System.out.println();
+            }
 
             int index_r = -1;
             int index_c = -1;

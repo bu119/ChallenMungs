@@ -74,13 +74,19 @@ public class PanelController {
     ) {
         HashMap<String, Double> newPosition = null;
         newPosition = distance.getPosition(centerLat, centerLng, mapSize / 2, 0.0);
+        System.out.println(newPosition);
         Double maxLat = newPosition.get("latDistance");
-        newPosition = distance.getPosition(centerLat, centerLng, mapSize / 2, 90.0);
+        newPosition = distance.getPosition(centerLat, centerLng, mapSize / 413 * 500, 90.0);
+        System.out.println(newPosition);
         Double maxLng = newPosition.get("lngDistance");
         newPosition = distance.getPosition(centerLat, centerLng, mapSize / 2, 180.0);
+        System.out.println(newPosition);
         Double minLat = newPosition.get("latDistance");
-        newPosition = distance.getPosition(centerLat, centerLng, mapSize / 2, 270.0);
+        newPosition = distance.getPosition(centerLat, centerLng, mapSize / 413 * 500, 270.0);
+        System.out.println(newPosition);
         Double minLng = newPosition.get("lngDistance");
+        System.out.println("거리:" + distance.getDistance(36.0, minLng, 36.0, maxLng));
+        System.out.println("거리:" + distance.getDistance(minLat, 127.0, maxLat, 127.0));
 
         int cellD = (int) (mapSize / cellSize);
         Long cId = panelService.save(Challenge.builder()
