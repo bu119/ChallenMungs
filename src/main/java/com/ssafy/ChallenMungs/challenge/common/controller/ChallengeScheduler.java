@@ -322,10 +322,10 @@ public class ChallengeScheduler {
         String hexString ="0x" + Long.toHexString(new BigInteger(String.valueOf(klayForm)).longValue());
         String fromAddress;
         if(normal){
-            fromAddress = "0x50Aa5B30442cd67659bF1CA81E7cD4e351898cfd";
+            fromAddress = "0x2649eadC4C15bac554940A0A702fa759bddf0dBe";
         }
         else{
-            fromAddress = "0x6aC40a06633BcF319F0ebd124F189D29d9A390bF";
+            fromAddress = "0xee43BB5476e52B04175d698C56cC4516b96A85A5";
         }
         String userAddress = walletRepo.findByUserAndType(user,'p').getAddress();
         RestTemplate restTemplate = new RestTemplate();
@@ -348,7 +348,6 @@ public class ChallengeScheduler {
 
         // POST 요청 보내기
         String url = "https://wallet-api.klaytnapi.com/v2/tx/fd/value";
-        System.out.println(requestEntity);
         ResponseEntity<String> responseEntity = restTemplate.exchange(url, HttpMethod.POST, requestEntity, String.class);
         String responseBody = responseEntity.getBody();
 
@@ -365,7 +364,7 @@ public class ChallengeScheduler {
             JSONObject requestBody2 = new JSONObject();
             requestBody2.put("from", userAddress);
             requestBody2.put("value", hexString);
-            requestBody2.put("to", "0xbfCa49F6aa3613dbc94FE808c7123E227DB6C5DF");
+            requestBody2.put("to", "0xe85c069B5a941Cf7739333c5c4dfADDacBf77c4d");
             requestBody2.put("submit", true);
 
             // 요청 엔티티 생성
