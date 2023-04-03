@@ -69,8 +69,8 @@ public class ChallengeScheduler {
     @Autowired
     WalletRepository walletRepo;
 
-    @Scheduled(cron = "0 0 0 * * ?") // 매일 자정에 동작해요
-//    @Scheduled(cron = "0/5 * * * * ?") // 20초마다 실행해요
+//    @Scheduled(cron = "0 0 0 * * ?") // 매일 자정에 동작해요
+    @Scheduled(cron = "0/5 * * * * ?") // 20초마다 실행해요
     public void startChallenge() {
         System.out.println("스케쥴러가 동작해요!");
 //        generalBoardService.updateSuccessCount("sa01023@naver.com", 9L);
@@ -144,7 +144,7 @@ public class ChallengeScheduler {
             if (c.getStatus() == 1 && c.getEndDate().plusDays(1).equals(today)) {
                 log.info("일반챌린지가 종료되었어요!");
                 int totalKlay = c.getEntryFee() * c.getCurrentParticipantCount();
-//                c.setStatus(2);
+                c.setStatus(2);
                 flag = true;
                 String saveValue;
                 StringBuilder sb = new StringBuilder();
