@@ -210,7 +210,14 @@ public class PanelSocketHandler extends TextWebSocketHandler {
                 }
             }
 
-            if(index_r != -1 && index_c != -1) challengeManager.get(challengeId).mapInfo[index_r][index_c] = myChallenge.getTeamId();
+            if(index_r != -1 && index_c != -1) {
+                challengeManager.get(challengeId).mapInfo[index_r][index_c] = myChallenge.getTeamId();
+                for (RankVo rv : challengeManager.get(challengeId).rankInfo) {
+                    if (rv.getLoginId().equals(loginId)) {
+                        rv.setPanelCount(rv.getPanelCount() + 1);
+                    }
+                }
+            }
 
             HashMap<String, Object> mapDto = new HashMap<String, Object>();
             mapDto.put("code", "signaling");
