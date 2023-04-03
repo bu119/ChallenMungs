@@ -27,7 +27,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/bg_rect_white_smoke_radius5"
-                android:hint="@string/content_search_hint"
+                android:hint="@string/content_search_campaign_hint"
                 android:imeOptions="actionSearch"
                 android:inputType="text"
                 android:maxLines="1"

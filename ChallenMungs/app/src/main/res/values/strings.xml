@@ -188,7 +188,7 @@
         <item>보물찾기</item>
     </string-array>
     <string name="content_challenge_help">챌린지 설명을 볼 수 있는 버튼입니다.</string>
-    <string name="content_search_hint">검색할 챌린지 이름을 입력하세요.</string>
+    <string name="content_search_challenge_hint">검색할 챌린지 이름을 입력하세요.</string>
 
     <!-- Donate - Home -->
     <string name="content_filter_amount">누적금액순</string>
@@ -196,6 +196,7 @@
     <string name="content_filter_recent">최신순</string>
     <string name="image_filter">필터 버튼의 아이콘입니다.</string>
     <string name="image_sort_option">오름차순인지 내림차순인지 나타내는 이미지입니다</string>
+    <string name="content_search_campaign_hint">검색할 캠페인 이름을 입력하세요.</string>
 
     <!-- Donate - Campaign page -->
     <string name="image_campaign_main">기부 캠페인의 메인 이미지 입니다.</string>
