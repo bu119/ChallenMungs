@@ -116,6 +116,10 @@ public class PanelSocketHandler extends TextWebSocketHandler {
             int myTeamId = myChallenge.getTeamId();
             // 챌린지메니저에 등록한다
             challengeManager.get(challengeId).getPlayers().add(PlayerVo.builder().session(session).loginId(loginId).teamId(myTeamId).build());
+            for (Long i : challengeManager.keySet()) {
+                System.out.println(i);
+                System.out.println(challengeManager.get(i).players.size());
+            }
             // 현재 맵정보와 랭킹정보 준다
             HashMap<String, Object> dto = new HashMap<>();
             dto.put("code", "access");
@@ -247,12 +251,17 @@ public class PanelSocketHandler extends TextWebSocketHandler {
         Loop1:
         for (Long i : challengeManager.keySet()) {
             for (PlayerVo pv : challengeManager.get(i).players) {
+                System.out.println(pv.session);
                 if (pv.session.equals(session)) {
                     log.info("소켓에서 세션을 제거했어요!!");
                     challengeManager.get(i).players.remove(pv);
                     break Loop1;
                 }
             }
+        }
+        for (Long i : challengeManager.keySet()) {
+            System.out.println(i);
+            System.out.println(challengeManager.get(i).players.size());
         }
     }
 }
