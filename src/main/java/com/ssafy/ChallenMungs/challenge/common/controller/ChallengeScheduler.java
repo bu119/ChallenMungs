@@ -183,12 +183,12 @@ public class ChallengeScheduler {
 
                     log.info(successPeopleCount + "명이 성공했어요. 성공한 사람은" + getCoin + "만큼의 돈을 나눠가져요");
 
-//                    if(getCoin != 0) {
-//                        String shelterAddress = campaignListRepo.findCampaignByCampaignId(c.getCampaignId()).getWalletAddress();
-//                        for(User successUser:successUsers){
-//                            sendKlay(successUser, getCoin, true, shelterAddress);
-//                        }
-//                    }
+                    if(getCoin != 0) {
+                        String shelterAddress = campaignListRepo.findCampaignByCampaignId(c.getCampaignId()).getWalletAddress();
+                        for(User successUser:successUsers){
+                            sendKlay(successUser, getCoin, true, shelterAddress);
+                        }
+                    }
 
                 } else if (c.getChallengeType() == 2) {
                     log.info("판넬뒤집기 챌린지가 종료되었어요!");
@@ -332,9 +332,9 @@ public class ChallengeScheduler {
 
     // 특별챌린지 보상 나누기(특별챌린지 지갑 -> 고객 지갑 클레이튼 전송)
     void sendKlay(User user, Integer intklay, boolean normal, String shelterAddress) {
-        long klayForm = ((long)intklay) * 1000000000000000000L;
+        BigInteger klayForm = BigInteger.valueOf(intklay).multiply(BigInteger.TEN.pow(18));
+        String hexString = "0x" + klayForm.toString(16);
         System.out.println(klayForm);
-        String hexString ="0x" + Long.toHexString(new BigInteger(String.valueOf(klayForm)).longValue());
         System.out.println(hexString);
         String fromAddress;
         if(normal){
