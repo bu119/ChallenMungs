@@ -99,6 +99,7 @@ public class ChallengeScheduler {
                         }
                     } else if (c.getGameType() == 2) {
                         for (MyChallenge mc : myChallenges) {
+                            System.out.println(mc.getLoginId());
                             if (mc.getTeamId() == 1) rankInfo.add(RankVo.builder().teamRank(1).PanelCount(0).teamId(1).loginId(mc.getLoginId()).build());
                             else if (mc.getTeamId() == 2) rankInfo.add(RankVo.builder().teamRank(1).PanelCount(0).teamId(2).loginId(mc.getLoginId()).build());
                         }
