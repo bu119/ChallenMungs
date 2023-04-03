@@ -118,8 +118,8 @@ public class PanelSocketHandler extends TextWebSocketHandler {
             challengeManager.get(challengeId).getPlayers().add(PlayerVo.builder().session(session).loginId(loginId).teamId(myTeamId).build());
             for (Long i : challengeManager.keySet()) {
                 System.out.println(i);
-                for (int i = 0; i < challengeManager.get(i).players.size(); i++) {
-                    System.out.println(challengeManager.get(i).players.size());
+                for (int j = 0; j < challengeManager.get(i).players.size(); j++) {
+                    System.out.print(challengeManager.get(i).players.get(j).session.getId());
                 }
                 System.out.println();
             }
@@ -264,8 +264,8 @@ public class PanelSocketHandler extends TextWebSocketHandler {
         }
         for (Long i : challengeManager.keySet()) {
             System.out.println(i);
-            for (int i = 0; i < challengeManager.get(i).players.size(); i++) {
-                System.out.println(challengeManager.get(i).players.size());
+            for (int j = 0; j < challengeManager.get(i).players.size(); j++) {
+                System.out.print(challengeManager.get(i).players.get(j).session.getId());
             }
             System.out.println();
         }
