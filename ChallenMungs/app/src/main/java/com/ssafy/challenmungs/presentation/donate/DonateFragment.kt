@@ -29,7 +29,7 @@ class DonateFragment : BaseFragment<FragmentDonateBinding>(R.layout.fragment_don
             adapter = campaignListAdapter
             layoutManager =
                 GridLayoutManager(requireContext(), 2, GridLayoutManager.VERTICAL, false)
-            addItemDecoration(GridItemDecoration(requireContext(), 2, 20, 10))
+            addItemDecoration(GridItemDecoration(requireContext(), 2, 40, 10))
         }
     }
 
