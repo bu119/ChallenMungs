@@ -144,7 +144,7 @@ public class ChallengeScheduler {
             if (c.getStatus() == 1 && c.getEndDate().plusDays(1).equals(today)) {
                 log.info("일반챌린지가 종료되었어요!");
                 int totalKlay = c.getEntryFee() * c.getCurrentParticipantCount();
-//                c.setStatus(2);
+                c.setStatus(2);
                 flag = true;
                 String saveValue;
                 StringBuilder sb = new StringBuilder();
@@ -175,14 +175,13 @@ public class ChallengeScheduler {
                         myChallengeService.save(mc);
                     }
 
-
                     int getCoin = 0;
                     // 전체 금액을 성공한 사람 n빵 금액
                     if (successPeopleCount != 0) {
                         getCoin = c.getMaxParticipantCount() * c.getEntryFee() / successPeopleCount;
                     }
 
-                    log.info(getCoin + "만큼의 돈을 나눠가져요");
+                    log.info(successPeopleCount + "명이 성공했어요. 성공한 사람은" + getCoin + "만큼의 돈을 나눠가져요");
 
                     if(getCoin != 0) {
                         String shelterAddress = campaignListRepo.findCampaignByCampaignId(c.getCampaignId()).getWalletAddress();
@@ -333,9 +332,9 @@ public class ChallengeScheduler {
 
     // 특별챌린지 보상 나누기(특별챌린지 지갑 -> 고객 지갑 클레이튼 전송)
     void sendKlay(User user, Integer intklay, boolean normal, String shelterAddress) {
-        long klayForm = ((long)intklay) * 1000000000000000000L;
+        BigInteger klayForm = BigInteger.valueOf(intklay).multiply(BigInteger.TEN.pow(18));
+        String hexString = "0x" + klayForm.toString(16);
         System.out.println(klayForm);
-        String hexString ="0x" + Long.toHexString(new BigInteger(String.valueOf(klayForm)).longValue());
         System.out.println(hexString);
         String fromAddress;
         if(normal){
