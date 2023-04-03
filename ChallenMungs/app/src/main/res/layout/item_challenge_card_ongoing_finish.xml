@@ -7,7 +7,7 @@
 
         <variable
             name="challenge"
-            type="com.ssafy.challenmungs.domain.entity.challenge.ChallengeCard" />
+            type="com.ssafy.challenmungs.domain.entity.challenge.Challenge" />
 
     </data>
 
@@ -37,7 +37,7 @@
             android:background="@drawable/bg_rect_golden_glow_radius5"
             android:paddingHorizontal="8dp"
             android:paddingVertical="2dp"
-            android:text="@{challenge.tag}"
+            android:text="@{challenge.challengeType}"
             android:textColor="@color/black"
             android:textSize="11sp"
             app:layout_constraintStart_toStartOf="parent"
