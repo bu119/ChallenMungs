@@ -27,7 +27,7 @@ public class PlaceServiceImpl implements PlaceService{
     public Page<Place> getPlace(Pageable pageable, List<String> cities, String type) {
         Page<Place> page;
 
-        if(cities.isEmpty()) {
+        if(cities == null) {
             // 선택 안함
             if(type == null){
                 page = jpaRepo.findAll(pageable);
@@ -54,13 +54,4 @@ public class PlaceServiceImpl implements PlaceService{
                 , pageable, page.getTotalElements());
     }
 
-//    @Override
-//    public Page<Place> pagingList(Pageable pageable) {
-//        Page<Place> page = jpaRepo.findAll(pageable);
-//
-//        return new PageImpl<Place>(jpaRepo.findAll(pageable).getContent().stream()
-//                .map(b -> new Place(b.getPlaceId(), b.getName(), b.getCity(), b.getAddress(), b.getNumber(), b.getType(), b.getLat(), b.getLng()))
-//                .collect(Collectors.toList())
-//                , pageable, page.getTotalElements());
-//    }
 }
