@@ -25,12 +25,12 @@ object BindingAdapters {
     }
 
     @JvmStatic
-    @BindingAdapter("android:imgUri")
-    fun ImageView.setImage(imgUri: String?) {
+    @BindingAdapter("android:campaignBannerUri")
+    fun ImageView.setCampaignImage(imgUri: String?) {
         Glide.with(this.context)
             .load(imgUri)
-            .placeholder(R.color.suva_grey)
-            .error(R.color.suva_grey)
+            .placeholder(R.drawable.bg_rect_pink_swan_radius10_image_not_found)
+            .error(R.drawable.bg_rect_pink_swan_radius10_image_not_found)
             .centerCrop()
             .into(this)
     }
