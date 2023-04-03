@@ -116,19 +116,19 @@ public class PanelSocketHandler extends TextWebSocketHandler {
             int myTeamId = myChallenge.getTeamId();
             // 챌린지메니저에 등록한다
             challengeManager.get(challengeId).getPlayers().add(PlayerVo.builder().session(session).loginId(loginId).teamId(myTeamId).build());
-            for (Long i : challengeManager.keySet()) {
-                System.out.println(i);
-                for (int j = 0; j < challengeManager.get(i).players.size(); j++) {
-                    System.out.print(challengeManager.get(i).players.get(j).session.getId());
-                }
-                System.out.println();
-            }
-            for (int i = 0; i < challengeManager.get(challengeId).mapInfo.length; i++) {
-                for (int j = 0; j < challengeManager.get(challengeId).mapInfo[0].length; j++) {
-                    System.out.print(challengeManager.get(challengeId).mapInfo[i][j] + " ");
-                }
-                System.out.println();
-            }
+//            for (Long i : challengeManager.keySet()) {
+//                System.out.println(i);
+//                for (int j = 0; j < challengeManager.get(i).players.size(); j++) {
+//                    System.out.print(challengeManager.get(i).players.get(j).session.getId());
+//                }
+//                System.out.println();
+//            }
+//            for (int i = 0; i < challengeManager.get(challengeId).mapInfo.length; i++) {
+//                for (int j = 0; j < challengeManager.get(challengeId).mapInfo[0].length; j++) {
+//                    System.out.print(challengeManager.get(challengeId).mapInfo[i][j] + " ");
+//                }
+//                System.out.println();
+//            }
             // 현재 맵정보와 랭킹정보 준다
             HashMap<String, Object> dto = new HashMap<>();
             dto.put("code", "access");
@@ -251,12 +251,12 @@ public class PanelSocketHandler extends TextWebSocketHandler {
             subMap.put("rankInfo", newRankInfoList);
             TextMessage dto = new TextMessage(mapper.writeValueAsString(mapDto));
 
-            for (int i = 0; i < challengeManager.get(challengeId).mapInfo.length; i++) {
-                for (int j = 0; j < challengeManager.get(challengeId).mapInfo[0].length; j++) {
-                    System.out.print(challengeManager.get(challengeId).mapInfo[i][j] + " ");
-                }
-                System.out.println();
-            }
+//            for (int i = 0; i < challengeManager.get(challengeId).mapInfo.length; i++) {
+//                for (int j = 0; j < challengeManager.get(challengeId).mapInfo[0].length; j++) {
+//                    System.out.print(challengeManager.get(challengeId).mapInfo[i][j] + " ");
+//                }
+//                System.out.println();
+//            }
 
             for (PlayerVo pv : challengeManager.get(challengeId).players) {
                 pv.session.sendMessage(dto);
@@ -286,7 +286,7 @@ public class PanelSocketHandler extends TextWebSocketHandler {
         Loop1:
         for (Long i : challengeManager.keySet()) {
             for (PlayerVo pv : challengeManager.get(i).players) {
-                System.out.println(pv.session);
+//                System.out.println(pv.session);
                 if (pv.session.equals(session)) {
                     log.info("소켓에서 세션을 제거했어요!!");
                     challengeManager.get(i).players.remove(pv);
@@ -294,18 +294,18 @@ public class PanelSocketHandler extends TextWebSocketHandler {
                 }
             }
         }
-        for (Long i : challengeManager.keySet()) {
-            System.out.println(i);
-            for (int j = 0; j < challengeManager.get(i).players.size(); j++) {
-                System.out.print(challengeManager.get(i).players.get(j).session.getId());
-            }
-            System.out.println();
-        }
-        for (int i = 0; i < challengeManager.get(1).mapInfo.length; i++) {
-            for (int j = 0; j < challengeManager.get(1).mapInfo[0].length; j++) {
-                System.out.print(challengeManager.get(1).mapInfo[i][j] + " ");
-            }
-            System.out.println();
-        }
+//        for (Long i : challengeManager.keySet()) {
+//            System.out.println(i);
+//            for (int j = 0; j < challengeManager.get(i).players.size(); j++) {
+//                System.out.print(challengeManager.get(i).players.get(j).session.getId());
+//            }
+//            System.out.println();
+//        }
+//        for (int i = 0; i < challengeManager.get(1).mapInfo.length; i++) {
+//            for (int j = 0; j < challengeManager.get(1).mapInfo[0].length; j++) {
+//                System.out.print(challengeManager.get(1).mapInfo[i][j] + " ");
+//            }
+//            System.out.println();
+//        }
     }
 }
