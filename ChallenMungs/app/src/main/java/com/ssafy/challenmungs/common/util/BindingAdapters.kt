@@ -25,6 +25,17 @@ object BindingAdapters {
     }
 
     @JvmStatic
+    @BindingAdapter("android:imgUri")
+    fun ImageView.setImage(imgUri: String?) {
+        Glide.with(this.context)
+            .load(imgUri)
+            .placeholder(R.color.suva_grey)
+            .error(R.color.suva_grey)
+            .centerCrop()
+            .into(this)
+    }
+
+    @JvmStatic
     @BindingAdapter("app:imgRes")
     fun ImageView.setImgResource(resId: Int) {
         this.setImageResource(resId)
