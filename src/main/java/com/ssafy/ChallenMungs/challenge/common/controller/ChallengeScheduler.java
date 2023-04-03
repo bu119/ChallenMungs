@@ -144,7 +144,7 @@ public class ChallengeScheduler {
             if (c.getStatus() == 1 && c.getEndDate().plusDays(1).equals(today)) {
                 log.info("일반챌린지가 종료되었어요!");
                 int totalKlay = c.getEntryFee() * c.getCurrentParticipantCount();
-//                c.setStatus(2);
+                c.setStatus(2);
                 flag = true;
                 String saveValue;
                 StringBuilder sb = new StringBuilder();
@@ -175,21 +175,20 @@ public class ChallengeScheduler {
                         myChallengeService.save(mc);
                     }
 
-
                     int getCoin = 0;
                     // 전체 금액을 성공한 사람 n빵 금액
                     if (successPeopleCount != 0) {
                         getCoin = c.getMaxParticipantCount() * c.getEntryFee() / successPeopleCount;
                     }
 
-                    log.info(getCoin + "만큼의 돈을 나눠가져요");
+                    log.info(successPeopleCount + "명이 성공했어요. 성공한 사람은" + getCoin + "만큼의 돈을 나눠가져요");
 
-                    if(getCoin != 0) {
-                        String shelterAddress = campaignListRepo.findCampaignByCampaignId(c.getCampaignId()).getWalletAddress();
-                        for(User successUser:successUsers){
-                            sendKlay(successUser, getCoin, true, shelterAddress);
-                        }
-                    }
+//                    if(getCoin != 0) {
+//                        String shelterAddress = campaignListRepo.findCampaignByCampaignId(c.getCampaignId()).getWalletAddress();
+//                        for(User successUser:successUsers){
+//                            sendKlay(successUser, getCoin, true, shelterAddress);
+//                        }
+//                    }
 
                 } else if (c.getChallengeType() == 2) {
                     log.info("판넬뒤집기 챌린지가 종료되었어요!");
