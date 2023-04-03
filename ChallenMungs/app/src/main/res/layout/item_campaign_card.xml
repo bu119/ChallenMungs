@@ -22,7 +22,7 @@
             android:layout_width="0dp"
             android:layout_height="92dp"
             android:contentDescription="@string/image_campaign_banner"
-            android:src="@{campaign.bannerUrl}"
+            android:imgUri="@{campaign.bannerUrl}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -63,7 +63,7 @@
             android:id="@+id/tv_cheer_count"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{campaign.cheerCount}"
+            android:text="@{Integer.toString(campaign.cheerCount)}"
             android:textColor="@color/black"
             android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="@id/tv_title"
