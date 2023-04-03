@@ -117,6 +117,8 @@ public class PanelController {
         mapDto.put("endDate", challenge.getEndDate().toString());
         mapDto.put("entryFee", challenge.getEntryFee());
         mapDto.put("gameType", challenge.getGameType());
+        mapDto.put("centerLat", challenge.getCenterLat());
+        mapDto.put("centerLng", challenge.getCenterLng());
         ArrayList<HashMap> newRankInfoList = new ArrayList<>();
         for (com.ssafy.ChallenMungs.challenge.panel.handler.RankVo rv : panelSocketHandler.challengeManager.get(challenge.getChallengeId()).rankInfo) {
             User u = userService.findUserByLoginId((String) rv.getLoginId()); // 팀전일 경우 LoginId가 ArrayList라 고쳐야햄
