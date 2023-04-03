@@ -142,9 +142,9 @@ public class ChallengeScheduler {
             }
             // 예를 들어 2일에 끝나는 겜이면 3일 자정에 끝나야됨
             if (c.getStatus() == 1 && c.getEndDate().plusDays(1).equals(today)) {
-//            if (c.getStatus() == 1) {
+                log.info("일반챌린지가 종료되었어요!");
                 int totalKlay = c.getEntryFee() * c.getCurrentParticipantCount();
-                c.setStatus(2);
+//                c.setStatus(2);
                 flag = true;
                 String saveValue;
                 StringBuilder sb = new StringBuilder();
@@ -162,23 +162,29 @@ public class ChallengeScheduler {
                         long daysBetween = ChronoUnit.DAYS.between(c.getStartDate(), c.getEndDate()) + 1;
                         double successRatio = (double) mc.getSuccessCount() / daysBetween * 100;
                         mc.setSuccessRatio((int) Math.floor(successRatio));
+
                         if (mc.getSuccessRatio() >= c.getSuccessCondition()) {
-                            mc.setSuccessResult(true);
+                            mc.setSuccessResult(1);
                             successPeopleCount ++;
                             // user entity 내역
                             successUsers.add(userService.findUserByLoginId(mc.getLoginId()));
                         } else {
-                            mc.setSuccessResult(false);
+                            mc.setSuccessResult(0);
                         }
+
+                        myChallengeService.save(mc);
                     }
+
+
                     int getCoin = 0;
                     // 전체 금액을 성공한 사람 n빵 금액
                     if (successPeopleCount != 0) {
                         getCoin = c.getMaxParticipantCount() * c.getEntryFee() / successPeopleCount;
                     }
 
+                    log.info(getCoin + "만큼의 돈을 나눠가져요");
+
                     if(getCoin != 0) {
-                        System.out.println("11111111111111111");
                         String shelterAddress = campaignListRepo.findCampaignByCampaignId(c.getCampaignId()).getWalletAddress();
                         for(User successUser:successUsers){
                             sendKlay(successUser, getCoin, true, shelterAddress);
@@ -324,7 +330,9 @@ public class ChallengeScheduler {
     // 특별챌린지 보상 나누기(특별챌린지 지갑 -> 고객 지갑 클레이튼 전송)
     void sendKlay(User user, Integer intklay, boolean normal, String shelterAddress) {
         long klayForm = ((long)intklay) * 1000000000000000000L;
+        System.out.println(klayForm);
         String hexString ="0x" + Long.toHexString(new BigInteger(String.valueOf(klayForm)).longValue());
+        System.out.println(hexString);
         String fromAddress;
         if(normal){
             fromAddress = "0x2649eadC4C15bac554940A0A702fa759bddf0dBe";
@@ -374,10 +382,11 @@ public class ChallengeScheduler {
             requestBody2.put("submit", true);
 
             // 요청 엔티티 생성
-            HttpEntity<String> requestEntity2 = new HttpEntity<>(requestBody.toString(), headers);
+            HttpEntity<String> requestEntity2 = new HttpEntity<>(requestBody2.toString(), headers);
 
             // POST 요청 보내기
-            ResponseEntity<String> responseEntity2 = restTemplate.exchange(url, HttpMethod.POST, requestEntity, String.class);
+            ResponseEntity<String> responseEntity2 = restTemplate.exchange(url, HttpMethod.POST, requestEntity2, String.class);
+            System.out.println("요청 완료");
             String responseBody2 = responseEntity2.getBody();
         }
 
