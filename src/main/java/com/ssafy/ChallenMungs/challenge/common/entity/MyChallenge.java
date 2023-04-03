@@ -31,6 +31,6 @@ public class MyChallenge {
     Integer successRatio;
 
     @Column(name = "success_result")
-    Boolean successResult;
+    Integer successResult;
 
 }
