@@ -72,7 +72,13 @@ public class GeneralBoardController {
 
         // 챌린지가 진행중인지 확인
         if (challenge.getStatus() != 1) {
-            log.info("챌린지가 진행중이지 않습니다.");
+
+            if (challenge.getStatus() == 0) {
+                log.info("챌린지가 진행중이지 않습니다.");
+            }
+            if (challenge.getStatus() == 2) {
+                log.info("끝난 챌린지입니다.");
+            }
             return ResponseEntity.notFound().build();
         }
 

@@ -69,8 +69,8 @@ public class ChallengeScheduler {
     @Autowired
     WalletRepository walletRepo;
 
-    @Scheduled(cron = "0 0 0 * * ?") // 매일 자정에 동작해요
-//    @Scheduled(cron = "0/5 * * * * ?") // 20초마다 실행해요
+//    @Scheduled(cron = "0 0 0 * * ?") // 매일 자정에 동작해요
+    @Scheduled(cron = "0/5 * * * * ?") // 20초마다 실행해요
     public void startChallenge() {
         System.out.println("스케쥴러가 동작해요!");
 //        generalBoardService.updateSuccessCount("sa01023@naver.com", 9L);
@@ -142,6 +142,7 @@ public class ChallengeScheduler {
             }
             // 예를 들어 2일에 끝나는 겜이면 3일 자정에 끝나야됨
             if (c.getStatus() == 1 && c.getEndDate().plusDays(1).equals(today)) {
+//            if (c.getStatus() == 1) {
                 int totalKlay = c.getEntryFee() * c.getCurrentParticipantCount();
                 c.setStatus(2);
                 flag = true;
@@ -175,14 +176,14 @@ public class ChallengeScheduler {
                     if (successPeopleCount != 0) {
                         getCoin = c.getMaxParticipantCount() * c.getEntryFee() / successPeopleCount;
                     }
+
                     if(getCoin != 0) {
+                        System.out.println("11111111111111111");
                         String shelterAddress = campaignListRepo.findCampaignByCampaignId(c.getCampaignId()).getWalletAddress();
                         for(User successUser:successUsers){
                             sendKlay(successUser, getCoin, true, shelterAddress);
                         }
                     }
-
-
 
                 } else if (c.getChallengeType() == 2) {
                     log.info("판넬뒤집기 챌린지가 종료되었어요!");
