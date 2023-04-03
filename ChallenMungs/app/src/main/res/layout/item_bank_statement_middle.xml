@@ -50,7 +50,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="6dp"
-            android:textColor="@color/mandy"
+            android:textColor="@color/venetian_red"
             android:textSize="13sp"
             app:layout_constraintEnd_toStartOf="@+id/iv_klay_icon"
             app:layout_constraintTop_toTopOf="@id/tv_bank_statement_content"

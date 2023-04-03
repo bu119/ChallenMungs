@@ -20,13 +20,17 @@
     <color name="corn_silk">#FFFFF7DC</color>
     <color name="toast">#FF9F725A</color>
     <color name="white_linen">#F1EAE0</color>
-    <color name="mandy">#FFE34755</color>
-    <color name="royal_blue">#FF4D66E7</color>
-    <color name="trans35_royal_blue">#594D66E7</color>
-    <color name="trans35_mandy">#59E34755</color>
+    <color name="venetian_red">#D10013</color>
+    <color name="blue">#0029FF</color>
+    <color name="trans45_blue">#730029FF</color>
+    <color name="trans50_venetian_red">#80D10013</color>
     <color name="trans20_pink_swan">#33B4B4B4</color>
     <color name="trans35_black">#59000000</color>
     <color name="trans48_zambezi">#7A000000</color>
     <color name="sushi">#84B340</color>
     <color name="trans30_golden_poppy">#4DF6BD00</color>
+    <color name="trans60_lime_green">#9933AC28</color>
+    <color name="trans60_blue_violet">#99A340F0</color>
+    <color name="trans50_pumpkin">#80FF7324</color>
+    <color name="trans50_golden_poppy">#80F6BD00</color>
 </resources>
