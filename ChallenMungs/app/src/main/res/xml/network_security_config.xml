@@ -3,4 +3,7 @@
     <domain-config cleartextTrafficPermitted="true">
         <domain includeSubdomains="true">j8d2101.p.ssafy.io</domain>
     </domain-config>
+    <domain-config cleartextTrafficPermitted="true">
+        <domain includeSubdomains="true">k.kakaocdn.net</domain>
+    </domain-config>
 </network-security-config>
