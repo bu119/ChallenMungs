@@ -3,6 +3,7 @@ package com.ssafy.ChallenMungs.challenge.common.controller;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ssafy.ChallenMungs.blockchain.repository.WalletRepository;
+import com.ssafy.ChallenMungs.campaign.repository.CampaignListRepository;
 import com.ssafy.ChallenMungs.challenge.common.entity.Challenge;
 import com.ssafy.ChallenMungs.challenge.common.entity.MyChallenge;
 import com.ssafy.ChallenMungs.challenge.common.service.ChallengeService;
@@ -59,6 +60,9 @@ public class ChallengeScheduler {
 
     @Autowired
     GeneralBoardService generalBoardService;
+
+    @Autowired
+    CampaignListRepository campaignListRepo;
 
     ObjectMapper mapper = new ObjectMapper();
 
@@ -166,19 +170,19 @@ public class ChallengeScheduler {
                             mc.setSuccessResult(false);
                         }
                     }
-                    // 성공한 사람들 리스트 - loginId 들어있음
-                    //  List<MyChallenge> successUsers = myChallengeService.findByChallengeIdAndSuccessResult(mc.getChallengeId());
                     int getCoin = 0;
                     // 전체 금액을 성공한 사람 n빵 금액
                     if (successPeopleCount != 0) {
                         getCoin = c.getMaxParticipantCount() * c.getEntryFee() / successPeopleCount;
                     }
+                    if(getCoin != 0) {
+                        String shelterAddress = campaignListRepo.findCampaignByCampaignId(c.getCampaignId()).getWalletAddress();
+                        for(User successUser:successUsers){
+                            sendKlay(successUser, getCoin, true, shelterAddress);
+                        }
+                    }
 
-//                    if (successUsers != null) {
-//                        for(User user: successUsers){
-//                            sendKlay(user, getCoin, true);
-//                        }
-//                    }
+
 
                 } else if (c.getChallengeType() == 2) {
                     log.info("판넬뒤집기 챌린지가 종료되었어요!");
@@ -236,7 +240,7 @@ public class ChallengeScheduler {
                         newRankInfoMap.put("point", rv.getPanelCount());
                         newRankInfoMap.put("obtainKlay", myklay[idx-1]);
                         newRankInfoList.add(newRankInfoMap);
-                        sendKlay(u, myklay[idx-1], false);
+                        sendKlay(u, myklay[idx-1], false, null);
                         idx++;
                     }
                     try {
@@ -287,7 +291,7 @@ public class ChallengeScheduler {
                         newRankInfoMap.put("obtainKlay", myklay[idx-1]);
                         newRankInfoMap.put("myTreasureList", rv.getMyTreasureList());
                         newRankInfoList.add(newRankInfoMap);
-                        sendKlay(u, myklay[idx-1], false);
+                        sendKlay(u, myklay[idx-1], false, null);
                         idx++;
                     }
                     try {
@@ -317,7 +321,7 @@ public class ChallengeScheduler {
     }
 
     // 특별챌린지 보상 나누기(특별챌린지 지갑 -> 고객 지갑 클레이튼 전송)
-    void sendKlay(User user, Integer intklay, boolean normal) {
+    void sendKlay(User user, Integer intklay, boolean normal, String shelterAddress) {
         long klayForm = ((long)intklay) * 1000000000000000000L;
         String hexString ="0x" + Long.toHexString(new BigInteger(String.valueOf(klayForm)).longValue());
         String fromAddress;
@@ -352,6 +356,7 @@ public class ChallengeScheduler {
         String responseBody = responseEntity.getBody();
 
         if(normal){
+            System.out.println(shelterAddress);
             RestTemplate restTemplate2 = new RestTemplate();
 
             // 요청 헤더 설정
@@ -364,7 +369,7 @@ public class ChallengeScheduler {
             JSONObject requestBody2 = new JSONObject();
             requestBody2.put("from", userAddress);
             requestBody2.put("value", hexString);
-            requestBody2.put("to", "0xe85c069B5a941Cf7739333c5c4dfADDacBf77c4d");
+            requestBody2.put("to", shelterAddress);
             requestBody2.put("submit", true);
 
             // 요청 엔티티 생성
