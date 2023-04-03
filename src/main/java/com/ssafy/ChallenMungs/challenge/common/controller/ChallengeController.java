@@ -171,7 +171,7 @@ ChallengeController {
                     HashMap<String, Object> subMap = new HashMap<String, Object>();
                     subMap.put("challengeInfo", c);
                     String loginId = request.getAttribute("loginId").toString();
-                    if (myChallengeService.findByLoginIdAndChallengeId(loginId, c.getChallengeId()) == null) subMap.put("successInfo", myChallengeService.findByLoginIdAndChallengeId(loginId, c.getChallengeId()).getSuccessResult());
+                    if (myChallengeService.findByLoginIdAndChallengeId(loginId, c.getChallengeId()) != null) subMap.put("successInfo", myChallengeService.findByLoginIdAndChallengeId(loginId, c.getChallengeId()).getSuccessResult());
                     else subMap.put("successInfo", null);
                     dto.get(2).add(subMap);
                     break;
