@@ -128,6 +128,7 @@ public class DonateServiceImpl implements  DonateService{
         Campaign campaign=campaignRepo.findCampaignByCampaignId(campaignId);
         if(isEndCampaign(campaign,money)){
             campaign.setWalletAddress("none");
+            campaign.setEndUnix(System.currentTimeMillis() / 1000L);
         }
         //출금 금액 업데이트
         int newWithdraw=campaign.getWithdrawAmount()+money;

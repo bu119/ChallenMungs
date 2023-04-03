@@ -8,5 +8,4 @@ import java.util.List;
 
 public interface PlaceService {
     Page<Place> getPlace(Pageable pageable, List<String> cities, String type);
-//    Page<Place> pagingList(Pageable pageable);
 }
