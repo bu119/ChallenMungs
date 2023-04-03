@@ -28,11 +28,15 @@ class ChallengeFragment : BaseFragment<FragmentChallengeBinding>(R.layout.fragme
             addItemDecoration(GridItemDecoration(requireContext(), 2, 15, 10))
         }
 
-        binding.tilEtSearch.setOnKeyListener { v, keyCode, event ->
-            if (keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_UP) {
-                challengeViewModel.getChallengeList(1, v.toString())
+        binding.tilEtSearch.apply {
+            setOnKeyListener { _, keyCode, event ->
+                if (keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_UP) {
+                    hideKeyboard()
+                    binding.root.requestFocus()
+                    challengeViewModel.getChallengeList(1, text.toString())
+                    return@setOnKeyListener true
+                } else return@setOnKeyListener false
             }
-            return@setOnKeyListener true
         }
     }
 
