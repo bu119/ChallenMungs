@@ -25,6 +25,7 @@ import springfox.documentation.spring.web.json.Json;
 import javax.annotation.PostConstruct;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
@@ -53,8 +54,36 @@ public class PanelSocketHandler extends TextWebSocketHandler {
             for (MyChallenge mc : myChallenges) {
                 rankInfo.add(RankVo.builder().teamRank(1).PanelCount(0).teamId(mc.getTeamId()).loginId(mc.getLoginId()).build());
             }
+            // mapCoordinate 정의
+            Double latCellLength = (c.getMaxLat() - c.getMinLat()) / c.getCellD();
+            Double lngCellLength = (c.getMaxLng() - c.getMinLng()) / c.getCellD();
+            CoordinateVo [] [] [] mapCoordinate = new CoordinateVo [c.getCellD()] [c.getCellD()] [4];
+            for (int i = 0; i < c.getCellD() - 1; i++) {
+                for (int j = 0; j < c.getCellD() - 1; j++) {
+                    mapCoordinate[i][j][0] = CoordinateVo.builder().lat(c.getMaxLat() - latCellLength * i).lng(c.getMinLng() + lngCellLength * j).build();
+                    mapCoordinate[i][j][1] = CoordinateVo.builder().lat(c.getMaxLat() - latCellLength * i).lng(c.getMinLng() + lngCellLength * (j + 1)).build();
+                    mapCoordinate[i][j][2] = CoordinateVo.builder().lat(c.getMaxLat() - latCellLength * (i + 1)).lng(c.getMinLng() + lngCellLength * j).build();
+                    mapCoordinate[i][j][3] = CoordinateVo.builder().lat(c.getMaxLat() - latCellLength * (i + 1)).lng(c.getMinLng() + lngCellLength * (j + 1)).build();
+                }
+            }
+            for (int i = 0; i < c.getCellD() - 1; i++) {
+                mapCoordinate[i][c.getCellD() - 1][0] = CoordinateVo.builder().lat(c.getMaxLat() - latCellLength * i).lng(c.getMinLng() + lngCellLength * (c.getCellD()-1)).build();
+                mapCoordinate[i][c.getCellD() - 1][1] = CoordinateVo.builder().lat(c.getMaxLat() - latCellLength * i).lng(c.getMaxLng()).build();
+                mapCoordinate[i][c.getCellD() - 1][2] = CoordinateVo.builder().lat(c.getMaxLat() - latCellLength * (i+1)).lng(c.getMinLng() + lngCellLength * (c.getCellD()-1)).build();
+                mapCoordinate[i][c.getCellD() - 1][3] = CoordinateVo.builder().lat(c.getMaxLat() - latCellLength * (i+1)).lng(c.getMaxLng()).build();
+            }
+            for (int i = 0; i < c.getCellD() - 1; i++) {
+                mapCoordinate[c.getCellD() - 1][i][0] = CoordinateVo.builder().lat(c.getMaxLat() - latCellLength * i).lng(c.getMinLng() + lngCellLength * (c.getCellD()-1)).build();
+                mapCoordinate[c.getCellD() - 1][i][1] = CoordinateVo.builder().lat(c.getMaxLat() - latCellLength * i).lng(c.getMinLng() + lngCellLength * c.getCellD()).build();
+                mapCoordinate[c.getCellD() - 1][i][2] = CoordinateVo.builder().lat(c.getMinLat()).lng(c.getMinLng() + lngCellLength * (c.getCellD()-1)).build();
+                mapCoordinate[c.getCellD() - 1][i][3] = CoordinateVo.builder().lat(c.getMinLat()).lng(c.getMinLng() + lngCellLength * c.getCellD()).build();
+            }
+            mapCoordinate[c.getCellD() - 1][c.getCellD() - 1][0] = CoordinateVo.builder().lat(c.getMaxLat() - latCellLength * (c.getCellD()-1)).lng(c.getMinLng() + lngCellLength * (c.getCellD()-1)).build();
+            mapCoordinate[c.getCellD() - 1][c.getCellD() - 1][1] = CoordinateVo.builder().lat(c.getMaxLat() - latCellLength * (c.getCellD()-1)).lng(c.getMaxLng()).build();
+            mapCoordinate[c.getCellD() - 1][c.getCellD() - 1][2] = CoordinateVo.builder().lat(c.getMinLat()).lng(c.getMinLng() + lngCellLength * (c.getCellD()-1)).build();
+            mapCoordinate[c.getCellD() - 1][c.getCellD() - 1][3] = CoordinateVo.builder().lat(c.getMinLat()).lng(c.getMaxLng()).build();
             // 여기서 mapInfo 정의
-            challengeManager.put(c.getChallengeId(), ChallengeVo.builder().players(new ArrayList<PlayerVo>()).mapInfo(new int[c.getCellD()][c.getCellD()]).rankInfo(rankInfo).build());
+            challengeManager.put(c.getChallengeId(), ChallengeVo.builder().players(new ArrayList<PlayerVo>()).mapInfo(new int[c.getCellD()][c.getCellD()]).mapCoordinate(mapCoordinate).rankInfo(rankInfo).build());
         }
     }
 
@@ -98,6 +127,7 @@ public class PanelSocketHandler extends TextWebSocketHandler {
         }
         else if (event.equals("signaling")) {
             log.info("같은 방 사람들에게 신호를 보내요!");
+
             Double myLat = data.getAsJsonObject().get("lat").getAsDouble();
             Double myLng = data.getAsJsonObject().get("lng").getAsDouble();
             Long challengeId = data.getAsJsonObject().get("challengeId").getAsLong();
@@ -105,21 +135,33 @@ public class PanelSocketHandler extends TextWebSocketHandler {
 
             Challenge challenge = challengeService.findByChallengeId(challengeId);
             MyChallenge myChallenge = myChallengeService.findByLoginIdAndChallengeId(loginId, challengeId);
-            Double latCellLength = (challenge.getMaxLat() - challenge.getMinLat()) / challenge.getCellD();
-            Double lngCellLength = (challenge.getMaxLng() - challenge.getMinLng()) / challenge.getCellD();
 
-            Integer index_c = (int) ((myLng - challenge.getMinLng()) / lngCellLength);
-            Integer index_r = (int) ((challenge.getMaxLat() - myLat) / latCellLength);
+//            System.out.println(challengeManager.get(challengeId).mapCoordinate[0]);
+//            System.out.println(challengeManager.get(challengeId).mapCoordinate[0][0]);
+//            System.out.println(challengeManager.get(challengeId).mapCoordinate[0][0][0]);
+//            System.out.println(challengeManager.get(challengeId).mapCoordinate[0][0][0].lat);
+//            for (int i = 0; i < challengeManager.get(challengeId).mapCoordinate.length; i++) {
+//                for (int j = 0; j < challengeManager.get(challengeId).mapCoordinate.length; j++) {
+//                    System.out.printf("(%d, %d)[%6.4f, %6.4f]", i, j, challengeManager.get(challengeId).mapCoordinate[i][j][0].lat, challengeManager.get(challengeId).mapCoordinate[i][j][0].lng);
+//                }
+//                System.out.println();
+//            }
 
-            int moto = challengeManager.get(challengeId).mapInfo[index_r][index_c];
-            challengeManager.get(challengeId).mapInfo[index_r][index_c] = myChallenge.getTeamId();
-
-            if (moto != 0) challengeManager.get(challengeId).rankInfo.get(moto - 1).PanelCount--;
-            challengeManager.get(challengeId).rankInfo.get(myChallenge.getTeamId() - 1).PanelCount++;
-
-            challengeManager.get(challengeId).rankInfo.sort((o1, o2) -> {
-                return o2.PanelCount - o1.PanelCount;
-            });
+            int index_r = -1;
+            int index_c = -1;
+            Loop1:
+            for (int i = 0; i < challenge.getCellD(); i++) {
+                for (int j = 0; j < challenge.getCellD(); j++) {
+                    if (
+                            (challengeManager.get(challengeId).mapCoordinate[i][j][3].lat <= myLat && myLat <= challengeManager.get(challengeId).mapCoordinate[i][j][0].lat) &&
+                            (challengeManager.get(challengeId).mapCoordinate[i][j][0].lng <= myLng && myLng <= challengeManager.get(challengeId).mapCoordinate[i][j][3].lng)
+                    ) {
+                        index_r = i;
+                        index_c = j;
+                        break Loop1;
+                    }
+                }
+            }
 
             if (challenge.getGameType() == 1) {
                 int rank = 0;
@@ -206,6 +248,7 @@ public class PanelSocketHandler extends TextWebSocketHandler {
         for (Long i : challengeManager.keySet()) {
             for (PlayerVo pv : challengeManager.get(i).players) {
                 if (pv.session.equals(session)) {
+                    log.info("소켓에서 세션을 제거했어요!!");
                     challengeManager.get(i).players.remove(pv);
                     break Loop1;
                 }

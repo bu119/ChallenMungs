@@ -12,6 +12,7 @@ import java.util.ArrayList;
 public class ChallengeVo {
     ArrayList<PlayerVo> players;
     int [] [] mapInfo;
+    CoordinateVo [] [] [] mapCoordinate;
     public ArrayList<RankVo> rankInfo;
 
 }

@@ -118,7 +118,8 @@ public class PanelController {
         HashMap<String, Object> mapDto = new HashMap<String, Object>();
         mapDto.put("title", challenge.getTitle());
         mapDto.put("startDate", challenge.getStartDate().toString());
-        mapDto.put("mapInfo", panelSocketHandler.challengeManager.get(challenge.getChallengeId()).getMapInfo());
+        mapDto.put("mapInfo", panelSocketHandler.challengeManager.get(challengeId).getMapInfo());
+        mapDto.put("mapCoordinate", panelSocketHandler.challengeManager.get(challengeId).getMapCoordinate());
         mapDto.put("endDate", challenge.getEndDate().toString());
         mapDto.put("entryFee", challenge.getEntryFee());
         mapDto.put("gameType", challenge.getGameType());

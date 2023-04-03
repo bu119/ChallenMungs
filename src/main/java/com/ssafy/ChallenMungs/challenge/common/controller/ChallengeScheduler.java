@@ -9,10 +9,7 @@ import com.ssafy.ChallenMungs.challenge.common.entity.MyChallenge;
 import com.ssafy.ChallenMungs.challenge.common.service.ChallengeService;
 import com.ssafy.ChallenMungs.challenge.common.service.MyChallengeService;
 import com.ssafy.ChallenMungs.challenge.general.service.GeneralBoardService;
-import com.ssafy.ChallenMungs.challenge.panel.handler.ChallengeVo;
-import com.ssafy.ChallenMungs.challenge.panel.handler.PanelSocketHandler;
-import com.ssafy.ChallenMungs.challenge.panel.handler.PlayerVo;
-import com.ssafy.ChallenMungs.challenge.panel.handler.RankVo;
+import com.ssafy.ChallenMungs.challenge.panel.handler.*;
 import com.ssafy.ChallenMungs.challenge.treasure.handler.TreasureSocketHandler;
 import com.ssafy.ChallenMungs.challenge.treasure.handler.TreasureVo;
 import com.ssafy.ChallenMungs.common.util.FileManager;
@@ -106,7 +103,36 @@ public class ChallengeScheduler {
                             else if (mc.getTeamId() == 2) rankInfo.add(RankVo.builder().teamRank(1).PanelCount(0).teamId(2).loginId(mc.getLoginId()).build());
                         }
                     }
-                    panelSocketHandler.challengeManager.put(c.getChallengeId(), ChallengeVo.builder().players(new ArrayList<PlayerVo>()).mapInfo(new int [c.getCellD()] [c.getCellD()]).rankInfo(rankInfo).build());
+                    //여기
+                    Double latCellLength = (c.getMaxLat() - c.getMinLat()) / c.getCellD();
+                    Double lngCellLength = (c.getMaxLng() - c.getMinLng()) / c.getCellD();
+                    CoordinateVo [] [] [] mapCoordinate = new CoordinateVo [c.getCellD()] [c.getCellD()] [4];
+                    for (int i = 0; i < c.getCellD() - 1; i++) {
+                        for (int j = 0; j < c.getCellD() - 1; j++) {
+                            mapCoordinate[i][j][0] = CoordinateVo.builder().lat(c.getMaxLat() - latCellLength * i).lng(c.getMinLng() + lngCellLength * j).build();
+                            mapCoordinate[i][j][1] = CoordinateVo.builder().lat(c.getMaxLat() - latCellLength * i).lng(c.getMinLng() + lngCellLength * (j + 1)).build();
+                            mapCoordinate[i][j][2] = CoordinateVo.builder().lat(c.getMaxLat() - latCellLength * (i + 1)).lng(c.getMinLng() + lngCellLength * j).build();
+                            mapCoordinate[i][j][3] = CoordinateVo.builder().lat(c.getMaxLat() - latCellLength * (i + 1)).lng(c.getMinLng() + lngCellLength * (j + 1)).build();
+                        }
+                    }
+                    for (int i = 0; i < c.getCellD() - 1; i++) {
+                        mapCoordinate[i][c.getCellD() - 1][0] = CoordinateVo.builder().lat(c.getMaxLat() - latCellLength * i).lng(c.getMinLng() + lngCellLength * (c.getCellD()-1)).build();
+                        mapCoordinate[i][c.getCellD() - 1][1] = CoordinateVo.builder().lat(c.getMaxLat() - latCellLength * i).lng(c.getMaxLng()).build();
+                        mapCoordinate[i][c.getCellD() - 1][2] = CoordinateVo.builder().lat(c.getMaxLat() - latCellLength * (i+1)).lng(c.getMinLng() + lngCellLength * (c.getCellD()-1)).build();
+                        mapCoordinate[i][c.getCellD() - 1][3] = CoordinateVo.builder().lat(c.getMaxLat() - latCellLength * (i+1)).lng(c.getMaxLng()).build();
+                    }
+                    for (int i = 0; i < c.getCellD() - 1; i++) {
+                        mapCoordinate[c.getCellD() - 1][i][0] = CoordinateVo.builder().lat(c.getMaxLat() - latCellLength * i).lng(c.getMinLng() + lngCellLength * (c.getCellD()-1)).build();
+                        mapCoordinate[c.getCellD() - 1][i][1] = CoordinateVo.builder().lat(c.getMaxLat() - latCellLength * i).lng(c.getMinLng() + lngCellLength * c.getCellD()).build();
+                        mapCoordinate[c.getCellD() - 1][i][2] = CoordinateVo.builder().lat(c.getMinLat()).lng(c.getMinLng() + lngCellLength * (c.getCellD()-1)).build();
+                        mapCoordinate[c.getCellD() - 1][i][3] = CoordinateVo.builder().lat(c.getMinLat()).lng(c.getMinLng() + lngCellLength * c.getCellD()).build();
+                    }
+                    mapCoordinate[c.getCellD() - 1][c.getCellD() - 1][0] = CoordinateVo.builder().lat(c.getMaxLat() - latCellLength * (c.getCellD()-1)).lng(c.getMinLng() + lngCellLength * (c.getCellD()-1)).build();
+                    mapCoordinate[c.getCellD() - 1][c.getCellD() - 1][1] = CoordinateVo.builder().lat(c.getMaxLat() - latCellLength * (c.getCellD()-1)).lng(c.getMaxLng()).build();
+                    mapCoordinate[c.getCellD() - 1][c.getCellD() - 1][2] = CoordinateVo.builder().lat(c.getMinLat()).lng(c.getMinLng() + lngCellLength * (c.getCellD()-1)).build();
+                    mapCoordinate[c.getCellD() - 1][c.getCellD() - 1][3] = CoordinateVo.builder().lat(c.getMinLat()).lng(c.getMaxLng()).build();
+
+                    panelSocketHandler.challengeManager.put(c.getChallengeId(), ChallengeVo.builder().players(new ArrayList<PlayerVo>()).mapInfo(new int [c.getCellD()] [c.getCellD()]).mapCoordinate(mapCoordinate).rankInfo(rankInfo).build());
                 // 시작되는 방이 보물 찾기라면
                 } else if (c.getChallengeType() == 3) {
                     List<MyChallenge> myChallenges = myChallengeService.findAllByChallengeId(c.getChallengeId());
