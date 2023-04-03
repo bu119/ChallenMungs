@@ -133,7 +133,7 @@ public class ChallengeScheduler {
                     mapCoordinate[c.getCellD() - 1][c.getCellD() - 1][2] = CoordinateVo.builder().lat(c.getMinLat()).lng(c.getMinLng() + lngCellLength * (c.getCellD()-1)).build();
                     mapCoordinate[c.getCellD() - 1][c.getCellD() - 1][3] = CoordinateVo.builder().lat(c.getMinLat()).lng(c.getMaxLng()).build();
 
-                    panelSocketHandler.challengeManager.put(c.getChallengeId(), ChallengeVo.builder().players(new ArrayList<PlayerVo>()).mapInfo(new int [c.getCellD()] [c.getCellD()]).mapCoordinate(mapCoordinate).rankInfo(rankInfo).build());
+                    panelSocketHandler.challengeManager.put(c.getChallengeId(), ChallengeVo.builder().players(new ArrayList<PlayerVo>()).mapInfo(new int [c.getCellD()] [c.getCellD()]).mapCoordinate(mapCoordinate).rankInfo(rankInfo).belong(new String[c.getCellD()] [c.getCellD()]).build());
                 // 시작되는 방이 보물 찾기라면
                 } else if (c.getChallengeType() == 3) {
                     List<MyChallenge> myChallenges = myChallengeService.findAllByChallengeId(c.getChallengeId());

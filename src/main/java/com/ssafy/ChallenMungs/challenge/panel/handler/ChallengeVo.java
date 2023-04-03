@@ -15,4 +15,5 @@ public class ChallengeVo {
     CoordinateVo [] [] [] mapCoordinate;
     public ArrayList<RankVo> rankInfo;
 
+    String [] [] belong;
 }

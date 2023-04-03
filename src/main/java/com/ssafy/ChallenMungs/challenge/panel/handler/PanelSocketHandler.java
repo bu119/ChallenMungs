@@ -83,7 +83,7 @@ public class PanelSocketHandler extends TextWebSocketHandler {
             mapCoordinate[c.getCellD() - 1][c.getCellD() - 1][2] = CoordinateVo.builder().lat(c.getMinLat()).lng(c.getMinLng() + lngCellLength * (c.getCellD()-1)).build();
             mapCoordinate[c.getCellD() - 1][c.getCellD() - 1][3] = CoordinateVo.builder().lat(c.getMinLat()).lng(c.getMaxLng()).build();
             // 여기서 mapInfo 정의
-            challengeManager.put(c.getChallengeId(), ChallengeVo.builder().players(new ArrayList<PlayerVo>()).mapInfo(new int[c.getCellD()][c.getCellD()]).mapCoordinate(mapCoordinate).rankInfo(rankInfo).build());
+            challengeManager.put(c.getChallengeId(), ChallengeVo.builder().players(new ArrayList<PlayerVo>()).mapInfo(new int[c.getCellD()][c.getCellD()]).mapCoordinate(mapCoordinate).rankInfo(rankInfo).belong(new String [c.getCellD()] [c.getCellD()]).build());
         }
     }
 
@@ -211,10 +211,20 @@ public class PanelSocketHandler extends TextWebSocketHandler {
             }
 
             if(index_r != -1 && index_c != -1) {
+                if (challengeManager.get(challengeId).belong[index_r][index_c] != null) {
+                    for (RankVo rv : challengeManager.get(challengeId).rankInfo) {
+                        if (rv.getLoginId().equals(challengeManager.get(challengeId).belong[index_r][index_c])) {
+                            rv.setPanelCount(rv.getPanelCount() - 1);
+                            break;
+                        }
+                    }
+                }
                 challengeManager.get(challengeId).mapInfo[index_r][index_c] = myChallenge.getTeamId();
+                challengeManager.get(challengeId).belong[index_r][index_c] = loginId;
                 for (RankVo rv : challengeManager.get(challengeId).rankInfo) {
                     if (rv.getLoginId().equals(loginId)) {
                         rv.setPanelCount(rv.getPanelCount() + 1);
+                        break;
                     }
                 }
             }
