@@ -210,6 +210,8 @@ public class PanelSocketHandler extends TextWebSocketHandler {
                 }
             }
 
+            if(index_r != -1 && index_c != -1) challengeManager.get(challengeId).mapInfo[index_r][index_c] = myChallenge.getTeamId();
+
             HashMap<String, Object> mapDto = new HashMap<String, Object>();
             mapDto.put("code", "signaling");
             HashMap<String, Object> subMap = new HashMap<String, Object>();
