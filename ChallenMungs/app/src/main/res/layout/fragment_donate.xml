@@ -42,21 +42,21 @@
             android:id="@+id/cfc_recent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="10dp"
             app:iconRes="@drawable/ic_dog_footprint_suva_grey"
-            app:layout_constraintStart_toEndOf="@id/cfc_cheer_up"
-            app:layout_constraintTop_toTopOf="@id/cfc_amount"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/til_search"
             app:text="@string/content_filter_recent" />
 
         <com.ssafy.challenmungs.common.util.CustomFilterChip
             android:id="@+id/cfc_amount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="18dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginStart="10dp"
             app:iconRes="@drawable/ic_participation_fee"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/til_search"
+            app:layout_constraintStart_toEndOf="@id/cfc_recent"
+            app:layout_constraintTop_toTopOf="@id/cfc_recent"
             app:text="@string/content_filter_amount" />
 
         <com.ssafy.challenmungs.common.util.CustomFilterChip

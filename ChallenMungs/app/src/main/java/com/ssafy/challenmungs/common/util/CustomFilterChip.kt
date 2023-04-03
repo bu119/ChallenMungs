@@ -22,7 +22,6 @@ class CustomFilterChip @JvmOverloads constructor(
     init {
         binding = CustomFilterChipBinding.inflate(LayoutInflater.from(context), this, true)
         setView(attrs)
-        initListener()
     }
 
     private fun setView(attrs: AttributeSet?) {
@@ -32,17 +31,6 @@ class CustomFilterChip @JvmOverloads constructor(
         binding.tvFilter.text = typedArray.getString(R.styleable.CustomFilterChip_text)
 
         typedArray.recycle()
-    }
-
-    private fun initListener() {
-        binding.root.setOnClickListener {
-            state = when (state) {
-                State.NONE -> State.DESC
-                State.DESC -> State.ASC
-                State.ASC -> State.NONE
-            }
-            changeState(state)
-        }
     }
 
     fun changeState(state: State) {
