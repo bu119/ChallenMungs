@@ -73,10 +73,10 @@ public class PanelSocketHandler extends TextWebSocketHandler {
                 mapCoordinate[i][c.getCellD() - 1][3] = CoordinateVo.builder().lat(c.getMaxLat() - latCellLength * (i+1)).lng(c.getMaxLng()).build();
             }
             for (int i = 0; i < c.getCellD() - 1; i++) {
-                mapCoordinate[c.getCellD() - 1][i][0] = CoordinateVo.builder().lat(c.getMaxLat() - latCellLength * i).lng(c.getMinLng() + lngCellLength * (c.getCellD()-1)).build();
-                mapCoordinate[c.getCellD() - 1][i][1] = CoordinateVo.builder().lat(c.getMaxLat() - latCellLength * i).lng(c.getMinLng() + lngCellLength * c.getCellD()).build();
-                mapCoordinate[c.getCellD() - 1][i][2] = CoordinateVo.builder().lat(c.getMinLat()).lng(c.getMinLng() + lngCellLength * (c.getCellD()-1)).build();
-                mapCoordinate[c.getCellD() - 1][i][3] = CoordinateVo.builder().lat(c.getMinLat()).lng(c.getMinLng() + lngCellLength * c.getCellD()).build();
+                mapCoordinate[c.getCellD() - 1][i][0] = CoordinateVo.builder().lat(c.getMaxLat() - latCellLength * (c.getCellD() - 1)).lng(c.getMinLng() + lngCellLength * i).build();
+                mapCoordinate[c.getCellD() - 1][i][1] = CoordinateVo.builder().lat(c.getMaxLat() - latCellLength * (c.getCellD() - 1)).lng(c.getMinLng() + lngCellLength * (i + 1)).build();
+                mapCoordinate[c.getCellD() - 1][i][2] = CoordinateVo.builder().lat(c.getMinLat()).lng(c.getMinLng() + lngCellLength * i).build();
+                mapCoordinate[c.getCellD() - 1][i][3] = CoordinateVo.builder().lat(c.getMinLat()).lng(c.getMinLng() + lngCellLength * (i + 1)).build();
             }
             mapCoordinate[c.getCellD() - 1][c.getCellD() - 1][0] = CoordinateVo.builder().lat(c.getMaxLat() - latCellLength * (c.getCellD()-1)).lng(c.getMinLng() + lngCellLength * (c.getCellD()-1)).build();
             mapCoordinate[c.getCellD() - 1][c.getCellD() - 1][1] = CoordinateVo.builder().lat(c.getMaxLat() - latCellLength * (c.getCellD()-1)).lng(c.getMaxLng()).build();
@@ -146,7 +146,7 @@ public class PanelSocketHandler extends TextWebSocketHandler {
 //            System.out.println(challengeManager.get(challengeId).mapCoordinate[0][0][0].lat);
 //            for (int i = 0; i < challengeManager.get(challengeId).mapCoordinate.length; i++) {
 //                for (int j = 0; j < challengeManager.get(challengeId).mapCoordinate.length; j++) {
-//                    System.out.printf("(%d, %d)[%6.4f, %6.4f]", i, j, challengeManager.get(challengeId).mapCoordinate[i][j][0].lat, challengeManager.get(challengeId).mapCoordinate[i][j][0].lng);
+//                    System.out.printf("(%d, %d)[%7.5f, %7.5f]", i, j, challengeManager.get(challengeId).mapCoordinate[i][j][3].lat, challengeManager.get(challengeId).mapCoordinate[i][j][0].lng);
 //                }
 //                System.out.println();
 //            }
