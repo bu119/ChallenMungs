@@ -9,8 +9,9 @@ import com.ssafy.ChallenMungs.blockchain.dto.WalletItemDto;
 import com.ssafy.ChallenMungs.blockchain.entity.Wallet;
 import com.ssafy.ChallenMungs.blockchain.repository.WalletRepository;
 import com.ssafy.ChallenMungs.campaign.entity.Campaign;
-import com.ssafy.ChallenMungs.campaign.repository.CampaignContentRepository;
+import com.ssafy.ChallenMungs.campaign.entity.Receipt;
 import com.ssafy.ChallenMungs.campaign.repository.CampaignListRepository;
+import com.ssafy.ChallenMungs.campaign.repository.ReceiptRepository;
 import com.ssafy.ChallenMungs.user.entity.User;
 import com.ssafy.ChallenMungs.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -26,10 +27,8 @@ import org.web3j.protocol.core.DefaultBlockParameterName;
 import org.web3j.protocol.core.methods.response.EthGetBalance;
 import org.web3j.protocol.http.HttpService;
 import org.web3j.utils.Convert;
-import software.amazon.ion.Decimal;
 
 import javax.transaction.Transactional;
-import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.*;
@@ -41,6 +40,7 @@ public class WalletServiceImpl implements  WalletService{
     private final WalletRepository walletRepo;
     private final UserRepository userRepo;
     private final CampaignListRepository campaignRepo;
+    private final ReceiptRepository receiptRepo;
 
     @Override
     public void insertNomalWallet(String piggyBank, String wallet,String loginId) throws Exception{
@@ -258,7 +258,7 @@ public class WalletServiceImpl implements  WalletService{
     }
 
 
-    public JsonNode getCampaignHistory(int campaignId) throws JsonProcessingException {
+    public JsonNode getCampaignHistory(int campaignId, boolean fromOnly, boolean toOnly) throws JsonProcessingException {
         RestTemplate restTemplate = new RestTemplate();
 
         // Header 설정
@@ -288,6 +288,13 @@ public class WalletServiceImpl implements  WalletService{
                     .queryParam("range", registUnix + "," + endUnix);
             System.out.println("종료");
         }
+
+        if(fromOnly){
+            builder = builder.queryParam("from-only", true);
+        }
+        if(toOnly){
+            builder = builder.queryParam("to-only", true);
+        }
         // 요청 엔티티 생성
         HttpEntity<String> requestEntity = new HttpEntity<>(headers);
 
@@ -302,9 +309,13 @@ public class WalletServiceImpl implements  WalletService{
 
 
     @Override
-    public Map<String, List<CampaignItemDto>> viewCampaignWallet(int campaignId) throws JsonProcessingException {
-        JsonNode items = getCampaignHistory(campaignId);
-        String address = campaignRepo.findCampaignByCampaignId(campaignId).getWalletAddress();
+    public Map<String, List<CampaignItemDto>> viewCampaignWallet(int campaignId, boolean fromOnly, boolean toOnly) throws JsonProcessingException {
+        JsonNode items = getCampaignHistory(campaignId, fromOnly, toOnly);
+        Campaign campaign = campaignRepo.findCampaignByCampaignId(campaignId);
+        String address = campaign.getWalletAddress();
+        List<Receipt> receipt_list = receiptRepo.findAllByCampaignOrderByReceiptIdDesc(campaign);
+        int i = 0;
+
 
         Map<String, List<CampaignItemDto>> result = new HashMap<>();
 
@@ -322,7 +333,8 @@ public class WalletServiceImpl implements  WalletService{
             // 출금
             else {
                 title = "출금";
-                receipt = "url";
+                receipt = receipt_list.get(i).getReceipt();
+                i++;
             }
 
             //전송 시간
