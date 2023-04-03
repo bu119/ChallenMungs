@@ -249,6 +249,8 @@ public class ChallengeScheduler {
                         newRankInfoList.add(newRankInfoMap);
                         sendKlay(u, myklay[idx-1], false, null);
                         idx++;
+                        mc.setSuccessResult(rv.getTeamRank());
+                        myChallengeService.save(mc);
                     }
                     try {
                         sb.append("{\nmapInfo:");
@@ -300,6 +302,8 @@ public class ChallengeScheduler {
                         newRankInfoList.add(newRankInfoMap);
                         sendKlay(u, myklay[idx-1], false, null);
                         idx++;
+                        mc.setSuccessResult(rv.getTeamRank());
+                        myChallengeService.save(mc);
                     }
                     try {
                         sb.append("{\nrankInfo:");
@@ -389,8 +393,5 @@ public class ChallengeScheduler {
             System.out.println("요청 완료");
             String responseBody2 = responseEntity2.getBody();
         }
-
-
     }
-
 }

@@ -8,6 +8,8 @@ import com.ssafy.ChallenMungs.challenge.common.entity.MyChallenge;
 import com.ssafy.ChallenMungs.challenge.common.service.ChallengeService;
 import com.ssafy.ChallenMungs.challenge.common.service.MyChallengeService;
 import com.ssafy.ChallenMungs.user.controller.UserController;
+import com.ssafy.ChallenMungs.user.entity.User;
+import com.ssafy.ChallenMungs.user.service.UserService;
 import org.apache.commons.math3.geometry.euclidean.threed.Vector3D;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -37,6 +39,9 @@ public class PanelSocketHandler extends TextWebSocketHandler {
 
     @Autowired
     MyChallengeService myChallengeService;
+
+    @Autowired
+    UserService userService;
 
     // 서버를 재시작할 때 현재 진행중인 판넬게임을 판넬메니저에 등록해요 물론초기화!!
     @PostConstruct
@@ -156,7 +161,19 @@ public class PanelSocketHandler extends TextWebSocketHandler {
             subMap.put("indexR", index_r);
             subMap.put("indexC", index_c);
             subMap.put("teamId", myChallenge.getTeamId());
-            subMap.put("rankInfo", challengeManager.get(challengeId).rankInfo);
+            ArrayList<HashMap<String, Object>> newRankInfoList = new ArrayList<>();
+            for (RankVo rv : challengeManager.get(challenge.getChallengeId()).rankInfo) {
+                User u = userService.findUserByLoginId((String) rv.getLoginId()); // 팀전일 경우 LoginId가 ArrayList라 고쳐야햄
+                HashMap<String, Object> newRankInfoMap = new HashMap<>();
+                newRankInfoMap.put("loginId", u.getLoginId());
+                newRankInfoMap.put("name", u.getName());
+                newRankInfoMap.put("profile", u.getProfile());
+                newRankInfoMap.put("rank", rv.getTeamRank());
+                newRankInfoMap.put("teamId", rv.getTeamId());
+                newRankInfoMap.put("point", rv.getPanelCount());
+                newRankInfoList.add(newRankInfoMap);
+            }
+            subMap.put("rankInfo", newRankInfoList);
             TextMessage dto = new TextMessage(mapper.writeValueAsString(mapDto));
 
             for (PlayerVo pv : challengeManager.get(challengeId).players) {
