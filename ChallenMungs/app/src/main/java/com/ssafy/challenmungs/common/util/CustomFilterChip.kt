@@ -45,7 +45,7 @@ class CustomFilterChip @JvmOverloads constructor(
         }
     }
 
-    private fun changeState(state: State) {
+    fun changeState(state: State) {
         this.state = state
         binding.ivFilterOption.apply {
             visibility = when (state) {
