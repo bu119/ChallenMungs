@@ -31,8 +31,8 @@ public class ChallengeService {
         return challengeRepository.findAllByTitleLikeAndChallengeType(s, i);
     }
 
-    public void save(Challenge build) {
-        challengeRepository.save(build);
+    public Long save(Challenge build) {
+        return challengeRepository.save(build).getChallengeId();
     }
 
     // 챌린지 id를 활용하여 챌린지를 조회하는 함수

@@ -21,6 +21,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -55,6 +56,7 @@ public class PanelController {
 
     @PostMapping("/tokenConfirm/makePanelChallenge")
     ResponseEntity makePanelChallenge(
+            HttpServletRequest request,
             @RequestParam("title") String title,
             @RequestParam("startDate") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate startDate,
             @RequestParam("endDate") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate endDate,
@@ -81,7 +83,7 @@ public class PanelController {
         Double minLng = newPosition.get("lngDistance");
 
         int cellD = (int) (mapSize / cellSize);
-        panelService.save(Challenge.builder()
+        Long cId = panelService.save(Challenge.builder()
                 .challengeType(2)
                 .title(title)
                 .startDate(startDate)
@@ -94,10 +96,13 @@ public class PanelController {
                 .maxLat(maxLat).minLat(minLat).maxLng(maxLng).minLng(minLng)
                 .cellSize(cellSize).map_size(mapSize)
                 .cellD(cellD)
-                .currentParticipantCount(0)
+                .currentParticipantCount(1)
                 .status(0)
                 .build());
-        System.out.println("gogogo");
+
+        String loginId = request.getAttribute("loginId").toString();
+
+        myChallengeService.save(MyChallenge.builder().challengeId(cId).successCount(0).loginId(loginId).build());
 
         return ResponseEntity.status(HttpStatus.OK).build();
     }

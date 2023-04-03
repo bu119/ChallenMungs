@@ -1,7 +1,9 @@
 package com.ssafy.ChallenMungs.challenge.treasure.controller;
 
 import com.ssafy.ChallenMungs.challenge.common.entity.Challenge;
+import com.ssafy.ChallenMungs.challenge.common.entity.MyChallenge;
 import com.ssafy.ChallenMungs.challenge.common.service.ChallengeService;
+import com.ssafy.ChallenMungs.challenge.common.service.MyChallengeService;
 import com.ssafy.ChallenMungs.challenge.panel.controller.PanelController;
 import com.ssafy.ChallenMungs.challenge.treasure.handler.RankVo;
 import com.ssafy.ChallenMungs.challenge.treasure.handler.TreasureSocketHandler;
@@ -40,10 +42,14 @@ public class TreasureController {
     @Autowired
     UserService userService;
 
+    @Autowired
+    MyChallengeService myChallengeService;
+
     private Logger log = LoggerFactory.getLogger(TreasureController.class);
 
     @PostMapping("/tokenConfirm/makeTreasureChallenge")
     ResponseEntity makePanelChallenge(
+            HttpServletRequest request,
             @RequestParam("title") String title,
             @RequestParam("startDate") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate startDate,
             @RequestParam("endDate") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate endDate,
@@ -66,7 +72,7 @@ public class TreasureController {
         Double minLng = newPosition.get("lngDistance");
 
         int cellD = (int) (mapSize / cellSize);
-        challengeService.save(Challenge.builder()
+        Long cId = challengeService.save(Challenge.builder()
                 .challengeType(3)
                 .title(title)
                 .startDate(startDate)
@@ -77,9 +83,13 @@ public class TreasureController {
                 .centerLng(centerLng)
                 .maxLat(maxLat).minLat(minLat).maxLng(maxLng).minLng(minLng)
                 .map_size(mapSize).cellSize(cellSize)
-                .currentParticipantCount(0)
+                .currentParticipantCount(1)
                 .status(0)
                 .build());
+
+        String loginId = request.getAttribute("loginId").toString();
+        myChallengeService.save(MyChallenge.builder().challengeId(cId).loginId(loginId).successCount(0).build());
+
         return ResponseEntity.status(HttpStatus.OK).build();
     }
     @PostMapping("/tokenConfirm/getInfo")

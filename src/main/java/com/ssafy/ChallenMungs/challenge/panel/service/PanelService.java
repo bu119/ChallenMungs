@@ -10,7 +10,7 @@ public class PanelService {
     @Autowired
     PanelRepositoryForChallenge panelRepositoryForChallenge;
 
-    public void save(Challenge build) {
-        panelRepositoryForChallenge.save(build);
+    public Long save(Challenge build) {
+        return panelRepositoryForChallenge.save(build).getChallengeId();
     }
 }
