@@ -41,8 +41,7 @@ class ChallengeListAdapter(private val context: Context) :
     class ChallengeListViewHolder(
         private val context: Context,
         private val binding: ItemChallengeCardWaitingBinding,
-    ) :
-        RecyclerView.ViewHolder(binding.root) {
+    ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: Challenge) {
             binding.apply {

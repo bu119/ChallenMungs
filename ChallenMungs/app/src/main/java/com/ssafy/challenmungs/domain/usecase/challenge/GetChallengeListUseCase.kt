@@ -12,7 +12,6 @@ import javax.inject.Singleton
 class GetChallengeListUseCase @Inject constructor(
     private val challengeRepository: ChallengeRepository
 ) {
-
     suspend operator fun invoke(
         type: Int,
         searchValue: String?,

@@ -60,7 +60,6 @@
             app:layout_constraintTop_toTopOf="@id/tv_tag"
             tools:text="실패" />
 
-
         <TextView
             android:id="@+id/tv_title"
             android:layout_width="0dp"

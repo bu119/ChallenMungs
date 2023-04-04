@@ -16,7 +16,7 @@ class ChallengeFragment : BaseFragment<FragmentChallengeBinding>(R.layout.fragme
     override fun initView() {
         initRecyclerView()
         observe()
-        getChallengeList()
+        challengeViewModel.getChallengeList(1)
     }
 
     private fun initRecyclerView() {
@@ -46,9 +46,5 @@ class ChallengeFragment : BaseFragment<FragmentChallengeBinding>(R.layout.fragme
                 challengeListAdapter.submitList(it)
             }
         }
-    }
-
-    private fun getChallengeList() {
-        challengeViewModel.getChallengeList(1)
     }
 }
