@@ -190,6 +190,9 @@
     <string name="pharse_only_tomorrow_my_challenge">내일 시작하는 챌린지</string>
     <string name="pharse_show_more">+더보기</string>
     <string name="pharse_recently_added_campaign">최근 추가된 모금</string>
+    <string name="pharse_no_ongoing_challenge">진행중인 챌린지가 없습니다</string>
+    <string name="pharse_no_tomorrow_challenge">내일 시작하는 챌린지가 없습니다</string>
+    <string name="pharse_no_recent_campaign">최근 7일 내에 생성된\n모금이 없습니다</string>
 
     <!-- Challenge - Home -->
     <string-array name="challenge_category">
@@ -200,4 +203,23 @@
     </string-array>
     <string name="content_challenge_help">챌린지 설명을 볼 수 있는 버튼입니다.</string>
     <string name="content_search_hint">검색할 챌린지 이름을 입력하세요.</string>
+
+    <!-- region list -->
+    <string name="pharse_select_region">지역 선택</string>
+    <string name="region_seoul">서울특별시</string>
+    <string name="region_incheon">인천광역시</string>
+    <string name="region_kyungkido">경기도</string>
+    <string name="region_kangwondo">강원도</string>
+    <string name="region_chunchungnamdo">충청남도</string>
+    <string name="region_daejeon">대전광역시</string>
+    <string name="region_chunchungpukdo">충청북도</string>
+    <string name="region_kyungsangbukdo">경상북도</string>
+    <string name="region_jeonranamdo">전라남도</string>
+    <string name="region_jeonrabukdo">전라북도</string>
+    <string name="region_daegu">대구광역시</string>
+    <string name="region_kwanju">광주광역시</string>
+    <string name="region_kyunsangnamdo">경상남도</string>
+    <string name="region_ulsan">울산광역시</string>
+    <string name="region_pusan">부산광역시</string>
+    <string name="pharse_apply">적용</string>
 </resources>

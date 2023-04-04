@@ -5,38 +5,40 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.ssafy.challenmungs.R
-import com.ssafy.challenmungs.databinding.ItemMyChallengeOnlyTomorrowBinding
+import com.ssafy.challenmungs.databinding.ItemChallengeCardMyOngoingMatchParentBinding
 import java.text.SimpleDateFormat
 
-class MyChallengeOnlyTomorrowAdapter(private val arrayList: List<Map<String, Any>>) :
-    RecyclerView.Adapter<MyChallengeOnlyTomorrowViewHolder>() {
-    private lateinit var binding: ItemMyChallengeOnlyTomorrowBinding
+class MyOngoingChallengeFullAdapter(private val arrayList: List<Map<String, Any>>) :
+    RecyclerView.Adapter<MyOngoingChallengeFullViewHolder>() {
+
+    private lateinit var binding: ItemChallengeCardMyOngoingMatchParentBinding
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): MyChallengeOnlyTomorrowViewHolder {
+    ): MyOngoingChallengeFullViewHolder {
         binding = DataBindingUtil.inflate(
             LayoutInflater.from(parent.context),
-            R.layout.item_my_challenge_only_tomorrow,
+            R.layout.item_challenge_card_my_ongoing_match_parent,
             parent,
             false
         )
-        return MyChallengeOnlyTomorrowViewHolder(binding)
+        return MyOngoingChallengeFullViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: MyChallengeOnlyTomorrowViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: MyOngoingChallengeFullViewHolder, position: Int) {
         holder.bind(arrayList[position])
     }
 
     override fun getItemCount(): Int = arrayList.size
 }
 
-class MyChallengeOnlyTomorrowViewHolder(private val binding: ItemMyChallengeOnlyTomorrowBinding) :
-    RecyclerView.ViewHolder(binding.root) {
+class MyOngoingChallengeFullViewHolder(private val binding: ItemChallengeCardMyOngoingMatchParentBinding) :
+RecyclerView.ViewHolder(binding.root) {
 
     fun bind(dto: Map<String, Any>) {
-        binding.tvTitle.text = dto.get("title").toString()
+
+        binding.tvTitle.text = dto["title"].toString()
 
         val dateFormat = SimpleDateFormat("yyyy-MM-dd")
         val startMonth = dateFormat.parse(dto.get("startDate").toString()).month
@@ -46,7 +48,7 @@ class MyChallengeOnlyTomorrowViewHolder(private val binding: ItemMyChallengeOnly
 
         binding.tvPeriod.text = "${startMonth}.${startDate} ~ ${endMonth}.${endDate}"
 
-        when (dto.get("challengeType")) {
+        when (dto["challengeType"]) {
             1 -> {
                 binding.tvTag.text = "일반"
             }
@@ -60,16 +62,11 @@ class MyChallengeOnlyTomorrowViewHolder(private val binding: ItemMyChallengeOnly
                 binding.tvTag.text = "보물"
             }
         }
-        binding.tvPrice.text = "${dto.get("entryFee")}"
-        binding.tvHeadcount.text =
-            "${dto.get("currentParticipantCount").toString()}/${dto.get("maxParticipantCount")}"
 
         initListener()
     }
 
     private fun initListener() {
-        binding.root.setOnClickListener {
-            // 상세 페이지로 이동하는 navigation 코드 구현 필요
-        }
+
     }
 }

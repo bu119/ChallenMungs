@@ -9,6 +9,7 @@ import com.ssafy.challenmungs.databinding.ItemChallengeCardMyOngoingBinding
 
 class MyChallengeListAdapter(private val data: List<Map<String, Any>>) :
     RecyclerView.Adapter<MyChallengeListViewHolder>() {
+
     private lateinit var binding: ItemChallengeCardMyOngoingBinding
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyChallengeListViewHolder {

@@ -10,6 +10,7 @@ import com.ssafy.challenmungs.ApplicationClass
 import com.ssafy.challenmungs.R
 import com.ssafy.challenmungs.databinding.FragmentHomeBinding
 import com.ssafy.challenmungs.presentation.base.BaseFragment
+import com.ssafy.challenmungs.presentation.information.InformationFragmentDirections
 import dagger.hilt.android.AndroidEntryPoint
 import okhttp3.FormBody
 import okhttp3.OkHttpClient
@@ -21,7 +22,9 @@ import java.text.DecimalFormat
 
 @AndroidEntryPoint
 class HomeFragment() : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
-
+    lateinit var myOngoingChallengeCardList: String
+    lateinit var myChallengeOnlyTomorrowCardList: String
+    lateinit var recentlyAddedCampaignCardList: String
     override fun initView() {
         val jwt = ApplicationClass.preferences.accessToken.toString()
         GetTotalDonation(
@@ -51,19 +54,19 @@ class HomeFragment() : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home)
         ).execute()
 
         binding.tvShowTotalButton.setOnClickListener {
-            // 전체 보기가 눌렸어요
+            navigate(HomeFragmentDirections.actionToMyOngoingChallengeFragment(myOngoingChallengeCardList))
         }
 
         binding.tvShowMore.setOnClickListener {
-            // 내일 시작하는 챌린지 더보기 버튼이 눌렸어요
+            navigate(HomeFragmentDirections.actionToMyChallengeOnlyTomorrowFullFragment(myChallengeOnlyTomorrowCardList))
         }
 
         binding.tvShowMoreForRecent.setOnClickListener {
-            // 최근 추가된 모금의 더보기 버튼이 눌렸어요
+            navigate(HomeFragmentDirections.actionToRecentlyAddedCampaignFullFragment(recentlyAddedCampaignCardList))
         }
     }
 
-    class GetTotalDonation(
+    inner class GetTotalDonation(
         private val url: String,
         private val token: String,
         private val binding: FragmentHomeBinding
@@ -79,7 +82,6 @@ class HomeFragment() : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home)
             val responseBody = response.body?.string()
 
             response.close()
-
             return responseBody ?: ""
         }
 
@@ -92,7 +94,7 @@ class HomeFragment() : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home)
         }
     }
 
-    class GetMyOngoingChallengeList(
+    inner class GetMyOngoingChallengeList(
         private val url: String,
         private val token: String,
         private val binding: FragmentHomeBinding,
@@ -115,7 +117,7 @@ class HomeFragment() : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home)
             val responseBody = response.body?.string()
 
             response.close()
-
+            myOngoingChallengeCardList = JSONObject(responseBody).getJSONArray("1").toString() ?: ""
             return responseBody ?: ""
         }
 
@@ -135,6 +137,7 @@ class HomeFragment() : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home)
                 }
                 list.add(map)
             }
+
             val rv = binding.rvOngoing
             val adapter = MyChallengeListAdapter(list)
             rv.adapter = adapter
@@ -142,7 +145,7 @@ class HomeFragment() : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home)
         }
     }
 
-    class GetMyChallengeOnlyTomorrow(
+    inner class GetMyChallengeOnlyTomorrow(
         private val url: String,
         private val token: String,
         private val binding: FragmentHomeBinding,
@@ -165,7 +168,7 @@ class HomeFragment() : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home)
             val responseBody = response.body?.string()
 
             response.close()
-
+            myChallengeOnlyTomorrowCardList = JSONObject(responseBody).getJSONArray("0").toString() ?: ""
             return responseBody ?: ""
         }
 
@@ -191,7 +194,7 @@ class HomeFragment() : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home)
         }
     }
 
-    class GetRecentlyAddedCampaign(
+    inner class GetRecentlyAddedCampaign(
         private val url: String,
         private val binding: FragmentHomeBinding,
         private val context: Context
@@ -203,10 +206,10 @@ class HomeFragment() : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home)
                 .build()
 
             val response = client.newCall(request).execute()
-
             val responseBody = response.body?.string()
-            response.close()
 
+            response.close()
+            recentlyAddedCampaignCardList = responseBody ?: ""
             return responseBody ?: ""
         }
 

@@ -5,34 +5,34 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.ssafy.challenmungs.R
-import com.ssafy.challenmungs.databinding.ItemMyChallengeOnlyTomorrowBinding
+import com.ssafy.challenmungs.databinding.ItemMyChallengeOnlyTomorrowMatchParentBinding
 import java.text.SimpleDateFormat
 
-class MyChallengeOnlyTomorrowAdapter(private val arrayList: List<Map<String, Any>>) :
-    RecyclerView.Adapter<MyChallengeOnlyTomorrowViewHolder>() {
-    private lateinit var binding: ItemMyChallengeOnlyTomorrowBinding
+class MyChallengeOnlyTomorrowFullAdapter(private val arrayList: List<Map<String, Any>>) :
+    RecyclerView.Adapter<MyChallengeOnlyTomorrowFullViewHolder>() {
+    private lateinit var binding: ItemMyChallengeOnlyTomorrowMatchParentBinding
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): MyChallengeOnlyTomorrowViewHolder {
+    ): MyChallengeOnlyTomorrowFullViewHolder {
         binding = DataBindingUtil.inflate(
             LayoutInflater.from(parent.context),
-            R.layout.item_my_challenge_only_tomorrow,
+            R.layout.item_my_challenge_only_tomorrow_match_parent,
             parent,
             false
         )
-        return MyChallengeOnlyTomorrowViewHolder(binding)
+        return MyChallengeOnlyTomorrowFullViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: MyChallengeOnlyTomorrowViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: MyChallengeOnlyTomorrowFullViewHolder, position: Int) {
         holder.bind(arrayList[position])
     }
 
     override fun getItemCount(): Int = arrayList.size
 }
 
-class MyChallengeOnlyTomorrowViewHolder(private val binding: ItemMyChallengeOnlyTomorrowBinding) :
+class MyChallengeOnlyTomorrowFullViewHolder(private val binding: ItemMyChallengeOnlyTomorrowMatchParentBinding) :
     RecyclerView.ViewHolder(binding.root) {
 
     fun bind(dto: Map<String, Any>) {

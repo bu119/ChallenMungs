@@ -8,7 +8,7 @@ class MyChallengeListViewHolder(private val binding: ItemChallengeCardMyOngoingB
     RecyclerView.ViewHolder(binding.root) {
 
     fun bind(dto: Map<String, Any>) {
-        binding.tvTitle.text = dto.get("title").toString()
+        binding.tvTitle.text = dto["title"].toString()
 
         val dateFormat = SimpleDateFormat("yyyy-MM-dd")
         val startMonth = dateFormat.parse(dto.get("startDate").toString()).month
@@ -18,12 +18,15 @@ class MyChallengeListViewHolder(private val binding: ItemChallengeCardMyOngoingB
 
         binding.tvPeriod.text = "${startMonth}.${startDate} ~ ${endMonth}.${endDate}"
 
-        when (dto.get("challengeType")) {
+        when (dto["challengeType"]) {
             1 -> {
                 binding.tvTag.text = "일반"
             }
             2 -> {
-                binding.tvTag.text = "판넬"
+                when (dto["gameType"]) {
+                    1 -> {binding.tvTag.text = "판넬(개)"}
+                    2 -> {binding.tvTag.text = "판넬(팀)"}
+                }
             }
             3 -> {
                 binding.tvTag.text = "보물"
