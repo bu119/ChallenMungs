@@ -18,6 +18,4 @@ public interface CampaignListService {
     // 내가 응원한 캠페인
     List<CampaignDto> getUserLove(String loginId);
 
-    //캠페인 검색
-    List<CampaignDto> search(String searchWord);
 }
