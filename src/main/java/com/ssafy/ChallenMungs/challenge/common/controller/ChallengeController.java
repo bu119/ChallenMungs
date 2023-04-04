@@ -276,16 +276,16 @@ ChallengeController {
     }
 
     // 챌린지id로 챌린지를 조회하는 API
-    @GetMapping("/tokenConfirm/detail")
-    @ApiOperation(value = "챌린지 정보를 조회하는 api입니다.", notes = "challengeId를 활용하여 조회합니다.")
-    public ResponseEntity<Challenge> findByChallengeId(HttpServletRequest request, @RequestParam("challengeId") Long challengeId) {
-        Challenge challenge = challengeService.findByChallengeId(challengeId);
-        if (challenge != null) {
-            return ResponseEntity.ok(challenge);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
-    }
+//    @GetMapping("/tokenConfirm/detail")
+//    @ApiOperation(value = "챌린지 정보를 조회하는 api입니다.", notes = "challengeId를 활용하여 조회합니다.")
+//    public ResponseEntity<Challenge> findByChallengeId(HttpServletRequest request, @RequestParam("challengeId") Long challengeId) {
+//        Challenge challenge = challengeService.findByChallengeId(challengeId);
+//        if (challenge != null) {
+//            return ResponseEntity.ok(challenge);
+//        } else {
+//            return ResponseEntity.notFound().build();
+//        }
+//    }
 
     @GetMapping("/tokenConfirm/participants")
     @ApiOperation(value = "동일 챌린지에 참여한 모든 유저를 가져오는 api입니다.", notes = "challengeId를 활용하여 조회합니다.")

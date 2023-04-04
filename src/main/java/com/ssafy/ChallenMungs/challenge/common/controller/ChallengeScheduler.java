@@ -373,8 +373,6 @@ public class ChallengeScheduler {
     void sendKlay(User user, Integer intklay, boolean normal, String shelterAddress) {
         BigInteger klayForm = BigInteger.valueOf(intklay).multiply(BigInteger.TEN.pow(18));
         String hexString = "0x" + klayForm.toString(16);
-        System.out.println(klayForm);
-        System.out.println(hexString);
         String fromAddress;
         if(normal){
             fromAddress = "0x2649eadC4C15bac554940A0A702fa759bddf0dBe";

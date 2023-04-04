@@ -15,13 +15,17 @@ import com.ssafy.ChallenMungs.campaign.repository.CommentRepository;
 import com.ssafy.ChallenMungs.user.entity.User;
 import com.ssafy.ChallenMungs.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.*;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 import javax.transaction.Transactional;
+import java.math.BigInteger;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -40,17 +44,57 @@ public class DonateServiceImpl implements  DonateService{
     private final CommentRepository commentRepo;
     private final DonationRepository donationRepo;
     private final WalletService walletService;
+    private final WalletRepository walletRepo;
+
+
 
     //------기부 관련-------
+    void sendKlay(String from, String to, int money){
+        BigInteger klayForm = BigInteger.valueOf(money).multiply(BigInteger.TEN.pow(18));
+        String hexString = "0x" + klayForm.toString(16);
+
+        RestTemplate restTemplate = new RestTemplate();
+
+        // 요청 헤더 설정
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        headers.set("x-chain-id", "1001"); // 1001(Baobob 테스트넷)
+        headers.set("Authorization", "Basic S0FTS1dDQUdINjkwRkFRV0lPVDE4QkhUOnNTYThjQlI1akhncXRwbnUtWWltMHV5dkVpb1V2REVQRGpMSmJjRkM="); //AccountPool 등록
+
+        // 요청 바디 설정
+        JSONObject requestBody = new JSONObject();
+        requestBody.put("from", from);
+        requestBody.put("value", hexString);
+        requestBody.put("to", to);
+        requestBody.put("submit", true);
+
+        // 요청 엔티티 생성
+        HttpEntity<String> requestEntity = new HttpEntity<>(requestBody.toString(), headers);
+
+        // POST 요청 보내기
+        String url = "https://wallet-api.klaytnapi.com/v2/tx/fd/value";
+        ResponseEntity<String> responseEntity = restTemplate.exchange(url, HttpMethod.POST, requestEntity, String.class);
+        String responseBody = responseEntity.getBody();
+
+    }
+
+
+
     @Override
     public void donate(int campaignId,int money,String memo,String loginId) {
         //기부금액 업데이트 및 목표금액 도달 체크
         Campaign campaign=campaignRepo.findCampaignByCampaignId(campaignId);
+        User user = userRepo.findUserByLoginId(loginId);
+        String from  = walletRepo.findByUserAndType(user,'p').getAddress();
+        String to = campaign.getWalletAddress();
+
         addCollectAmount(campaignId,money);
         //캠페인 응원 댓글 추가
         addComment(campaign,memo,loginId);
         //기부자의 기부금액 업데이트
         updateUserDonate(loginId,money);
+        //기부자 지갑에서 캠페인 지갑으로 클레이튼 이동
+        sendKlay(from, to, money);
         //기부 내역 추가
         addDonation(campaign,money,loginId);
     }
