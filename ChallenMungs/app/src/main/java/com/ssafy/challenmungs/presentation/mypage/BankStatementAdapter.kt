@@ -1,11 +1,9 @@
 package com.ssafy.challenmungs.presentation.mypage
 
-import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
-import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
 import com.ssafy.challenmungs.R
+import com.ssafy.challenmungs.common.util.getViewDataBinding
 import com.ssafy.challenmungs.domain.entity.bank.BankStatement
 
 class BankStatementAdapter(
@@ -48,12 +46,4 @@ class BankStatementAdapter(
         itemCount -> ViewType.BOTTOM.ordinal
         else -> ViewType.MIDDLE.ordinal
     }
-
-    private fun <T : ViewDataBinding> getViewDataBinding(parent: ViewGroup, layoutRes: Int): T =
-        DataBindingUtil.inflate(
-            LayoutInflater.from(parent.context),
-            layoutRes,
-            parent,
-            false
-        )
 }

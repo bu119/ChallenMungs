@@ -2,12 +2,12 @@ package com.ssafy.challenmungs.common.util
 
 import android.content.Context
 import android.os.Build
-import android.view.View
-import android.view.WindowInsets
-import android.view.WindowInsetsController
+import android.view.*
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
+import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import kotlinx.coroutines.*
 
@@ -89,3 +89,11 @@ fun backDoublePressedFragmentCallback(fragment: Fragment): OnBackPressedCallback
 
     return callback
 }
+
+fun <T : ViewDataBinding> getViewDataBinding(parent: ViewGroup, layoutRes: Int): T =
+    DataBindingUtil.inflate(
+        LayoutInflater.from(parent.context),
+        layoutRes,
+        parent,
+        false
+    )
