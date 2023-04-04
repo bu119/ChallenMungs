@@ -1,12 +1,14 @@
 package com.ssafy.challenmungs.di
 
 import com.ssafy.challenmungs.domain.repository.AuthRepository
+import com.ssafy.challenmungs.domain.repository.ChallengeRepository
 import com.ssafy.challenmungs.domain.repository.DonateRepository
 import com.ssafy.challenmungs.domain.repository.MemberRepository
 import com.ssafy.challenmungs.domain.repository.WalletRepository
 import com.ssafy.challenmungs.domain.usecase.auth.JoinUseCase
 import com.ssafy.challenmungs.domain.usecase.auth.LogInUseCase
 import com.ssafy.challenmungs.domain.usecase.auth.SetWalletUseCase
+import com.ssafy.challenmungs.domain.usecase.challenge.GetChallengeListUseCase
 import com.ssafy.challenmungs.domain.usecase.donate.GetCampaignListUseCase
 import com.ssafy.challenmungs.domain.usecase.klaytn.CreateAccountUseCase
 import com.ssafy.challenmungs.domain.usecase.member.GetMemberInfoUseCase
@@ -44,6 +46,11 @@ object UseCaseModule {
     @Provides
     fun provideCreateAccountUseCase(walletRepository: WalletRepository): CreateAccountUseCase =
         CreateAccountUseCase(walletRepository)
+
+    @Singleton
+    @Provides
+    fun provideGetChallengeListUseCase(challengeRepository: ChallengeRepository): GetChallengeListUseCase =
+        GetChallengeListUseCase(challengeRepository)
 
     @Singleton
     @Provides
