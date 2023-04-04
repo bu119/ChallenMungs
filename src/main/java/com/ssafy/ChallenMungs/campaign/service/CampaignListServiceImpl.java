@@ -33,47 +33,6 @@ public class CampaignListServiceImpl implements CampaignListService {
     private final CommentRepository commentRepo;
     private Logger log = LoggerFactory.getLogger(CampaignListServiceImpl.class);
 
-//    List<CampaignDto> test(){
-//        List <CampaignDto> list=getCampaign("",1);
-//        //Comparator 이용해서 llove 기준으로 정렬한 후 리턴
-//
-//    }
-
-    // 기부탭의 캠페인 목록
-//    @Override
-//    public List<CampaignDto> getCampaign(String type, int sort) {
-//        List<Campaign> list;
-//
-//
-//        if (type.equals("date")){
-//            list = jpaRepo.findByIsEndFalseOrderByRegistDateDesc();
-////            list=jpaRepo.findAll();
-//            if (sort == 0){
-//                Collections.reverse(list);
-//            }
-//        }
-//        else if (type.equals("amount")){
-//            list = jpaRepo.findByIsEndFalseOrderByCollectAmountDesc();
-//            if (sort == 0){
-//                Collections.reverse(list);
-//            }
-//        }
-//        else if (type.equals("love")){
-//             list = jpaRepo.findByIsEndFalse();
-//            if (sort == 0){
-//                // Love DB 만들어졌을 때 실행
-//            }
-//
-//        }
-//        else {
-//            // 정렬 조건 없으면 최신순 정렬
-//            list = jpaRepo.findByIsEndFalseOrderByRegistDateDesc();
-//        }
-//
-//        return list.stream()
-//                .map(b -> new CampaignDto(b.getCampaignId(),b.getThumbnail(),b.getTitle(), b.getName(), b.getCollectAmount(), b.getTargetAmount(), loveRepo.countByCampaign(b) ))
-//                .collect(Collectors.toList());
-//    }
 
     @Override
     public List<CampaignDto> getCampaign(String title, String type, int sort) {
@@ -176,12 +135,4 @@ public class CampaignListServiceImpl implements CampaignListService {
                 .collect(Collectors.toList());
     }
 
-//    @Override
-//    public List<CampaignDto> search(String title) {
-//        List <Campaign> list=jpaRepo.findByTitleContaining(title);
-//        return  list.stream()
-//                .map(b -> new CampaignDto(b.getCampaignId(),b.getThumbnail(),b.getTitle(), b.getName(), b.getCollectAmount(), b.getTargetAmount(), loveRepo.countByCampaign(b)))
-//                .collect(Collectors.toList());
-//
-//    }
 }
