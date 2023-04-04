@@ -109,7 +109,8 @@ public class PanelController {
 
         String loginId = request.getAttribute("loginId").toString();
 
-        myChallengeService.save(MyChallenge.builder().challengeId(cId).successCount(0).loginId(loginId).build());
+        if (gameType == 1) myChallengeService.save(MyChallenge.builder().challengeId(cId).successCount(0).loginId(loginId).build());
+        else if (gameType == 2) myChallengeService.save(MyChallenge.builder().challengeId(cId).successCount(0).loginId(loginId).teamId(1).build());
 
         return ResponseEntity.status(HttpStatus.OK).build();
     }
