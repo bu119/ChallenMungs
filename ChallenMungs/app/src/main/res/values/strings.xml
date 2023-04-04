@@ -146,7 +146,7 @@
     <string name="content_create_check_message">챌린지 생성 후 수정이 불가능합니다. 생성하시겠습까?</string>
     <string name="title_select_date">챌린지 기간을 선택해주세요.</string>
     <string name="content_get_my_location_warning_message">위치권한이 없으므로 기본 위치로 이동합니다. 위치 권한을 허용해주세요.</string>
-
+    <string name="content_create_failed">챌린지 생성에 실패하였습니다.\n 조금 후에 다시 시도해주세요.</string>
 
     <!-- My Challenge -->
     <string name="title_ongoing">진행</string>
