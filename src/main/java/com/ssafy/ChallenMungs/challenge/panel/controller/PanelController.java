@@ -112,7 +112,9 @@ public class PanelController {
         if (gameType == 1) myChallengeService.save(MyChallenge.builder().challengeId(cId).successCount(0).loginId(loginId).build());
         else if (gameType == 2) myChallengeService.save(MyChallenge.builder().challengeId(cId).successCount(0).loginId(loginId).teamId(1).build());
 
-        return ResponseEntity.status(HttpStatus.OK).build();
+        HashMap<String, String> dto = new HashMap<>();
+        dto.put("result", "success");
+        return new ResponseEntity(dto, HttpStatus.OK);
     }
     @PostMapping("/tokenConfirm/getInfo")
     ResponseEntity makePanelChallenge(Long challengeId) {
