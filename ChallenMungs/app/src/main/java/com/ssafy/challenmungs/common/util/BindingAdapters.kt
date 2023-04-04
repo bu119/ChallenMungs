@@ -26,11 +26,22 @@ object BindingAdapters {
 
     @JvmStatic
     @BindingAdapter("android:campaignBannerUri")
-    fun ImageView.setCampaignImage(imgUri: String?) {
+    fun ImageView.setCampaignBannerImage(imgUri: String?) {
         Glide.with(this.context)
             .load(imgUri)
             .placeholder(R.drawable.bg_rect_pink_swan_radius10_image_not_found)
             .error(R.drawable.bg_rect_pink_swan_radius10_image_not_found)
+            .centerCrop()
+            .into(this)
+    }
+
+    @JvmStatic
+    @BindingAdapter("android:campaignContentUri")
+    fun ImageView.setCampaignContentImage(imgUri: String?) {
+        Glide.with(this.context)
+            .load(imgUri)
+            .placeholder(R.drawable.bg_rect_pink_swan_image_not_found)
+            .error(R.drawable.bg_rect_pink_swan_image_not_found)
             .centerCrop()
             .into(this)
     }

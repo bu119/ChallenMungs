@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
+import com.ssafy.challenmungs.presentation.common.MainViewModel
 import kotlinx.coroutines.*
 
 private const val HIDE_DELAY_MS = 3000L
@@ -82,6 +83,23 @@ fun backDoublePressedFragmentCallback(fragment: Fragment): OnBackPressedCallback
                 fragment.requireActivity().finish()
                 toast.cancel()
             }
+        }
+    }
+
+    fragment.requireActivity().onBackPressedDispatcher.addCallback(fragment, callback)
+
+    return callback
+}
+
+fun backPressedCallbackInFullScreen(
+    fragment: Fragment,
+    mainViewModel: MainViewModel,
+    popBackStack: () -> Unit
+): OnBackPressedCallback {
+    val callback: OnBackPressedCallback = object : OnBackPressedCallback(true) {
+        override fun handleOnBackPressed() {
+            mainViewModel.setFullScreenMode(false)
+            popBackStack()
         }
     }
 

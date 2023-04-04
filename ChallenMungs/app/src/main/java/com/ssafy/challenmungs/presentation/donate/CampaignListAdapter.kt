@@ -10,7 +10,7 @@ import com.ssafy.challenmungs.databinding.ItemCampaignCardBinding
 import com.ssafy.challenmungs.domain.entity.campaign.CampaignCard
 
 class CampaignListAdapter(
-    private val navigationToCampaignInfoFragment: () -> Unit
+    private val getCampaignInfo: (Int) -> Unit,
 ) : RecyclerView.Adapter<CampaignListAdapter.CampaignListViewHolder>() {
 
     lateinit var campaignList: List<CampaignCard>
@@ -45,12 +45,12 @@ class CampaignListAdapter(
             binding.campaign = item
             binding.executePendingBindings()
 
-            initListener()
+            initListener(item.campaignId)
         }
 
-        private fun initListener() {
+        private fun initListener(campaignId: Int) {
             binding.root.setOnClickListener {
-                navigationToCampaignInfoFragment()
+                getCampaignInfo(campaignId)
             }
         }
     }

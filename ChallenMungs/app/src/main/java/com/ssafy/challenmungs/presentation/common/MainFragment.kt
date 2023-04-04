@@ -3,11 +3,13 @@ package com.ssafy.challenmungs.presentation.common
 import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Typeface
+import android.view.View
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import com.ssafy.challenmungs.R
@@ -22,6 +24,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
 
     private lateinit var navController: NavController
     private lateinit var callback: OnBackPressedCallback
+    private val mainViewModel by activityViewModels<MainViewModel>()
     private val menus = arrayOf("challenge", "donate", "home", "map", "my_page")
     private val menusNavigation = arrayOf(R.id.challenge_fragment, R.id.donate_fragment, 0, 0, 0)
 
@@ -35,6 +38,8 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
         menus.forEachIndexed { tabIndex, tabName ->
             setMenu(tabName, tabIndex)
         }
+
+        observe()
     }
 
     override fun onAttach(context: Context) {
@@ -88,6 +93,12 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
 
                 tvMenu.setTypeface(null, Typeface.NORMAL)
             }
+        }
+    }
+
+    private fun observe() {
+        mainViewModel.fullScreenMode.observe(viewLifecycleOwner) {
+            binding.llMenu.visibility = if (it == true) View.GONE else View.VISIBLE
         }
     }
 }
