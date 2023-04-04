@@ -2,7 +2,6 @@ package com.ssafy.ChallenMungs.place.service;
 
 import com.ssafy.ChallenMungs.place.entity.Place;
 import com.ssafy.ChallenMungs.place.repository.PlaceRepository;
-import com.ssafy.ChallenMungs.user.controller.UserController;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,27 +23,47 @@ public class PlaceServiceImpl implements PlaceService{
     private Logger log = LoggerFactory.getLogger(PlaceServiceImpl.class);
 
     @Override
-    public Page<Place> getPlace(Pageable pageable, List<String> cities, String type) {
+    public Page<Place> getPlace(Pageable pageable, String name, List<String> cities, String type) {
         Page<Place> page;
 
         if(cities == null) {
             // 선택 안함
             if(type == null){
-                page = jpaRepo.findAll(pageable);
+                if(name == null){
+                    page = jpaRepo.findAll(pageable);
+                }
+                else{
+                    page = jpaRepo.findByNameContaining(pageable,name);
+                }
             }
             // 시설 유형
             else{
-                page = jpaRepo.findByType(pageable, type);
+                if(name == null){
+                    page = jpaRepo.findByType(pageable, type);
+                }
+                else{
+                    page = jpaRepo.findByNameContainingAndType(pageable, name, type);
+                }
             }
         }
         else{
             // 지역 + 시설 유형
             if(type != null){
-                page = jpaRepo.findByCityInAndType(pageable, cities, type);
+                if(name == null){
+                    page = jpaRepo.findByCityInAndType(pageable, cities, type);
+                }
+                else{
+                    page = jpaRepo.findByNameContainingAndCityInAndType(pageable, name, cities, type);
+                }
             }
             // 지역
             else{
-                page = jpaRepo.findByCityIn(pageable, cities);
+                if(name == null){
+                    page = jpaRepo.findByCityIn(pageable, cities);
+                }
+                else{
+                    page = jpaRepo.findByNameContainingAndCityIn(pageable, name, cities);
+                }
             }
         }
 
