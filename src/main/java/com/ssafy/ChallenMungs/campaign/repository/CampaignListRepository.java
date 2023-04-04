@@ -1,6 +1,5 @@
 package com.ssafy.ChallenMungs.campaign.repository;
 
-import com.ssafy.ChallenMungs.Test.entity.Test;
 import com.ssafy.ChallenMungs.campaign.entity.Campaign;
 import com.ssafy.ChallenMungs.user.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -15,13 +14,15 @@ public interface CampaignListRepository extends JpaRepository<Campaign, Long>  {
     List<Campaign> findAllByUser(User user);
 
     // 진행중인 캠페인 - 생성일순(최신순)
-    List<Campaign> findByIsEndFalseOrderByRegistDateDesc();
+    List<Campaign> findByTitleContainingAndIsEndFalseOrderByRegistDateDesc(String title);
 
     // 진행중인 캠페인 - 모금액순(많은순)
-    List<Campaign> findByIsEndFalseOrderByCollectAmountDesc();
+    List<Campaign> findByTitleContainingAndIsEndFalseOrderByCollectAmountDesc(String title);
 
     // 진행중인 캠페인
-    List<Campaign> findByIsEndFalse();
+    List<Campaign> findByTitleContainingAndIsEndFalse(String title);
+
+    List<Campaign> findByIsEndFalseOrderByRegistDateDesc();
 
     // 내가 응원한 캠페인
     List<Campaign> findByCampaignIdIn(List<Integer> campaignIds);
@@ -29,8 +30,8 @@ public interface CampaignListRepository extends JpaRepository<Campaign, Long>  {
     // 내가 참여한 캠페인
 
 
-    //캠페인 검색
-    List<Campaign> findByTitleContaining(String title);
+//    //캠페인 검색
+//    List<Campaign> findByTitleContaining(String title);
 
 
 
