@@ -15,7 +15,17 @@ public interface PlaceRepository extends JpaRepository<Place, Long> {
 
     Page<Place> findByType(Pageable pageable, String type);
 
+    Page<Place> findByNameContainingAndCityInAndType(Pageable pageable, String name, List cities, String type);
+
+    Page<Place> findByNameContainingAndCityIn(Pageable pageable, String name, List cities);
+
+    Page<Place> findByNameContainingAndType(Pageable pageable, String name, String type);
+
     Page<Place> findAll(Pageable pageable);
+
+    Page<Place> findByNameContaining(Pageable pageable, String name);
+
+
 
 //    List<Place> findAll(List cities, String type);
 }
