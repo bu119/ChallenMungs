@@ -259,6 +259,15 @@ public class ChallengeScheduler {
                             idx++;
                         }
                     }
+                    log.info("팀무승부 중인지 판단해요");
+                    boolean teamDraw = false;
+                    if (c.getGameType() == 2) {
+                        int[] sum = new int[2];
+                        for (RankVo rv : panelSocketHandler.challengeManager.get(c.getChallengeId()).rankInfo) {
+                            sum[rv.getTeamId() - 1] += rv.getPanelCount();
+                        }
+                        if (sum[0] == sum[1]) teamDraw = true;
+                    }
                     int idx = 1;
                     for (com.ssafy.ChallenMungs.challenge.panel.handler.RankVo rv : ri) {
                         User u = userService.findUserByLoginId((String) rv.getLoginId()); // 팀전일 경우 LoginId가 ArrayList라 고쳐야햄
@@ -268,7 +277,8 @@ public class ChallengeScheduler {
                         newRankInfoMap.put("loginId", u.getLoginId());
                         newRankInfoMap.put("name", u.getName());
                         newRankInfoMap.put("profile", u.getProfile());
-                        newRankInfoMap.put("rank", rv.getTeamRank());
+                        newRankInfoMap.put("indiRank", rv.getIndiRank());
+                        newRankInfoMap.put("teamRank", rv.getTeamRank());
                         newRankInfoMap.put("teamId", rv.getTeamId());
                         newRankInfoMap.put("point", rv.getPanelCount());
                         newRankInfoMap.put("obtainKlay", myklay[idx-1]);
@@ -291,6 +301,8 @@ public class ChallengeScheduler {
                         sb.append(c.getCenterLng());
                         sb.append(",\ngameType:");
                         sb.append(c.getGameType());
+                        sb.append(",\nteamDraw:");
+                        sb.append(teamDraw);
                         sb.append("\n}");
                     } catch (JsonProcessingException e) {
                         throw new RuntimeException(e);

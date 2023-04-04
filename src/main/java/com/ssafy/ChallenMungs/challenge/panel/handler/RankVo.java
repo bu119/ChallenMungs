@@ -12,5 +12,6 @@ public class RankVo {
     Integer teamId;
     Integer PanelCount;
     Integer teamRank;
+    Integer indiRank;
     String loginId;
 }

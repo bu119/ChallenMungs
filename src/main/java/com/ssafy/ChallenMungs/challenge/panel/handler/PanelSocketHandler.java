@@ -176,40 +176,6 @@ public class PanelSocketHandler extends TextWebSocketHandler {
                 }
             }
 
-            if (challenge.getGameType() == 1) {
-                int rank = 0;
-                int count = -1;
-                for (RankVo r : challengeManager.get(challengeId).rankInfo) {
-                    if (count < r.PanelCount) {
-                        count = r.PanelCount;
-                        rank++;
-                    }
-                    r.teamRank = rank;
-                }
-            } else if (challenge.getGameType() == 2) {
-                int sum1 = 0;
-                int sum2 = 0;
-                for (RankVo r : challengeManager.get(challengeId).rankInfo) {
-                    if (r.getTeamId() == 1) sum1 += r.getPanelCount();
-                    else if (r.getTeamId() == 2) sum2 += r.getPanelCount();
-                }
-                if (sum1 > sum2) {
-                    for (RankVo r : challengeManager.get(challengeId).rankInfo) {
-                        if (r.getTeamId() == 1) r.setTeamRank(1);
-                        else if (r.getTeamId() == 2) r.setTeamRank(2);
-                    }
-                } else if (sum1 < sum2) {
-                    for (RankVo r : challengeManager.get(challengeId).rankInfo) {
-                        if (r.getTeamId() == 1) r.setTeamRank(2);
-                        else if (r.getTeamId() == 2) r.setTeamRank(1);
-                    }
-                } else if (sum1 == sum2) {
-                    for (RankVo r : challengeManager.get(challengeId).rankInfo) {
-                        r.setTeamRank(1);
-                    }
-                }
-            }
-
             if(index_r != -1 && index_c != -1) {
                 if (challengeManager.get(challengeId).belong[index_r][index_c] != null) {
                     for (RankVo rv : challengeManager.get(challengeId).rankInfo) {
@@ -229,6 +195,64 @@ public class PanelSocketHandler extends TextWebSocketHandler {
                 }
             }
 
+            challengeManager.get(challengeId).rankInfo.sort((rv1, rv2) -> {
+                return rv2.getPanelCount() - rv1.getPanelCount();
+            });
+
+            boolean teamdraw = false;
+            if (challenge.getGameType() == 1) {
+                int rank = 0;
+                int count = -1;
+
+                for (RankVo r : challengeManager.get(challengeId).rankInfo) {
+                    if (count < r.PanelCount) {
+                        count = r.PanelCount;
+                        rank++;
+                    }
+                    r.teamRank = rank;
+                    r.indiRank = rank;
+                }
+            } else if (challenge.getGameType() == 2) {
+                int sum1 = 0;
+                int sum2 = 0;
+                int rank = 0;
+                int count = -1;
+                for (RankVo r : challengeManager.get(challengeId).rankInfo) {
+                    if (r.getTeamId() == 1) sum1 += r.getPanelCount();
+                    else if (r.getTeamId() == 2) sum2 += r.getPanelCount();
+                    if (count < r.PanelCount) {
+                        count = r.PanelCount;
+                        rank++;
+                    }
+                    r.indiRank = rank;
+                }
+                if (sum1 > sum2) {
+                    challengeManager.get(challengeId).rankInfo.sort((o1, o2) -> {
+                        return o1.getTeamId() - o2.getTeamId();
+                    });
+                    for (RankVo r : challengeManager.get(challengeId).rankInfo) {
+                        if (r.getTeamId() == 1) r.setTeamRank(1);
+                        else if (r.getTeamId() == 2) r.setTeamRank(2);
+                    }
+                } else if (sum1 < sum2) {
+                    challengeManager.get(challengeId).rankInfo.sort((o1, o2) -> {
+                        return o2.getTeamId() - o1.getTeamId();
+                    });
+                    for (RankVo r : challengeManager.get(challengeId).rankInfo) {
+                        if (r.getTeamId() == 1) r.setTeamRank(2);
+                        else if (r.getTeamId() == 2) r.setTeamRank(1);
+                    }
+                } else if (sum1 == sum2) {
+                    challengeManager.get(challengeId).rankInfo.sort((o1, o2) -> {
+                        return o1.getTeamId() - o2.getTeamId();
+                    });
+                    for (RankVo r : challengeManager.get(challengeId).rankInfo) {
+                        r.setTeamRank(1);
+                        teamdraw = true;
+                    }
+                }
+            }
+
             HashMap<String, Object> mapDto = new HashMap<String, Object>();
             mapDto.put("code", "signaling");
             HashMap<String, Object> subMap = new HashMap<String, Object>();
@@ -243,12 +267,14 @@ public class PanelSocketHandler extends TextWebSocketHandler {
                 newRankInfoMap.put("loginId", u.getLoginId());
                 newRankInfoMap.put("name", u.getName());
                 newRankInfoMap.put("profile", u.getProfile());
-                newRankInfoMap.put("rank", rv.getTeamRank());
+                newRankInfoMap.put("teamRank", rv.getTeamRank());
+                newRankInfoMap.put("indiRank", rv.getIndiRank());
                 newRankInfoMap.put("teamId", rv.getTeamId());
                 newRankInfoMap.put("point", rv.getPanelCount());
                 newRankInfoList.add(newRankInfoMap);
             }
             subMap.put("rankInfo", newRankInfoList);
+            subMap.put("teamDraw", teamdraw);
             TextMessage dto = new TextMessage(mapper.writeValueAsString(mapDto));
 
 //            for (int i = 0; i < challengeManager.get(challengeId).mapInfo.length; i++) {

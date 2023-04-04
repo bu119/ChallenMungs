@@ -7,6 +7,7 @@ import com.ssafy.ChallenMungs.challenge.common.entity.MyChallenge;
 import com.ssafy.ChallenMungs.challenge.common.service.ChallengeService;
 import com.ssafy.ChallenMungs.challenge.common.service.MyChallengeService;
 import com.ssafy.ChallenMungs.challenge.panel.handler.PanelSocketHandler;
+import com.ssafy.ChallenMungs.challenge.panel.handler.RankVo;
 import com.ssafy.ChallenMungs.challenge.panel.service.PanelService;
 import com.ssafy.ChallenMungs.common.util.Distance;
 import com.ssafy.ChallenMungs.common.util.FileManager;
@@ -119,8 +120,17 @@ public class PanelController {
             log.info("소켓이 관리하고 있지 않아서 정보를 가져오는데 실패 했어요ㅜㅜ");
             return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).build();
         }
-        log.info("게임 중 정보를 불러와요");
         Challenge challenge = challengeService.findByChallengeId(challengeId);
+        log.info("팀무승부 중인지 판단해요");
+        boolean teamDraw = false;
+        if (challenge.getGameType() == 2) {
+            int[] sum = new int[2];
+            for (RankVo rv : panelSocketHandler.challengeManager.get(challengeId).rankInfo) {
+                sum[rv.getTeamId() - 1] += rv.getPanelCount();
+            }
+            if (sum[0] == sum[1]) teamDraw = true;
+        }
+        log.info("게임 중 정보를 불러와요");
         HashMap<String, Object> mapDto = new HashMap<String, Object>();
         mapDto.put("title", challenge.getTitle());
         mapDto.put("startDate", challenge.getStartDate().toString());
@@ -138,12 +148,14 @@ public class PanelController {
             newRankInfoMap.put("loginId", u.getLoginId());
             newRankInfoMap.put("name", u.getName());
             newRankInfoMap.put("profile", u.getProfile());
-            newRankInfoMap.put("rank", rv.getTeamRank());
+            newRankInfoMap.put("teamRank", rv.getTeamRank());
+            newRankInfoMap.put("indiRank", rv.getIndiRank());
             newRankInfoMap.put("teamId", rv.getTeamId());
             newRankInfoMap.put("point", rv.getPanelCount());
             newRankInfoList.add(newRankInfoMap);
         }
         mapDto.put("rankInfo", newRankInfoList);
+        mapDto.put("teamDraw", teamDraw);
         return new ResponseEntity(mapDto, HttpStatus.OK);
     }
 
