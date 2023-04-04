@@ -18,6 +18,10 @@
         <action
             android:id="@+id/action_to_main_fragment"
             app:destination="@id/main_fragment" />
+
+        <action
+            android:id="@+id/action_to_shelter_join_fragment"
+            app:destination="@id/shelter_join_fragment" />
     </fragment>
 
     <fragment
@@ -36,4 +40,10 @@
         android:name="com.ssafy.challenmungs.presentation.common.MainFragment"
         android:label="Main Fragment"
         tools:layout="@layout/fragment_main" />
+
+    <fragment
+        android:id="@+id/shelter_join_fragment"
+        android:name="com.ssafy.challenmungs.presentation.auth.ShelterJoinFragment"
+        android:label="Shelter Join Fragment"
+        tools:layout="@layout/fragment_shelter_join" />
 </navigation>

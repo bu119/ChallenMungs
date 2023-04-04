@@ -220,4 +220,12 @@
     <string name="content_character_limit">300</string>
     <string name="content_campaign_comment_hint">따듯한 한마디를 남겨주세요.</string>
     <string name="content_about_fee">수수료는 챌린멍스가 대신 부담합니다.</string>
+
+    <!-- Join - Shelter -->
+    <string name="content_shelter_id_hint">아이디</string>
+    <string name="content_password_hint">비밀번호</string>
+    <string name="content_password_check_hint">비밀번호 확인</string>
+    <string name="content_shelter_name_hint">기부처 이름</string>
+    <string name="content_invite_code_hint">초대 코드</string>
+    <string name="content_join">회원가입</string>
 </resources>
