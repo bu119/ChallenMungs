@@ -71,6 +71,7 @@ public class CampaignContentServiceImpl implements CampaignContentService{
         receipt.setCampaign(listRepo.findCampaignByCampaignId(campaignId));
         receiptRepo.save(receipt);
 
+
     }
 
     public Content initContent(ContentDto dto){
@@ -203,6 +204,5 @@ public class CampaignContentServiceImpl implements CampaignContentService{
             contentDtoList.add(dto);
         }
         return contentDtoList;
-
     }
 }
