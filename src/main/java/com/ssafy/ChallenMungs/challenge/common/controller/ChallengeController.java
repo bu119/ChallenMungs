@@ -122,9 +122,9 @@ ChallengeController {
             default:
                 break;
         }
-//        for (Challenge c : challenges) {
-//            System.out.print(c.getChallengeId() + ":" + c.getStartDate() + " ");
-//        }
+        for (Challenge c : challenges) {
+            System.out.print(c.getChallengeId() + ":" + c.getStartDate() + "     ");
+        }
         if (myChallenge) {
             log.info("내 챌린지만을 구해요");
             String loginId = request.getAttribute("loginId").toString();
@@ -143,9 +143,9 @@ ChallengeController {
             }
         }
 
-//        for (Challenge c : challenges) {
-//            System.out.print(c.getChallengeId() + ":" + c.getStartDate() + " ");
-//        }
+        for (Challenge c : challenges) {
+            System.out.print(c.getChallengeId() + ":" + c.getStartDate() + "    ");
+        }
         if (onlyTomorrow) {
             log.info("내일 시작하는 챌린지만을 골라요!");
             List<Challenge> removeList = new ArrayList<>();
@@ -158,9 +158,9 @@ ChallengeController {
             }
         }
 
-//        for (Challenge c : challenges) {
-//            System.out.print(c.getChallengeId() + ":" + c.getStartDate() + " ");
-//        }
+        for (Challenge c : challenges) {
+            System.out.print(c.getChallengeId() + ":" + c.getStartDate() + "    ");
+        }
         HashMap<Integer, ArrayList> dto = new HashMap<>();
         dto.put(0, new ArrayList<Challenge>());
         dto.put(1, new ArrayList<Challenge>());
