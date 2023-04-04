@@ -3,11 +3,15 @@ package com.ssafy.challenmungs.presentation.challenge.panel
 import android.annotation.SuppressLint
 import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
-import android.util.Log
+import android.os.Handler
+import android.os.Looper
 import android.widget.Toast
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Observer
+import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.DecodeFormat
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
 import com.google.android.gms.location.*
@@ -16,32 +20,56 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.*
+import com.google.gson.Gson
+import com.ssafy.challenmungs.ApplicationClass
 import com.ssafy.challenmungs.R
-import com.ssafy.challenmungs.common.util.MapHelper.DISTANCE
+import com.ssafy.challenmungs.common.util.*
 import com.ssafy.challenmungs.common.util.MapHelper.checkLocationServicesStatus
-import com.ssafy.challenmungs.common.util.MapHelper.createRectangle
 import com.ssafy.challenmungs.common.util.MapHelper.defaultPosition
+import com.ssafy.challenmungs.common.util.MapHelper.getColor
+import com.ssafy.challenmungs.common.util.MapHelper.getLastKnownLocation
 import com.ssafy.challenmungs.common.util.MapHelper.locationRequest
 import com.ssafy.challenmungs.common.util.MapHelper.replaceDrawableMarker
-import com.ssafy.challenmungs.common.util.PermissionHelper
-import com.ssafy.challenmungs.common.util.px
+import com.ssafy.challenmungs.data.remote.datasource.challenge.panel.Location
+import com.ssafy.challenmungs.data.remote.datasource.challenge.panel.MessageListener
+import com.ssafy.challenmungs.data.remote.datasource.challenge.panel.WebSocketManager
 import com.ssafy.challenmungs.databinding.FragmentPanelPlayBinding
+import com.ssafy.challenmungs.domain.entity.challenge.PanelRevertResponse
+import com.ssafy.challenmungs.domain.entity.challenge.RankDetail
 import com.ssafy.challenmungs.presentation.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.*
+import org.json.JSONObject
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class PanelPlayFragment : BaseFragment<FragmentPanelPlayBinding>(R.layout.fragment_panel_play),
-    OnMapReadyCallback {
+    OnMapReadyCallback, MessageListener {
+
+    @Inject
+    lateinit var webSocketManager: WebSocketManager
 
     private val panelPlayViewModel by activityViewModels<PanelPlayViewModel>()
-    private lateinit var profileImg: String
-    private val panels = mutableListOf<Polygon>()
     private var myMarker: Marker? = null
     private lateinit var map: GoogleMap
     private val mFusedLocationClient: FusedLocationProviderClient by lazy {
         LocationServices.getFusedLocationProviderClient(requireActivity())
     }
-    private lateinit var currentPosition: LatLng
+    private val panels = ArrayList<ArrayList<Polygon?>>(LENGTH).apply {
+        for (i in 0..LENGTH) {
+            add(ArrayList<Polygon?>(LENGTH).apply {
+                for (j in 0..LENGTH) {
+                    add(null)
+                }
+            })
+        }
+    }
+
+    companion object {
+        private const val DEFAULT_ZOOM = 15f
+        private const val ROOM_NUM = 1L
+        private const val LENGTH = 20
+    }
 
     //위치정보 요청시 호출
     private var locationCallback: LocationCallback = object : LocationCallback() {
@@ -50,24 +78,86 @@ class PanelPlayFragment : BaseFragment<FragmentPanelPlayBinding>(R.layout.fragme
             val locationList = locationResult.locations
             if (locationList.size > 0) {
                 val location = locationList[locationList.size - 1]
-                currentPosition = LatLng(location.latitude, location.longitude)
-                Log.d(TAG, "onLocationResult: 위도: ${location.latitude}, 경도: ${location.longitude}")
-
-                createMyMarker(map, profileImg)
-                map.animateCamera(CameraUpdateFactory.newLatLngZoom(currentPosition, DEFAULT_ZOOM))
+                val position = LatLng(location.latitude, location.longitude)
+                panelPlayViewModel.setCurrentPosition(position)
+                map.animateCamera(CameraUpdateFactory.newLatLng(position))
             }
         }
     }
 
     override fun initView() {
+        val accessToken = ApplicationClass.preferences.accessToken
+        if (accessToken != null) {
+            panelPlayViewModel.setUserId(extractIdFromJWT(accessToken))
+            lifecycleScope.launch {
+                panelPlayViewModel.getPanelInfo(ROOM_NUM)
+            }
+        }
         val mapFragment =
             childFragmentManager.findFragmentById(R.id.fcv_google_map) as SupportMapFragment?
         mapFragment?.getMapAsync(this)
 
-        profileImg = getString(R.string.default_profile_url)
+        setBind()
+        initListener()
+    }
 
+    private fun setBind() {
+        panelPlayViewModel.challengeInfo.observe(viewLifecycleOwner) {
+            binding.title = it?.title
+        }
+        panelPlayViewModel.currentPosition.observe(viewLifecycleOwner) {
+            createMyMarker(map, panelPlayViewModel.myProfileImg.value, it)
+        }
+        val observer = Observer<Pair<Int, Int>> {
+            binding.tvMyRank.text =
+                String.format(
+                    resources.getString(R.string.content_panel_rank),
+                    it.first,
+                    it.second
+                )
+        }
+        panelPlayViewModel.myRank.observe(viewLifecycleOwner, observer)
+    }
+
+    private fun initListener() {
         binding.btnWalk.setOnClickListener {
-            Toast.makeText(requireContext(), "clicked", Toast.LENGTH_SHORT).show()
+            startWalking()
+            revertPanel()
+        }
+        binding.toolbar.tvInfo.setOnClickListener {
+
+        }
+    }
+
+    private fun startWalking() {
+        if (!webSocketManager.isConnect()) {
+            binding.btnWalk.text = getString(R.string.content_walk_end)
+            val accessToken = ApplicationClass.preferences.accessToken
+            if (accessToken != null) {
+                webSocketManager.connect()
+            }
+        } else {
+            binding.btnWalk.text = getString(R.string.content_walk_start)
+            webSocketManager.disconnect()
+        }
+    }
+
+    private fun revertPanel() {
+        if (webSocketManager.isConnect()) {
+            panelPlayViewModel.userId.value?.let { userId ->
+                panelPlayViewModel.currentPosition.observe(
+                    viewLifecycleOwner
+                ) { currentPosition ->
+                    if (currentPosition != null) {
+                        webSocketManager.revertPanel(
+                            currentPosition.latitude,
+                            currentPosition.longitude,
+                            ROOM_NUM,
+                            userId
+                        )
+                    }
+                }
+            }
         }
     }
 
@@ -75,16 +165,23 @@ class PanelPlayFragment : BaseFragment<FragmentPanelPlayBinding>(R.layout.fragme
         map = googleMap
         setMyLocation()
         with(map) {
-            moveCamera(CameraUpdateFactory.newLatLngZoom(defaultPosition, DEFAULT_ZOOM))
-            // 세로
-            for (i in -10..10) {
-                for (j in -10..10) {
-                    setTile(
-                        this, R.color.trans20_pink_swan, LatLng(
-                            defaultPosition.latitude + i * DISTANCE * 2,
-                            defaultPosition.longitude + j * DISTANCE * 2,
-                        )
-                    )
+            panelPlayViewModel.center.observe(viewLifecycleOwner) { center ->
+                if (center != null) {
+                    moveCamera(CameraUpdateFactory.newLatLngZoom(center, DEFAULT_ZOOM))
+                    val coordinate = panelPlayViewModel.challengeInfo.value?.mapCoordinate
+                    if (coordinate != null)
+                        panelPlayViewModel.mapInfo.observe(viewLifecycleOwner) {
+                            it.forEachIndexed { i, arr ->
+                                arr.forEachIndexed { j, value ->
+                                    setTile(
+                                        i, j,
+                                        this, getColor(requireContext(), value), coordinate[i][j]
+                                    )
+                                }
+                            }
+                        }
+                } else {
+                    moveCamera(CameraUpdateFactory.newLatLngZoom(defaultPosition, DEFAULT_ZOOM))
                 }
             }
         }
@@ -97,11 +194,12 @@ class PanelPlayFragment : BaseFragment<FragmentPanelPlayBinding>(R.layout.fragme
         if (!checkLocationServicesStatus(activity)) {
             Toast.makeText(
                 context,
-                "위치 서비스가 꺼져 있어, 현재 위치를 확인할 수 없습니다.",
+                getString(R.string.content_gps_off_warning),
                 Toast.LENGTH_SHORT
             ).show()
         } else {
             if (PermissionHelper.hasLocationPermission(requireContext())) {
+                panelPlayViewModel.setCurrentPosition(getLastKnownLocation(activity))
                 mFusedLocationClient.requestLocationUpdates(
                     locationRequest,
                     locationCallback,
@@ -117,58 +215,89 @@ class PanelPlayFragment : BaseFragment<FragmentPanelPlayBinding>(R.layout.fragme
         }
     }
 
-    private fun setTile(googleMap: GoogleMap, fillColorArgb: Int, center: LatLng) {
-        val rectOptions = PolygonOptions().apply {
-            addAll(createRectangle(center, DISTANCE))
-            fillColor(ContextCompat.getColor(requireContext(), fillColorArgb))
-            strokeWidth(1f)
+    private fun setTile(
+        i: Int,
+        j: Int,
+        googleMap: GoogleMap,
+        fillColorArgb: Int,
+        coordinate: ArrayList<Location>
+    ) {
+        panels[i][j]?.remove()
+        val mapping = coordinate.mapIndexed { index, latLng ->
+            when (index) {
+                2 -> LatLng(coordinate[3].lat, coordinate[3].lng)
+                3 -> LatLng(coordinate[2].lat, coordinate[2].lng)
+                else -> LatLng(latLng.lat, latLng.lng)
+            }
         }
-        panels.add(googleMap.addPolygon(rectOptions))
+        val rectOptions = PolygonOptions().apply {
+            addAll(mapping)
+            fillColor(fillColorArgb)
+            strokeWidth(0f)
+        }
+        panels[i][j] = googleMap.addPolygon(rectOptions)
     }
 
-    private fun createMyMarker(googleMap: GoogleMap, profileImg: String) {
-        Glide.with(this@PanelPlayFragment)
-            .asBitmap()
-            .load(profileImg)
-            .placeholder(R.drawable.ic_profile_default)
-            .error(R.drawable.ic_profile_default)
-            .into(object : CustomTarget<Bitmap>() {
-                override fun onResourceReady(
-                    resource: Bitmap,
-                    transition: Transition<in Bitmap>?
-                ) {
-                    val pixels = 30.px(requireContext())
-                    val bitmap =
-                        Bitmap.createScaledBitmap(resource, pixels, pixels, true)
-                    myMarker?.remove()
-                    myMarker = googleMap.addMarker(
-                        MarkerOptions()
-                            .position(currentPosition)
-                            .icon(BitmapDescriptorFactory.fromBitmap(bitmap))
-                            .anchor(0.5f, 0.5f)
-                    )
-                }
+    private fun createMyMarker(googleMap: GoogleMap, profileImg: String?, position: LatLng?) {
+        if (position != null) {
+            Glide.with(this@PanelPlayFragment)
+                .load(profileImg)
+                .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+                .preload()
 
-                override fun onLoadStarted(placeholder: Drawable?) {
-                    super.onLoadStarted(placeholder)
-                    myMarker?.remove()
+            Glide.with(this@PanelPlayFragment)
+                .asBitmap()
+                .thumbnail()
+                .load(profileImg)
+                .format(DecodeFormat.PREFER_ARGB_8888)
+                .override(50, 50)
+                .optionalCircleCrop()
+                .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+                .placeholder(R.drawable.ic_profile_default)
+                .error(R.drawable.ic_profile_default)
+                .into(object : CustomTarget<Bitmap>() {
+                    override fun onResourceReady(
+                        resource: Bitmap,
+                        transition: Transition<in Bitmap>?
+                    ) {
+                        val pixels = 40.px(requireContext())
+                        val bitmap =
+                            Bitmap.createScaledBitmap(resource, pixels, pixels, true)
+                        myMarker?.remove()
+                        myMarker = googleMap.addMarker(
+                            MarkerOptions()
+                                .position(position)
+                                .icon(BitmapDescriptorFactory.fromBitmap(bitmap))
+                                .anchor(0.5f, 0.5f)
+                        )
+                    }
 
-                    myMarker = replaceDrawableMarker(googleMap, placeholder, currentPosition)
-                }
+                    override fun onLoadStarted(placeholder: Drawable?) {
+                        super.onLoadStarted(placeholder)
+                        myMarker?.remove()
+                        myMarker = replaceDrawableMarker(
+                            googleMap,
+                            placeholder,
+                            position,
+                            requireContext()
+                        )
+                    }
 
-                override fun onLoadFailed(errorDrawable: Drawable?) {
-                    super.onLoadFailed(errorDrawable)
-                    myMarker?.remove()
-                    myMarker = replaceDrawableMarker(googleMap, errorDrawable, currentPosition)
-                }
+                    override fun onLoadFailed(errorDrawable: Drawable?) {
+                        super.onLoadFailed(errorDrawable)
+                        myMarker?.remove()
+                        myMarker = replaceDrawableMarker(
+                            googleMap,
+                            errorDrawable,
+                            position,
+                            requireContext()
+                        )
+                    }
 
-                override fun onLoadCleared(placeholder: Drawable?) {
-                    myMarker?.remove()
-                    myMarker = replaceDrawableMarker(googleMap, placeholder, currentPosition)
-                }
-            })
+                    override fun onLoadCleared(placeholder: Drawable?) {}
+                })
+        }
     }
-
 
     @SuppressLint("MissingPermission")
     override fun onStart() {
@@ -178,13 +307,84 @@ class PanelPlayFragment : BaseFragment<FragmentPanelPlayBinding>(R.layout.fragme
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        lifecycle.addObserver(webSocketManager)
+        webSocketManager.init("${Constants.WEB_SOCKET}/panelSocket", this)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        lifecycle.removeObserver(webSocketManager)
+    }
+
     override fun onStop() {
         super.onStop()
         mFusedLocationClient.removeLocationUpdates(locationCallback)
     }
 
-    companion object {
-        private const val TAG = "PanelPlayFragment_챌린멍스"
-        private const val DEFAULT_ZOOM = 15f
+    override fun onConnectSuccess() {
+        panelPlayViewModel.userId.value?.let {
+            webSocketManager.startWalking(ROOM_NUM, it)
+        }
     }
+
+    @OptIn(DelicateCoroutinesApi::class)
+    override fun onMessage(text: String?) {
+        val json = text?.let { JSONObject(it) }
+        when (json?.getString("code")) {
+            "access" -> {
+                val valueJson = json.getJSONObject("value")
+                val mapInfoJson = valueJson.getJSONArray("mapInfo")
+                val mapInfoList = ArrayList<ArrayList<Int>>()
+
+                for (i in 0 until mapInfoJson.length()) {
+                    val innerJsonArray = mapInfoJson.getJSONArray(i)
+                    val innerList = ArrayList<Int>()
+
+                    for (j in 0 until innerJsonArray.length()) {
+                        innerList.add(innerJsonArray.getInt(j))
+                    }
+                    mapInfoList.add(innerList)
+                }
+                activity?.runOnUiThread {
+                    panelPlayViewModel.setMapInfo(mapInfoList)
+                }
+            }
+            "signaling" -> {
+                val gson = Gson()
+                val value =
+                    gson.fromJson(JSONObject(text).toString(), PanelRevertResponse::class.java)
+                val rankInfoList = ArrayList<RankDetail>()
+                val c = value.value.indexC
+                val r = value.value.indexR
+                if (c >= 0 && r >= 0 && c < LENGTH && r < LENGTH) {
+                    for (i in 0 until value.value.rankInfo.size) {
+                        val innerRank = value.value.rankInfo[i]
+                        val crown = when (innerRank.rank) {
+                            1 -> R.drawable.ic_gold_crown
+                            2 -> R.drawable.ic_silver_crown
+                            3 -> R.drawable.ic_bronze_crown
+                            else -> null
+                        }
+                        innerRank.crown = crown
+                        rankInfoList.add(innerRank)
+                    }
+                    Handler(Looper.getMainLooper()).post {
+                        panelPlayViewModel.rankInfo.observe(viewLifecycleOwner) { rankInfoList ->
+                            val panel = panels[r][c]
+                            panel?.let {
+                                it.fillColor = getColor(requireContext(), value.value.teamId)
+                            }
+                        }
+                        panelPlayViewModel.setRankInfo(rankInfoList)
+                    }
+                }
+            }
+        }
+    }
+
+    override fun onConnectFailed() {}
+
+    override fun onClose() {}
 }
