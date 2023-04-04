@@ -1,14 +1,16 @@
 package com.ssafy.challenmungs.di
 
+import com.ssafy.challenmungs.data.remote.datasource.auth.AuthRemoteDataSource
 import com.ssafy.challenmungs.data.remote.datasource.auth.AuthRemoteDataSourceImpl
+import com.ssafy.challenmungs.data.remote.datasource.challenge.ChallengeRemoteDataSource
+import com.ssafy.challenmungs.data.remote.datasource.challenge.ChallengeRemoteDataSourceImpl
 import com.ssafy.challenmungs.data.remote.datasource.donate.DonateRemoteDataSource
 import com.ssafy.challenmungs.data.remote.datasource.donate.DonateRemoteDataSourceImpl
+import com.ssafy.challenmungs.data.remote.datasource.klaytn.WalletRemoteDataSource
 import com.ssafy.challenmungs.data.remote.datasource.klaytn.WalletRemoteDataSourceImpl
+import com.ssafy.challenmungs.data.remote.datasource.member.MemberRemoteDataSource
 import com.ssafy.challenmungs.data.remote.datasource.member.MemberRemoteDataSourceImpl
-import com.ssafy.challenmungs.data.remote.service.AuthApiService
-import com.ssafy.challenmungs.data.remote.service.DonateApiService
-import com.ssafy.challenmungs.data.remote.service.MemberApiService
-import com.ssafy.challenmungs.data.remote.service.WalletApiService
+import com.ssafy.challenmungs.data.remote.service.*
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -23,19 +25,25 @@ object DataSourceModule {
     @Singleton
     fun provideAuthDataSource(
         authApiService: AuthApiService
-    ): AuthRemoteDataSourceImpl = AuthRemoteDataSourceImpl(authApiService)
+    ): AuthRemoteDataSource = AuthRemoteDataSourceImpl(authApiService)
 
     @Provides
     @Singleton
     fun provideMemberDataSource(
         memberApiService: MemberApiService
-    ): MemberRemoteDataSourceImpl = MemberRemoteDataSourceImpl(memberApiService)
+    ): MemberRemoteDataSource = MemberRemoteDataSourceImpl(memberApiService)
 
     @Provides
     @Singleton
     fun provideWalletDataSource(
         walletApiService: WalletApiService
-    ): WalletRemoteDataSourceImpl = WalletRemoteDataSourceImpl(walletApiService)
+    ): WalletRemoteDataSource = WalletRemoteDataSourceImpl(walletApiService)
+
+    @Provides
+    @Singleton
+    fun provideChallengeDataSource(
+        challengeApiService: ChallengeApiService
+    ): ChallengeRemoteDataSource = ChallengeRemoteDataSourceImpl(challengeApiService)
 
     @Provides
     @Singleton
