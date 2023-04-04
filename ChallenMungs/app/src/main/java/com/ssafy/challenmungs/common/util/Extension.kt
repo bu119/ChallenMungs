@@ -9,7 +9,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
-import com.ssafy.challenmungs.presentation.common.MainViewModel
 import kotlinx.coroutines.*
 
 private const val HIDE_DELAY_MS = 3000L
@@ -30,6 +29,7 @@ fun getDeviceHeightPx(context: Context): Int {
     return context.resources.displayMetrics.heightPixels
 }
 
+@Suppress("DEPRECATION")
 @OptIn(DelicateCoroutinesApi::class)
 fun AppCompatActivity.setImmersiveMode() {
     // API 30 이상인 경우에는 WindowInsetsController를 사용하여 Fullscreen 모드로 설정
@@ -83,23 +83,6 @@ fun backDoublePressedFragmentCallback(fragment: Fragment): OnBackPressedCallback
                 fragment.requireActivity().finish()
                 toast.cancel()
             }
-        }
-    }
-
-    fragment.requireActivity().onBackPressedDispatcher.addCallback(fragment, callback)
-
-    return callback
-}
-
-fun backPressedCallbackInFullScreen(
-    fragment: Fragment,
-    mainViewModel: MainViewModel,
-    popBackStack: () -> Unit
-): OnBackPressedCallback {
-    val callback: OnBackPressedCallback = object : OnBackPressedCallback(true) {
-        override fun handleOnBackPressed() {
-            mainViewModel.setFullScreenMode(false)
-            popBackStack()
         }
     }
 
