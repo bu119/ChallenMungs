@@ -1,6 +1,7 @@
 package com.ssafy.challenmungs.data.remote.service
 
-import com.ssafy.challenmungs.data.remote.datasource.donate.CampaignResponse
+import com.ssafy.challenmungs.data.remote.datasource.donate.CampaignInfoResponse
+import com.ssafy.challenmungs.data.remote.datasource.donate.CampaignListResponse
 import retrofit2.http.GET
 import retrofit2.http.Query
 
@@ -10,5 +11,8 @@ interface DonateApiService {
     suspend fun getCampaignList(
         @Query("type") type: String,
         @Query("sort") sort: Int
-    ): List<CampaignResponse>
+    ): List<CampaignListResponse>
+
+    @GET("/campaign/content/detail")
+    suspend fun getCampaignInfo(@Query("campaignId") campaignId: Int): CampaignInfoResponse
 }

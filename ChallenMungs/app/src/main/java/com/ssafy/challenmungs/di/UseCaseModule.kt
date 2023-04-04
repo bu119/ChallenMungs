@@ -7,6 +7,7 @@ import com.ssafy.challenmungs.domain.repository.WalletRepository
 import com.ssafy.challenmungs.domain.usecase.auth.JoinUseCase
 import com.ssafy.challenmungs.domain.usecase.auth.LogInUseCase
 import com.ssafy.challenmungs.domain.usecase.auth.SetWalletUseCase
+import com.ssafy.challenmungs.domain.usecase.donate.GetCampaignInfoUseCase
 import com.ssafy.challenmungs.domain.usecase.donate.GetCampaignListUseCase
 import com.ssafy.challenmungs.domain.usecase.klaytn.CreateAccountUseCase
 import com.ssafy.challenmungs.domain.usecase.member.GetMemberInfoUseCase
@@ -49,4 +50,9 @@ object UseCaseModule {
     @Provides
     fun provideGetCampaignListUseCase(donateRepository: DonateRepository): GetCampaignListUseCase =
         GetCampaignListUseCase(donateRepository)
+
+    @Singleton
+    @Provides
+    fun provideGetCampaignInfoUseCase(donateRepository: DonateRepository): GetCampaignInfoUseCase =
+        GetCampaignInfoUseCase(donateRepository)
 }

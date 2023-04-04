@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName
 import com.ssafy.challenmungs.data.remote.datasource.base.DataToDomainMapper
 import com.ssafy.challenmungs.domain.entity.campaign.CampaignCard
 
-data class CampaignResponse(
+data class CampaignListResponse(
     @SerializedName("campaignId")
     val campaignId: Int,
     @SerializedName("thumbnail")
