@@ -35,5 +35,16 @@
         android:id="@+id/main_fragment"
         android:name="com.ssafy.challenmungs.presentation.common.MainFragment"
         android:label="Main Fragment"
-        tools:layout="@layout/fragment_main" />
+        tools:layout="@layout/fragment_main">
+
+        <action
+            android:id="@+id/action_to_campaign_info_fragment"
+            app:destination="@id/campaign_info_fragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/campaign_info_fragment"
+        android:name="com.ssafy.challenmungs.presentation.donate.CampaignInfoFragment"
+        android:label="Campaign Info Fragment"
+        tools:layout="@layout/fragment_campaign_info" />
 </navigation>

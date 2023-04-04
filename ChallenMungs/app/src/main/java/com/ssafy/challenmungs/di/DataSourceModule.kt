@@ -5,11 +5,14 @@ import com.ssafy.challenmungs.data.remote.datasource.auth.AuthRemoteDataSourceIm
 import com.ssafy.challenmungs.data.remote.datasource.challenge.ChallengeRemoteDataSource
 import com.ssafy.challenmungs.data.remote.datasource.challenge.ChallengeRemoteDataSourceImpl
 import com.ssafy.challenmungs.data.remote.datasource.klaytn.WalletRemoteDataSource
+import com.ssafy.challenmungs.data.remote.datasource.donate.DonateRemoteDataSource
+import com.ssafy.challenmungs.data.remote.datasource.donate.DonateRemoteDataSourceImpl
 import com.ssafy.challenmungs.data.remote.datasource.klaytn.WalletRemoteDataSourceImpl
 import com.ssafy.challenmungs.data.remote.datasource.member.MemberRemoteDataSource
 import com.ssafy.challenmungs.data.remote.datasource.member.MemberRemoteDataSourceImpl
 import com.ssafy.challenmungs.data.remote.service.AuthApiService
 import com.ssafy.challenmungs.data.remote.service.ChallengeApiService
+import com.ssafy.challenmungs.data.remote.service.DonateApiService
 import com.ssafy.challenmungs.data.remote.service.MemberApiService
 import com.ssafy.challenmungs.data.remote.service.WalletApiService
 import dagger.Module
@@ -45,4 +48,11 @@ object DataSourceModule {
     fun provideChallengeDataSource(
         challengeApiService: ChallengeApiService
     ): ChallengeRemoteDataSource = ChallengeRemoteDataSourceImpl(challengeApiService)
+    ): WalletRemoteDataSourceImpl = WalletRemoteDataSourceImpl(walletApiService)
+
+    @Provides
+    @Singleton
+    fun provideDonateDataSource(
+        donateApiService: DonateApiService
+    ): DonateRemoteDataSource = DonateRemoteDataSourceImpl(donateApiService)
 }

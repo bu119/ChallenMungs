@@ -5,6 +5,7 @@ import com.ssafy.challenmungs.NoAuthInterceptorClient
 import com.ssafy.challenmungs.WalletInterceptorClient
 import com.ssafy.challenmungs.data.remote.service.AuthApiService
 import com.ssafy.challenmungs.data.remote.service.ChallengeApiService
+import com.ssafy.challenmungs.data.remote.service.DonateApiService
 import com.ssafy.challenmungs.data.remote.service.MemberApiService
 import com.ssafy.challenmungs.data.remote.service.WalletApiService
 import dagger.Module
@@ -24,6 +25,13 @@ object ServiceModule {
         @NoAuthInterceptorClient retrofit: Retrofit
     ): AuthApiService =
         retrofit.create(AuthApiService::class.java)
+
+    @Provides
+    @Singleton
+    fun provideDonateApiService(
+        @NoAuthInterceptorClient retrofit: Retrofit
+    ): DonateApiService =
+        retrofit.create(DonateApiService::class.java)
 
     @Provides
     @Singleton
