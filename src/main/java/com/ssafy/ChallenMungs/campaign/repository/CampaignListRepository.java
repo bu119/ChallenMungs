@@ -22,14 +22,11 @@ public interface CampaignListRepository extends JpaRepository<Campaign, Long>  {
     // 진행중인 캠페인
     List<Campaign> findByTitleContainingAndIsEndFalse(String title);
 
+    // 검색없이 캠페인 조회
     List<Campaign> findByIsEndFalseOrderByRegistDateDesc();
 
     // 내가 응원한 캠페인
     List<Campaign> findByCampaignIdIn(List<Integer> campaignIds);
-
-    // 내가 참여한 캠페인
-
-
 
 
 }
