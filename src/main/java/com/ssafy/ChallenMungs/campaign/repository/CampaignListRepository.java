@@ -30,9 +30,6 @@ public interface CampaignListRepository extends JpaRepository<Campaign, Long>  {
     // 내가 참여한 캠페인
 
 
-//    //캠페인 검색
-//    List<Campaign> findByTitleContaining(String title);
-
 
 
 }
