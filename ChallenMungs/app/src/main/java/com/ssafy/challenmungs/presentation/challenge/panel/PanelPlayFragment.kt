@@ -24,6 +24,7 @@ import com.google.gson.Gson
 import com.ssafy.challenmungs.ApplicationClass
 import com.ssafy.challenmungs.R
 import com.ssafy.challenmungs.common.util.*
+import com.ssafy.challenmungs.common.util.MapHelper.DEFAULT_ZOOM
 import com.ssafy.challenmungs.common.util.MapHelper.checkLocationServicesStatus
 import com.ssafy.challenmungs.common.util.MapHelper.defaultPosition
 import com.ssafy.challenmungs.common.util.MapHelper.getColor
@@ -66,7 +67,6 @@ class PanelPlayFragment : BaseFragment<FragmentPanelPlayBinding>(R.layout.fragme
     }
 
     companion object {
-        private const val DEFAULT_ZOOM = 15f
         private const val ROOM_NUM = 1L
         private const val LENGTH = 20
     }
@@ -211,7 +211,7 @@ class PanelPlayFragment : BaseFragment<FragmentPanelPlayBinding>(R.layout.fragme
             } else {
                 Toast.makeText(
                     requireContext(),
-                    getString(R.string.location_permission_warning_message),
+                    getString(R.string.content_location_permission_warning_message),
                     Toast.LENGTH_SHORT
                 ).show()
             }
