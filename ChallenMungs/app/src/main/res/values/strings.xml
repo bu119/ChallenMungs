@@ -220,4 +220,11 @@
     <string name="content_character_limit">300</string>
     <string name="content_campaign_comment_hint">따듯한 한마디를 남겨주세요.</string>
     <string name="content_about_fee">수수료는 챌린멍스가 대신 부담합니다.</string>
+
+    <!-- Challenge - Basic Info -->
+    <string name="title_challenge_basic_history">히스토리</string>
+    <string name="title_challenge_basic_today">투데이</string>
+    <string name="content_reject">반려하기</string>
+    <string name="image_reject">반려하기 버튼의 아이콘입니다.</string>
+    <string name="image_challenge_basic">일반 챌린지 인증 사진입니다.</string>
 </resources>
