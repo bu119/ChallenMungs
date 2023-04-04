@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface CampaignListService {
     // 기부 탭
-    List<CampaignDto> getCampaign(String type, int sort);
+    List<CampaignDto> getCampaign(String title, String type, int sort);
 
     // 후원처 탭
     List<CampaignShelterDto> getShelter(String loginId);
