@@ -1,5 +1,6 @@
 package com.ssafy.challenmungs.common.util
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
 import android.graphics.Bitmap
@@ -7,6 +8,7 @@ import android.graphics.drawable.Drawable
 import android.graphics.drawable.VectorDrawable
 import android.location.LocationManager
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.toBitmap
 import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.Priority
@@ -15,11 +17,12 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
+import com.ssafy.challenmungs.R
 
 object MapHelper {
-    const val UPDATE_INTERVAL = 1000L // 1초
-    const val MIN_UPDATE_INTERVAL = 500L // 0.5초
-    const val MIN_UPDATE_DISTANCE = 10f // 10m
+    private const val UPDATE_INTERVAL = 1000L // 1초
+    private const val MIN_UPDATE_INTERVAL = 500L // 0.5초
+    private const val MIN_UPDATE_DISTANCE = 10f // 10m
     val defaultPosition = LatLng(36.107102, 128.416558)
 
     val locationRequest: LocationRequest by lazy {
@@ -48,6 +51,17 @@ object MapHelper {
                 || locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER))
     }
 
+    @SuppressLint("MissingPermission")
+    fun getLastKnownLocation(activity: Activity?): LatLng? {
+        val locationManager =
+            activity?.getSystemService(Context.LOCATION_SERVICE) as LocationManager
+        val location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER)
+        return if (location != null) {
+            LatLng(location.latitude, location.longitude)
+        } else
+            null
+    }
+
     fun replaceDrawableMarker(
         googleMap: GoogleMap,
         drawable: Drawable?,
@@ -68,4 +82,17 @@ object MapHelper {
                 .anchor(0.5f, 0.5f)
         )
     }
+
+    fun getColor(context: Context, teamId: Int) =
+        ContextCompat.getColor(
+            context, when (teamId) {
+                0 -> R.color.trans20_pink_swan
+                1 -> R.color.trans50_venetian_red
+                2 -> R.color.trans45_blue
+                3 -> R.color.trans50_golden_poppy
+                4 -> R.color.trans50_pumpkin
+                5 -> R.color.trans60_lime_green
+                else -> R.color.trans60_blue_violet
+            }
+        )
 }
