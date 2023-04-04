@@ -18,10 +18,10 @@ data class ChallengeInfo(
 )
 
 data class RankDetail(
-    val profileImageUrl: String?,
+    val profile: String?,
     val name: String,
-    val userId: String,
-    val count: Int,
+    val loginId: String,
+    val point: Int,
     val rank: Int,
     val teamId: Long,
     var crown: Int?
