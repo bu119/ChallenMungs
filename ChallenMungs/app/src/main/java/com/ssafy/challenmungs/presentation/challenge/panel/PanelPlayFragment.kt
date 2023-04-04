@@ -128,7 +128,7 @@ class PanelPlayFragment : BaseFragment<FragmentPanelPlayBinding>(R.layout.fragme
             revertPanel()
         }
         binding.toolbar.tvInfo.setOnClickListener {
-            navigate(PanelPlayFragmentDirections.actionToPanelInfoFragment())
+
         }
     }
 

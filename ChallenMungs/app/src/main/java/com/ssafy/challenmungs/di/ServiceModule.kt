@@ -45,8 +45,7 @@ object ServiceModule {
     @Singleton
     fun provideChallengeApiService(
         @AuthInterceptorClient retrofit: Retrofit
-    ): ChallengeApiService =
-        retrofit.create(ChallengeApiService::class.java)
+    ): ChallengeApiService = retrofit.create(ChallengeApiService::class.java)
 
     @Provides
     @Singleton
@@ -57,7 +56,7 @@ object ServiceModule {
 
     @Provides
     @Singleton
-    fun provideChallengeApiService(
+    fun providePanelChallengeApiService(
         @AuthInterceptorClient retrofit: Retrofit
     ): PanelApiService = retrofit.create(PanelApiService::class.java)
 }
