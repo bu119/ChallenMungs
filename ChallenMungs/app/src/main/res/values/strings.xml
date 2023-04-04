@@ -103,6 +103,7 @@
     <string name="content_walk_start">산책 시작하기</string>
     <string name="content_walk_end">산책 끝내기</string>
     <string name="content_panel_rank">%d등 (%d개)</string>
+    <string name="content_gps_off_warning">위치 서비스가 꺼져 있어, 현재 위치를 확인할 수 없습니다.</string>
     <string name="default_profile_url" tools:ignore="TypographyDashes">https://kr.object.ncloudstorage.com/challenmungs-storage/user/e39faf10-48c3-4deb-99dc-0d12df102499ic_profile.png</string>
 
     <!-- Member - OnBoarding -->
