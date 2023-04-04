@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -150,10 +151,10 @@ ChallengeController {
         }
         System.out.println();
         if (onlyTomorrow) {
-            log.info("내일 시작하는 챌린지만을 골라요!:" + LocalDateTime.now());
+            log.info("내일 시작하는 챌린지만을 골라요!:" + LocalDateTime.now(ZoneId.of("Asia/Seoul")));
             List<Challenge> removeList = new ArrayList<>();
             for (int i = 0; i < challenges.size(); i++) {
-                if (LocalDate.now().plusDays(1).equals(challenges.get(i).getStartDate())) continue;
+                if (LocalDate.now(ZoneId.of("Asia/Seoul")).plusDays(1).equals(challenges.get(i).getStartDate())) continue;
                 removeList.add(challenges.get(i));
             }
             for (Challenge r : removeList) {
