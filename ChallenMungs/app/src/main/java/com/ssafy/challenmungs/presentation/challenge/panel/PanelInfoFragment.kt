@@ -1,5 +1,6 @@
 package com.ssafy.challenmungs.presentation.challenge.panel
 
+import androidx.fragment.app.activityViewModels
 import com.ssafy.challenmungs.R
 import com.ssafy.challenmungs.databinding.FragmentPanelInfoBinding
 import com.ssafy.challenmungs.presentation.base.BaseFragment
@@ -9,7 +10,16 @@ import dagger.hilt.android.AndroidEntryPoint
 class PanelInfoFragment :
     BaseFragment<FragmentPanelInfoBinding>(R.layout.fragment_panel_info) {
 
-    override fun initView() {
+    private val panelPlayViewModel by activityViewModels<PanelPlayViewModel>()
 
+    override fun initView() {
+        setBind()
+    }
+
+    private fun setBind() {
+        binding.info = panelPlayViewModel.challengeInfo.value
+        binding.toolbar.ivBack.setOnClickListener {
+            popBackStack()
+        }
     }
 }

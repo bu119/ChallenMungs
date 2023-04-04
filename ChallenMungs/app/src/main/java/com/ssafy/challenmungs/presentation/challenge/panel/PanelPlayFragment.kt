@@ -117,6 +117,9 @@ class PanelPlayFragment : BaseFragment<FragmentPanelPlayBinding>(R.layout.fragme
                 )
         }
         panelPlayViewModel.myRank.observe(viewLifecycleOwner, observer)
+        binding.toolbar.ivBack.setOnClickListener {
+            popBackStack()
+        }
     }
 
     private fun initListener() {
@@ -125,7 +128,7 @@ class PanelPlayFragment : BaseFragment<FragmentPanelPlayBinding>(R.layout.fragme
             revertPanel()
         }
         binding.toolbar.tvInfo.setOnClickListener {
-
+            navigate(PanelPlayFragmentDirections.actionToPanelInfoFragment())
         }
     }
 
