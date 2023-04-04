@@ -10,6 +10,7 @@ import android.location.LocationManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.toBitmap
+import com.google.android.gms.location.CurrentLocationRequest
 import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.Priority
 import com.google.android.gms.maps.GoogleMap
@@ -22,7 +23,11 @@ import com.ssafy.challenmungs.R
 object MapHelper {
     private const val UPDATE_INTERVAL = 1000L // 1초
     private const val MIN_UPDATE_INTERVAL = 500L // 0.5초
+    private const val MAX_UPDATE_AGE = 50000L
     private const val MIN_UPDATE_DISTANCE = 10f // 10m
+    const val DEFAULT_ZOOM = 15f
+    const val DEFAULT_SETTING_ZOOM = 14f
+    const val DISTANCE = 0.007
     val defaultPosition = LatLng(36.107102, 128.416558)
 
     val locationRequest: LocationRequest by lazy {
@@ -30,6 +35,14 @@ object MapHelper {
             setMinUpdateDistanceMeters(MIN_UPDATE_DISTANCE)
             setMinUpdateIntervalMillis(MIN_UPDATE_INTERVAL)
         }.build()
+    }
+
+    val currentLocationRequest: CurrentLocationRequest by lazy {
+        CurrentLocationRequest.Builder()
+            .setDurationMillis(UPDATE_INTERVAL)
+            .setMaxUpdateAgeMillis(MAX_UPDATE_AGE)
+            .setPriority(Priority.PRIORITY_BALANCED_POWER_ACCURACY)
+            .build()
     }
 
     fun createRectangle(

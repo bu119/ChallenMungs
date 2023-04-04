@@ -1,15 +1,20 @@
 package com.ssafy.challenmungs.presentation.challenge.panel
 
+import android.annotation.SuppressLint
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.VectorDrawable
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.toBitmap
 import androidx.fragment.app.DialogFragment
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -18,7 +23,12 @@ import com.google.android.gms.maps.model.*
 import com.ssafy.challenmungs.R
 import com.ssafy.challenmungs.common.util.DialogSizeHelper.dialogFragmentResize
 import com.ssafy.challenmungs.common.util.MapHelper
+import com.ssafy.challenmungs.common.util.MapHelper.DEFAULT_SETTING_ZOOM
+import com.ssafy.challenmungs.common.util.MapHelper.DISTANCE
+import com.ssafy.challenmungs.common.util.MapHelper.currentLocationRequest
 import com.ssafy.challenmungs.common.util.MapHelper.defaultPosition
+import com.ssafy.challenmungs.common.util.MapHelper.getLastKnownLocation
+import com.ssafy.challenmungs.common.util.PermissionHelper
 import com.ssafy.challenmungs.databinding.DialogPlayAreaSettingBinding
 
 class PlayAreaSettingDialog(private val playAreaSettingInterface: PlayAreaSettingInterface) :
@@ -27,6 +37,12 @@ class PlayAreaSettingDialog(private val playAreaSettingInterface: PlayAreaSettin
     private lateinit var binding: DialogPlayAreaSettingBinding
     private var myMarker: Marker? = null
     private var rect: Polygon? = null
+    private var currentLocation: LatLng = defaultPosition
+    private var submitLocation: LatLng = currentLocation
+    private val mFusedLocationClient: FusedLocationProviderClient by lazy {
+        LocationServices.getFusedLocationProviderClient(requireActivity())
+    }
+    private lateinit var googleMap: GoogleMap
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -51,26 +67,39 @@ class PlayAreaSettingDialog(private val playAreaSettingInterface: PlayAreaSettin
     }
 
     override fun onMapReady(map: GoogleMap) {
-        binding.btnReset.setOnClickListener {
-            setMarker(map, defaultPosition)
-            setRect(map, R.color.trans30_golden_poppy, defaultPosition)
-            map.animateCamera(CameraUpdateFactory.newLatLngZoom(defaultPosition, DEFAULT_ZOOM))
-        }
+        googleMap = map
+        mapSetting(currentLocation)
+        setMyLocation()
+    }
 
-        with(map) {
-            moveCamera(CameraUpdateFactory.newLatLngZoom(defaultPosition, DEFAULT_ZOOM))
+    private fun mapSetting(location: LatLng) {
+        with(googleMap) {
             mapType = GoogleMap.MAP_TYPE_NORMAL
             uiSettings.apply {
                 isZoomControlsEnabled = false
                 isMapToolbarEnabled = false
                 isTiltGesturesEnabled = false
             }
-            setMarker(map, defaultPosition)
-            setRect(map, R.color.trans30_golden_poppy, defaultPosition)
+            moveCamera(CameraUpdateFactory.newLatLngZoom(location, DEFAULT_SETTING_ZOOM))
+            setMarker(googleMap, location)
+            setRect(googleMap, R.color.trans30_golden_poppy, location)
             setOnMapClickListener { touchPosition ->
                 setMarker(this, touchPosition)
-                setRect(this, R.color.trans30_golden_poppy, touchPosition)
-                animateCamera(CameraUpdateFactory.newLatLng(touchPosition))
+                setRect(
+                    this,
+                    R.color.trans30_golden_poppy,
+                    touchPosition
+                )
+                animateCamera(
+                    CameraUpdateFactory.newLatLng(
+                        touchPosition
+                    )
+                )
+                submitLocation = touchPosition
+            }
+
+            binding.btnReset.setOnClickListener {
+                setMyLocation()
             }
         }
     }
@@ -87,7 +116,8 @@ class PlayAreaSettingDialog(private val playAreaSettingInterface: PlayAreaSettin
         }
 
         binding.btnOk.setOnClickListener {
-            playAreaSettingInterface.setArea()
+            playAreaSettingInterface.setArea(submitLocation)
+            dismiss()
         }
     }
 
@@ -114,8 +144,47 @@ class PlayAreaSettingDialog(private val playAreaSettingInterface: PlayAreaSettin
         rect = googleMap.addPolygon(rectOptions)
     }
 
-    companion object {
-        private const val DEFAULT_ZOOM = 13f
-        private const val DISTANCE = 0.15
+    @SuppressLint("MissingPermission")
+    private fun setMyLocation() {
+        // 위치서비스 활성화 여부 check
+        if (!MapHelper.checkLocationServicesStatus(activity)) {
+            Toast.makeText(
+                context,
+                getString(R.string.content_gps_off_warning),
+                Toast.LENGTH_SHORT
+            ).show()
+        } else {
+            if (PermissionHelper.hasLocationPermission(requireContext())) {
+                getLastKnownLocation(activity)?.let {
+                    currentLocation = it
+                }
+                getCurrentLocation()
+            } else {
+                Toast.makeText(
+                    requireContext(),
+                    getString(R.string.content_get_my_location_warning_message),
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+        }
+    }
+
+    @SuppressLint("MissingPermission")
+    fun getCurrentLocation() {
+        mFusedLocationClient.getCurrentLocation(currentLocationRequest, null).addOnSuccessListener {
+            if (it != null) {
+                val position = LatLng(it.latitude, it.longitude)
+                currentLocation = position
+                googleMap.animateCamera(
+                    CameraUpdateFactory.newLatLngZoom(
+                        position,
+                        DEFAULT_SETTING_ZOOM
+                    )
+                )
+                setMarker(googleMap, currentLocation)
+                setRect(googleMap, R.color.trans30_golden_poppy, currentLocation)
+                Log.d("TAG", "getCurrentLocation: $currentLocation")
+            }
+        }
     }
 }
