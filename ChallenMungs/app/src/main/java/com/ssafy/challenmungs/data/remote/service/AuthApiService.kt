@@ -2,7 +2,6 @@ package com.ssafy.challenmungs.data.remote.service
 
 import com.ssafy.challenmungs.data.remote.datasource.auth.JoinResponse
 import com.ssafy.challenmungs.data.remote.datasource.auth.LogInResponse
-import com.ssafy.challenmungs.data.remote.datasource.common.ResultResponse
 import okhttp3.RequestBody
 import retrofit2.http.Body
 import retrofit2.http.POST
@@ -18,11 +17,4 @@ interface AuthApiService {
         @Query("name") name: String,
         @Query("accessKey") accessToken: String
     ): JoinResponse
-
-    @POST("/wallet/normal")
-    suspend fun setWallet(
-        @Query("loginId") memberId: String,
-        @Query("piggybank") piggyBank: String,
-        @Query("wallet") wallet: String,
-    ): ResultResponse
 }

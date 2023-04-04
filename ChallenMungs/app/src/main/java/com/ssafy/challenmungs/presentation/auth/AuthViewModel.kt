@@ -69,7 +69,7 @@ class AuthViewModel @Inject constructor(
                     return@async true
                 }
                 is Resource.Error -> {
-                    Log.e("requestJoin", "requestJoin: ${value.errorMessage}")
+                    Log.e("setWallet", "setWallet: ${value.errorMessage}")
                     return@async false
                 }
             }
