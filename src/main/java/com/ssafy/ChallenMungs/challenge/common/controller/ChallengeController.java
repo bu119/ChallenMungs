@@ -125,6 +125,7 @@ ChallengeController {
         for (Challenge c : challenges) {
             System.out.print(c.getChallengeId() + ":" + c.getStartDate() + "     ");
         }
+        System.out.println();
         if (myChallenge) {
             log.info("내 챌린지만을 구해요");
             String loginId = request.getAttribute("loginId").toString();
@@ -146,8 +147,9 @@ ChallengeController {
         for (Challenge c : challenges) {
             System.out.print(c.getChallengeId() + ":" + c.getStartDate() + "    ");
         }
+        System.out.println();
         if (onlyTomorrow) {
-            log.info("내일 시작하는 챌린지만을 골라요!");
+            log.info("내일 시작하는 챌린지만을 골라요!:" + LocalDate.now());
             List<Challenge> removeList = new ArrayList<>();
             for (int i = 0; i < challenges.size(); i++) {
                 if (LocalDate.now().plusDays(1).equals(challenges.get(i).getStartDate())) continue;
@@ -161,6 +163,7 @@ ChallengeController {
         for (Challenge c : challenges) {
             System.out.print(c.getChallengeId() + ":" + c.getStartDate() + "    ");
         }
+        System.out.println();
         HashMap<Integer, ArrayList> dto = new HashMap<>();
         dto.put(0, new ArrayList<Challenge>());
         dto.put(1, new ArrayList<Challenge>());
