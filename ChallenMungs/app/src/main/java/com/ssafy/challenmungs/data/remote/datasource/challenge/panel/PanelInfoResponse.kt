@@ -28,6 +28,7 @@ data class PanelInfoResponse(
     @SerializedName("startDate")
     val startDate: String,
 ) : DataToDomainMapper<ChallengeInfo> {
+
     override fun toDomainModel(): ChallengeInfo =
         ChallengeInfo(
             title = title,

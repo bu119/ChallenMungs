@@ -14,6 +14,6 @@ class GetPanelInfoUseCase @Inject constructor(
 ) {
     suspend operator fun invoke(challengeId: Long): Resource<ChallengeInfo> =
         withContext(Dispatchers.IO) {
-            panelRepository.requestChallengeInfo(challengeId)
+            panelRepository.requestPanelChallengeInfo(challengeId)
         }
 }

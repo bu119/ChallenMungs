@@ -12,8 +12,35 @@ class PanelRepositoryImpl @Inject constructor(
     private val panelRemoteDataSource: PanelRemoteDataSource
 ) : PanelRepository {
 
-    override suspend fun requestChallengeInfo(challengeId: Long): Resource<ChallengeInfo> =
+    override suspend fun requestPanelChallengeInfo(challengeId: Long): Resource<ChallengeInfo> =
         wrapToResource(Dispatchers.IO) {
-            panelRemoteDataSource.getChallengeInfo(challengeId).toDomainModel()
+            panelRemoteDataSource.getPanelChallengeInfo(challengeId).toDomainModel()
+        }
+
+    override suspend fun createPanelChallenge(
+        title: String,
+        startDate: String,
+        endDate: String,
+        maxParticipantCount: Int,
+        gameType: Int,
+        entryFee: Int,
+        centerLat: Double,
+        centerLng: Double,
+        mapSize: Double,
+        cellSize: Double
+    ): Resource<String> =
+        wrapToResource(Dispatchers.IO) {
+            panelRemoteDataSource.createPanelChallenge(
+                title,
+                startDate,
+                endDate,
+                maxParticipantCount,
+                gameType,
+                entryFee,
+                centerLat,
+                centerLng,
+                mapSize,
+                cellSize
+            ).toDomainModel()
         }
 }

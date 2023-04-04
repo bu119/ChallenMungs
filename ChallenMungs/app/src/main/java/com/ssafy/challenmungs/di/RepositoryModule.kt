@@ -45,5 +45,4 @@ object RepositoryModule {
     fun providePanelRepository(
         panelRemoteDataSourceImpl: PanelRemoteDataSourceImpl
     ): PanelRepository = PanelRepositoryImpl(panelRemoteDataSourceImpl)
-
 }

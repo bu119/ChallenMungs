@@ -1,12 +1,13 @@
 package com.ssafy.challenmungs.di
 
 import com.ssafy.challenmungs.domain.repository.AuthRepository
-import com.ssafy.challenmungs.domain.repository.PanelRepository
 import com.ssafy.challenmungs.domain.repository.MemberRepository
+import com.ssafy.challenmungs.domain.repository.PanelRepository
 import com.ssafy.challenmungs.domain.repository.WalletRepository
 import com.ssafy.challenmungs.domain.usecase.auth.JoinUseCase
 import com.ssafy.challenmungs.domain.usecase.auth.LogInUseCase
 import com.ssafy.challenmungs.domain.usecase.auth.SetWalletUseCase
+import com.ssafy.challenmungs.domain.usecase.challenge.CreatePanelChallengeUseCase
 import com.ssafy.challenmungs.domain.usecase.challenge.GetPanelInfoUseCase
 import com.ssafy.challenmungs.domain.usecase.klaytn.CreateAccountUseCase
 import com.ssafy.challenmungs.domain.usecase.member.GetMemberInfoUseCase
@@ -49,4 +50,9 @@ object UseCaseModule {
     @Provides
     fun provideGetChallengeInfoUseCase(panelRepository: PanelRepository): GetPanelInfoUseCase =
         GetPanelInfoUseCase(panelRepository)
+
+    @Singleton
+    @Provides
+    fun provideCreatePanelChallengeUseCase(panelRepository: PanelRepository): CreatePanelChallengeUseCase =
+        CreatePanelChallengeUseCase(panelRepository)
 }
