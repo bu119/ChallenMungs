@@ -7,15 +7,13 @@
 
         <variable
             name="challenge"
-            type="com.ssafy.challenmungs.domain.entity.challenge.ChallengeCard" />
+            type="com.ssafy.challenmungs.domain.entity.challenge.Challenge" />
 
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="5dp"
-        android:layout_marginVertical="10dp"
         android:background="@drawable/bg_rect_corn_silk_radius15"
         android:padding="15dp">
 
@@ -38,7 +36,7 @@
             android:background="@drawable/bg_rect_golden_glow_radius5"
             android:paddingHorizontal="8dp"
             android:paddingVertical="2dp"
-            android:text="@{challenge.tag}"
+            android:text="@{challenge.challengeType ?? ``}"
             android:textColor="@color/black"
             android:textSize="11sp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -52,6 +50,7 @@
             android:layout_marginTop="10dp"
             android:ellipsize="end"
             android:maxLines="1"
+            android:text="@{challenge.title}"
             android:textColor="@color/black"
             android:textSize="16sp"
             android:textStyle="bold"
@@ -65,6 +64,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
+            android:text="@{Integer.toString(challenge.entryFee)}"
             android:textColor="@color/black"
             android:textSize="11sp"
             app:layout_constraintStart_toStartOf="parent"
@@ -86,7 +86,7 @@
             android:id="@+id/tv_headcount"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="@string/content_headcount"
+            android:text="@{@string/content_headcount(challenge.currentParticipantCount, challenge.maxParticipantCount)}"
             android:textColor="@color/black"
             android:textSize="11sp"
             app:layout_constraintEnd_toEndOf="parent"
