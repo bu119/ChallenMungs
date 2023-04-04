@@ -8,10 +8,13 @@ import com.google.android.material.tabs.TabLayoutMediator
 import com.ssafy.challenmungs.R
 import com.ssafy.challenmungs.databinding.FragmentChallengeInfoBasicBinding
 import com.ssafy.challenmungs.presentation.base.BaseFragment
-import com.ssafy.challenmungs.presentation.mypage.MyChallengeViewPagerAdapter
 
 class ChallengeInfoBasicFragment :
     BaseFragment<FragmentChallengeInfoBasicBinding>(R.layout.fragment_challenge_info_basic) {
+
+    enum class ViewType {
+        TODAY, HISTORY
+    }
 
     override fun initView() {
         binding.toolbar.title = "매일매일 산책 미션!"
@@ -27,7 +30,7 @@ class ChallengeInfoBasicFragment :
         )
 
         binding.apply {
-            vpChallengeBasic.adapter = MyChallengeViewPagerAdapter(this@ChallengeInfoBasicFragment)
+            vpChallengeBasic.adapter = ChallengeInfoBasicAdapter(this@ChallengeInfoBasicFragment)
 
             TabLayoutMediator(tlChallengeMenu, vpChallengeBasic) { tab, position ->
                 tab.text = tabTitles[position]
