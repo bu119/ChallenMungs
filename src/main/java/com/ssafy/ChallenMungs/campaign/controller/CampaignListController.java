@@ -53,12 +53,5 @@ public class CampaignListController {
         return new ResponseEntity<List<CampaignDto>>(service.getUserDonate(loginId), HttpStatus.OK);
     }
 
-    //캠페인 검색
-    @GetMapping("/search")
-    @ApiOperation(value = "캠페인 검색", notes = "캠페인 제목으로 캠페인을 검색합니다.")
-    public ResponseEntity<List<CampaignDto>> search(@RequestParam String word){
-        return new ResponseEntity<List<CampaignDto>>(service.search(word), HttpStatus.OK);
-    }
-
     
 }
