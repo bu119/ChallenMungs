@@ -7,8 +7,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.ssafy.challenmungs.R
 import com.ssafy.challenmungs.databinding.ItemChallengeCardMyOngoingBinding
 
-class MyChallengeListAdapter(private val data: List<Map<String, Any>>) :
-    RecyclerView.Adapter<MyChallengeListViewHolder>() {
+class MyChallengeListAdapter(
+    private val navigationNavHostFragmentToDestinationFragment: (Int, Int, Long) -> Unit,
+    private val data: List<Map<String, Any>>
+) : RecyclerView.Adapter<MyChallengeListViewHolder>() {
 
     private lateinit var binding: ItemChallengeCardMyOngoingBinding
 
@@ -23,7 +25,10 @@ class MyChallengeListAdapter(private val data: List<Map<String, Any>>) :
     }
 
     override fun onBindViewHolder(holder: MyChallengeListViewHolder, position: Int) {
-        holder.bind(data[position])
+        with(data[position]) {
+            holder.bind(this)
+            holder.initListener(this, navigationNavHostFragmentToDestinationFragment)
+        }
     }
 
     override fun getItemCount(): Int = data.size

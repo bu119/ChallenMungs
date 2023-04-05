@@ -7,14 +7,13 @@ import com.ssafy.challenmungs.common.util.CustomFilterChip.State
 import com.ssafy.challenmungs.common.util.GridItemDecoration
 import com.ssafy.challenmungs.databinding.FragmentDonateBinding
 import com.ssafy.challenmungs.presentation.base.BaseFragment
-import com.ssafy.challenmungs.presentation.common.MainFragmentDirections
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class DonateFragment : BaseFragment<FragmentDonateBinding>(R.layout.fragment_donate) {
 
     private val donateViewModel by activityViewModels<DonateViewModel>()
-    private val campaignListAdapter by lazy { CampaignListAdapter(this::navigationToCampaignInfoFragment) }
+    private val campaignListAdapter by lazy { CampaignListAdapter(this@DonateFragment::navigationNavHostFragmentToDestinationFragment) }
 
     override fun initView() {
         observe()
@@ -107,10 +106,6 @@ class DonateFragment : BaseFragment<FragmentDonateBinding>(R.layout.fragment_don
                 campaignListAdapter.submitList(it)
             }
         }
-    }
-
-    private fun navigationToCampaignInfoFragment() {
-        navigate(MainFragmentDirections.actionToCampaignInfoFragment())
     }
 
     private fun getCampaignList(type: String, sort: Int) {
