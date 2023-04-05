@@ -61,10 +61,6 @@
             android:name=".presentation.auth.AuthActivity"
             android:exported="false" />
 
-        <activity
-            android:name=".presentation.common.MainFragment"
-            android:exported="false" />
-
     </application>
 
 </manifest>
