@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="date"
+            type="com.ssafy.challenmungs.domain.entity.challenge.ChallengeBasicHistory" />
+
+    </data>
+
+    <com.ssafy.challenmungs.common.util.SquareFrameLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:contentDescription="@string/image_challenge_basic"
+            android:setImageViewUrl="@{date.pictureUrl}"
+            tools:src="@color/banana_mania" />
+
+        <ImageView
+            android:id="@+id/iv_reject"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/bg_venetian_red_challenge_rejected"
+            android:contentDescription="@string/image_challenge_reject"
+            android:visibility="gone" />
+
+    </com.ssafy.challenmungs.common.util.SquareFrameLayout>
+
+</layout>
