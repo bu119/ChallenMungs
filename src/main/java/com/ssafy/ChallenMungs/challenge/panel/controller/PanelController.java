@@ -2,6 +2,8 @@ package com.ssafy.ChallenMungs.challenge.panel.controller;
 
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.ssafy.ChallenMungs.blockchain.repository.WalletRepository;
+import com.ssafy.ChallenMungs.blockchain.service.WalletService;
 import com.ssafy.ChallenMungs.challenge.common.entity.Challenge;
 import com.ssafy.ChallenMungs.challenge.common.entity.MyChallenge;
 import com.ssafy.ChallenMungs.challenge.common.service.ChallengeService;
@@ -12,6 +14,7 @@ import com.ssafy.ChallenMungs.challenge.panel.service.PanelService;
 import com.ssafy.ChallenMungs.common.util.Distance;
 import com.ssafy.ChallenMungs.common.util.FileManager;
 import com.ssafy.ChallenMungs.user.entity.User;
+import com.ssafy.ChallenMungs.user.repository.UserRepository;
 import com.ssafy.ChallenMungs.user.service.UserService;
 import io.swagger.annotations.Api;
 import org.slf4j.Logger;
@@ -53,7 +56,12 @@ public class PanelController {
 
     @Autowired
     FileManager fileManager;
-
+    @Autowired
+    UserRepository userRepo;
+    @Autowired
+    WalletService walletService;
+    @Autowired
+    WalletRepository walletRepo;
 
     @PostMapping("/tokenConfirm/makePanelChallenge")
     ResponseEntity makePanelChallenge(
@@ -108,7 +116,9 @@ public class PanelController {
                 .build());
 
         String loginId = request.getAttribute("loginId").toString();
-
+        String panelChallenge = "0xee43BB5476e52B04175d698C56cC4516b96A85A5";
+        String fromAddress = walletRepo.findByUserAndType(userRepo.findUserByLoginId(loginId), 'w').getAddress();
+        walletService.sendKlay(fromAddress, panelChallenge, entryFee);
         myChallengeService.save(MyChallenge.builder().challengeId(cId).successCount(0).loginId(loginId).build());
 
         return ResponseEntity.status(HttpStatus.OK).build();
