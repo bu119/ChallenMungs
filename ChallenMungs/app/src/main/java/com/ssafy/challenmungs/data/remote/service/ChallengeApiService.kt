@@ -33,4 +33,9 @@ interface ChallengeApiService {
         @Query("challengeId") challengeId: Long,
         @Query("teamId") teamId: Int?
     ): ResultResponse
+
+    @POST("/challenge/tokenConfirm/getOutChallenge")
+    suspend fun requestWithDraw(
+        @Query("challengeId") challengeId: Long,
+    ): ResultResponse
 }

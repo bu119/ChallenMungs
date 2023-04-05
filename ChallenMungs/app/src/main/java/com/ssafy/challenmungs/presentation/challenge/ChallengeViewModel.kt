@@ -8,10 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.ssafy.challenmungs.data.remote.Resource
 import com.ssafy.challenmungs.domain.entity.challenge.Challenge
 import com.ssafy.challenmungs.domain.entity.challenge.NotStartedChallengeDetail
-import com.ssafy.challenmungs.domain.usecase.challenge.GetChallengeInfoUseCase
-import com.ssafy.challenmungs.domain.usecase.challenge.GetChallengeListUseCase
-import com.ssafy.challenmungs.domain.usecase.challenge.GetChallengeParticipationFlagUseCase
-import com.ssafy.challenmungs.domain.usecase.challenge.RequestParticipateUseCase
+import com.ssafy.challenmungs.domain.usecase.challenge.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
@@ -21,8 +18,9 @@ import javax.inject.Inject
 class ChallengeViewModel @Inject constructor(
     private val getChallengeListUseCase: GetChallengeListUseCase,
     private val getChallengeInfoUseCase: GetChallengeInfoUseCase,
-    private val requestParticipateUseCase: RequestParticipateUseCase,
     private val getChallengeParticipationFlagUseCase: GetChallengeParticipationFlagUseCase,
+    private val requestParticipateUseCase: RequestParticipateUseCase,
+    private val requestWithDrawUseCase: RequestWithDrawUseCase,
 ) : ViewModel() {
 
     private val _challengeList: MutableLiveData<List<Challenge>?> =
@@ -87,6 +85,16 @@ class ChallengeViewModel @Inject constructor(
             is Resource.Success<String> -> return@async true
             is Resource.Error -> {
                 Log.e("requestParticipate", "requestParticipate: ${value.errorMessage}")
+                return@async false
+            }
+        }
+    }.await()
+
+    suspend fun requestWithDraw(challengeId: Long) = viewModelScope.async {
+        when (val value = requestWithDrawUseCase(challengeId)) {
+            is Resource.Success<String> -> return@async true
+            is Resource.Error -> {
+                Log.e("requestWithDraw", "requestWithDraw: ${value.errorMessage}")
                 return@async false
             }
         }

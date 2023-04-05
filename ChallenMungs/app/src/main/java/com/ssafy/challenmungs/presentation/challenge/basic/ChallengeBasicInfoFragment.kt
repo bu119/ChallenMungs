@@ -62,14 +62,13 @@ class ChallengeBasicInfoFragment :
         binding.btnParticipate.setOnClickListener {
             lifecycleScope.launch {
                 challengeViewModel.notStartedChallengeDetail.value?.let {
-                    if (!it.isParticipated) {
-                        val result =
-                            challengeViewModel.requestParticipate(challengeViewModel.notStartedChallengeDetail.value!!.challengeId.toLong())
+                    val result =
+                        if (!it.isParticipated) challengeViewModel.requestParticipate(it.challengeId.toLong())
+                        else challengeViewModel.requestWithDraw(it.challengeId.toLong())
 
-                        if (result) {
-                            binding.btnParticipate.text = "나가기"
-                            challengeViewModel.setChallengeParticipationFlag(false)
-                        }
+                    if (result) {
+                        binding.btnParticipate.text = if (it.isParticipated) "참가하기" else "나가기"
+                        challengeViewModel.setChallengeParticipationFlag(!it.isParticipated)
                     }
                 }
             }

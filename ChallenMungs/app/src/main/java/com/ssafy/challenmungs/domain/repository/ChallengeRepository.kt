@@ -18,4 +18,6 @@ interface ChallengeRepository {
     suspend fun getChallengeParticipationFlag(challengeId: Long): Resource<Boolean>
 
     suspend fun requestParticipate(challengeId: Long, teamId: Int?): Resource<String>
+
+    suspend fun requestWithDraw(challengeId: Long): Resource<String>
 }

@@ -34,11 +34,17 @@ class ChallengeRepositoryImpl @Inject constructor(
 
     override suspend fun getChallengeParticipationFlag(challengeId: Long): Resource<Boolean> =
         wrapToResource(Dispatchers.IO) {
-            challengeRemoteDataSource.getChallengeParticipationFlag(challengeId).toDomainModel().toBoolean()
+            challengeRemoteDataSource.getChallengeParticipationFlag(challengeId).toDomainModel()
+                .toBoolean()
         }
 
     override suspend fun requestParticipate(challengeId: Long, teamId: Int?): Resource<String> =
         wrapToResource(Dispatchers.IO) {
             challengeRemoteDataSource.requestParticipate(challengeId, teamId).toDomainModel()
+        }
+
+    override suspend fun requestWithDraw(challengeId: Long): Resource<String> =
+        wrapToResource(Dispatchers.IO) {
+            challengeRemoteDataSource.requestWithDraw(challengeId).toDomainModel()
         }
 }

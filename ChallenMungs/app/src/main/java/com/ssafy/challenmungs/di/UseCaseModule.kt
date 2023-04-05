@@ -65,6 +65,11 @@ object UseCaseModule {
 
     @Singleton
     @Provides
+    fun provideRequestWithDrawUseCase(challengeRepository: ChallengeRepository): RequestWithDrawUseCase =
+        RequestWithDrawUseCase(challengeRepository)
+
+    @Singleton
+    @Provides
     fun provideGetCampaignListUseCase(donateRepository: DonateRepository): GetCampaignListUseCase =
         GetCampaignListUseCase(donateRepository)
 
