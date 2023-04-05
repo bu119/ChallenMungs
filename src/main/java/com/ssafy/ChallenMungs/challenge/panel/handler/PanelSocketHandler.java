@@ -52,7 +52,7 @@ public class PanelSocketHandler extends TextWebSocketHandler {
             List<MyChallenge> myChallenges = myChallengeService.findAllByChallengeId(c.getChallengeId());
             ArrayList<RankVo> rankInfo = new ArrayList<>();
             for (MyChallenge mc : myChallenges) {
-                rankInfo.add(RankVo.builder().teamRank(1).PanelCount(0).teamId(mc.getTeamId()).loginId(mc.getLoginId()).build());
+                rankInfo.add(RankVo.builder().teamRank(1).indiRank(1).PanelCount(0).teamId(mc.getTeamId()).loginId(mc.getLoginId()).build());
             }
             // mapCoordinate 정의
             Double latCellLength = (c.getMaxLat() - c.getMinLat()) / c.getCellD();
