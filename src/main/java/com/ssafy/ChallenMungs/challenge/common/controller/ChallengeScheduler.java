@@ -89,11 +89,15 @@ public class ChallengeScheduler {
                 if (c.getCurrentParticipantCount() < c.getMaxParticipantCount()) {
                     log.info("정원을 채우지 못해서 방이 지워져요ㅜㅜ");
                     List<MyChallenge> myChallenges = myChallengeService.findAllByChallengeId(c.getChallengeId());
+                    String fromAddress;
+                    if (c.getChallengeType() == 1){
+                        fromAddress = normalChallenge;
+                    }else{ fromAddress = specialChallenge; }
+                    int fee = c.getEntryFee();
                     // 모든 챌린지 참여자들 돌면서
                     for (MyChallenge mc : myChallenges) {
                         User user = userService.findUserByLoginId(mc.getLoginId());
-                        ///////////////////////////////////////////////////////////////////////////////
-                        
+                        walletService.sendKlay(fromAddress, walletRepo.findByUserAndType(user,'w').getAddress(), fee);
                     }
 
 
