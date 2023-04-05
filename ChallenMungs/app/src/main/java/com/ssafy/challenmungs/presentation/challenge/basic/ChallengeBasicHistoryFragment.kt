@@ -14,36 +14,20 @@ class ChallengeBasicHistoryFragment :
 
     private val memberList = listOf(
         ChallengeMember(
-            "https://kr.object.ncloudstorage.com/challenmungs-storage/challenge/916dbaac-1ab0-4c1c-89ec-b18b193dede0KakaoTalk_20230405_094433962_01.jpg",
-            "강은선"
-        ),
-        ChallengeMember(
-            "https://kr.object.ncloudstorage.com/challenmungs-storage/challenge/916dbaac-1ab0-4c1c-89ec-b18b193dede0KakaoTalk_20230405_094433962_01.jpg",
-            "강은선"
-        ),
-        ChallengeMember(
-            "https://kr.object.ncloudstorage.com/challenmungs-storage/challenge/916dbaac-1ab0-4c1c-89ec-b18b193dede0KakaoTalk_20230405_094433962_01.jpg",
-            "강은선"
-        ),
-        ChallengeMember(
-            "https://kr.object.ncloudstorage.com/challenmungs-storage/challenge/916dbaac-1ab0-4c1c-89ec-b18b193dede0KakaoTalk_20230405_094433962_01.jpg",
-            "강은선"
-        ),
-        ChallengeMember(
-            "https://kr.object.ncloudstorage.com/challenmungs-storage/challenge/916dbaac-1ab0-4c1c-89ec-b18b193dede0KakaoTalk_20230405_094433962_01.jpg",
+            "https://kr.object.ncloudstorage.com/challenmungs-storage/challenge/1d379d64-9ebb-427a-9934-149948caedadKakaoTalk_20230327_155852745.jpg",
             "구름이짠나인데용왜용"
         ),
         ChallengeMember(
-            "https://kr.object.ncloudstorage.com/challenmungs-storage/challenge/916dbaac-1ab0-4c1c-89ec-b18b193dede0KakaoTalk_20230405_094433962_01.jpg",
-            "구름이짠나인데용왜용"
+            "https://kr.object.ncloudstorage.com/challenmungs-storage/challenge/89f45477-b0bd-4815-94ce-ef0b536f5283KakaoTalk_20230405_094746356.jpg",
+            "강은선"
         ),
         ChallengeMember(
-            "https://kr.object.ncloudstorage.com/challenmungs-storage/challenge/916dbaac-1ab0-4c1c-89ec-b18b193dede0KakaoTalk_20230405_094433962_01.jpg",
-            "구름이짠나인데용왜용"
+            "https://kr.object.ncloudstorage.com/challenmungs-storage/challenge/c7f70069-68d6-49c4-b560-f5d8a9761198KakaoTalk_20230405_094910738.jpg",
+            "이차돌"
         ),
         ChallengeMember(
-            "https://kr.object.ncloudstorage.com/challenmungs-storage/challenge/916dbaac-1ab0-4c1c-89ec-b18b193dede0KakaoTalk_20230405_094433962_01.jpg",
-            "구름이짠나인데용왜용"
+            "",
+            "커피모카"
         ),
     )
 

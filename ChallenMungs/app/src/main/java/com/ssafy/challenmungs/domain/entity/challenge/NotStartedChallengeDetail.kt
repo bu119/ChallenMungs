@@ -23,5 +23,6 @@ data class NotStartedChallengeDetail(
     val minLng: Double?,
     val cellSize: Double?,
     val mapSize: Int?,
-    val participants: ArrayList<Participant>
+    val participants: ArrayList<Participant>,
+    var isParticipated: Boolean = false
 )

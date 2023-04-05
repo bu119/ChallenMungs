@@ -15,5 +15,7 @@ interface ChallengeRepository {
 
     suspend fun getChallengeInfo(challengeId: Int): Resource<NotStartedChallengeDetail>
 
+    suspend fun getChallengeParticipationFlag(challengeId: Long): Resource<Boolean>
+
     suspend fun requestParticipate(challengeId: Long, teamId: Int?): Resource<String>
 }

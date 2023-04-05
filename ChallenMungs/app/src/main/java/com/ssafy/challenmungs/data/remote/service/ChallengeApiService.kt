@@ -23,6 +23,11 @@ interface ChallengeApiService {
         @Query("challengeId") challengeId: Int
     ): ChallengeInfoResponse
 
+    @POST("/challenge/tokenConfirm/isHere")
+    suspend fun getChallengeParticipationFlag(
+        @Query("challengeId") challengeId: Long
+    ): ResultResponse
+
     @POST("/challenge/tokenConfirm/getInChallenge")
     suspend fun requestParticipate(
         @Query("challengeId") challengeId: Long,

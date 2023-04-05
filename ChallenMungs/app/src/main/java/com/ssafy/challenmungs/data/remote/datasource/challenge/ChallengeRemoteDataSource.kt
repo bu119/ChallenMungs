@@ -14,5 +14,9 @@ interface ChallengeRemoteDataSource {
 
     suspend fun getChallengeInfo(challengeId: Int): ChallengeInfoResponse
 
+
+    suspend fun getChallengeParticipationFlag(challengeId: Long): ResultResponse
+
     suspend fun requestParticipate(challengeId: Long, teamId: Int?): ResultResponse
+
 }

@@ -1,10 +1,10 @@
 package com.ssafy.challenmungs.presentation.challenge
 
 import android.animation.ObjectAnimator
-import android.util.Log
 import android.view.KeyEvent
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.ssafy.challenmungs.R
@@ -12,6 +12,7 @@ import com.ssafy.challenmungs.common.util.GridItemDecoration
 import com.ssafy.challenmungs.databinding.FragmentChallengeBinding
 import com.ssafy.challenmungs.presentation.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class ChallengeFragment : BaseFragment<FragmentChallengeBinding>(R.layout.fragment_challenge) {
@@ -20,7 +21,7 @@ class ChallengeFragment : BaseFragment<FragmentChallengeBinding>(R.layout.fragme
     private val challengeListAdapter by lazy {
         ChallengeListAdapter(
             requireContext(),
-            challengeViewModel::getChallengeInfo
+            challengeViewModel::getChallengeInfo,
         )
     }
     private var isOpened = false
@@ -92,11 +93,16 @@ class ChallengeFragment : BaseFragment<FragmentChallengeBinding>(R.layout.fragme
 
         challengeViewModel.notStartedChallengeDetail.observe(viewLifecycleOwner) {
             it?.let {
-                Log.d("notStartedChallengeDetail", "notStartedChallengeDetail: ${it.toString()}")
-                navigationNavHostFragmentToDestinationFragment(
-                    R.id.nav_main,
-                    R.id.challenge_basic_info_fragment
-                )
+                lifecycleScope.launch {
+                    val result =
+                        challengeViewModel.getChallengeParticipationFlag(it.challengeId.toLong())
+
+                    if (result)
+                        navigationNavHostFragmentToDestinationFragment(
+                            R.id.nav_main,
+                            R.id.challenge_basic_info_fragment
+                        )
+                }
             }
         }
     }

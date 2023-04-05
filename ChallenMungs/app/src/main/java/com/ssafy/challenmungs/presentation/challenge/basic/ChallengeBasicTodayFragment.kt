@@ -46,14 +46,14 @@ class ChallengeBasicTodayFragment :
                     ChallengeBasicToday(
                         1,
                         "이차돌",
-                        "https://kr.object.ncloudstorage.com/challenmungs-storage/challenge/1d379d64-9ebb-427a-9934-149948caedadKakaoTalk_20230327_155852745.jpg",
-                        "https://kr.object.ncloudstorage.com/challenmungs-storage/challenge/1d379d64-9ebb-427a-9934-149948caedadKakaoTalk_20230327_155852745.jpg"
+                        "https://kr.object.ncloudstorage.com/challenmungs-storage/challenge/c7f70069-68d6-49c4-b560-f5d8a9761198KakaoTalk_20230405_094910738.jpg",
+                        "https://kr.object.ncloudstorage.com/challenmungs-storage/challenge/c7f70069-68d6-49c4-b560-f5d8a9761198KakaoTalk_20230405_094910738.jpg"
                     ),
                     ChallengeBasicToday(
                         1,
-                        "카페모카",
-                        "https://kr.object.ncloudstorage.com/challenmungs-storage/challenge/1d379d64-9ebb-427a-9934-149948caedadKakaoTalk_20230327_155852745.jpg",
-                        "https://kr.object.ncloudstorage.com/challenmungs-storage/challenge/1d379d64-9ebb-427a-9934-149948caedadKakaoTalk_20230327_155852745.jpg"
+                        "커피모카",
+                        "",
+                        "https://kr.object.ncloudstorage.com/challenmungs-storage/challenge/39568918-d5fb-4125-ba23-13a961798063KakaoTalk_20230405_094939339.jpg"
                     ),
                 )
             )
