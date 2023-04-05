@@ -19,8 +19,8 @@
             android:id="@+id/iv_banner"
             android:layout_width="0dp"
             android:layout_height="92dp"
-            android:campaignBannerUri="@{campaign.bannerUrl}"
             android:contentDescription="@string/image_campaign_banner"
+            android:setImageViewUrl="@{campaign.bannerUrl}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
