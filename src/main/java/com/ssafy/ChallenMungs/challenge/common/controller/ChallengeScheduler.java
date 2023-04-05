@@ -88,6 +88,15 @@ public class ChallengeScheduler {
             if (c.getStatus() == 0 && c.getStartDate().equals(today)) {
                 if (c.getCurrentParticipantCount() < c.getMaxParticipantCount()) {
                     log.info("정원을 채우지 못해서 방이 지워져요ㅜㅜ");
+                    List<MyChallenge> myChallenges = myChallengeService.findAllByChallengeId(c.getChallengeId());
+                    // 모든 챌린지 참여자들 돌면서
+                    for (MyChallenge mc : myChallenges) {
+                        User user = userService.findUserByLoginId(mc.getLoginId());
+                        ///////////////////////////////////////////////////////////////////////////////
+                        
+                    }
+
+
                     challengeService.delete(c);
                     continue Loop1;
                 }
