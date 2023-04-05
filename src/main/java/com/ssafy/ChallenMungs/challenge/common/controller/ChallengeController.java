@@ -9,8 +9,6 @@ import com.ssafy.ChallenMungs.challenge.common.entity.MyChallenge;
 import com.ssafy.ChallenMungs.challenge.common.repository.ChallengeRepository;
 import com.ssafy.ChallenMungs.challenge.common.service.ChallengeService;
 import com.ssafy.ChallenMungs.challenge.common.service.MyChallengeService;
-import com.ssafy.ChallenMungs.challenge.general.dto.GeneralBoardTodayDto;
-import com.ssafy.ChallenMungs.challenge.general.entity.GeneralBoard;
 import com.ssafy.ChallenMungs.common.util.Distance;
 import com.ssafy.ChallenMungs.common.util.FileManager;
 import com.ssafy.ChallenMungs.user.entity.User;
@@ -26,8 +24,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import java.lang.reflect.Array;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -90,7 +89,7 @@ ChallengeController {
                 } else {
                     temp = challengeService.findAll();
                 }
-                System.out.println(temp.size());
+//                System.out.println(temp.size());
                 challenges = temp.stream().filter(c -> {
                     if (
                             (lat == null && lng == null) ||
@@ -99,7 +98,7 @@ ChallengeController {
                     ) return true;
                     return false;
                 }).collect(Collectors.toList());
-                System.out.println(":::" + challenges.size());
+//                System.out.println(":::" + challenges.size());
                 break;
             case 2:
                 log.info("타입이 2이에요 일반 챌린지를 가져올게요");
@@ -143,6 +142,10 @@ ChallengeController {
             default:
                 break;
         }
+        for (Challenge c : challenges) {
+            System.out.print(c.getChallengeId() + ":" + c.getStartDate() + "     ");
+        }
+        System.out.println();
         if (myChallenge) {
             log.info("내 챌린지만을 구해요");
             String loginId = request.getAttribute("loginId").toString();
@@ -161,11 +164,15 @@ ChallengeController {
             }
         }
 
+        for (Challenge c : challenges) {
+            System.out.print(c.getChallengeId() + ":" + c.getStartDate() + "    ");
+        }
+        System.out.println();
         if (onlyTomorrow) {
-            log.info("내일 시작하는 챌린지만을 골라요!");
+            log.info("내일 시작하는 챌린지만을 골라요!:" + LocalDateTime.now(ZoneId.of("Asia/Seoul")));
             List<Challenge> removeList = new ArrayList<>();
             for (int i = 0; i < challenges.size(); i++) {
-                if (LocalDate.now().plusDays(1).equals(challenges.get(i).getStartDate())) continue;
+                if (LocalDate.now(ZoneId.of("Asia/Seoul")).plusDays(1).equals(challenges.get(i).getStartDate())) continue;
                 removeList.add(challenges.get(i));
             }
             for (Challenge r : removeList) {
@@ -173,6 +180,10 @@ ChallengeController {
             }
         }
 
+        for (Challenge c : challenges) {
+            System.out.print(c.getChallengeId() + ":" + c.getStartDate() + "    ");
+        }
+        System.out.println();
         HashMap<Integer, ArrayList> dto = new HashMap<>();
         dto.put(0, new ArrayList<Challenge>());
         dto.put(1, new ArrayList<Challenge>());
@@ -207,7 +218,7 @@ ChallengeController {
         Challenge challenge = challengeService.findByChallengeId(challengeId);
         List<MyChallenge> myChallengeList = myChallengeService.findAllByChallengeId(challengeId);
         ArrayList<HashMap> newList = new ArrayList<>();
-        System.out.println("::::::" + myChallengeList.size());
+//        System.out.println("::::::" + myChallengeList.size());
         for (MyChallenge mc : myChallengeList) {
             User u = userService.findByLoginId(mc.getLoginId());
             HashMap<String, Object> newMap = new HashMap<>();
@@ -288,16 +299,18 @@ ChallengeController {
         String loginId = request.getAttribute("loginId").toString();
         myChallengeService.findByLoginIdAndChallengeIdToDelete(loginId, challengeId);
         Challenge challenge = challengeService.findByChallengeId(challengeId);
+
         String toAddress = walletRepo.findByUserAndType(userRepo.findUserByLoginId(loginId), 'w').getAddress();
         String fromAddress;
         if (challenge.getChallengeType() == 1){
             fromAddress = generalChallenge;
         }
+
         else {
             fromAddress = panelChallenge;
         }
         walletService.sendKlay(fromAddress, toAddress, challenge.getEntryFee());
-        System.out.println("::::" + challenge);
+
         challenge.setCurrentParticipantCount(challenge.getCurrentParticipantCount() - 1);
         if (challenge.getCurrentParticipantCount() == 0) {
             log.info("제가 나가서 이방엔 더이상 사람이 없어요!");

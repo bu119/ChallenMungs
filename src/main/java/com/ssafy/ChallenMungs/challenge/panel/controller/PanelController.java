@@ -119,9 +119,13 @@ public class PanelController {
         String panelChallenge = "0xee43BB5476e52B04175d698C56cC4516b96A85A5";
         String fromAddress = walletRepo.findByUserAndType(userRepo.findUserByLoginId(loginId), 'w').getAddress();
         walletService.sendKlay(fromAddress, panelChallenge, entryFee);
-        myChallengeService.save(MyChallenge.builder().challengeId(cId).successCount(0).loginId(loginId).build());
 
-        return ResponseEntity.status(HttpStatus.OK).build();
+        if (gameType == 1) myChallengeService.save(MyChallenge.builder().challengeId(cId).successCount(0).loginId(loginId).build());
+        else if (gameType == 2) myChallengeService.save(MyChallenge.builder().challengeId(cId).successCount(0).loginId(loginId).teamId(1).build());
+
+        HashMap<String, String> dto = new HashMap<>();
+        dto.put("result", "success");
+        return new ResponseEntity(dto, HttpStatus.OK);
     }
     @PostMapping("/tokenConfirm/getInfo")
     ResponseEntity makePanelChallenge(Long challengeId) {

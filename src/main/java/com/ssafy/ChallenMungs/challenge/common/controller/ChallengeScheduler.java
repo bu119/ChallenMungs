@@ -28,6 +28,7 @@ import org.springframework.web.client.RestTemplate;
 import java.time.Duration;
 import java.math.BigInteger;
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -82,7 +83,7 @@ public class ChallengeScheduler {
         List<Challenge> challenges = challengeService.findAll();
         Loop1:
         for (Challenge c : challenges) {
-            LocalDate today = LocalDate.now();
+            LocalDate today = LocalDate.now(ZoneId.of("Asia/Seoul"));
             flag = false;
             if (c.getStatus() == 0 && c.getStartDate().equals(today)) {
                 if (c.getCurrentParticipantCount() < c.getMaxParticipantCount()) {
