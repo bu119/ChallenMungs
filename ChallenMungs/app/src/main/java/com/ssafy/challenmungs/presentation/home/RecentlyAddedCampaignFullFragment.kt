@@ -24,17 +24,21 @@ class RecentlyAddedCampaignFullFragment : BaseFragment<FragmentRecentlyAddedCamp
 
         if (jsonArray.length() > 0) {
             val list = mutableListOf<Map<String, Any>>()
+
             for (i in 0 until jsonArray.length()) {
                 val jsonObj = jsonArray.getJSONObject(i)
                 val map = mutableMapOf<String, Any>()
                 val keys = jsonObj.keys()
+
                 while (keys.hasNext()) {
                     val key = keys.next()
                     val value = jsonObj.get(key)
                     map.put(key, value)
                 }
+
                 list.add(map)
             }
+
             rv.adapter = RecentlyAddedCampaignAdpater(list)
             rv.layoutManager = GridLayoutManager(context, 2, GridLayoutManager.VERTICAL, false)
         } else {

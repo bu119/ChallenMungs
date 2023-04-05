@@ -90,6 +90,7 @@ class HomeFragment() : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home)
             val decimalFormat = DecimalFormat("#,###")
             val formattedNumber: String =
                 decimalFormat.format(jsonObject.getString("result").toInt())
+
             binding.tvMyTotalDonation.text = formattedNumber
         }
     }
@@ -216,6 +217,7 @@ class HomeFragment() : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home)
         override fun onPostExecute(result: String?) {
             val jsonArray = JSONArray(result)
             val list = mutableListOf<Map<String, Any>>()
+
             for (i in 0 until jsonArray.length()) {
                 val jsonObj = jsonArray.getJSONObject(i)
                 val map = mutableMapOf<String, Any>()
@@ -228,6 +230,7 @@ class HomeFragment() : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home)
                 list.add(map)
             }
             val rv = binding.rvRecentlyAddedCampaign
+
             rv.adapter = RecentlyAddedCampaignAdpater(list)
             rv.layoutManager = GridLayoutManager(context, 2, GridLayoutManager.VERTICAL, false)
         }

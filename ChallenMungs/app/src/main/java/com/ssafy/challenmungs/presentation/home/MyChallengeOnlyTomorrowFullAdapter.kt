@@ -52,8 +52,12 @@ class MyChallengeOnlyTomorrowFullViewHolder(private val binding: ItemMyChallenge
             }
             2 -> {
                 when (dto["gameType"]) {
-                    1 -> {binding.tvTag.text = "판넬(개)"}
-                    2 -> {binding.tvTag.text = "판넬(팀)"}
+                    1 -> {
+                        binding.tvTag.text = "판넬(개)"
+                    }
+                    2 -> {
+                        binding.tvTag.text = "판넬(팀)"
+                    }
                 }
             }
             3 -> {
