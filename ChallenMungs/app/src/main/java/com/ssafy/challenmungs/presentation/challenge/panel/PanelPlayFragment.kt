@@ -255,7 +255,6 @@ class PanelPlayFragment : BaseFragment<FragmentPanelPlayBinding>(R.layout.fragme
                 .format(DecodeFormat.PREFER_ARGB_8888)
                 .override(50, 50)
                 .optionalCircleCrop()
-                .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
                 .placeholder(R.drawable.ic_profile_default)
                 .error(R.drawable.ic_profile_default)
                 .into(object : CustomTarget<Bitmap>() {
@@ -364,7 +363,7 @@ class PanelPlayFragment : BaseFragment<FragmentPanelPlayBinding>(R.layout.fragme
                 if (c >= 0 && r >= 0 && c < LENGTH && r < LENGTH) {
                     for (i in 0 until value.value.rankInfo.size) {
                         val innerRank = value.value.rankInfo[i]
-                        val crown = when (innerRank.rank) {
+                        val crown = when (innerRank.indiRank) {
                             1 -> R.drawable.ic_gold_crown
                             2 -> R.drawable.ic_silver_crown
                             3 -> R.drawable.ic_bronze_crown

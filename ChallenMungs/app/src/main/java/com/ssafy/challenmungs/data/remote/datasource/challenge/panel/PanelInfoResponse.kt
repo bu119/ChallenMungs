@@ -27,6 +27,8 @@ data class PanelInfoResponse(
     val endDate: String,
     @SerializedName("startDate")
     val startDate: String,
+    @SerializedName("teamDraw")
+    val teamDraw: Boolean,
 ) : DataToDomainMapper<ChallengeInfo> {
 
     override fun toDomainModel(): ChallengeInfo =
@@ -51,17 +53,29 @@ data class PanelInfoResponse(
                         it.name,
                         it.userId,
                         it.count,
-                        it.rank,
+                        it.teamRank,
+                        it.indiRank,
                         it.teamId,
-                        when (it.rank) {
-                            1 -> R.drawable.ic_gold_crown
-                            2 -> R.drawable.ic_silver_crown
-                            3 -> R.drawable.ic_bronze_crown
-                            else -> null
+                        when (gameType) {
+                            1 -> {
+                                when (it.indiRank) {
+                                    1 -> R.drawable.ic_gold_crown
+                                    2 -> R.drawable.ic_silver_crown
+                                    3 -> R.drawable.ic_bronze_crown
+                                    else -> null
+                                }
+                            }
+                            else -> {
+                                when (it.indiRank) {
+                                    1 -> R.drawable.ic_gold_crown
+                                    else -> R.drawable.ic_silver_crown
+                                }
+                            }
                         }
                     )
                 }),
-            mapInfo = mapInfo
+            mapInfo = mapInfo,
+            teamDraw = teamDraw
         )
 }
 
@@ -74,10 +88,12 @@ data class RankDetailResponse(
     val userId: String,
     @SerializedName("point")
     val count: Int,
-    @SerializedName("rank")
-    val rank: Int,
+    @SerializedName("teamRank")
+    val teamRank: Int,
+    @SerializedName("indiRank")
+    val indiRank: Int,
     @SerializedName("teamId")
-    val teamId: Long,
+    val teamId: Int,
 )
 
 data class Location(

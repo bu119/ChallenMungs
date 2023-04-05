@@ -36,5 +36,6 @@ data class PanelRevertDataResponse(
     val indexC: Int,
     val indexR: Int,
     val rankInfo: ArrayList<RankDetail>,
-    val teamId: Int
+    val teamId: Int,
+    val teamDraw: Boolean
 )

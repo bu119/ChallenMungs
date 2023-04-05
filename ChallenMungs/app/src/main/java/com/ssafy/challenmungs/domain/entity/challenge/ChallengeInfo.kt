@@ -13,8 +13,9 @@ data class ChallengeInfo(
     val fee: String,
     val totalFee: String,
     val type: String,
-    val currentRank: ArrayList<RankDetail>,
-    val mapInfo: ArrayList<ArrayList<Int>>
+    var currentRank: ArrayList<RankDetail>,
+    val mapInfo: ArrayList<ArrayList<Int>>,
+    val teamDraw: Boolean,
 )
 
 data class RankDetail(
@@ -22,7 +23,8 @@ data class RankDetail(
     val name: String,
     val loginId: String,
     val point: Int,
-    val rank: Int,
-    val teamId: Long,
+    val teamRank: Int,
+    val indiRank: Int,
+    val teamId: Int,
     var crown: Int?
 )
