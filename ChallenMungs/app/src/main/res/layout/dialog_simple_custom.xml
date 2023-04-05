@@ -27,33 +27,33 @@
             android:id="@+id/btn_cancel"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginEnd="10dp"
             android:background="@drawable/bg_rect_gainsboro_white_radius5_stroke1"
             android:minHeight="0dp"
             android:orientation="horizontal"
             android:paddingVertical="13dp"
             android:stateListAnimator="@null"
             android:text="@string/content_cancel"
-            app:layout_constraintEnd_toStartOf="@+id/btn_ok"
+            app:layout_constraintBottom_toBottomOf="@id/btn_ok"
+            app:layout_constraintEnd_toStartOf="@id/btn_ok"
             app:layout_constraintHorizontal_weight="1"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_content" />
+            app:layout_constraintTop_toTopOf="@id/btn_ok" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_ok"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
+            android:layout_marginTop="20dp"
             android:background="@drawable/bg_rect_golden_glow_radius5"
             android:minHeight="0dp"
             android:paddingVertical="13dp"
             android:stateListAnimator="@null"
             android:text="@string/content_check"
-            app:layout_constraintBottom_toBottomOf="@+id/btn_cancel"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_weight="1"
-            app:layout_constraintStart_toEndOf="@+id/btn_cancel"
-            app:layout_constraintTop_toTopOf="@+id/btn_cancel" />
+            app:layout_constraintStart_toEndOf="@id/btn_cancel"
+            app:layout_constraintTop_toBottomOf="@id/tv_content" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

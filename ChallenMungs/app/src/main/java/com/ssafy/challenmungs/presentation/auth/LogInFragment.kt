@@ -76,6 +76,10 @@ class LogInFragment : BaseFragment<FragmentLogInBinding>(R.layout.fragment_log_i
                 UserApiClient.instance.loginWithKakaoAccount(requireContext(), callback = callback)
             }
         }
+
+        binding.tvContentShelterJoin.setOnClickListener {
+            navigate(LogInFragmentDirections.actionToShelterJoinFragment())
+        }
     }
 
     private fun observeAccessToken() {

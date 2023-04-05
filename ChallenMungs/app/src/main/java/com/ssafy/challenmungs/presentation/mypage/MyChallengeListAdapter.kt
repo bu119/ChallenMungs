@@ -8,10 +8,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.ssafy.challenmungs.R
 import com.ssafy.challenmungs.databinding.ItemChallengeCardOngoingFinishBinding
 import com.ssafy.challenmungs.databinding.ItemChallengeCardWaitingBinding
-import com.ssafy.challenmungs.domain.entity.challenge.ChallengeCard
+import com.ssafy.challenmungs.domain.entity.challenge.Challenge
 
 class MyChallengeListAdapter(
-    private val position: Int, private val dataList: ArrayList<ChallengeCard>
+    private val position: Int, private val dataList: ArrayList<Challenge>
 ) : RecyclerView.Adapter<MyChallengeListAdapter.MyChallengeListViewHolder>() {
 
     override fun onCreateViewHolder(
@@ -50,12 +50,12 @@ class MyChallengeListAdapter(
     sealed class MyChallengeListViewHolder(binding: ViewDataBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        abstract fun onBind(data: ChallengeCard)
+        abstract fun onBind(data: Challenge)
 
         class OnGoingOrFinishViewHolder(private val binding: ItemChallengeCardOngoingFinishBinding) :
             MyChallengeListViewHolder(binding) {
 
-            override fun onBind(data: ChallengeCard) {
+            override fun onBind(data: Challenge) {
                 binding.challenge = data
             }
         }
@@ -63,7 +63,7 @@ class MyChallengeListAdapter(
         class WaitViewHolder(private val binding: ItemChallengeCardWaitingBinding) :
             MyChallengeListViewHolder(binding) {
 
-            override fun onBind(data: ChallengeCard) {
+            override fun onBind(data: Challenge) {
                 binding.challenge = data
             }
         }

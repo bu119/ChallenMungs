@@ -4,6 +4,8 @@
     package="com.ssafy.challenmungs">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
 
     <application
         android:name=".ApplicationClass"
@@ -57,10 +59,6 @@
 
         <activity
             android:name=".presentation.auth.AuthActivity"
-            android:exported="false" />
-
-        <activity
-            android:name=".presentation.common.MainFragment"
             android:exported="false" />
 
     </application>

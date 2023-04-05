@@ -67,6 +67,7 @@ dependencies {
 
     // GoogleMap
     implementation libs.google.map
+    implementation libs.google.map.location
 }
 
 kapt {

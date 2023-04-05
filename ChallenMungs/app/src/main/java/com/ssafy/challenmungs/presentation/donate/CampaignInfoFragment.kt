@@ -15,7 +15,7 @@ class CampaignInfoFragment :
 
     private fun initListener() {
         binding.btnBack.setOnClickListener {
-
+            popBackStack()
         }
     }
 }

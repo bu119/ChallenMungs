@@ -83,6 +83,20 @@ abstract class BaseFragment<T : ViewDataBinding>(
         return screenHeight - rect.bottom
     }
 
+    fun navigationNavHostFragmentToDestinationFragment(
+        fragmentContainerViewId: Int,
+        destinationFragmentId: Int,
+        selectedId: Long
+    ) {
+        val navHostFragment =
+            activity?.supportFragmentManager?.findFragmentById(fragmentContainerViewId) as NavHostFragment
+        val bundle = Bundle()
+        bundle.putLong("cardId", selectedId)
+        navHostFragment.navController.navigate(destinationFragmentId, bundle)
+    }
+
+    fun getSelectedId(): Long? = arguments?.getLong("cardId")
+
     @OptIn(DelicateCoroutinesApi::class)
     private fun setImmersive() {
         // API 30 이상인 경우에는 WindowInsetsController를 사용하여 Fullscreen 모드로 설정

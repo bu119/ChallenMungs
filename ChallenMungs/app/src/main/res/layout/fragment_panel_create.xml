@@ -47,6 +47,7 @@
                     android:background="@drawable/bg_rect_white_smoke_radius10"
                     android:fontFamily="sans-serif"
                     android:hint="@string/content_enter_title"
+                    android:imeOptions="actionNext"
                     android:importantForAutofill="no"
                     android:inputType="text"
                     android:paddingHorizontal="18dp"
@@ -113,45 +114,54 @@
                     app:layout_constraintStart_toStartOf="@id/tv_date_content"
                     app:layout_constraintTop_toBottomOf="@id/tv_date_content" />
 
-                <androidx.appcompat.widget.AppCompatImageButton
-                    android:id="@+id/btn_minus"
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/cl_max_headcount_area"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:background="@drawable/bg_rect_golden_glow_radius5"
-                    android:minWidth="0dp"
-                    android:minHeight="0dp"
-                    android:padding="7dp"
-                    android:src="@drawable/ic_minus"
                     app:layout_constraintStart_toStartOf="@id/tv_max_headcount"
-                    app:layout_constraintTop_toBottomOf="@id/tv_max_headcount" />
+                    app:layout_constraintTop_toBottomOf="@id/tv_max_headcount">
 
-                <TextView
-                    android:id="@+id/tv_max_headcount_content"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:textColor="@color/black"
-                    android:textSize="14sp"
-                    app:layout_constraintBottom_toBottomOf="@id/btn_minus"
-                    app:layout_constraintEnd_toStartOf="@id/btn_plus"
-                    app:layout_constraintStart_toEndOf="@id/btn_minus"
-                    app:layout_constraintTop_toTopOf="@id/btn_minus"
-                    tools:text="4" />
+                    <androidx.appcompat.widget.AppCompatImageButton
+                        android:id="@+id/btn_minus"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/bg_rect_golden_glow_radius5"
+                        android:minWidth="0dp"
+                        android:minHeight="0dp"
+                        android:padding="7dp"
+                        android:src="@drawable/ic_minus"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-                <androidx.appcompat.widget.AppCompatImageButton
-                    android:id="@+id/btn_plus"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="48dp"
-                    android:background="@drawable/bg_rect_golden_glow_radius5"
-                    android:minWidth="0dp"
-                    android:minHeight="0dp"
-                    android:padding="7dp"
-                    android:src="@drawable/ic_plus"
-                    app:layout_constraintBottom_toBottomOf="@id/btn_minus"
-                    app:layout_constraintStart_toEndOf="@id/btn_minus"
-                    app:layout_constraintTop_toTopOf="@id/btn_minus" />
+                    <TextView
+                        android:id="@+id/tv_max_headcount_content"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:textColor="@color/black"
+                        android:textSize="14sp"
+                        app:layout_constraintBottom_toBottomOf="@id/btn_minus"
+                        app:layout_constraintEnd_toStartOf="@id/btn_plus"
+                        app:layout_constraintStart_toEndOf="@id/btn_minus"
+                        app:layout_constraintTop_toTopOf="@id/btn_minus"
+                        tools:text="4" />
+
+                    <androidx.appcompat.widget.AppCompatImageButton
+                        android:id="@+id/btn_plus"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="48dp"
+                        android:background="@drawable/bg_rect_golden_glow_radius5"
+                        android:minWidth="0dp"
+                        android:minHeight="0dp"
+                        android:padding="7dp"
+                        android:src="@drawable/ic_plus"
+                        app:layout_constraintBottom_toBottomOf="@id/btn_minus"
+                        app:layout_constraintStart_toEndOf="@id/btn_minus"
+                        app:layout_constraintTop_toTopOf="@id/btn_minus" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <TextView
                     android:id="@+id/tv_type"
@@ -161,48 +171,55 @@
                     android:text="@string/title_type"
                     android:textColor="@color/black"
                     android:textSize="16sp"
-                    app:layout_constraintStart_toStartOf="@id/btn_minus"
-                    app:layout_constraintTop_toBottomOf="@id/btn_minus" />
+                    app:layout_constraintStart_toStartOf="@id/cl_max_headcount_area"
+                    app:layout_constraintTop_toBottomOf="@id/cl_max_headcount_area" />
 
-                <com.google.android.material.button.MaterialButtonToggleGroup
-                    android:id="@+id/btg_type"
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/cl_type"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:gravity="center"
-                    app:checkedButton="@id/btn_individual"
+                    android:background="@drawable/bg_rect_wite_smoke_pink_swan_radius5_stroke1"
+                    android:padding="5dp"
                     app:layout_constraintStart_toStartOf="@id/tv_type"
-                    app:layout_constraintTop_toBottomOf="@id/tv_type"
-                    app:selectionRequired="true"
-                    app:singleSelection="true">
+                    app:layout_constraintTop_toBottomOf="@id/tv_type">
 
-                    <com.google.android.material.button.MaterialButton
+                    <androidx.appcompat.widget.AppCompatButton
                         android:id="@+id/btn_individual"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:background="@drawable/bg_rect_golden_glow_golden_poppy_radius5_stroke1"
                         android:minWidth="0dp"
                         android:minHeight="0dp"
-                        android:padding="10dp"
+                        android:paddingHorizontal="15dp"
+                        android:paddingVertical="10dp"
                         android:stateListAnimator="@null"
                         android:text="@string/content_individual"
                         android:textColor="@color/black"
-                        android:textSize="14sp" />
+                        android:textSize="14sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-                    <com.google.android.material.button.MaterialButton
+                    <androidx.appcompat.widget.AppCompatButton
                         android:id="@+id/btn_team"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:backgroundTint="@color/white_smoke"
+                        android:background="@color/white_smoke"
                         android:minWidth="0dp"
                         android:minHeight="0dp"
-                        android:paddingHorizontal="18dp"
+                        android:paddingHorizontal="23dp"
                         android:paddingVertical="10dp"
                         android:stateListAnimator="@null"
                         android:text="@string/content_team"
                         android:textColor="@color/black"
-                        android:textSize="14sp" />
+                        android:textSize="14sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/btn_individual"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-                </com.google.android.material.button.MaterialButtonToggleGroup>
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <TextView
                     android:id="@+id/tv_participation_money"
@@ -212,8 +229,8 @@
                     android:text="@string/content_participation_money"
                     android:textColor="@color/black"
                     android:textSize="16sp"
-                    app:layout_constraintStart_toStartOf="@id/btg_type"
-                    app:layout_constraintTop_toBottomOf="@id/btg_type" />
+                    app:layout_constraintStart_toStartOf="@id/cl_type"
+                    app:layout_constraintTop_toBottomOf="@id/cl_type" />
 
                 <ImageView
                     android:layout_width="16dp"
@@ -225,45 +242,54 @@
                     app:layout_constraintStart_toEndOf="@id/tv_participation_money"
                     app:layout_constraintTop_toTopOf="@id/tv_participation_money" />
 
-                <androidx.appcompat.widget.AppCompatImageButton
-                    android:id="@+id/btn_participation_money_minus"
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/cl_participation_money_area"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:background="@drawable/bg_rect_golden_glow_radius5"
-                    android:minWidth="0dp"
-                    android:minHeight="0dp"
-                    android:padding="7dp"
-                    android:src="@drawable/ic_minus"
                     app:layout_constraintStart_toStartOf="@id/tv_participation_money"
-                    app:layout_constraintTop_toBottomOf="@id/tv_participation_money" />
+                    app:layout_constraintTop_toBottomOf="@id/tv_participation_money">
 
-                <TextView
-                    android:id="@+id/tv_participation_money_amount"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:textColor="@color/black"
-                    android:textSize="14sp"
-                    app:layout_constraintBottom_toBottomOf="@id/btn_participation_money_minus"
-                    app:layout_constraintEnd_toStartOf="@id/btn_participation_money_plus"
-                    app:layout_constraintStart_toEndOf="@id/btn_participation_money_minus"
-                    app:layout_constraintTop_toTopOf="@id/btn_participation_money_minus"
-                    tools:text="4" />
+                    <androidx.appcompat.widget.AppCompatImageButton
+                        android:id="@+id/btn_participation_money_minus"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/bg_rect_golden_glow_radius5"
+                        android:minWidth="0dp"
+                        android:minHeight="0dp"
+                        android:padding="7dp"
+                        android:src="@drawable/ic_minus"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-                <androidx.appcompat.widget.AppCompatImageButton
-                    android:id="@+id/btn_participation_money_plus"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="48dp"
-                    android:background="@drawable/bg_rect_golden_glow_radius5"
-                    android:minWidth="0dp"
-                    android:minHeight="0dp"
-                    android:padding="7dp"
-                    android:src="@drawable/ic_plus"
-                    app:layout_constraintBottom_toBottomOf="@id/btn_participation_money_minus"
-                    app:layout_constraintStart_toEndOf="@id/btn_participation_money_minus"
-                    app:layout_constraintTop_toTopOf="@id/btn_participation_money_minus" />
+                    <TextView
+                        android:id="@+id/tv_participation_money_amount"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:textColor="@color/black"
+                        android:textSize="14sp"
+                        app:layout_constraintBottom_toBottomOf="@id/btn_participation_money_minus"
+                        app:layout_constraintEnd_toStartOf="@id/btn_participation_money_plus"
+                        app:layout_constraintStart_toEndOf="@id/btn_participation_money_minus"
+                        app:layout_constraintTop_toTopOf="@id/btn_participation_money_minus"
+                        tools:text="4" />
+
+                    <androidx.appcompat.widget.AppCompatImageButton
+                        android:id="@+id/btn_participation_money_plus"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="48dp"
+                        android:background="@drawable/bg_rect_golden_glow_radius5"
+                        android:minWidth="0dp"
+                        android:minHeight="0dp"
+                        android:padding="7dp"
+                        android:src="@drawable/ic_plus"
+                        app:layout_constraintBottom_toBottomOf="@id/btn_participation_money_minus"
+                        app:layout_constraintStart_toEndOf="@id/btn_participation_money_minus"
+                        app:layout_constraintTop_toTopOf="@id/btn_participation_money_minus" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <TextView
                     android:id="@+id/tv_play_area"
@@ -273,8 +299,8 @@
                     android:text="@string/title_play_area_setting"
                     android:textColor="@color/black"
                     android:textSize="16sp"
-                    app:layout_constraintStart_toStartOf="@id/btn_participation_money_minus"
-                    app:layout_constraintTop_toBottomOf="@id/btn_participation_money_minus" />
+                    app:layout_constraintStart_toStartOf="@id/cl_participation_money_area"
+                    app:layout_constraintTop_toBottomOf="@id/cl_participation_money_area" />
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/btn_play_area_set"
@@ -286,6 +312,7 @@
                     android:minHeight="0dp"
                     android:paddingHorizontal="20dp"
                     android:paddingVertical="10dp"
+                    android:stateListAnimator="@null"
                     android:text="@string/content_not_set"
                     android:textColor="@color/black"
                     android:textSize="14sp"

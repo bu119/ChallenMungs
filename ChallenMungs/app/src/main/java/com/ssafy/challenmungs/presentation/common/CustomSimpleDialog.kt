@@ -1,4 +1,4 @@
-package com.ssafy.challenmungs.presentation.mypage
+package com.ssafy.challenmungs.presentation.common
 
 import android.app.Dialog
 import android.content.Context
@@ -6,14 +6,16 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.View
 import androidx.databinding.DataBindingUtil
 import com.ssafy.challenmungs.R
 import com.ssafy.challenmungs.common.util.DialogSizeHelper.dialogResize
 import com.ssafy.challenmungs.databinding.DialogSimpleCustomBinding
 
-class SimpleCustomDialog(
+class CustomSimpleDialog(
     context: Context,
-    private val customDialogInterface: CustomDialogInterface,
+    private val customSimpleDialogInterface: CustomSimpleDialogInterface,
+    private val single: Boolean,
     private val content: String,
     private val positiveMessage: String
 ) : Dialog(context) {
@@ -48,7 +50,7 @@ class SimpleCustomDialog(
 
             btnOk.setOnClickListener {
                 dismiss()
-                customDialogInterface.onPositiveButton()
+                customSimpleDialogInterface.onPositiveButton()
             }
         }
     }
@@ -57,6 +59,8 @@ class SimpleCustomDialog(
         binding.apply {
             tvContent.text = content
             btnOk.text = positiveMessage
+            if (single)
+                binding.btnCancel.visibility = View.GONE
         }
     }
 }
