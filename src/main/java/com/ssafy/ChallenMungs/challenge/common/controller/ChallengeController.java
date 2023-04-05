@@ -368,4 +368,12 @@ ChallengeController {
         return new ResponseEntity<>(dtoList, HttpStatus.OK);
     }
 
+    @PostMapping("/tokenConfirm/isHere")
+    ResponseEntity isHere(HttpServletRequest request, @RequestParam("challengeId") Long challengeId) {
+        String loginId = request.getAttribute("loginId").toString();
+        HashMap<String, Boolean> dto = new HashMap<>();
+        if (myChallengeService.findByLoginIdAndChallengeId(loginId, challengeId) == null) dto.put("result", false);
+        else dto.put("result", true);
+        return new ResponseEntity(dto, HttpStatus.OK);
+    }
 }
