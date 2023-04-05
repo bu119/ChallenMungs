@@ -5,7 +5,7 @@ data class CampaignCard(
     val bannerUrl: String,
     val title: String,
     val charity: String,
-    val cheerCount: Int,
+    val cheerCount: String,
     val progress: Int,
     val target: Int,
     val achievement: Int
