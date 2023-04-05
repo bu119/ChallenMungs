@@ -38,17 +38,20 @@
             app:layout_constraintStart_toEndOf="@id/iv_crown"
             app:layout_constraintTop_toTopOf="@id/iv_profile" />
 
-        <ImageView
+        <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/iv_profile"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginStart="10dp"
             android:contentDescription="@string/image_default_profile"
+            android:padding="2dp"
             android:profileImgString="@{rank.profile}"
             android:src="@drawable/ic_profile_default"
             app:layout_constraintBottom_toBottomOf="@id/tv_panel_count"
             app:layout_constraintStart_toEndOf="@id/tv_rank"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:shapeAppearanceOverlay="@style/CircleImageViewStyle"
+            app:strokeWidth="2dp" />
 
         <TextView
             android:id="@+id/tv_nickname"

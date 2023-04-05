@@ -56,12 +56,12 @@ object BindingAdapters {
     }
 
     @JvmStatic
-    @BindingAdapter("app:rank")
-    fun RecyclerView.setRankList(items: ArrayList<RankDetail>?) {
+    @BindingAdapter("app:rank", "app:isTeam")
+    fun RecyclerView.setRankList(items: ArrayList<RankDetail>?, isTeamPlay: Boolean) {
         if (this.adapter == null) {
             val lm = LinearLayoutManager(this.context)
             lm.orientation = LinearLayoutManager.VERTICAL
-            val adapter = RankListAdapter()
+            val adapter = RankListAdapter(isTeamPlay)
             this.layoutManager = lm
             this.adapter = adapter
         }
