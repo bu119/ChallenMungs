@@ -1,6 +1,7 @@
 package com.ssafy.challenmungs.presentation.challenge.panel
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.VectorDrawable
@@ -31,7 +32,10 @@ import com.ssafy.challenmungs.common.util.MapHelper.getLastKnownLocation
 import com.ssafy.challenmungs.common.util.PermissionHelper
 import com.ssafy.challenmungs.databinding.DialogPlayAreaSettingBinding
 
-class PlayAreaSettingDialog(private val playAreaSettingInterface: PlayAreaSettingInterface) :
+class PlayAreaSettingDialog(
+    context: Context,
+    private val playAreaSettingInterface: PlayAreaSettingInterface
+) :
     DialogFragment(), OnMapReadyCallback {
 
     private lateinit var binding: DialogPlayAreaSettingBinding
@@ -40,9 +44,14 @@ class PlayAreaSettingDialog(private val playAreaSettingInterface: PlayAreaSettin
     private var currentLocation: LatLng = defaultPosition
     private var submitLocation: LatLng = currentLocation
     private val mFusedLocationClient: FusedLocationProviderClient by lazy {
-        LocationServices.getFusedLocationProviderClient(requireActivity())
+        LocationServices.getFusedLocationProviderClient(mContext)
     }
     private lateinit var googleMap: GoogleMap
+    private var mContext: Context
+
+    init {
+        mContext = context
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -123,7 +132,7 @@ class PlayAreaSettingDialog(private val playAreaSettingInterface: PlayAreaSettin
 
     private fun setMarker(googleMap: GoogleMap, position: LatLng) {
         val drawable =
-            ContextCompat.getDrawable(requireContext(), R.drawable.ic_red_marker) as VectorDrawable
+            ContextCompat.getDrawable(mContext, R.drawable.ic_red_marker) as VectorDrawable
         val bitmap = drawable.toBitmap()
 
         myMarker?.remove()
@@ -138,7 +147,7 @@ class PlayAreaSettingDialog(private val playAreaSettingInterface: PlayAreaSettin
         rect?.remove()
         val rectOptions = PolygonOptions().apply {
             addAll(MapHelper.createRectangle(center, DISTANCE))
-            fillColor(ContextCompat.getColor(requireContext(), fillColorArgb))
+            fillColor(ContextCompat.getColor(mContext, fillColorArgb))
             strokeWidth(0f)
         }
         rect = googleMap.addPolygon(rectOptions)
@@ -154,14 +163,14 @@ class PlayAreaSettingDialog(private val playAreaSettingInterface: PlayAreaSettin
                 Toast.LENGTH_SHORT
             ).show()
         } else {
-            if (PermissionHelper.hasLocationPermission(requireContext())) {
+            if (PermissionHelper.hasLocationPermission(mContext)) {
                 getLastKnownLocation(activity)?.let {
                     currentLocation = it
                 }
                 getCurrentLocation()
             } else {
                 Toast.makeText(
-                    requireContext(),
+                    mContext,
                     getString(R.string.content_get_my_location_warning_message),
                     Toast.LENGTH_SHORT
                 ).show()

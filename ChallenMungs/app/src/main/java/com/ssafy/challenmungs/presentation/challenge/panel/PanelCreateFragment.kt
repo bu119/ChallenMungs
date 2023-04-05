@@ -136,7 +136,7 @@ class PanelCreateFragment :
         val openCalendarListener = View.OnClickListener {
             picker.show(childFragmentManager, "datePicker")
         }
-        val areaSettingDialog = PlayAreaSettingDialog(this@PanelCreateFragment)
+        val areaSettingDialog = PlayAreaSettingDialog(requireContext(), this@PanelCreateFragment)
 
         binding.apply {
             val typeClickListener = View.OnClickListener {
