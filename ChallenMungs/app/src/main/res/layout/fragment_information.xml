@@ -1,0 +1,458 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/fcv_google_map"
+            android:name="com.google.android.gms.maps.SupportMapFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout"
+            android:layout_width="0dp"
+            android:layout_height="43dp"
+            android:layout_marginStart="22dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="22dp"
+            android:background="@drawable/bg_rect_white_radius5_stroke"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/iv_search_ic"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:src="@drawable/ic_search"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <EditText
+                android:id="@+id/tv_search_text"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="12dp"
+                android:layout_marginEnd="12dp"
+                android:background="@null"
+                android:hint="검색"
+                android:inputType="text"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/iv_search_ic"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <HorizontalScrollView
+            android:id="@+id/horizontalScrollView"
+            android:layout_width="364dp"
+            android:layout_height="wrap_content"
+            android:scrollbars="none"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayout">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:id="@+id/ll_select_region"
+                    android:layout_width="wrap_content"
+                    android:paddingHorizontal="15dp"
+                    android:layout_height="35dp"
+                    android:layout_margin="8dp"
+                    android:background="@drawable/bg_rect_white_radius100"
+                    android:elevation="8dp"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_map_info" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:text="지역 선택" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_hospital_chip"
+                    android:layout_width="wrap_content"
+                    android:paddingHorizontal="15dp"
+                    android:layout_height="35dp"
+                    android:layout_margin="8dp"
+                    android:background="@drawable/bg_rect_white_radius100"
+                    android:elevation="8dp"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_hospital" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:text="병원" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_pharmacy_chip"
+                    android:layout_width="wrap_content"
+                    android:paddingHorizontal="15dp"
+                    android:layout_height="35dp"
+                    android:layout_margin="8dp"
+                    android:background="@drawable/bg_rect_white_radius100"
+                    android:elevation="8dp"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_medicine" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:text="약국" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_cafe_chip"
+                    android:layout_width="wrap_content"
+                    android:paddingHorizontal="15dp"
+                    android:layout_height="35dp"
+                    android:layout_margin="8dp"
+                    android:background="@drawable/bg_rect_white_radius100"
+                    android:elevation="8dp"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_cafe" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:text="카페" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_meal_chip"
+                    android:layout_width="wrap_content"
+                    android:paddingHorizontal="15dp"
+                    android:layout_height="35dp"
+                    android:layout_margin="8dp"
+                    android:background="@drawable/bg_rect_white_radius100"
+                    android:elevation="8dp"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="22dp"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_meal" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:text="식당" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </HorizontalScrollView>
+
+        <ImageView
+            android:id="@+id/iv_place_list_load_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="10dp"
+            android:src="@drawable/ic_info_list"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_region_select_box"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_rect_white_top_radius10"
+            android:paddingBottom="30dp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@+id/fcv_google_map"
+            tools:context=".presentation.challenge.InformationFragment">
+
+            <TextView
+                android:id="@+id/pharse_select_region"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="@string/pharse_select_region"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/iv_region_box_close"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="26dp"
+                android:layout_marginEnd="18dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_close_button" />
+
+            <TextView
+                android:id="@+id/tv_region_seoul"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14dp"
+                android:background="@drawable/bg_rect_white_radius100_with_stroke_goldenglow"
+                android:paddingVertical="6dp"
+                android:text="@string/region_seoul"
+                android:textAlignment="center"
+                android:textColor="@color/toast"
+                android:textSize="11sp"
+                app:layout_constraintEnd_toStartOf="@+id/tv_region_kyunkido"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/pharse_select_region" />
+
+            <TextView
+                android:id="@+id/tv_region_kyunkido"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14dp"
+                android:background="@drawable/bg_rect_white_radius100_with_stroke_goldenglow"
+                android:paddingVertical="6dp"
+                android:text="@string/region_kyungkido"
+                android:textAlignment="center"
+                android:textColor="@color/toast"
+                android:textSize="11sp"
+                app:layout_constraintEnd_toStartOf="@+id/tv_region_pusan"
+                app:layout_constraintStart_toEndOf="@+id/tv_region_seoul"
+                app:layout_constraintTop_toBottomOf="@+id/pharse_select_region" />
+
+            <TextView
+                android:id="@+id/tv_region_pusan"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14dp"
+                android:background="@drawable/bg_rect_white_radius100_with_stroke_goldenglow"
+                android:paddingVertical="6dp"
+                android:text="@string/region_pusan"
+                android:textAlignment="center"
+                android:textColor="@color/toast"
+                android:textSize="11sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/tv_region_kyunkido"
+                app:layout_constraintTop_toBottomOf="@+id/pharse_select_region" />
+
+            <TextView
+                android:id="@+id/tv_region_incheon"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14dp"
+                android:background="@drawable/bg_rect_white_radius100_with_stroke_goldenglow"
+                android:paddingVertical="6dp"
+                android:text="@string/region_incheon"
+                android:textAlignment="center"
+                android:textColor="@color/toast"
+                android:textSize="11sp"
+                app:layout_constraintEnd_toStartOf="@+id/tv_region_kyungsangnamdo"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_region_seoul" />
+
+            <TextView
+                android:id="@+id/tv_region_kyungsangnamdo"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14dp"
+                android:background="@drawable/bg_rect_white_radius100_with_stroke_goldenglow"
+                android:paddingVertical="6dp"
+                android:text="@string/region_kyunsangnamdo"
+                android:textAlignment="center"
+                android:textColor="@color/toast"
+                android:textSize="11sp"
+                app:layout_constraintEnd_toStartOf="@+id/tv_region_kyungsangbukdo"
+                app:layout_constraintStart_toEndOf="@+id/tv_region_incheon"
+                app:layout_constraintTop_toBottomOf="@+id/tv_region_seoul" />
+
+            <TextView
+                android:id="@+id/tv_region_kyungsangbukdo"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14dp"
+                android:background="@drawable/bg_rect_golden_glow_radius100"
+                android:paddingVertical="6dp"
+                android:text="@string/region_kyungsangbukdo"
+                android:textAlignment="center"
+                android:textColor="@color/toast"
+                android:textSize="11sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/tv_region_kyungsangnamdo"
+                app:layout_constraintTop_toBottomOf="@+id/tv_region_seoul" />
+
+            <TextView
+                android:id="@+id/tv_region_daegu"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14dp"
+                android:background="@drawable/bg_rect_white_radius100_with_stroke_goldenglow"
+                android:paddingVertical="6dp"
+                android:text="@string/region_daegu"
+                android:textAlignment="center"
+                android:textColor="@color/toast"
+                android:textSize="11sp"
+                app:layout_constraintEnd_toStartOf="@+id/tv_region_chunchungnamdo"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_region_incheon" />
+
+            <TextView
+                android:id="@+id/tv_region_chunchungbukdo"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14dp"
+                android:background="@drawable/bg_rect_white_radius100_with_stroke_goldenglow"
+                android:paddingVertical="6dp"
+                android:text="@string/region_chunchungpukdo"
+                android:textAlignment="center"
+                android:textColor="@color/toast"
+                android:textSize="11sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/tv_region_chunchungnamdo"
+                app:layout_constraintTop_toBottomOf="@+id/tv_region_incheon" />
+
+            <TextView
+                android:id="@+id/tv_region_chunchungnamdo"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14dp"
+                android:background="@drawable/bg_rect_white_radius100_with_stroke_goldenglow"
+                android:paddingVertical="6dp"
+                android:text="@string/region_chunchungnamdo"
+                android:textAlignment="center"
+                android:textColor="@color/toast"
+                android:textSize="11sp"
+                app:layout_constraintEnd_toStartOf="@+id/tv_region_chunchungbukdo"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/tv_region_daegu"
+                app:layout_constraintTop_toBottomOf="@+id/tv_region_incheon" />
+
+            <TextView
+                android:id="@+id/tv_region_daejeon"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14dp"
+                android:background="@drawable/bg_rect_white_radius100_with_stroke_goldenglow"
+                android:paddingVertical="6dp"
+                android:text="@string/region_daejeon"
+                android:textAlignment="center"
+                android:textColor="@color/toast"
+                android:textSize="11sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/tv_region_jeonrabukdo"
+                app:layout_constraintTop_toBottomOf="@+id/tv_region_daegu" />
+
+            <TextView
+                android:id="@+id/tv_region_jeonranamdo"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14dp"
+                android:background="@drawable/bg_rect_white_radius100_with_stroke_goldenglow"
+                android:paddingVertical="6dp"
+                android:text="@string/region_jeonranamdo"
+                android:textAlignment="center"
+                android:textColor="@color/toast"
+                android:textSize="11sp"
+                app:layout_constraintEnd_toStartOf="@+id/tv_region_jeonrabukdo"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_region_daegu" />
+
+            <TextView
+                android:id="@+id/tv_region_jeonrabukdo"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14dp"
+                android:background="@drawable/bg_rect_white_radius100_with_stroke_goldenglow"
+                android:paddingVertical="6dp"
+                android:text="@string/region_jeonrabukdo"
+                android:textAlignment="center"
+                android:textColor="@color/toast"
+                android:textSize="11sp"
+                app:layout_constraintEnd_toStartOf="@+id/tv_region_daejeon"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/tv_region_jeonranamdo"
+                app:layout_constraintTop_toBottomOf="@+id/tv_region_daegu" />
+
+            <TextView
+                android:id="@+id/tv_region_kwanju"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14dp"
+                android:background="@drawable/bg_rect_white_radius100_with_stroke_goldenglow"
+                android:paddingVertical="6dp"
+                android:text="@string/region_kwanju"
+                android:textAlignment="center"
+                android:textColor="@color/toast"
+                android:textSize="11sp"
+                app:layout_constraintEnd_toStartOf="@+id/tv_region_kangwondo"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_region_jeonranamdo" />
+
+            <TextView
+                android:id="@+id/tv_region_kangwondo"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:background="@drawable/bg_rect_white_radius100_with_stroke_goldenglow"
+                android:paddingVertical="6dp"
+                android:text="@string/region_kangwondo"
+                android:textAlignment="center"
+                android:textColor="@color/toast"
+                android:textSize="11sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/tv_region_kwanju"
+                app:layout_constraintTop_toBottomOf="@+id/tv_region_jeonranamdo" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
