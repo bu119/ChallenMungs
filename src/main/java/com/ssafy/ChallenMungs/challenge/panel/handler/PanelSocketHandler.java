@@ -202,10 +202,10 @@ public class PanelSocketHandler extends TextWebSocketHandler {
             boolean teamdraw = false;
             if (challenge.getGameType() == 1) {
                 int rank = 0;
-                int count = -1;
+                int count = 99999;
 
                 for (RankVo r : challengeManager.get(challengeId).rankInfo) {
-                    if (count < r.PanelCount) {
+                    if (count > r.PanelCount) {
                         count = r.PanelCount;
                         rank++;
                     }
@@ -216,12 +216,12 @@ public class PanelSocketHandler extends TextWebSocketHandler {
                 int sum1 = 0;
                 int sum2 = 0;
                 int rank = 0;
-                int count = -1;
+                int count = 99999;
                 for (RankVo r : challengeManager.get(challengeId).rankInfo) {
                     System.out.println(rank);
                     if (r.getTeamId() == 1) sum1 += r.getPanelCount();
                     else if (r.getTeamId() == 2) sum2 += r.getPanelCount();
-                    if (count < r.PanelCount) {
+                    if (count > r.PanelCount) {
                         count = r.PanelCount;
                         rank++;
                     }
