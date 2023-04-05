@@ -1,8 +1,8 @@
 package com.ssafy.challenmungs.domain.entity.challenge
 
-data class NotStartedChallenge(
+data class NotStartedChallengeDetail(
     val challengeId: Int,
-    val challengeType: Int,
+    val challengeType: String,
     val title: String,
     val startDate: String,
     val endDate: String,
@@ -13,7 +13,7 @@ data class NotStartedChallenge(
     val campaignId: Int?,
     val successCondition: Int?,
     val description: String?,
-    val gameType: Int?,
+    val gameType: String?,
     val centerLat: Double?,
     val centerLng: Double?,
     val cellD: Int?,
@@ -23,5 +23,5 @@ data class NotStartedChallenge(
     val minLng: Double?,
     val cellSize: Double?,
     val mapSize: Int?,
-    val participants: List<Participant>
+    val participants: ArrayList<Participant>
 )
