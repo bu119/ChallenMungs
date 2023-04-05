@@ -45,6 +45,9 @@ class PanelPlayViewModel @Inject constructor(
     private var _mapInfo: MutableLiveData<ArrayList<ArrayList<Int>>> = MutableLiveData()
     val mapInfo: LiveData<ArrayList<ArrayList<Int>>> = _mapInfo
 
+    private var _sumPoint: MutableLiveData<IntArray> = MutableLiveData(IntArray(7))
+    val sumPoint: LiveData<IntArray> = _sumPoint
+
     suspend fun getPanelInfo(challengeId: Long) = viewModelScope.async {
         when (val value = getPanelInfoUseCase(challengeId)) {
             is Resource.Success<ChallengeInfo> -> {
@@ -63,18 +66,18 @@ class PanelPlayViewModel @Inject constructor(
     }.await()
 
     private fun setMyInfo(info: ArrayList<RankDetail>?) {
-        val sum = IntArray(7)
         var myTeamId = 0
         var myRank = 0
+        val isTeamPlay = "팀전" == _challengeInfo.value?.type
 
         info?.forEach { rankDetail ->
-            sum[rankDetail.teamId] += rankDetail.point
+            _sumPoint.value?.set(rankDetail.teamId, rankDetail.point)
 
             if (rankDetail.loginId == _userId.value) {
                 _myProfileImg.value = rankDetail.profile
                 myTeamId = rankDetail.teamId
 
-                myRank = if ("팀전" == _challengeInfo.value?.type) {
+                myRank = if (isTeamPlay) {
                     rankDetail.teamRank
                 } else {
                     rankDetail.indiRank
@@ -82,7 +85,7 @@ class PanelPlayViewModel @Inject constructor(
             }
         }
 
-        _myRank.value = Pair(myRank, sum[myTeamId])
+        _myRank.value = _sumPoint.value?.let { Pair(myRank, it[myTeamId]) }
     }
 
     fun setRankInfo(rankInfo: ArrayList<RankDetail>) {
