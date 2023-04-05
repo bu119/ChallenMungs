@@ -1,6 +1,8 @@
 package com.ssafy.ChallenMungs.blockchain.controller;
 
 import com.ssafy.ChallenMungs.blockchain.service.DonateService;
+import com.ssafy.ChallenMungs.campaign.entity.Campaign;
+import com.ssafy.ChallenMungs.campaign.repository.CampaignListRepository;
 import com.ssafy.ChallenMungs.common.util.Response;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -20,6 +22,7 @@ import java.util.HashMap;
 public class DonateController {
 
     private final DonateService service;
+    private final CampaignListRepository campaignRepo;
     Response res=new Response();
 
     //유저계좌->캠페인계좌
@@ -39,8 +42,15 @@ public class DonateController {
     @PostMapping("/withdraw")
     @ApiOperation(value = "후원처가 모금액을 출금합니다." ,notes="특정 캠페인에서 출금합니다. 목표금액만큼 모두 출금했다면 계좌가 반납됩니다. \n 모인금액을 초과해 출금하지 않도록 주의")
     ResponseEntity<Object> withdraw(@RequestParam int campaignId,@RequestParam int money) {
-        service.plusWithdraw(campaignId,money);
-        return new ResponseEntity<Object>(res.makeSimpleRes("성공"),HttpStatus.OK);
+        Campaign campaign = campaignRepo.findCampaignByCampaignId(campaignId);
+        if(campaign.getCollectAmount()>=(campaign.getWithdrawAmount() + money)){
+            service.plusWithdraw(campaignId,money);
+            return new ResponseEntity<Object>(res.makeSimpleRes("성공"),HttpStatus.OK);
+        }
+        else{
+            return new ResponseEntity<Object>(res.makeSimpleRes("잔액이 부족합니다."),HttpStatus.BAD_REQUEST);
+        }
+
     }
 
     //이월하기
