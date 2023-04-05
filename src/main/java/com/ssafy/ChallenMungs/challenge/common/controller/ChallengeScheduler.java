@@ -89,20 +89,20 @@ public class ChallengeScheduler {
                 flag = true;
                 if (c.getChallengeType() == 2) {
                     List<MyChallenge> myChallenges = myChallengeService.findAllByChallengeId(c.getChallengeId());
-                    int teamIdx = 0;
+                    int teamIdx = 0;// 
                     ArrayList<RankVo> rankInfo = new ArrayList<>();
                     if (c.getGameType() == 1) {
                         for (MyChallenge mc : myChallenges) {
                             teamIdx++;
                             mc.setTeamId(teamIdx);
                             myChallengeService.save(mc);
-                            rankInfo.add(RankVo.builder().teamRank(1).PanelCount(0).teamId(teamIdx).loginId(mc.getLoginId()).build());
+                            rankInfo.add(RankVo.builder().teamRank(1).indiRank(1).PanelCount(0).teamId(teamIdx).loginId(mc.getLoginId()).build());
                         }
                     } else if (c.getGameType() == 2) {
                         for (MyChallenge mc : myChallenges) {
                             System.out.println(mc.getLoginId());
-                            if (mc.getTeamId() == 1) rankInfo.add(RankVo.builder().teamRank(1).PanelCount(0).teamId(1).loginId(mc.getLoginId()).build());
-                            else if (mc.getTeamId() == 2) rankInfo.add(RankVo.builder().teamRank(1).PanelCount(0).teamId(2).loginId(mc.getLoginId()).build());
+                            if (mc.getTeamId() == 1) rankInfo.add(RankVo.builder().teamRank(1).indiRank(1).PanelCount(0).teamId(1).loginId(mc.getLoginId()).build());
+                            else if (mc.getTeamId() == 2) rankInfo.add(RankVo.builder().teamRank(1).indiRank(1).PanelCount(0).teamId(2).loginId(mc.getLoginId()).build());
                         }
                     }
                     //여기
