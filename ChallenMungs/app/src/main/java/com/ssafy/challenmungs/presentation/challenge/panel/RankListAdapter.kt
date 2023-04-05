@@ -45,7 +45,6 @@ class RankListAdapter :
 
             override fun areContentsTheSame(oldItem: RankDetail, newItem: RankDetail): Boolean =
                 oldItem == newItem
-
         }
     }
 }

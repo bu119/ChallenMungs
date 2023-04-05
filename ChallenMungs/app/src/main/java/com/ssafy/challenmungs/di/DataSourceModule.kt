@@ -4,6 +4,8 @@ import com.ssafy.challenmungs.data.remote.datasource.auth.AuthRemoteDataSource
 import com.ssafy.challenmungs.data.remote.datasource.auth.AuthRemoteDataSourceImpl
 import com.ssafy.challenmungs.data.remote.datasource.challenge.ChallengeRemoteDataSource
 import com.ssafy.challenmungs.data.remote.datasource.challenge.ChallengeRemoteDataSourceImpl
+import com.ssafy.challenmungs.data.remote.datasource.challenge.panel.PanelRemoteDataSource
+import com.ssafy.challenmungs.data.remote.datasource.challenge.panel.PanelRemoteDataSourceImpl
 import com.ssafy.challenmungs.data.remote.datasource.donate.DonateRemoteDataSource
 import com.ssafy.challenmungs.data.remote.datasource.donate.DonateRemoteDataSourceImpl
 import com.ssafy.challenmungs.data.remote.datasource.klaytn.WalletRemoteDataSource
@@ -50,4 +52,10 @@ object DataSourceModule {
     fun provideDonateDataSource(
         donateApiService: DonateApiService
     ): DonateRemoteDataSource = DonateRemoteDataSourceImpl(donateApiService)
+
+    @Provides
+    @Singleton
+    fun providePanelDataSource(
+        panelApiService: PanelApiService
+    ): PanelRemoteDataSource = PanelRemoteDataSourceImpl(panelApiService)
 }

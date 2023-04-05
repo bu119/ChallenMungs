@@ -47,4 +47,19 @@
         android:name="com.ssafy.challenmungs.presentation.donate.CampaignInfoFragment"
         android:label="Campaign Info Fragment"
         tools:layout="@layout/fragment_campaign_info" />
+    <fragment
+        android:id="@+id/panel_play_fragment"
+        android:name="com.ssafy.challenmungs.presentation.challenge.panel.PanelPlayFragment"
+        android:label="PanelPlayFragment"
+        tools:layout="@layout/fragment_panel_play">
+        <action
+            android:id="@+id/action_to_panelInfoFragment"
+            app:destination="@id/panel_info_fragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/panel_info_fragment"
+        android:name="com.ssafy.challenmungs.presentation.challenge.panel.PanelInfoFragment"
+        android:label="PanelInfoFragment"
+        tools:layout="@layout/fragment_panel_info"/>
 </navigation>

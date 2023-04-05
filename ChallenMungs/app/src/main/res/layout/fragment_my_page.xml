@@ -61,7 +61,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="13dp"
                 android:text="@string/content_heart_temperature_amount"
-                android:textColor="@color/mandy"
+                android:textColor="@color/venetian_red"
                 android:textSize="11sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toTopOf="@id/iv_heart_temperature"
