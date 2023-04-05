@@ -23,7 +23,13 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
     private lateinit var navController: NavController
     private lateinit var callback: OnBackPressedCallback
     private val menus = arrayOf("challenge", "donate", "home", "map", "my_page")
-    private val menusNavigation = arrayOf(R.id.challenge_fragment, R.id.donate_fragment, 0, 0, 0)
+    private val menusNavigation = arrayOf(
+        R.id.challenge_fragment,
+        R.id.donate_fragment,
+        R.id.home_fragment,
+        R.id.information_fragment,
+        R.id.my_page_fragment
+    )
 
     override fun initView() {
         val navHostFragment =
