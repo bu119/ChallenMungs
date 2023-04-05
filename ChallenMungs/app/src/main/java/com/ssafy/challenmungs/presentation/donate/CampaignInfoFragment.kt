@@ -9,5 +9,13 @@ import dagger.hilt.android.AndroidEntryPoint
 class CampaignInfoFragment :
     BaseFragment<FragmentCampaignInfoBinding>(R.layout.fragment_campaign_info) {
 
-    override fun initView() {}
+    override fun initView() {
+        initListener()
+    }
+
+    private fun initListener() {
+        binding.btnBack.setOnClickListener {
+            popBackStack()
+        }
+    }
 }

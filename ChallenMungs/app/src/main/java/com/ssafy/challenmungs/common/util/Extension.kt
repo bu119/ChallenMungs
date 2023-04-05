@@ -2,6 +2,7 @@ package com.ssafy.challenmungs.common.util
 
 import android.content.Context
 import android.os.Build
+import android.util.Base64
 import android.view.View
 import android.view.WindowInsets
 import android.view.WindowInsetsController
@@ -10,6 +11,7 @@ import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import kotlinx.coroutines.*
+import org.json.JSONObject
 
 private const val HIDE_DELAY_MS = 3000L
 
@@ -88,4 +90,19 @@ fun backDoublePressedFragmentCallback(fragment: Fragment): OnBackPressedCallback
     fragment.requireActivity().onBackPressedDispatcher.addCallback(fragment, callback)
 
     return callback
+}
+
+fun extractIdFromJWT(jwtString: String): String? {
+    val parts = jwtString.split('.')
+    if (parts.size != 3) {
+        // JWT 파트가 3개가 아닐 경우 예외 처리
+        return null
+    }
+    val payload = parts[1]
+    // Base64 디코딩
+    val decodedPayload = String(Base64.decode(payload, Base64.DEFAULT), Charsets.UTF_8)
+    // JSON 파싱
+    val json = JSONObject(decodedPayload)
+    // 'id' 필드 추출
+    return json.optString("loginId")
 }

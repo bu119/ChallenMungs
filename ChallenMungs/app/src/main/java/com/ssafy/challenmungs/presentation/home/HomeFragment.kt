@@ -52,15 +52,27 @@ class HomeFragment() : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home)
         ).execute()
 
         binding.tvShowTotalButton.setOnClickListener {
-            navigate(HomeFragmentDirections.actionToMyOngoingChallengeFragment(myOngoingChallengeCardList))
+            navigate(
+                HomeFragmentDirections.actionToMyOngoingChallengeFragment(
+                    myOngoingChallengeCardList
+                )
+            )
         }
 
         binding.tvShowMore.setOnClickListener {
-            navigate(HomeFragmentDirections.actionToMyChallengeOnlyTomorrowFullFragment(myChallengeOnlyTomorrowCardList))
+            navigate(
+                HomeFragmentDirections.actionToMyChallengeOnlyTomorrowFullFragment(
+                    myChallengeOnlyTomorrowCardList
+                )
+            )
         }
 
         binding.tvShowMoreForRecent.setOnClickListener {
-            navigate(HomeFragmentDirections.actionToRecentlyAddedCampaignFullFragment(recentlyAddedCampaignCardList))
+            navigate(
+                HomeFragmentDirections.actionToRecentlyAddedCampaignFullFragment(
+                    recentlyAddedCampaignCardList
+                )
+            )
         }
     }
 
@@ -136,9 +148,12 @@ class HomeFragment() : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home)
                 }
                 list.add(map)
             }
-
             val rv = binding.rvOngoing
-            val adapter = MyChallengeListAdapter(list)
+            val adapter =
+                MyChallengeListAdapter(
+                    this@HomeFragment::navigationNavHostFragmentToDestinationFragment,
+                    list
+                )
             rv.adapter = adapter
             rv.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         }
@@ -167,7 +182,8 @@ class HomeFragment() : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home)
             val responseBody = response.body?.string()
 
             response.close()
-            myChallengeOnlyTomorrowCardList = JSONObject(responseBody).getJSONArray("0").toString() ?: ""
+            myChallengeOnlyTomorrowCardList =
+                JSONObject(responseBody).getJSONArray("0").toString() ?: ""
             return responseBody ?: ""
         }
 
