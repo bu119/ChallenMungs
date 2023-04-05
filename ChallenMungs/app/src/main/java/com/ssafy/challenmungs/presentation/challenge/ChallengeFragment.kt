@@ -1,6 +1,7 @@
 package com.ssafy.challenmungs.presentation.challenge
 
 import android.animation.ObjectAnimator
+import android.util.Log
 import android.view.KeyEvent
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
@@ -90,10 +91,13 @@ class ChallengeFragment : BaseFragment<FragmentChallengeBinding>(R.layout.fragme
         }
 
         challengeViewModel.notStartedChallengeDetail.observe(viewLifecycleOwner) {
-            navigationNavHostFragmentToDestinationFragment(
-                R.id.nav_main,
-                R.id.challenge_basic_fragment
-            )
+            it?.let {
+                Log.d("notStartedChallengeDetail", "notStartedChallengeDetail: ${it.toString()}")
+                navigationNavHostFragmentToDestinationFragment(
+                    R.id.nav_main,
+                    R.id.challenge_basic_info_fragment
+                )
+            }
         }
     }
 

@@ -24,8 +24,13 @@ class ChallengeViewModel @Inject constructor(
         MutableLiveData(arrayListOf())
     val challengeList: LiveData<List<Challenge>?> = _challengeList
 
-    private val _notStartedChallengeDetail: MutableLiveData<NotStartedChallengeDetail?> = MutableLiveData()
+    private val _notStartedChallengeDetail: MutableLiveData<NotStartedChallengeDetail?> =
+        MutableLiveData()
     val notStartedChallengeDetail: LiveData<NotStartedChallengeDetail?> = _notStartedChallengeDetail
+
+    fun initNotStartedChallengeDetail() {
+        _notStartedChallengeDetail.value = null
+    }
 
     fun getChallengeList(type: Int, searchValue: String? = null) = viewModelScope.launch {
         when (val value = getChallengeListUseCase(type, searchValue)) {
@@ -39,7 +44,8 @@ class ChallengeViewModel @Inject constructor(
 
     fun getChallengeInfo(challengeId: Int) = viewModelScope.launch {
         when (val value = getChallengeInfoUseCase(challengeId)) {
-            is Resource.Success<NotStartedChallengeDetail> -> _notStartedChallengeDetail.value = value.data
+            is Resource.Success<NotStartedChallengeDetail> -> _notStartedChallengeDetail.value =
+                value.data
             is Resource.Error -> Log.e(
                 "getChallengeInfo",
                 "getChallengeInfo: ${value.errorMessage}"
