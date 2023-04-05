@@ -278,4 +278,10 @@
     <string name="image_reject">반려하기 버튼의 아이콘입니다.</string>
     <string name="image_challenge_basic">일반 챌린지 인증 사진입니다.</string>
     <string name="image_challenge_reject">거절당한 사진의 배경입니다.</string>
+    <string name="image_description">일반 챌린지 설명 태그 아이콘입니다.</string>
+    <string name="image_percent_to_success">일반 챌린지 성공 조건 태그 아이콘입니다.</string>
+    <string name="title_percent_to_success">성공 조건</string>
+    <string name="content_percent_to_success">%d%% 이상 성공</string>
+    <string name="content_basic_current_participants">현재 참가 인원 (%d명)</string>
+    <string name="title_go_to_shelter"><![CDATA[후원캠페인 바로가기 >]]></string>
 </resources>
