@@ -4,10 +4,7 @@ import com.ssafy.challenmungs.domain.repository.*
 import com.ssafy.challenmungs.domain.usecase.auth.JoinUseCase
 import com.ssafy.challenmungs.domain.usecase.auth.LogInUseCase
 import com.ssafy.challenmungs.domain.usecase.auth.SetWalletUseCase
-import com.ssafy.challenmungs.domain.usecase.challenge.CreatePanelChallengeUseCase
-import com.ssafy.challenmungs.domain.usecase.challenge.GetChallengeInfoUseCase
-import com.ssafy.challenmungs.domain.usecase.challenge.GetChallengeListUseCase
-import com.ssafy.challenmungs.domain.usecase.challenge.GetPanelInfoUseCase
+import com.ssafy.challenmungs.domain.usecase.challenge.*
 import com.ssafy.challenmungs.domain.usecase.donate.GetCampaignListUseCase
 import com.ssafy.challenmungs.domain.usecase.klaytn.CreateAccountUseCase
 import com.ssafy.challenmungs.domain.usecase.member.GetMemberInfoUseCase
@@ -55,6 +52,11 @@ object UseCaseModule {
     @Provides
     fun provideGetChallengeInfoUseCase(challengeRepository: ChallengeRepository): GetChallengeInfoUseCase =
         GetChallengeInfoUseCase(challengeRepository)
+
+    @Singleton
+    @Provides
+    fun provideRequestParticipateUseCase(challengeRepository: ChallengeRepository): RequestParticipateUseCase =
+        RequestParticipateUseCase(challengeRepository)
 
     @Singleton
     @Provides

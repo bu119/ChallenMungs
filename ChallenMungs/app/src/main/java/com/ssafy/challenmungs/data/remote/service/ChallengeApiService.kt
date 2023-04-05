@@ -2,6 +2,7 @@ package com.ssafy.challenmungs.data.remote.service
 
 import com.ssafy.challenmungs.data.remote.datasource.challenge.ChallengeListResponse
 import com.ssafy.challenmungs.data.remote.datasource.challenge.basic.ChallengeInfoResponse
+import com.ssafy.challenmungs.data.remote.datasource.common.ResultResponse
 import retrofit2.http.POST
 import retrofit2.http.Query
 
@@ -21,4 +22,10 @@ interface ChallengeApiService {
     suspend fun getChallengeInfo(
         @Query("challengeId") challengeId: Int
     ): ChallengeInfoResponse
+
+    @POST("/challenge/tokenConfirm/getInChallenge")
+    suspend fun requestParticipate(
+        @Query("challengeId") challengeId: Long,
+        @Query("teamId") teamId: Int?
+    ): ResultResponse
 }

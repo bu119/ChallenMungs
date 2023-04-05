@@ -10,14 +10,18 @@ import com.ssafy.challenmungs.domain.entity.challenge.Challenge
 import com.ssafy.challenmungs.domain.entity.challenge.NotStartedChallengeDetail
 import com.ssafy.challenmungs.domain.usecase.challenge.GetChallengeInfoUseCase
 import com.ssafy.challenmungs.domain.usecase.challenge.GetChallengeListUseCase
+import com.ssafy.challenmungs.domain.usecase.challenge.RequestParticipateUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class ChallengeViewModel @Inject constructor(
     private val getChallengeListUseCase: GetChallengeListUseCase,
-    private val getChallengeInfoUseCase: GetChallengeInfoUseCase
+    private val getChallengeInfoUseCase: GetChallengeInfoUseCase,
+    private val requestParticipateUseCase: RequestParticipateUseCase,
+    private val getChallengeParticipationFlagUseCase: GetChallengeParticipationFlagUseCase,
 ) : ViewModel() {
 
     private val _challengeList: MutableLiveData<List<Challenge>?> =
@@ -52,4 +56,20 @@ class ChallengeViewModel @Inject constructor(
             )
         }
     }
+
+    fun getChallengeParticipationFlag(challengeId: Long) = viewModelScope.launch {
+        when (val value = getChallengeParticipationFlagUseCase(challengeId)) {
+
+        }
+    }
+
+    suspend fun requestParticipate(challengeId: Long, teamId: Int? = null) = viewModelScope.async {
+        when (val value = requestParticipateUseCase(challengeId, teamId)) {
+            is Resource.Success<String> -> return@async true
+            is Resource.Error -> {
+                Log.e("requestParticipate", "requestParticipate: ${value.errorMessage}")
+                return@async false
+            }
+        }
+    }.await()
 }

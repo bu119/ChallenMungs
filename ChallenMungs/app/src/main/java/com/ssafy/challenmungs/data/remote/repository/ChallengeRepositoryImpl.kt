@@ -30,4 +30,8 @@ class ChallengeRepositoryImpl @Inject constructor(
     override suspend fun getChallengeInfo(challengeId: Int): Resource<NotStartedChallengeDetail> = wrapToResource(Dispatchers.IO){
         challengeRemoteDataSource.getChallengeInfo(challengeId).toDomainModel()
     }
+
+    override suspend fun requestParticipate(challengeId: Long, teamId: Int?): Resource<String> = wrapToResource(Dispatchers.IO){
+        challengeRemoteDataSource.requestParticipate(challengeId, teamId).toDomainModel()
+    }
 }
