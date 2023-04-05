@@ -134,8 +134,10 @@ public class CampaignContentServiceImpl implements CampaignContentService{
         int campaignCnt=0; //사용한 슬롯의 수
         String existAddress="";
         for(Campaign campaign:campaigns){
-            if(!campaign.getWalletAddress().equals("none"))
+//            if(!campaign.getWalletAddress().equals("none"))
+            if(campaign.getEndUnix() == 0){
                 campaignCnt++;
+            }
             else{
                 existAddress=campaign.getWalletAddress();
             }
@@ -193,6 +195,14 @@ public class CampaignContentServiceImpl implements CampaignContentService{
         return result;
 
     }
+
+    @Override
+    public int campaignBalance(int campaignId) {
+        Campaign campaign=listRepo.findCampaignByCampaignId(campaignId);
+        int balance = campaign.getCollectAmount() - campaign.getWithdrawAmount();
+        return balance;
+    }
+
     public int getLoveCnt(Campaign campaign){
         return loveRepo.countByCampaign(campaign);
     }

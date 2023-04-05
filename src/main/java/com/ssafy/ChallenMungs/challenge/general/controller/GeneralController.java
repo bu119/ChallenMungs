@@ -1,10 +1,13 @@
 package com.ssafy.ChallenMungs.challenge.general.controller;
 
+import com.ssafy.ChallenMungs.blockchain.repository.WalletRepository;
+import com.ssafy.ChallenMungs.blockchain.service.WalletService;
 import com.ssafy.ChallenMungs.challenge.common.entity.Challenge;
 import com.ssafy.ChallenMungs.challenge.common.entity.MyChallenge;
 import com.ssafy.ChallenMungs.challenge.general.service.GeneralParticipantService;
 import com.ssafy.ChallenMungs.challenge.general.service.GeneralService;
 import com.ssafy.ChallenMungs.user.controller.UserController;
+import com.ssafy.ChallenMungs.user.repository.UserRepository;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
@@ -30,6 +33,13 @@ public class GeneralController {
 
     @Autowired
     GeneralParticipantService generalParticipantService;
+
+    @Autowired
+    UserRepository userRepo;
+    @Autowired
+    WalletService walletService;
+    @Autowired
+    WalletRepository walletRepo;
 
     // 일반챌린지를 생성하는 API - 생성시 참가자 테이블에 생성자를 생성자로 추가
     @PostMapping("/tokenConfirm/create")
@@ -63,6 +73,9 @@ public class GeneralController {
         );
 
         String loginId = request.getAttribute("loginId").toString();
+        String generalChallenge = "0x2649eadC4C15bac554940A0A702fa759bddf0dBe";
+        String fromAddress = walletRepo.findByUserAndType(userRepo.findUserByLoginId(loginId), 'w').getAddress();
+        walletService.sendKlay(fromAddress, generalChallenge, entryFee);
         generalParticipantService.saveParticipant(
                 MyChallenge.builder()
                         .loginId(loginId)
@@ -70,6 +83,7 @@ public class GeneralController {
                         .successCount(0)
                         .build()
         );
+
 
         return ResponseEntity.ok(challengeId);
     }

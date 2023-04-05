@@ -89,7 +89,12 @@ public class CampaignContentController {
         return new ResponseEntity<Object>(res.makeSimpleRes("성공"),HttpStatus.OK);
     }
 
-
+    //캠페인이 출금 잔액 확인 api
+    @GetMapping("/balance")
+    @ApiOperation(value = "캠페인의 출금 가능 금액 확인" )
+    ResponseEntity<Object> balance(@RequestParam int campaignId) {
+        return new ResponseEntity<Object>(res.makeSimpleRes(service.campaignBalance(campaignId)),HttpStatus.INTERNAL_SERVER_ERROR);
+    }
 
 
 }

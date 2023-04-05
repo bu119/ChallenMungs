@@ -16,6 +16,7 @@ public interface WalletService {
     // 후원처 출금주소 받기
 //    void insertSpecialWithdrawalWallet(String walletAddress, String loginId) throws Exception;
     void saveOrUpdateWallet(String loginId, String walletAddress) throws Exception;
+    void sendKlay(String from, String to, int money);
 
     String getBalance(String address, char type);
 //    JsonNode getHistory(String address) throws JsonProcessingException;

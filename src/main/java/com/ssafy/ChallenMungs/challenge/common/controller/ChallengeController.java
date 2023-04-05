@@ -1,14 +1,18 @@
 package com.ssafy.ChallenMungs.challenge.common.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.ssafy.ChallenMungs.blockchain.repository.WalletRepository;
+import com.ssafy.ChallenMungs.blockchain.service.WalletService;
 import com.ssafy.ChallenMungs.challenge.common.dto.ChallengeParticipantDto;
 import com.ssafy.ChallenMungs.challenge.common.entity.Challenge;
 import com.ssafy.ChallenMungs.challenge.common.entity.MyChallenge;
+import com.ssafy.ChallenMungs.challenge.common.repository.ChallengeRepository;
 import com.ssafy.ChallenMungs.challenge.common.service.ChallengeService;
 import com.ssafy.ChallenMungs.challenge.common.service.MyChallengeService;
 import com.ssafy.ChallenMungs.common.util.Distance;
 import com.ssafy.ChallenMungs.common.util.FileManager;
 import com.ssafy.ChallenMungs.user.entity.User;
+import com.ssafy.ChallenMungs.user.repository.UserRepository;
 import com.ssafy.ChallenMungs.user.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -51,6 +55,20 @@ ChallengeController {
 
     @Autowired
     FileManager fileManager;
+    @Autowired
+    UserRepository userRepo;
+    @Autowired
+    ChallengeRepository challengeRepo;
+
+    @Autowired
+    WalletService walletService;
+
+    @Autowired
+    WalletRepository walletRepo;
+
+
+
+
 
 
     ObjectMapper mapper = new ObjectMapper();
@@ -214,6 +232,9 @@ ChallengeController {
         return new ResponseEntity(dto, HttpStatus.OK);
     }
 
+    String generalChallenge = "0x2649eadC4C15bac554940A0A702fa759bddf0dBe";
+    String panelChallenge = "0xee43BB5476e52B04175d698C56cC4516b96A85A5";
+
     @PostMapping("/tokenConfirm/getInChallenge")
     ResponseEntity getInChallenge(HttpServletRequest request, @RequestParam("challengeId") long challengeId, @RequestParam(name = "teamId", required = false) Integer teamId) {
         Challenge challenge = challengeService.findByChallengeId(challengeId);
@@ -237,6 +258,15 @@ ChallengeController {
                     challenge.setCurrentParticipantCount(challenge.getCurrentParticipantCount() + 1);
                     challengeService.save(challenge);
                     String loginId = request.getAttribute("loginId").toString();
+                    User user = userRepo.findUserByLoginId(loginId);
+                    Challenge challen = challengeRepo.findByChallengeId(challengeId);
+                    String toAddress;
+                    if (challen.getChallengeType() == 1){
+                        toAddress = generalChallenge;
+                    }else{
+                        toAddress = panelChallenge;
+                    }
+                    walletService.sendKlay(walletRepo.findByUserAndType(user, 'w').getAddress(), toAddress, challen.getEntryFee());
                     myChallengeService.save(MyChallenge.builder().loginId(loginId).challengeId(challengeId).successCount(0).teamId(teamId).build());
                     return ResponseEntity.status(HttpStatus.OK).build();
                 }
@@ -269,6 +299,18 @@ ChallengeController {
         String loginId = request.getAttribute("loginId").toString();
         myChallengeService.findByLoginIdAndChallengeIdToDelete(loginId, challengeId);
         Challenge challenge = challengeService.findByChallengeId(challengeId);
+
+        String toAddress = walletRepo.findByUserAndType(userRepo.findUserByLoginId(loginId), 'w').getAddress();
+        String fromAddress;
+        if (challenge.getChallengeType() == 1){
+            fromAddress = generalChallenge;
+        }
+
+        else {
+            fromAddress = panelChallenge;
+        }
+        walletService.sendKlay(fromAddress, toAddress, challenge.getEntryFee());
+
         challenge.setCurrentParticipantCount(challenge.getCurrentParticipantCount() - 1);
         if (challenge.getCurrentParticipantCount() == 0) {
             log.info("제가 나가서 이방엔 더이상 사람이 없어요!");
