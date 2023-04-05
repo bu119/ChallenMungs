@@ -218,6 +218,7 @@ public class PanelSocketHandler extends TextWebSocketHandler {
                 int rank = 0;
                 int count = -1;
                 for (RankVo r : challengeManager.get(challengeId).rankInfo) {
+                    System.out.println(rank);
                     if (r.getTeamId() == 1) sum1 += r.getPanelCount();
                     else if (r.getTeamId() == 2) sum2 += r.getPanelCount();
                     if (count < r.PanelCount) {
@@ -225,6 +226,8 @@ public class PanelSocketHandler extends TextWebSocketHandler {
                         rank++;
                     }
                     r.indiRank = rank;
+
+                    System.out.println(r.loginId + " " + r.PanelCount + " " + r.indiRank);
                 }
                 if (sum1 > sum2) {
                     challengeManager.get(challengeId).rankInfo.sort((o1, o2) -> {
