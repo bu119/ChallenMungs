@@ -299,18 +299,16 @@ ChallengeController {
         String loginId = request.getAttribute("loginId").toString();
         myChallengeService.findByLoginIdAndChallengeIdToDelete(loginId, challengeId);
         Challenge challenge = challengeService.findByChallengeId(challengeId);
-
+        /////////////
         String toAddress = walletRepo.findByUserAndType(userRepo.findUserByLoginId(loginId), 'w').getAddress();
         String fromAddress;
         if (challenge.getChallengeType() == 1){
             fromAddress = generalChallenge;
         }
-
         else {
             fromAddress = panelChallenge;
         }
         walletService.sendKlay(fromAddress, toAddress, challenge.getEntryFee());
-
         challenge.setCurrentParticipantCount(challenge.getCurrentParticipantCount() - 1);
         if (challenge.getCurrentParticipantCount() == 0) {
             log.info("제가 나가서 이방엔 더이상 사람이 없어요!");
