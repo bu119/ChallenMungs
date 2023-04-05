@@ -65,9 +65,9 @@ class PanelPlayFragment : BaseFragment<FragmentPanelPlayBinding>(R.layout.fragme
             })
         }
     }
+    private var roomNum: Long = 0L
 
     companion object {
-        private const val ROOM_NUM = 1L
         private const val LENGTH = 20
     }
 
@@ -86,11 +86,14 @@ class PanelPlayFragment : BaseFragment<FragmentPanelPlayBinding>(R.layout.fragme
     }
 
     override fun initView() {
+        getSelectedId()?.let {
+            roomNum = it
+        }
         val accessToken = ApplicationClass.preferences.accessToken
         if (accessToken != null) {
             panelPlayViewModel.setUserId(extractIdFromJWT(accessToken))
             lifecycleScope.launch {
-                panelPlayViewModel.getPanelInfo(ROOM_NUM)
+                panelPlayViewModel.getPanelInfo(roomNum)
             }
         }
         val mapFragment =
@@ -104,9 +107,6 @@ class PanelPlayFragment : BaseFragment<FragmentPanelPlayBinding>(R.layout.fragme
     private fun setBind() {
         panelPlayViewModel.challengeInfo.observe(viewLifecycleOwner) {
             binding.title = it?.title
-        }
-        panelPlayViewModel.currentPosition.observe(viewLifecycleOwner) {
-            createMyMarker(map, panelPlayViewModel.myProfileImg.value, it)
         }
         val observer = Observer<Pair<Int, Int>> {
             binding.tvMyRank.text =
@@ -128,7 +128,7 @@ class PanelPlayFragment : BaseFragment<FragmentPanelPlayBinding>(R.layout.fragme
             revertPanel()
         }
         binding.toolbar.tvInfo.setOnClickListener {
-
+            navigate(PanelPlayFragmentDirections.actionToPanelInfoFragment())
         }
     }
 
@@ -155,7 +155,7 @@ class PanelPlayFragment : BaseFragment<FragmentPanelPlayBinding>(R.layout.fragme
                         webSocketManager.revertPanel(
                             currentPosition.latitude,
                             currentPosition.longitude,
-                            ROOM_NUM,
+                            roomNum,
                             userId
                         )
                     }
@@ -166,6 +166,9 @@ class PanelPlayFragment : BaseFragment<FragmentPanelPlayBinding>(R.layout.fragme
 
     override fun onMapReady(googleMap: GoogleMap) {
         map = googleMap
+        panelPlayViewModel.currentPosition.observe(viewLifecycleOwner) {
+            createMyMarker(map, panelPlayViewModel.myProfileImg.value, it)
+        }
         setMyLocation()
         with(map) {
             panelPlayViewModel.center.observe(viewLifecycleOwner) { center ->
@@ -327,7 +330,7 @@ class PanelPlayFragment : BaseFragment<FragmentPanelPlayBinding>(R.layout.fragme
 
     override fun onConnectSuccess() {
         panelPlayViewModel.userId.value?.let {
-            webSocketManager.startWalking(ROOM_NUM, it)
+            webSocketManager.startWalking(roomNum, it)
         }
     }
 
