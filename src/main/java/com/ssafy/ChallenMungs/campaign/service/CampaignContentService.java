@@ -11,6 +11,8 @@ public interface CampaignContentService {
     int cheerUpCampaign(String loginId, int campaignId);
     CampaignDetailDto viewDetailCampaign(int campaignId);
 
+    int campaignBalance(int campaignId);
+
 
 
 
