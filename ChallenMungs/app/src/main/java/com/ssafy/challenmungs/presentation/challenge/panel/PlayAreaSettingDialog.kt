@@ -6,7 +6,6 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.VectorDrawable
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -39,15 +38,15 @@ class PlayAreaSettingDialog(
     DialogFragment(), OnMapReadyCallback {
 
     private lateinit var binding: DialogPlayAreaSettingBinding
+    private lateinit var googleMap: GoogleMap
+    private val mFusedLocationClient: FusedLocationProviderClient by lazy {
+        LocationServices.getFusedLocationProviderClient(mContext)
+    }
+    private var mContext: Context
     private var myMarker: Marker? = null
     private var rect: Polygon? = null
     private var currentLocation: LatLng = defaultPosition
     private var submitLocation: LatLng = currentLocation
-    private val mFusedLocationClient: FusedLocationProviderClient by lazy {
-        LocationServices.getFusedLocationProviderClient(mContext)
-    }
-    private lateinit var googleMap: GoogleMap
-    private var mContext: Context
 
     init {
         mContext = context
@@ -59,9 +58,11 @@ class PlayAreaSettingDialog(
         savedInstanceState: Bundle?
     ): View {
         binding = DialogPlayAreaSettingBinding.inflate(inflater, container, false)
+
         initSetting()
         initMapView()
         initListener()
+
         return binding.root
     }
 
@@ -77,6 +78,7 @@ class PlayAreaSettingDialog(
 
     override fun onMapReady(map: GoogleMap) {
         googleMap = map
+
         mapSetting(currentLocation)
         setMyLocation()
     }
@@ -89,6 +91,7 @@ class PlayAreaSettingDialog(
                 isMapToolbarEnabled = false
                 isTiltGesturesEnabled = false
             }
+
             moveCamera(CameraUpdateFactory.newLatLngZoom(location, DEFAULT_SETTING_ZOOM))
             setMarker(googleMap, location)
             setRect(googleMap, R.color.trans30_golden_poppy, location)
@@ -104,6 +107,7 @@ class PlayAreaSettingDialog(
                         touchPosition
                     )
                 )
+
                 submitLocation = touchPosition
             }
 
@@ -144,12 +148,13 @@ class PlayAreaSettingDialog(
     }
 
     private fun setRect(googleMap: GoogleMap, fillColorArgb: Int, center: LatLng) {
-        rect?.remove()
         val rectOptions = PolygonOptions().apply {
             addAll(MapHelper.createRectangle(center, DISTANCE))
             fillColor(ContextCompat.getColor(mContext, fillColorArgb))
             strokeWidth(0f)
         }
+
+        rect?.remove()
         rect = googleMap.addPolygon(rectOptions)
     }
 
@@ -190,9 +195,9 @@ class PlayAreaSettingDialog(
                         DEFAULT_SETTING_ZOOM
                     )
                 )
+
                 setMarker(googleMap, currentLocation)
                 setRect(googleMap, R.color.trans30_golden_poppy, currentLocation)
-                Log.d("TAG", "getCurrentLocation: $currentLocation")
             }
         }
     }

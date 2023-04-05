@@ -52,9 +52,7 @@ class PanelCreateFragment :
     }
 
     private fun setBind() {
-        binding.apply {
-            toolbar.title = getString(R.string.title_panel_play_create)
-        }
+        binding.toolbar.title = getString(R.string.title_panel_play_create)
 
         panelCreateViewModel.maxParticipantCount.observe(viewLifecycleOwner) {
             binding.tvMaxHeadcountContent.text = it.toString()

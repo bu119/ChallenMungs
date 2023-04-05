@@ -66,23 +66,22 @@ class PanelPlayViewModel @Inject constructor(
         val sum = IntArray(7)
         var myTeamId = 0
         var myRank = 0
+
         info?.forEach { rankDetail ->
             sum[rankDetail.teamId] += rankDetail.point
+
             if (rankDetail.loginId == _userId.value) {
                 _myProfileImg.value = rankDetail.profile
                 myTeamId = rankDetail.teamId
+
                 myRank = if ("팀전" == _challengeInfo.value?.type) {
                     rankDetail.teamRank
                 } else {
                     rankDetail.indiRank
                 }
             }
-            Log.d(
-                "TAG", "setMyInfo: sum : ${
-                    sum.contentToString()
-                }"
-            )
         }
+
         _myRank.value = Pair(myRank, sum[myTeamId])
     }
 
@@ -90,6 +89,7 @@ class PanelPlayViewModel @Inject constructor(
         viewModelScope.launch(Dispatchers.Main) {
             _rankInfo.value = rankInfo
             _challengeInfo.value?.currentRank = rankInfo
+
             setMyInfo(_rankInfo.value)
         }
     }

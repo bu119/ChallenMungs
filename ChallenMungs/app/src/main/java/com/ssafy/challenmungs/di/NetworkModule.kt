@@ -6,8 +6,8 @@ import com.ssafy.challenmungs.NoAuthInterceptorClient
 import com.ssafy.challenmungs.WalletInterceptorClient
 import com.ssafy.challenmungs.common.util.Constants.BASE_URL
 import com.ssafy.challenmungs.common.util.Constants.KLAYTN_API_WALLET
-import com.ssafy.challenmungs.data.remote.datasource.challenge.panel.WebSocketManager
 import com.ssafy.challenmungs.data.local.datasource.SharedPreferences
+import com.ssafy.challenmungs.data.remote.datasource.challenge.panel.WebSocketManager
 import com.ssafy.challenmungs.data.remote.interceptor.AuthInterceptor
 import com.ssafy.challenmungs.data.remote.interceptor.WalletAuthInterceptor
 import dagger.Module
@@ -111,19 +111,15 @@ object NetworkModule {
             .build()
 
     @Provides
-    fun provideOkHttpClient(): OkHttpClient {
-        return OkHttpClient.Builder()
-            .writeTimeout(5, TimeUnit.SECONDS)
-            .readTimeout(5, TimeUnit.SECONDS)
-            .connectTimeout(10, TimeUnit.SECONDS)
-            .retryOnConnectionFailure(true)
-            .build()
-    }
+    fun provideOkHttpClient(): OkHttpClient = OkHttpClient.Builder()
+        .writeTimeout(5, TimeUnit.SECONDS)
+        .readTimeout(5, TimeUnit.SECONDS)
+        .connectTimeout(10, TimeUnit.SECONDS)
+        .retryOnConnectionFailure(true)
+        .build()
 
     @Provides
     fun provideWebSocketManager(
         client: OkHttpClient,
-    ): WebSocketManager {
-        return WebSocketManager(client)
-    }
+    ): WebSocketManager = WebSocketManager(client)
 }

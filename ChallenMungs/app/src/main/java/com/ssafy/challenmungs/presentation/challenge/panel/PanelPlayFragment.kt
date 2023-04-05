@@ -50,9 +50,8 @@ class PanelPlayFragment : BaseFragment<FragmentPanelPlayBinding>(R.layout.fragme
     @Inject
     lateinit var webSocketManager: WebSocketManager
 
-    private val panelPlayViewModel by activityViewModels<PanelPlayViewModel>()
-    private var myMarker: Marker? = null
     private lateinit var map: GoogleMap
+    private val panelPlayViewModel by activityViewModels<PanelPlayViewModel>()
     private val mFusedLocationClient: FusedLocationProviderClient by lazy {
         LocationServices.getFusedLocationProviderClient(requireActivity())
     }
@@ -65,17 +64,13 @@ class PanelPlayFragment : BaseFragment<FragmentPanelPlayBinding>(R.layout.fragme
             })
         }
     }
+    private var myMarker: Marker? = null
     private var roomNum: Long = 0L
-
-    companion object {
-        private const val LENGTH = 20
-    }
-
-    //위치정보 요청시 호출
     private var locationCallback: LocationCallback = object : LocationCallback() {
         override fun onLocationResult(locationResult: LocationResult) {
             super.onLocationResult(locationResult)
             val locationList = locationResult.locations
+
             if (locationList.size > 0) {
                 val location = locationList[locationList.size - 1]
                 val position = LatLng(location.latitude, location.longitude)
@@ -86,16 +81,19 @@ class PanelPlayFragment : BaseFragment<FragmentPanelPlayBinding>(R.layout.fragme
     }
 
     override fun initView() {
+        val accessToken = ApplicationClass.preferences.accessToken
+
         getSelectedId()?.let {
             roomNum = it
         }
-        val accessToken = ApplicationClass.preferences.accessToken
+
         if (accessToken != null) {
             panelPlayViewModel.setUserId(extractIdFromJWT(accessToken))
             lifecycleScope.launch {
                 panelPlayViewModel.getPanelInfo(roomNum)
             }
         }
+
         val mapFragment =
             childFragmentManager.findFragmentById(R.id.fcv_google_map) as SupportMapFragment?
         mapFragment?.getMapAsync(this)
@@ -105,9 +103,6 @@ class PanelPlayFragment : BaseFragment<FragmentPanelPlayBinding>(R.layout.fragme
     }
 
     private fun setBind() {
-        panelPlayViewModel.challengeInfo.observe(viewLifecycleOwner) {
-            binding.title = it?.title
-        }
         val observer = Observer<Pair<Int, Int>> {
             binding.tvMyRank.text =
                 String.format(
@@ -116,10 +111,11 @@ class PanelPlayFragment : BaseFragment<FragmentPanelPlayBinding>(R.layout.fragme
                     it.second
                 )
         }
-        panelPlayViewModel.myRank.observe(viewLifecycleOwner, observer)
-        binding.toolbar.ivBack.setOnClickListener {
-            popBackStack()
+
+        panelPlayViewModel.challengeInfo.observe(viewLifecycleOwner) {
+            binding.title = it?.title
         }
+        panelPlayViewModel.myRank.observe(viewLifecycleOwner, observer)
     }
 
     private fun initListener() {
@@ -127,18 +123,25 @@ class PanelPlayFragment : BaseFragment<FragmentPanelPlayBinding>(R.layout.fragme
             startWalking()
             revertPanel()
         }
+
         binding.toolbar.tvInfo.setOnClickListener {
             navigate(PanelPlayFragmentDirections.actionToPanelInfoFragment())
+        }
+
+        binding.toolbar.ivBack.setOnClickListener {
+            popBackStack()
         }
     }
 
     private fun startWalking() {
         if (!webSocketManager.isConnect()) {
-            binding.btnWalk.text = getString(R.string.content_walk_end)
             val accessToken = ApplicationClass.preferences.accessToken
+
             if (accessToken != null) {
                 webSocketManager.connect()
             }
+
+            binding.btnWalk.text = getString(R.string.content_walk_end)
         } else {
             binding.btnWalk.text = getString(R.string.content_walk_start)
             webSocketManager.disconnect()
@@ -166,15 +169,18 @@ class PanelPlayFragment : BaseFragment<FragmentPanelPlayBinding>(R.layout.fragme
 
     override fun onMapReady(googleMap: GoogleMap) {
         map = googleMap
+
         panelPlayViewModel.currentPosition.observe(viewLifecycleOwner) {
             createMyMarker(map, panelPlayViewModel.myProfileImg.value, it)
         }
         setMyLocation()
+
         with(map) {
             panelPlayViewModel.center.observe(viewLifecycleOwner) { center ->
                 if (center != null) {
-                    moveCamera(CameraUpdateFactory.newLatLngZoom(center, DEFAULT_ZOOM))
                     val coordinate = panelPlayViewModel.challengeInfo.value?.mapCoordinate
+                    moveCamera(CameraUpdateFactory.newLatLngZoom(center, DEFAULT_ZOOM))
+
                     if (coordinate != null)
                         panelPlayViewModel.mapInfo.observe(viewLifecycleOwner) {
                             it.forEachIndexed { i, arr ->
@@ -228,7 +234,6 @@ class PanelPlayFragment : BaseFragment<FragmentPanelPlayBinding>(R.layout.fragme
         fillColorArgb: Int,
         coordinate: ArrayList<Location>
     ) {
-        panels[i][j]?.remove()
         val mapping = coordinate.mapIndexed { index, latLng ->
             when (index) {
                 2 -> LatLng(coordinate[3].lat, coordinate[3].lng)
@@ -241,6 +246,8 @@ class PanelPlayFragment : BaseFragment<FragmentPanelPlayBinding>(R.layout.fragme
             fillColor(fillColorArgb)
             strokeWidth(0f)
         }
+
+        panels[i][j]?.remove()
         panels[i][j] = googleMap.addPolygon(rectOptions)
     }
 
@@ -268,6 +275,7 @@ class PanelPlayFragment : BaseFragment<FragmentPanelPlayBinding>(R.layout.fragme
                         val pixels = 40.px(requireContext())
                         val bitmap =
                             Bitmap.createScaledBitmap(resource, pixels, pixels, true)
+
                         myMarker?.remove()
                         myMarker = googleMap.addMarker(
                             MarkerOptions()
@@ -334,9 +342,9 @@ class PanelPlayFragment : BaseFragment<FragmentPanelPlayBinding>(R.layout.fragme
         }
     }
 
-    @OptIn(DelicateCoroutinesApi::class)
     override fun onMessage(text: String?) {
         val json = text?.let { JSONObject(it) }
+
         when (json?.getString("code")) {
             "access" -> {
                 val valueJson = json.getJSONObject("value")
@@ -352,6 +360,7 @@ class PanelPlayFragment : BaseFragment<FragmentPanelPlayBinding>(R.layout.fragme
                     }
                     mapInfoList.add(innerList)
                 }
+
                 activity?.runOnUiThread {
                     panelPlayViewModel.setMapInfo(mapInfoList)
                 }
@@ -363,6 +372,7 @@ class PanelPlayFragment : BaseFragment<FragmentPanelPlayBinding>(R.layout.fragme
                 val rankInfoList = ArrayList<RankDetail>()
                 val c = value.value.indexC
                 val r = value.value.indexR
+
                 if (c >= 0 && r >= 0 && c < LENGTH && r < LENGTH) {
                     for (i in 0 until value.value.rankInfo.size) {
                         val innerRank = value.value.rankInfo[i]
@@ -372,9 +382,11 @@ class PanelPlayFragment : BaseFragment<FragmentPanelPlayBinding>(R.layout.fragme
                             3 -> R.drawable.ic_bronze_crown
                             else -> null
                         }
+
                         innerRank.crown = crown
                         rankInfoList.add(innerRank)
                     }
+
                     Handler(Looper.getMainLooper()).post {
                         panelPlayViewModel.rankInfo.observe(viewLifecycleOwner) { rankInfoList ->
                             val panel = panels[r][c]
@@ -392,4 +404,8 @@ class PanelPlayFragment : BaseFragment<FragmentPanelPlayBinding>(R.layout.fragme
     override fun onConnectFailed() {}
 
     override fun onClose() {}
+
+    companion object {
+        private const val LENGTH = 20
+    }
 }

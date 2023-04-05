@@ -26,12 +26,6 @@ class WebSocketManager @Inject constructor(
     private var isConnect = false
     private var connectNum = 0
 
-    companion object {
-        private val TAG = "WebSocketManager"
-        private const val MAX_NUM = 5  // Maximum number of reconnections
-        private const val MILLIS = 1000  // Reconnection interval, milliseconds
-    }
-
     fun init(url: String, _messageListener: MessageListener) {
         messageListener = _messageListener
         request = Request.Builder()
@@ -48,9 +42,7 @@ class WebSocketManager @Inject constructor(
         isConnect = true
     }
 
-    private fun createListener(): WebSocketListener {
-        return WebSocketListener(messageListener)
-    }
+    private fun createListener(): WebSocketListener = WebSocketListener(messageListener)
 
     fun reconnect() {
         if (connectNum <= MAX_NUM) {
@@ -69,9 +61,7 @@ class WebSocketManager @Inject constructor(
         }
     }
 
-    fun isConnect(): Boolean {
-        return isConnect
-    }
+    fun isConnect(): Boolean = isConnect
 
     fun disconnect() {
         if (isConnect) {
@@ -86,9 +76,7 @@ class WebSocketManager @Inject constructor(
         }
     }
 
-    private fun sendMessage(text: String): Boolean {
-        return if (!isConnect) false else webSocket.send(text)
-    }
+    private fun sendMessage(text: String): Boolean = if (!isConnect) false else webSocket.send(text)
 
     fun startWalking(challengeId: Long, loginId: String): Boolean {
         val text = Gson().toJson(PanelStartSend("access", PanelStartDataSend(challengeId, loginId)))
@@ -113,5 +101,11 @@ class WebSocketManager @Inject constructor(
 
     override fun onDestroy(owner: LifecycleOwner) {
         disconnect()
+    }
+
+    companion object {
+        private val TAG = "WebSocketManager"
+        private const val MAX_NUM = 5  // Maximum number of reconnections
+        private const val MILLIS = 1000  // Reconnection interval, milliseconds
     }
 }
