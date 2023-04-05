@@ -10,6 +10,7 @@ import java.text.SimpleDateFormat
 
 class MyChallengeOnlyTomorrowAdapter(private val arrayList: List<Map<String, Any>>) :
     RecyclerView.Adapter<MyChallengeOnlyTomorrowViewHolder>() {
+
     private lateinit var binding: ItemMyChallengeOnlyTomorrowBinding
 
     override fun onCreateViewHolder(

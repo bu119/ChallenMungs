@@ -24,7 +24,6 @@ class InformationPlaceListFragment : BaseFragment<FragmentInformationPlaceListBi
             popBackStack()
         }
         var jsonArray = JSONArray(list)
-        Log.d("gggg", jsonArray.toString());
         val dtoList = mutableListOf<Map<String, Any>>()
 
         for (i in 0 until jsonArray.length()) {

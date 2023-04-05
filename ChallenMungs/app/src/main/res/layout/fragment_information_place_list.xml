@@ -26,5 +26,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/iv_escape_button" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </layout>

@@ -74,7 +74,7 @@
             android:name="cardList"
             app:argType="string" />
     </fragment>
-    
+
     <fragment
         android:id="@+id/recentlyAddedCampaignFullFragment"
         android:name="com.ssafy.challenmungs.presentation.home.RecentlyAddedCampaignFullFragment"

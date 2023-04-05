@@ -15,8 +15,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            />
+            app:layout_constraintStart_toStartOf="parent" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintLayout"
@@ -29,7 +28,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
-
 
             <ImageView
                 android:id="@+id/iv_search_ic"
@@ -55,6 +53,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/iv_search_ic"
                 app:layout_constraintTop_toTopOf="parent" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <HorizontalScrollView
@@ -192,6 +191,7 @@
                 </LinearLayout>
 
             </LinearLayout>
+
         </HorizontalScrollView>
 
         <ImageView
@@ -451,10 +451,7 @@
                 app:layout_constraintStart_toEndOf="@+id/tv_region_kwanju"
                 app:layout_constraintTop_toBottomOf="@+id/tv_region_jeonranamdo" />
 
-
         </androidx.constraintlayout.widget.ConstraintLayout>
-
-
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

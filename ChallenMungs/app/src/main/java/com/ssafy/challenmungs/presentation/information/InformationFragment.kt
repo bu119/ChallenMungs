@@ -91,7 +91,6 @@ OnMapReadyCallback {
         val list = mutableListOf(binding.tvRegionChunchungbukdo, binding.tvRegionDaejeon, binding.tvRegionDaegu, binding.tvRegionChunchungnamdo, binding.tvRegionJeonrabukdo, binding.tvRegionIncheon, binding.tvRegionJeonranamdo, binding.tvRegionKangwondo, binding.tvRegionKwanju, binding.tvRegionKyungsangbukdo, binding.tvRegionKyungsangnamdo, binding.tvRegionKyunkido, binding.tvRegionPusan, binding.tvRegionSeoul)
 
         for (i in list) {
-//            Log.d("gggg", i.text.toString())
             i.setOnClickListener {
                 if(!regionList.contains(i.text.toString())) {
                     i.setBackgroundResource(R.drawable.bg_rect_golden_glow_radius100)
@@ -118,6 +117,7 @@ OnMapReadyCallback {
 
         var chipList = listOf(binding.llHospitalChip, binding.llPharmacyChip, binding.llCafeChip, binding.llMealChip)
         val chipListValue = arrayOf("동물병원", "동물약국", "카페", "식당")
+
         for (i in chipList) {
             i.setOnClickListener {
                 if (!chipToggle[chipList.indexOf(i)]) {
@@ -173,6 +173,7 @@ OnMapReadyCallback {
             powered = !powered
         }
     }
+
     inner class GetPlaceList(
         private val url: String,
         private val searchValue: String?,

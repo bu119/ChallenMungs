@@ -37,7 +37,6 @@ class MyOngoingChallengeFullViewHolder(private val binding: ItemChallengeCardMyO
 RecyclerView.ViewHolder(binding.root) {
 
     fun bind(dto: Map<String, Any>) {
-
         binding.tvTitle.text = dto["title"].toString()
 
         val dateFormat = SimpleDateFormat("yyyy-MM-dd")

@@ -2,15 +2,12 @@ package com.ssafy.challenmungs.presentation.home
 
 import android.content.Context
 import android.os.AsyncTask
-import android.util.Log
-import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ssafy.challenmungs.ApplicationClass
 import com.ssafy.challenmungs.R
 import com.ssafy.challenmungs.databinding.FragmentHomeBinding
 import com.ssafy.challenmungs.presentation.base.BaseFragment
-import com.ssafy.challenmungs.presentation.information.InformationFragmentDirections
 import dagger.hilt.android.AndroidEntryPoint
 import okhttp3.FormBody
 import okhttp3.OkHttpClient
@@ -19,12 +16,13 @@ import org.json.JSONArray
 import org.json.JSONObject
 import java.text.DecimalFormat
 
-
 @AndroidEntryPoint
 class HomeFragment() : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
+
     lateinit var myOngoingChallengeCardList: String
     lateinit var myChallengeOnlyTomorrowCardList: String
     lateinit var recentlyAddedCampaignCardList: String
+
     override fun initView() {
         val jwt = ApplicationClass.preferences.accessToken.toString()
         GetTotalDonation(
@@ -200,6 +198,7 @@ class HomeFragment() : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home)
         private val binding: FragmentHomeBinding,
         private val context: Context
     ) : AsyncTask<Void, Void, String>() {
+
         override fun doInBackground(vararg params: Void?): String {
             val client = OkHttpClient()
             val request = Request.Builder()

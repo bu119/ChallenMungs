@@ -42,7 +42,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-
                 <TextView
                     android:id="@+id/tv_pharse_catch_pharse"
                     android:layout_width="wrap_content"
@@ -65,7 +64,6 @@
                     android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tv_pharse_catch_pharse" />
-
 
                 <TextView
                     android:id="@+id/tv_my_total_donation"
@@ -182,6 +180,7 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </ScrollView>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

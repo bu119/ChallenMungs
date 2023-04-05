@@ -50,6 +50,9 @@
                 android:gravity="center"
                 android:textColor="@color/suva_grey"
                 android:textStyle="bold" />
+
         </LinearLayout>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </layout>
