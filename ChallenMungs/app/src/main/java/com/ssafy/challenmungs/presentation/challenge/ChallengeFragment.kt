@@ -16,7 +16,12 @@ import dagger.hilt.android.AndroidEntryPoint
 class ChallengeFragment : BaseFragment<FragmentChallengeBinding>(R.layout.fragment_challenge) {
 
     private val challengeViewModel by activityViewModels<ChallengeViewModel>()
-    private val challengeListAdapter by lazy { ChallengeListAdapter(requireContext()) }
+    private val challengeListAdapter by lazy {
+        ChallengeListAdapter(
+            requireContext(),
+            challengeViewModel::getChallengeInfo
+        )
+    }
     private var isOpened = false
 
     override fun initView() {
@@ -82,6 +87,13 @@ class ChallengeFragment : BaseFragment<FragmentChallengeBinding>(R.layout.fragme
             it?.let {
                 challengeListAdapter.submitList(it)
             }
+        }
+
+        challengeViewModel.notStartedChallenge.observe(viewLifecycleOwner) {
+            navigationNavHostFragmentToDestinationFragment(
+                R.id.nav_main,
+                R.id.challenge_basic_fragment
+            )
         }
     }
 

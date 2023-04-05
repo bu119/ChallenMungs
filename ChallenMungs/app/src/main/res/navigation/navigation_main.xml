@@ -35,23 +35,20 @@
         android:id="@+id/main_fragment"
         android:name="com.ssafy.challenmungs.presentation.common.MainFragment"
         android:label="Main Fragment"
-        tools:layout="@layout/fragment_main">
-
-        <action
-            android:id="@+id/action_to_campaign_info_fragment"
-            app:destination="@id/campaign_info_fragment" />
-    </fragment>
+        tools:layout="@layout/fragment_main" />
 
     <fragment
         android:id="@+id/campaign_info_fragment"
         android:name="com.ssafy.challenmungs.presentation.donate.CampaignInfoFragment"
         android:label="Campaign Info Fragment"
         tools:layout="@layout/fragment_campaign_info" />
+
     <fragment
         android:id="@+id/panel_play_fragment"
         android:name="com.ssafy.challenmungs.presentation.challenge.panel.PanelPlayFragment"
         android:label="PanelPlayFragment"
         tools:layout="@layout/fragment_panel_play">
+
         <action
             android:id="@+id/action_to_panelInfoFragment"
             app:destination="@id/panel_info_fragment" />
@@ -61,5 +58,11 @@
         android:id="@+id/panel_info_fragment"
         android:name="com.ssafy.challenmungs.presentation.challenge.panel.PanelInfoFragment"
         android:label="PanelInfoFragment"
-        tools:layout="@layout/fragment_panel_info"/>
+        tools:layout="@layout/fragment_panel_info" />
+
+    <fragment
+        android:id="@+id/challenge_basic_fragment"
+        android:name="com.ssafy.challenmungs.presentation.challenge.basic.ChallengeBasicFragment"
+        android:label="Challenge Basic Fragment"
+        tools:layout="@layout/fragment_challenge_basic" />
 </navigation>

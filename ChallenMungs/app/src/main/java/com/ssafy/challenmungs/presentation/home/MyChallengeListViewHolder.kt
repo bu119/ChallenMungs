@@ -37,7 +37,7 @@ class MyChallengeListViewHolder(private val binding: ItemChallengeCardMyOngoingB
             // 상세 페이지로 이동하는 navigation 코드 구현 필요
             val challengeId = dto["challengeId"]
             navigationNavHostFragmentToDestinationFragment(
-                R.id.nav_host,
+                R.id.nav_main,
                 R.id.panel_play_fragment,
                 challengeId.toString().toLong()
             )

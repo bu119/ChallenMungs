@@ -86,7 +86,7 @@ abstract class BaseFragment<T : ViewDataBinding>(
     fun navigationNavHostFragmentToDestinationFragment(
         fragmentContainerViewId: Int,
         destinationFragmentId: Int,
-        selectedId: Long
+        selectedId: Long = 0
     ) {
         val navHostFragment =
             activity?.supportFragmentManager?.findFragmentById(fragmentContainerViewId) as NavHostFragment
