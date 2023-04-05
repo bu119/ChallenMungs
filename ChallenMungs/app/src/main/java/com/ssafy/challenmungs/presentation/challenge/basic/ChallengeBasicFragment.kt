@@ -52,8 +52,7 @@ class ChallengeBasicFragment :
                 }
             }
 
-            override fun onTabReselected(tab: TabLayout.Tab?) {
-            }
+            override fun onTabReselected(tab: TabLayout.Tab?) {}
 
             fun setStyleForTab(tab: TabLayout.Tab, style: Int) {
                 tab.view.children.find { it is TextView }?.let { tv ->
