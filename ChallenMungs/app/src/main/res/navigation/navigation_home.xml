@@ -16,4 +16,72 @@
         android:name="com.ssafy.challenmungs.presentation.donate.DonateFragment"
         android:label="Donate Fragment"
         tools:layout="@layout/fragment_donate" />
+
+    <fragment
+        android:id="@+id/informationFragment"
+        android:name="com.ssafy.challenmungs.presentation.information.InformationFragment"
+        android:label="InformationFragment" >
+
+        <action
+            android:id="@+id/action_to_informationPlaceListFragment"
+            app:destination="@id/informationPlaceListFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/informationPlaceListFragment"
+        android:name="com.ssafy.challenmungs.presentation.information.InformationPlaceListFragment"
+        android:label="InformationPlaceListFragment" >
+
+        <argument
+            android:name="cardList"
+            app:argType="string"
+            app:nullable="true"
+            android:defaultValue="gggg"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/home_fragment"
+        android:name="com.ssafy.challenmungs.presentation.home.HomeFragment"
+        android:label="HomeFragment" >
+
+        <action
+            android:id="@+id/action_to_myOngoingChallengeFragment"
+            app:destination="@id/my_ongoing_challenge_full" />
+        <action
+            android:id="@+id/action_to_myChallengeOnlyTomorrowFullFragment"
+            app:destination="@id/myChallengeOnlyTomorrowFullFragment" />
+        <action
+            android:id="@+id/action_to_recentlyAddedCampaignFullFragment"
+            app:destination="@id/recentlyAddedCampaignFullFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/my_ongoing_challenge_full"
+        android:name="com.ssafy.challenmungs.presentation.home.MyOngoingChallengeFull"
+        android:label="MyOngoingChallengeFull" >
+
+        <argument
+            android:name="cardList"
+            app:argType="string"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/myChallengeOnlyTomorrowFullFragment"
+        android:name="com.ssafy.challenmungs.presentation.home.MyChallengeOnlyTomorrowFullFragment"
+        android:label="MyChallengeOnlyTomorrowFullFragment" >
+
+        <argument
+            android:name="cardList"
+            app:argType="string" />
+    </fragment>
+    
+    <fragment
+        android:id="@+id/recentlyAddedCampaignFullFragment"
+        android:name="com.ssafy.challenmungs.presentation.home.RecentlyAddedCampaignFullFragment"
+        android:label="RecentlyAddedCampaignFullFragment" >
+
+        <argument
+            android:name="cardList"
+            app:argType="string" />
+    </fragment>
 </navigation>
