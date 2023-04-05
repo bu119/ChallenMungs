@@ -2,6 +2,7 @@ package com.ssafy.challenmungs.presentation.home
 
 import android.content.Context
 import android.os.AsyncTask
+import android.view.View
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ssafy.challenmungs.ApplicationClass
@@ -122,25 +123,31 @@ class HomeFragment() : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home)
 
         override fun onPostExecute(result: String?) {
             val jsonArray = JSONObject(result).getJSONArray("1")
-            val list = mutableListOf<Map<String, Any>>()
 
-            for (i in 0 until jsonArray.length()) {
-                val jsonObj = jsonArray.getJSONObject(i)
-                val map = mutableMapOf<String, Any>()
-                val keys = jsonObj.keys()
+            if (jsonArray.length() > 0) {
+                val list = mutableListOf<Map<String, Any>>()
 
-                while (keys.hasNext()) {
-                    val key = keys.next()
-                    val value = jsonObj.get(key)
-                    map.put(key, value)
+                for (i in 0 until jsonArray.length()) {
+                    val jsonObj = jsonArray.getJSONObject(i)
+                    val map = mutableMapOf<String, Any>()
+                    val keys = jsonObj.keys()
+
+                    while (keys.hasNext()) {
+                        val key = keys.next()
+                        val value = jsonObj.get(key)
+                        map.put(key, value)
+                    }
+                    list.add(map)
                 }
-                list.add(map)
-            }
 
-            val rv = binding.rvOngoing
-            val adapter = MyChallengeListAdapter(list)
-            rv.adapter = adapter
-            rv.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+                val rv = binding.rvOngoing
+                val adapter = MyChallengeListAdapter(list)
+                rv.adapter = adapter
+                rv.layoutManager =
+                    LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+            } else {
+                binding.tvNoOngoing.visibility = View.VISIBLE
+            }
         }
     }
 
@@ -173,23 +180,28 @@ class HomeFragment() : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home)
 
         override fun onPostExecute(result: String?) {
             val jsonArray = JSONObject(result).getJSONArray("0")
-            val list = mutableListOf<Map<String, Any>>()
 
-            for (i in 0 until jsonArray.length()) {
-                val jsonObj = jsonArray.getJSONObject(i)
-                val map = mutableMapOf<String, Any>()
-                val keys = jsonObj.keys()
+            if (jsonArray.length() > 0) {
+                val list = mutableListOf<Map<String, Any>>()
 
-                while (keys.hasNext()) {
-                    val key = keys.next()
-                    val value = jsonObj.get(key)
-                    map.put(key, value)
+                for (i in 0 until jsonArray.length()) {
+                    val jsonObj = jsonArray.getJSONObject(i)
+                    val map = mutableMapOf<String, Any>()
+                    val keys = jsonObj.keys()
+
+                    while (keys.hasNext()) {
+                        val key = keys.next()
+                        val value = jsonObj.get(key)
+                        map.put(key, value)
+                    }
+                    list.add(map)
                 }
-                list.add(map)
+                val rv = binding.rvOnlyTomorrow
+                rv.adapter = MyChallengeOnlyTomorrowAdapter(list)
+                rv.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+            } else {
+                binding.tvNoOngoing.visibility = View.VISIBLE
             }
-            val rv = binding.rvOnlyTomorrow
-            rv.adapter = MyChallengeOnlyTomorrowAdapter(list)
-            rv.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         }
     }
 
@@ -215,23 +227,28 @@ class HomeFragment() : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home)
 
         override fun onPostExecute(result: String?) {
             val jsonArray = JSONArray(result)
-            val list = mutableListOf<Map<String, Any>>()
 
-            for (i in 0 until jsonArray.length()) {
-                val jsonObj = jsonArray.getJSONObject(i)
-                val map = mutableMapOf<String, Any>()
-                val keys = jsonObj.keys()
-                while (keys.hasNext()) {
-                    val key = keys.next()
-                    val value = jsonObj.get(key)
-                    map.put(key, value)
+            if (jsonArray.length() > 0) {
+                val list = mutableListOf<Map<String, Any>>()
+
+                for (i in 0 until jsonArray.length()) {
+                    val jsonObj = jsonArray.getJSONObject(i)
+                    val map = mutableMapOf<String, Any>()
+                    val keys = jsonObj.keys()
+                    while (keys.hasNext()) {
+                        val key = keys.next()
+                        val value = jsonObj.get(key)
+                        map.put(key, value)
+                    }
+                    list.add(map)
                 }
-                list.add(map)
-            }
-            val rv = binding.rvRecentlyAddedCampaign
+                val rv = binding.rvRecentlyAddedCampaign
 
-            rv.adapter = RecentlyAddedCampaignAdpater(list)
-            rv.layoutManager = GridLayoutManager(context, 2, GridLayoutManager.VERTICAL, false)
+                rv.adapter = RecentlyAddedCampaignAdpater(list)
+                rv.layoutManager = GridLayoutManager(context, 2, GridLayoutManager.VERTICAL, false)
+            } else {
+                binding.tvNoOngoing.visibility = View.VISIBLE
+            }
         }
     }
 }
