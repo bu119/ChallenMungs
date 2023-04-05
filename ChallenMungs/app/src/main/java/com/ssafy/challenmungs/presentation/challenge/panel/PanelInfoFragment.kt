@@ -17,7 +17,10 @@ class PanelInfoFragment :
     }
 
     private fun setBind() {
-        binding.info = panelPlayViewModel.challengeInfo.value
+        panelPlayViewModel.challengeInfo.observe(viewLifecycleOwner) {
+            binding.info = it
+        }
+
         binding.toolbar.ivBack.setOnClickListener {
             popBackStack()
         }

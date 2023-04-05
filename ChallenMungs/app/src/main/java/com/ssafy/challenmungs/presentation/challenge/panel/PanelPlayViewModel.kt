@@ -63,17 +63,33 @@ class PanelPlayViewModel @Inject constructor(
     }.await()
 
     private fun setMyInfo(info: ArrayList<RankDetail>?) {
+        val sum = IntArray(7)
+        var myTeamId = 0
+        var myRank = 0
         info?.forEach { rankDetail ->
+            sum[rankDetail.teamId] += rankDetail.point
             if (rankDetail.loginId == _userId.value) {
-                _myRank.value = Pair(rankDetail.rank, rankDetail.point)
                 _myProfileImg.value = rankDetail.profile
+                myTeamId = rankDetail.teamId
+                myRank = if ("팀전" == _challengeInfo.value?.type) {
+                    rankDetail.teamRank
+                } else {
+                    rankDetail.indiRank
+                }
             }
+            Log.d(
+                "TAG", "setMyInfo: sum : ${
+                    sum.contentToString()
+                }"
+            )
         }
+        _myRank.value = Pair(myRank, sum[myTeamId])
     }
 
     fun setRankInfo(rankInfo: ArrayList<RankDetail>) {
         viewModelScope.launch(Dispatchers.Main) {
             _rankInfo.value = rankInfo
+            _challengeInfo.value?.currentRank = rankInfo
             setMyInfo(_rankInfo.value)
         }
     }
