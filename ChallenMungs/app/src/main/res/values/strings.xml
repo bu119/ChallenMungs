@@ -235,4 +235,5 @@
     <string name="content_reject">반려하기</string>
     <string name="image_reject">반려하기 버튼의 아이콘입니다.</string>
     <string name="image_challenge_basic">일반 챌린지 인증 사진입니다.</string>
+    <string name="image_challenge_reject">거절당한 사진의 배경입니다.</string>
 </resources>

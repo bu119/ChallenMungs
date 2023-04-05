@@ -6,11 +6,11 @@ import androidx.core.view.children
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.ssafy.challenmungs.R
-import com.ssafy.challenmungs.databinding.FragmentChallengeInfoBasicBinding
+import com.ssafy.challenmungs.databinding.FragmentChallengeBasicBinding
 import com.ssafy.challenmungs.presentation.base.BaseFragment
 
-class ChallengeInfoBasicFragment :
-    BaseFragment<FragmentChallengeInfoBasicBinding>(R.layout.fragment_challenge_info_basic) {
+class ChallengeBasicFragment :
+    BaseFragment<FragmentChallengeBasicBinding>(R.layout.fragment_challenge_basic) {
 
     enum class ViewType {
         TODAY, HISTORY
@@ -30,7 +30,7 @@ class ChallengeInfoBasicFragment :
         )
 
         binding.apply {
-            vpChallengeBasic.adapter = ChallengeInfoBasicAdapter(this@ChallengeInfoBasicFragment)
+            vpChallengeBasic.adapter = ChallengeBasicAdapter(this@ChallengeBasicFragment)
 
             TabLayoutMediator(tlChallengeMenu, vpChallengeBasic) { tab, position ->
                 tab.text = tabTitles[position]
