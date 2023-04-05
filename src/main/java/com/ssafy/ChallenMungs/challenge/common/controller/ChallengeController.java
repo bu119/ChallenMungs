@@ -232,6 +232,9 @@ ChallengeController {
         return new ResponseEntity(dto, HttpStatus.OK);
     }
 
+    String generalChallenge = "0x2649eadC4C15bac554940A0A702fa759bddf0dBe";
+    String panelChallenge = "0xee43BB5476e52B04175d698C56cC4516b96A85A5";
+
     @PostMapping("/tokenConfirm/getInChallenge")
     ResponseEntity getInChallenge(HttpServletRequest request, @RequestParam("challengeId") long challengeId, @RequestParam(name = "teamId", required = false) Integer teamId) {
         Challenge challenge = challengeService.findByChallengeId(challengeId);
@@ -259,9 +262,9 @@ ChallengeController {
                     Challenge challen = challengeRepo.findByChallengeId(challengeId);
                     String toAddress;
                     if (challen.getChallengeType() == 1){
-                        toAddress = "0x2649eadC4C15bac554940A0A702fa759bddf0dBe";
+                        toAddress = generalChallenge;
                     }else{
-                        toAddress = "0xee43BB5476e52B04175d698C56cC4516b96A85A5";
+                        toAddress = panelChallenge;
                     }
                     walletService.sendKlay(walletRepo.findByUserAndType(user, 'w').getAddress(), toAddress, challen.getEntryFee());
                     myChallengeService.save(MyChallenge.builder().loginId(loginId).challengeId(challengeId).successCount(0).teamId(teamId).build());
@@ -296,7 +299,18 @@ ChallengeController {
         String loginId = request.getAttribute("loginId").toString();
         myChallengeService.findByLoginIdAndChallengeIdToDelete(loginId, challengeId);
         Challenge challenge = challengeService.findByChallengeId(challengeId);
-//        System.out.println("::::" + challenge);
+
+        String toAddress = walletRepo.findByUserAndType(userRepo.findUserByLoginId(loginId), 'w').getAddress();
+        String fromAddress;
+        if (challenge.getChallengeType() == 1){
+            fromAddress = generalChallenge;
+        }
+
+        else {
+            fromAddress = panelChallenge;
+        }
+        walletService.sendKlay(fromAddress, toAddress, challenge.getEntryFee());
+
         challenge.setCurrentParticipantCount(challenge.getCurrentParticipantCount() - 1);
         if (challenge.getCurrentParticipantCount() == 0) {
             log.info("제가 나가서 이방엔 더이상 사람이 없어요!");
