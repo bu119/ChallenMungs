@@ -111,7 +111,7 @@
 
     <!--  Campaign Card  -->
     <string name="content_campaign_amount">%d / %d KLAY</string>
-    <string name="content_progress">(%d)</string>
+    <string name="content_progress">(%d%%)</string>
     <string name="image_heart_icon">image_heart_icon</string>
     <string name="image_campaign_banner">image_banner</string>
 
@@ -202,6 +202,46 @@
         <item>보물찾기</item>
     </string-array>
     <string name="content_challenge_help">챌린지 설명을 볼 수 있는 버튼입니다.</string>
+    <string name="content_search_challenge_hint">검색할 챌린지 이름을 입력하세요.</string>
+
+    <!-- Donate - Home -->
+    <string name="content_filter_amount">누적금액순</string>
+    <string name="content_filter_cheer_up">응원순</string>
+    <string name="content_filter_recent">최신순</string>
+    <string name="image_filter">필터 버튼의 아이콘입니다.</string>
+    <string name="image_sort_option">오름차순인지 내림차순인지 나타내는 이미지입니다</string>
+    <string name="content_search_campaign_hint">검색할 캠페인 이름을 입력하세요.</string>
+
+    <!-- Donate - Campaign page -->
+    <string name="image_campaign_main">기부 캠페인의 메인 이미지 입니다.</string>
+    <string name="image_share">공유 버튼입니다.</string>
+    <string name="image_cheer_up">응원받은 수 이미지입니다.</string>
+    <string name="content_cheer_up">응원하기</string>
+    <string name="image_member_profile">사용자의 프로필 이미지입니다.</string>
+    <string name="title_usage_history">사용내역</string>
+    <string name="content_view_receipt">영수증 확인 ></string>
+    <string name="image_receipt">영수증 인증 사진입니다.</string>
+
+    <!-- Donate - Donate -->
+    <string name="content_my_piggy_bank">내 기부 저금통</string>
+    <string name="content_from">에서</string>
+    <string name="content_to">(으)로</string>
+    <string name="content_donate_amount">\?얼마를 보낼까요</string>
+    <string name="content_input">입력</string>
+    <string name="title_campaign_comment">응원 댓글 쓰기</string>
+    <string name="content_character_limit_init">0</string>
+    <string name="content_slash">/</string>
+    <string name="content_character_limit">300</string>
+    <string name="content_campaign_comment_hint">따듯한 한마디를 남겨주세요.</string>
+    <string name="content_about_fee">수수료는 챌린멍스가 대신 부담합니다.</string>
+
+    <!-- Join - Shelter -->
+    <string name="content_shelter_id_hint">아이디</string>
+    <string name="content_password_hint">비밀번호</string>
+    <string name="content_password_check_hint">비밀번호 확인</string>
+    <string name="content_shelter_name_hint">기부처 이름</string>
+    <string name="content_invite_code_hint">초대 코드</string>
+    <string name="content_join">회원가입</string>
     <string name="content_search_hint">검색할 챌린지 이름을 입력하세요.</string>
 
     <!-- region list -->

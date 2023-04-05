@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <include
+            android:id="@+id/toolbar"
+            layout="@layout/toolbar_default" />
+
+        <TextView
+            android:id="@+id/tv_my_piggy_bank"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="10dp"
+            android:text="@string/content_my_piggy_bank"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/toolbar" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="1dp"
+            android:text="@string/content_from"
+            android:textSize="14sp"
+            app:layout_constraintBaseline_toBaselineOf="@id/tv_my_piggy_bank"
+            app:layout_constraintStart_toEndOf="@id/tv_my_piggy_bank" />
+
+        <TextView
+            android:id="@+id/tv_my_piggy_bank_amount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:textColor="@color/suva_grey"
+            android:textSize="11sp"
+            app:layout_constraintStart_toStartOf="@id/tv_my_piggy_bank"
+            app:layout_constraintTop_toBottomOf="@id/tv_my_piggy_bank"
+            tools:text="잔액 1,233" />
+
+        <ImageView
+            android:layout_width="13dp"
+            android:layout_height="13dp"
+            android:layout_marginStart="4dp"
+            android:contentDescription="@string/image_klay"
+            android:src="@drawable/ic_klay"
+            app:layout_constraintStart_toEndOf="@id/tv_my_piggy_bank_amount"
+            app:layout_constraintTop_toTopOf="@id/tv_my_piggy_bank_amount" />
+
+        <TextView
+            android:id="@+id/tv_shelter_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="55dp"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@id/tv_my_piggy_bank"
+            app:layout_constraintTop_toBottomOf="@id/tv_my_piggy_bank_amount"
+            tools:text="못말리는 보호소" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="2dp"
+            android:text="@string/content_to"
+            android:textSize="11sp"
+            app:layout_constraintBaseline_toBaselineOf="@id/tv_shelter_name"
+            app:layout_constraintStart_toEndOf="@id/tv_shelter_name" />
+
+        <EditText
+            android:id="@+id/et_donate_amount"
+            android:layout_width="wrap_content"
+            android:textCursorDrawable="@drawable/bg_rect_golden_glow_width2"
+            android:cursorVisible="true"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/bg_rect_pink_swan_to_golden_glow_stroke1"
+            android:hint="@string/content_donate_amount"
+            android:imeOptions="actionDone"
+            android:importantForAutofill="no"
+            android:inputType="number"
+            android:maxLines="1"
+            android:minWidth="50dp"
+            android:paddingHorizontal="2dp"
+            android:paddingBottom="4dp"
+            android:scrollHorizontally="true"
+            android:textColorHint="@color/pink_swan"
+            android:textDirection="rtl"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@id/tv_shelter_name"
+            app:layout_constraintTop_toBottomOf="@id/tv_shelter_name" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="11dp"
+            android:text="@string/content_unit"
+            android:textColor="@color/pink_swan"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintBaseline_toBaselineOf="@id/et_donate_amount"
+            app:layout_constraintStart_toEndOf="@id/et_donate_amount" />
+
+        <LinearLayout
+            android:id="@+id/ll_donate_all"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="3dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/bg_rect_white_smoke_radius5"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingHorizontal="11dp"
+            android:paddingVertical="4dp"
+            app:layout_constraintStart_toStartOf="@id/et_donate_amount"
+            app:layout_constraintTop_toBottomOf="@id/et_donate_amount">
+
+            <TextView
+                android:id="@+id/tv_my_piggy_bank_amount_in_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/suva_grey"
+                android:textSize="11sp"
+                tools:text="잔액 1,233" />
+
+            <ImageView
+                android:layout_width="13dp"
+                android:layout_height="13dp"
+                android:layout_marginStart="2dp"
+                android:contentDescription="@string/image_klay"
+                android:src="@drawable/ic_klay" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="@string/content_input"
+                android:textColor="@color/suva_grey"
+                android:textSize="11sp" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_title_comment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="70dp"
+            android:text="@string/title_campaign_comment"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ll_donate_all" />
+
+        <LinearLayout
+            android:id="@+id/ll_content_character_limit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="33dp"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="@id/tv_title_comment"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <TextView
+                android:id="@+id/tv_character_limit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/content_character_limit_init"
+                android:textSize="11sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="2dp"
+                android:text="@string/content_slash"
+                android:textSize="11sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="3dp"
+                android:text="@string/content_character_limit"
+                android:textColor="@color/suva_grey"
+                android:textSize="11sp" />
+
+        </LinearLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/til_comment"
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="30dp"
+            android:layout_marginTop="8dp"
+            android:importantForAutofill="no"
+            android:textColorHint="@color/suva_grey"
+            app:hintEnabled="false"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_title_comment">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/til_et_comment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_rect_white_smoke_radius5"
+                android:gravity="top"
+                android:hint="@string/content_campaign_comment_hint"
+                android:imeOptions="actionDone"
+                android:inputType="text"
+                android:minHeight="68dp"
+                android:padding="14dp"
+                android:textSize="14sp" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/tv_fee"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="8dp"
+            android:text="@string/content_about_fee"
+            android:textSize="11sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/til_comment" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_donate"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="18dp"
+            android:layout_marginBottom="24dp"
+            android:background="@drawable/bg_btn_enable_gainsboro_to_golden_glow_radius5"
+            android:enabled="false"
+            android:paddingVertical="15dp"
+            android:stateListAnimator="@null"
+            android:text="@string/content_donate"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
