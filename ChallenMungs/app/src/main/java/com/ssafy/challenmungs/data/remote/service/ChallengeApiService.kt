@@ -1,6 +1,7 @@
 package com.ssafy.challenmungs.data.remote.service
 
 import com.ssafy.challenmungs.data.remote.datasource.challenge.ChallengeListResponse
+import com.ssafy.challenmungs.data.remote.datasource.challenge.basic.ChallengeInfoResponse
 import retrofit2.http.POST
 import retrofit2.http.Query
 
@@ -15,4 +16,9 @@ interface ChallengeApiService {
         @Query("myChallenge") myChallenge: Boolean = false,
         @Query("onlyTomorrow") onlyTomorrow: Boolean = false
     ): ChallengeListResponse
+
+    @POST("/challenge/getChallengeInfo")
+    suspend fun getChallengeInfo(
+        @Query("challengeId") challengeId: Int
+    ): ChallengeInfoResponse
 }

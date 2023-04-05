@@ -1,6 +1,7 @@
 package com.ssafy.challenmungs.domain.repository
 
 import com.ssafy.challenmungs.data.remote.Resource
+import com.ssafy.challenmungs.domain.entity.challenge.NotStartedChallenge
 import com.ssafy.challenmungs.domain.entity.challenge.Challenge
 
 interface ChallengeRepository {
@@ -11,4 +12,6 @@ interface ChallengeRepository {
         lat: Double,
         lng: Double
     ): Resource<List<Challenge>>
+
+    suspend fun getChallengeInfo(challengeId: Int): Resource<NotStartedChallenge>
 }

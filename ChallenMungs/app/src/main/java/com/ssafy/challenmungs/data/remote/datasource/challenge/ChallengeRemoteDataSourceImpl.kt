@@ -1,5 +1,6 @@
 package com.ssafy.challenmungs.data.remote.datasource.challenge
 
+import com.ssafy.challenmungs.data.remote.datasource.challenge.basic.ChallengeInfoResponse
 import com.ssafy.challenmungs.data.remote.service.ChallengeApiService
 import javax.inject.Inject
 
@@ -13,4 +14,7 @@ class ChallengeRemoteDataSourceImpl @Inject constructor(
         lat: Double,
         lng: Double
     ): ChallengeListResponse = challengeApiService.getChallengeList(type, searchValue, lat, lng)
+
+    override suspend fun getChallengeInfo(challengeId: Int): ChallengeInfoResponse =
+        challengeApiService.getChallengeInfo(challengeId)
 }
