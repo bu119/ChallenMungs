@@ -6,8 +6,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ssafy.challenmungs.data.remote.Resource
-import com.ssafy.challenmungs.domain.entity.challenge.NotStartedChallenge
 import com.ssafy.challenmungs.domain.entity.challenge.Challenge
+import com.ssafy.challenmungs.domain.entity.challenge.NotStartedChallengeDetail
 import com.ssafy.challenmungs.domain.usecase.challenge.GetChallengeInfoUseCase
 import com.ssafy.challenmungs.domain.usecase.challenge.GetChallengeListUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -24,8 +24,8 @@ class ChallengeViewModel @Inject constructor(
         MutableLiveData(arrayListOf())
     val challengeList: LiveData<List<Challenge>?> = _challengeList
 
-    private val _notStartedChallenge: MutableLiveData<NotStartedChallenge?> = MutableLiveData()
-    val notStartedChallenge: LiveData<NotStartedChallenge?> = _notStartedChallenge
+    private val _notStartedChallengeDetail: MutableLiveData<NotStartedChallengeDetail?> = MutableLiveData()
+    val notStartedChallengeDetail: LiveData<NotStartedChallengeDetail?> = _notStartedChallengeDetail
 
     fun getChallengeList(type: Int, searchValue: String? = null) = viewModelScope.launch {
         when (val value = getChallengeListUseCase(type, searchValue)) {
@@ -39,7 +39,7 @@ class ChallengeViewModel @Inject constructor(
 
     fun getChallengeInfo(challengeId: Int) = viewModelScope.launch {
         when (val value = getChallengeInfoUseCase(challengeId)) {
-            is Resource.Success<NotStartedChallenge> -> _notStartedChallenge.value = value.data
+            is Resource.Success<NotStartedChallengeDetail> -> _notStartedChallengeDetail.value = value.data
             is Resource.Error -> Log.e(
                 "getChallengeInfo",
                 "getChallengeInfo: ${value.errorMessage}"

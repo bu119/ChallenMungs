@@ -89,7 +89,7 @@ class ChallengeFragment : BaseFragment<FragmentChallengeBinding>(R.layout.fragme
             }
         }
 
-        challengeViewModel.notStartedChallenge.observe(viewLifecycleOwner) {
+        challengeViewModel.notStartedChallengeDetail.observe(viewLifecycleOwner) {
             navigationNavHostFragmentToDestinationFragment(
                 R.id.nav_main,
                 R.id.challenge_basic_fragment
