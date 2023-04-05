@@ -97,6 +97,7 @@ abstract class BaseFragment<T : ViewDataBinding>(
 
     fun getSelectedId(): Long? = arguments?.getLong("cardId")
 
+    @Suppress("DEPRECATION")
     @OptIn(DelicateCoroutinesApi::class)
     private fun setImmersive() {
         // API 30 이상인 경우에는 WindowInsetsController를 사용하여 Fullscreen 모드로 설정
