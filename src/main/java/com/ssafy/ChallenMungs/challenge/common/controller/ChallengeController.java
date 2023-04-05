@@ -248,7 +248,10 @@ ChallengeController {
                 challengeService.save(challenge);
                 String loginId = request.getAttribute("loginId").toString();
                 myChallengeService.save(MyChallenge.builder().loginId(loginId).challengeId(challengeId).successCount(0).build());
-                return ResponseEntity.status(HttpStatus.OK).build();
+
+                HashMap<String, String> dto = new HashMap<>();
+                dto.put("result", "success");
+                return new ResponseEntity(dto, HttpStatus.OK); // 200
             } else {
                 if (challenge.getCurrentParticipantCount() >= challenge.getMaxParticipantCount() / 2) {
                     log.info("팀 정원 초과");
@@ -281,17 +284,40 @@ ChallengeController {
                 log.info("일반 챌린지네요. 결과를 가져 올게요");
                 // 모든 사람의 결과를 가져옴
                 List<MyChallenge> myChallenges = myChallengeService.findAllByChallengeId(challengeId);
-                return new ResponseEntity(myChallenges, HttpStatus.CREATED); // 201
+
+
+                HashMap<String, String> dto = new HashMap<>();
+                dto.put("result", "success");
+                return new ResponseEntity(dto, HttpStatus.CREATED); // 201
 
             }
             if (challenge.getChallengeType() >= 2) {
                 log.info("특별 챌린지네요. 결과를 가져 올게요");
                 String result = fileManager.loadResult(Long.toString(challengeId));
-                return new ResponseEntity(result, HttpStatus.CREATED); // 201
+                HashMap<String, String> dto = new HashMap<>();
+                dto.put("result", "success");
+                return new ResponseEntity(dto, HttpStatus.CREATED); // 201
             }
             return ResponseEntity.status(HttpStatus.ACCEPTED).build(); //202
         }
     }
+
+    @PostMapping("/tokenConfirm/getGeneralChallengeResult")
+    ResponseEntity getGeneralChallengeResult(HttpServletRequest request, @RequestParam("challengeId") long challengeId) {
+        log.info("끝난 방이에요!");
+        Challenge challenge = challengeService.findByChallengeId(challengeId);
+        String loginId = request.getAttribute("loginId").toString();
+        // 여기에 끝난 일반챌린지에 들어갈 때 필요한 정보를 리턴할 수 있게 코드를 작성해 주세요
+        log.info("일반 챌린지네요. 결과를 가져 올게요");
+        // 모든 사람의 결과를 가져옴
+        List<MyChallenge> myChallenges = myChallengeService.findAllByChallengeId(challengeId);
+        return new ResponseEntity(myChallenges, HttpStatus.OK); // 200
+    }
+
+//    @PostMapping("/tokenConfirm/getGeneralChallengeResult")
+//    ResponseEntity getSpecialChallengeResult
+
+
 
     // 나갈 때 커런트인원 빼기 안함 방에 있었었는지 여부
     @PostMapping("/tokenConfirm/getOutChallenge")
