@@ -1,15 +1,17 @@
 package com.ssafy.challenmungs.presentation.challenge.basic
 
+import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ssafy.challenmungs.R
 import com.ssafy.challenmungs.common.util.LinearItemDecoration
 import com.ssafy.challenmungs.databinding.FragmentChallengeBasicTodayBinding
-import com.ssafy.challenmungs.domain.entity.challenge.ChallengeBasicToday
 import com.ssafy.challenmungs.presentation.base.BaseFragment
+import com.ssafy.challenmungs.presentation.challenge.ChallengeViewModel
 
 class ChallengeBasicTodayFragment :
     BaseFragment<FragmentChallengeBasicTodayBinding>(R.layout.fragment_challenge_basic_today) {
 
+    private val challengeViewModel by activityViewModels<ChallengeViewModel>()
     private val challengeBasicTodayAdapter by lazy { ChallengeBasicTodayAdapter() }
 
     override fun initView() {
@@ -29,34 +31,7 @@ class ChallengeBasicTodayFragment :
                 )
             )
 
-            challengeBasicTodayAdapter.submitList(
-                listOf(
-                    ChallengeBasicToday(
-                        1,
-                        "구름이짠나인데용왜용",
-                        "https://kr.object.ncloudstorage.com/challenmungs-storage/challenge/1d379d64-9ebb-427a-9934-149948caedadKakaoTalk_20230327_155852745.jpg",
-                        "https://kr.object.ncloudstorage.com/challenmungs-storage/challenge/1d379d64-9ebb-427a-9934-149948caedadKakaoTalk_20230327_155852745.jpg"
-                    ),
-                    ChallengeBasicToday(
-                        1,
-                        "강은선",
-                        "https://kr.object.ncloudstorage.com/challenmungs-storage/challenge/89f45477-b0bd-4815-94ce-ef0b536f5283KakaoTalk_20230405_094746356.jpg",
-                        "https://kr.object.ncloudstorage.com/challenmungs-storage/challenge/89f45477-b0bd-4815-94ce-ef0b536f5283KakaoTalk_20230405_094746356.jpg"
-                    ),
-                    ChallengeBasicToday(
-                        1,
-                        "이차돌",
-                        "https://kr.object.ncloudstorage.com/challenmungs-storage/challenge/c7f70069-68d6-49c4-b560-f5d8a9761198KakaoTalk_20230405_094910738.jpg",
-                        "https://kr.object.ncloudstorage.com/challenmungs-storage/challenge/c7f70069-68d6-49c4-b560-f5d8a9761198KakaoTalk_20230405_094910738.jpg"
-                    ),
-                    ChallengeBasicToday(
-                        1,
-                        "커피모카",
-                        "",
-                        "https://kr.object.ncloudstorage.com/challenmungs-storage/challenge/39568918-d5fb-4125-ba23-13a961798063KakaoTalk_20230405_094939339.jpg"
-                    ),
-                )
-            )
+            challengeBasicTodayAdapter.submitList(challengeViewModel.basicTodayList.value)
         }
     }
 }

@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ssafy.challenmungs.data.remote.Resource
 import com.ssafy.challenmungs.domain.entity.challenge.Challenge
+import com.ssafy.challenmungs.domain.entity.challenge.ChallengeBasicToday
 import com.ssafy.challenmungs.domain.entity.challenge.NotStartedChallengeDetail
 import com.ssafy.challenmungs.domain.usecase.challenge.*
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -18,6 +19,7 @@ import javax.inject.Inject
 class ChallengeViewModel @Inject constructor(
     private val getChallengeListUseCase: GetChallengeListUseCase,
     private val getChallengeInfoUseCase: GetChallengeInfoUseCase,
+    private val getBasicTodayUseCase: GetBasicTodayUseCase,
     private val getChallengeParticipationFlagUseCase: GetChallengeParticipationFlagUseCase,
     private val requestParticipateUseCase: RequestParticipateUseCase,
     private val requestWithDrawUseCase: RequestWithDrawUseCase,
@@ -30,6 +32,10 @@ class ChallengeViewModel @Inject constructor(
     private val _notStartedChallengeDetail: MutableLiveData<NotStartedChallengeDetail?> =
         MutableLiveData()
     val notStartedChallengeDetail: LiveData<NotStartedChallengeDetail?> = _notStartedChallengeDetail
+
+    private val _basicTodayList: MutableLiveData<List<ChallengeBasicToday>?> =
+        MutableLiveData(null)
+    val basicTodayList: LiveData<List<ChallengeBasicToday>?> = _basicTodayList
 
     fun initNotStartedChallengeDetail() {
         _notStartedChallengeDetail.value = null
@@ -58,6 +64,17 @@ class ChallengeViewModel @Inject constructor(
             is Resource.Error -> Log.e(
                 "getChallengeInfo",
                 "getChallengeInfo: ${value.errorMessage}"
+            )
+        }
+    }
+
+    fun getBasicToday(challengeId: Int) = viewModelScope.launch {
+        when (val value = getBasicTodayUseCase(challengeId)) {
+            is Resource.Success<List<ChallengeBasicToday>> ->
+                _basicTodayList.value = value.data
+            is Resource.Error -> Log.e(
+                "getBasicToday",
+                "getBasicToday: ${value.errorMessage}"
             )
         }
     }

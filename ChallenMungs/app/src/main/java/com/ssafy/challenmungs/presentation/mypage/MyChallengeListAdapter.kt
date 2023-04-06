@@ -11,8 +11,11 @@ import com.ssafy.challenmungs.databinding.ItemChallengeCardWaitingBinding
 import com.ssafy.challenmungs.domain.entity.challenge.Challenge
 
 class MyChallengeListAdapter(
-    private val position: Int, private val dataList: ArrayList<Challenge>
-) : RecyclerView.Adapter<MyChallengeListAdapter.MyChallengeListViewHolder>() {
+    private val position: Int,
+    private val dataList: ArrayList<Challenge>,
+    private val getBasicToday: (Int) -> Unit,
+) :
+    RecyclerView.Adapter<MyChallengeListAdapter.MyChallengeListViewHolder>() {
 
     override fun onCreateViewHolder(
         parent: ViewGroup, viewType: Int
@@ -25,7 +28,8 @@ class MyChallengeListAdapter(
                     R.layout.item_challenge_card_waiting,
                     parent,
                     false
-                )
+                ),
+                getBasicToday
             )
         }
         else -> {
@@ -60,11 +64,16 @@ class MyChallengeListAdapter(
             }
         }
 
-        class WaitViewHolder(private val binding: ItemChallengeCardWaitingBinding) :
+        class WaitViewHolder(
+            private val binding: ItemChallengeCardWaitingBinding,
+            private val getBasicToday: (Int) -> Unit,
+        ) :
             MyChallengeListViewHolder(binding) {
 
             override fun onBind(data: Challenge) {
                 binding.challenge = data
+
+                getBasicToday(data.challengeId)
             }
         }
     }

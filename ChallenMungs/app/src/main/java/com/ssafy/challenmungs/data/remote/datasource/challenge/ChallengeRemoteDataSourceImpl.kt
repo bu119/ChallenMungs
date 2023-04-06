@@ -1,5 +1,6 @@
 package com.ssafy.challenmungs.data.remote.datasource.challenge
 
+import com.ssafy.challenmungs.data.remote.datasource.challenge.basic.ChallengeBasicTodayResponse
 import com.ssafy.challenmungs.data.remote.datasource.challenge.basic.ChallengeInfoResponse
 import com.ssafy.challenmungs.data.remote.datasource.common.ResultResponse
 import com.ssafy.challenmungs.data.remote.service.ChallengeApiService
@@ -18,6 +19,9 @@ class ChallengeRemoteDataSourceImpl @Inject constructor(
 
     override suspend fun getChallengeInfo(challengeId: Int): ChallengeInfoResponse =
         challengeApiService.getChallengeInfo(challengeId)
+
+    override suspend fun getBasicToday(challengeId: Int): List<ChallengeBasicTodayResponse> =
+        challengeApiService.getBasicToday(challengeId)
 
     override suspend fun getChallengeParticipationFlag(challengeId: Long): ResultResponse =
         challengeApiService.getChallengeParticipationFlag(challengeId)

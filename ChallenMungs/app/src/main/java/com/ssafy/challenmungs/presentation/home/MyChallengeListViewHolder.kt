@@ -1,13 +1,17 @@
 package com.ssafy.challenmungs.presentation.home
 
 import android.annotation.SuppressLint
+import android.util.Log
 import androidx.recyclerview.widget.RecyclerView
 import com.ssafy.challenmungs.R
 import com.ssafy.challenmungs.databinding.ItemChallengeCardMyOngoingBinding
 import java.text.SimpleDateFormat
 import java.util.*
 
-class MyChallengeListViewHolder(private val binding: ItemChallengeCardMyOngoingBinding) :
+class MyChallengeListViewHolder(
+    private val binding: ItemChallengeCardMyOngoingBinding,
+    private val getBasicToday: (Int) -> Unit,
+) :
     RecyclerView.ViewHolder(binding.root) {
 
     @SuppressLint("SimpleDateFormat")
@@ -31,16 +35,25 @@ class MyChallengeListViewHolder(private val binding: ItemChallengeCardMyOngoingB
 
     fun initListener(
         dto: Map<String, Any>,
-        navigationNavHostFragmentToDestinationFragment: (Int, Int, Long) -> Unit
+        navigationNavHostFragmentToDestinationFragment: (Int, Long) -> Unit
     ) {
         binding.root.setOnClickListener {
             // 상세 페이지로 이동하는 navigation 코드 구현 필요
             val challengeId = dto["challengeId"]
-            navigationNavHostFragmentToDestinationFragment(
-                R.id.nav_main,
-                R.id.panel_play_fragment,
-                challengeId.toString().toLong()
-            )
+            if (dto["challengeType"].toString().toInt() == 2)
+                navigationNavHostFragmentToDestinationFragment(
+                    R.id.panel_play_fragment,
+                    challengeId.toString().toLong()
+                )
+            else {
+                Log.d(
+                    "MyChallengeListViewHolder",
+                    "challengeId: $challengeId, challengeType: ${
+                        dto["challengeType"].toString().toInt()
+                    }"
+                )
+                getBasicToday(challengeId.toString().toInt())
+            }
         }
     }
 

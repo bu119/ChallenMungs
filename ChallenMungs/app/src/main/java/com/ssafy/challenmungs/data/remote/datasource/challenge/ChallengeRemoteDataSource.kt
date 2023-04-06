@@ -1,5 +1,6 @@
 package com.ssafy.challenmungs.data.remote.datasource.challenge
 
+import com.ssafy.challenmungs.data.remote.datasource.challenge.basic.ChallengeBasicTodayResponse
 import com.ssafy.challenmungs.data.remote.datasource.challenge.basic.ChallengeInfoResponse
 import com.ssafy.challenmungs.data.remote.datasource.common.ResultResponse
 
@@ -13,6 +14,8 @@ interface ChallengeRemoteDataSource {
     ): ChallengeListResponse
 
     suspend fun getChallengeInfo(challengeId: Int): ChallengeInfoResponse
+
+    suspend fun getBasicToday(challengeId: Int): List<ChallengeBasicTodayResponse>
 
     suspend fun getChallengeParticipationFlag(challengeId: Long): ResultResponse
 
