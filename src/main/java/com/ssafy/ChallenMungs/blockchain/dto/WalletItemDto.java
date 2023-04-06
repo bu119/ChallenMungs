@@ -13,6 +13,6 @@ public class WalletItemDto {
     String title;
     BigDecimal amount;
     String time;
-//    double balance;
+    int totalMoney;
 
 }

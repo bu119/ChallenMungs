@@ -179,6 +179,8 @@ public class WalletServiceImpl implements  WalletService{
     public List<Map<String, Object>> viewMyWallet(String loginId) throws JsonProcessingException {
         User user = userRepo.findUserByLoginId(loginId);
         String address = walletRepo.findByUserAndType(user, 'w').getAddress();
+        int totalMoney = Integer.parseInt(getBalance(loginId, 'w'));
+        int before_input = 0;
 
         JsonNode items = getHistory(address);
 
@@ -192,21 +194,7 @@ public class WalletServiceImpl implements  WalletService{
             String from = item.get("from").asText();
             String to = item.get("to").asText();
             String title;
-            if (from.equals(address)) {
-                if (to.equals(lowerN)) {
-                    title = "일반 챌린지 참여";
-                } else if (to.equals(lowerS)) {
-                    title = "특별 챌린지 참여";
-                } else {
-                    title = "잘못된 계좌";
-                }
-            }
-            // 충전
-            else {
-                title = "충전";
-            }
 
-            //전송 시간
             long timstamp = item.get("timestamp").asLong();
             Date date = new Date(timstamp * 1000L);
             Calendar calendar = Calendar.getInstance();
@@ -223,8 +211,27 @@ public class WalletServiceImpl implements  WalletService{
             // 최종값으로 변환
             BigDecimal amount = new BigDecimal(decimal).divide(new BigDecimal(divisor));
 
+            if (from.equals(address)) {
+                totalMoney += before_input;
+                before_input = amount.intValue();
+
+                if (to.equals(lowerN)) {
+                    title = "일반 챌린지 참여";
+                } else if (to.equals(lowerS)) {
+                    title = "특별 챌린지 참여";
+                } else {
+                    title = "잘못된 계좌";
+                }
+            }
+            // 충전
+            else {
+                totalMoney += before_input;
+                before_input = amount.intValue() * (-1);
+                title = "충전";
+            }
+
             // 값 넣기
-            WalletItemDto tmp = new WalletItemDto(title, amount, String.valueOf(calendar.get(Calendar.HOUR_OF_DAY) + ":" + calendar.get(Calendar.MINUTE)));
+            WalletItemDto tmp = new WalletItemDto(title, amount, String.valueOf(calendar.get(Calendar.HOUR_OF_DAY) + ":" + calendar.get(Calendar.MINUTE)), totalMoney);
             String day = String.valueOf(calendar.get(Calendar.MONTH) + 1) + "." + String.valueOf(calendar.get(Calendar.DATE));
             List<WalletItemDto> dayList = dayMap.getOrDefault(day, new ArrayList<>());
             dayList.add(tmp);
@@ -248,26 +255,15 @@ public class WalletServiceImpl implements  WalletService{
         JsonNode items = getHistory(address);
 
         Map<String, List<WalletItemDto>> result = new HashMap<>();
+        int totalMoney = Integer.parseInt(getBalance(loginId, 'p'));
+        // item별 당시 계좌 잔액 표기를 위해
+        int before_input = 0;
 
         //사용 내역 바꾸기
         for (JsonNode item : items) {
             String from = item.get("from").asText();
             String to = item.get("to").asText();
             String title;
-            if (to.equals(address)) {
-                if (from.equals(lowerN)) {
-                    title = "일반 챌린지 보상";
-                } else if (from.equals(lowerS)) {
-                    title = "특별 챌린지 보상";
-                } else {
-                    title = "error";
-                }
-            }
-            // 충전
-            else {
-                Wallet shelter = walletRepo.findByAddress(to);
-                title = shelter.getUser().getName() + "에 기부";
-            }
 
             //전송 시간
             long timstamp = item.get("timestamp").asLong();
@@ -286,8 +282,29 @@ public class WalletServiceImpl implements  WalletService{
             // 최종값으로 변환
             BigDecimal amount = new BigDecimal(decimal).divide(new BigDecimal(divisor));
 
+            // 챌린지 보상
+            if (to.equals(address)) {
+                totalMoney += before_input;
+                before_input = amount.intValue() * (-1);
+
+                if (from.equals(lowerN)) {
+                    title = "일반 챌린지 보상";
+                } else if (from.equals(lowerS)) {
+                    title = "특별 챌린지 보상";
+                } else {
+                    title = "error";
+                }
+            }
+            // 기부
+            else {
+                totalMoney += before_input;
+                before_input = amount.intValue();
+                Wallet shelter = walletRepo.findByAddress(to);
+                title = shelter.getUser().getName() + "에 기부";
+            }
+
             // 값 넣기
-            WalletItemDto tmp = new WalletItemDto(title, amount, String.valueOf(calendar.get(Calendar.HOUR_OF_DAY)+":"+calendar.get(Calendar.MINUTE)));
+            WalletItemDto tmp = new WalletItemDto(title, amount, String.valueOf(calendar.get(Calendar.HOUR_OF_DAY)+":"+calendar.get(Calendar.MINUTE)), totalMoney);
             String day = String.valueOf(calendar.get(Calendar.MONTH) + 1) + "." + String.valueOf(calendar.get(Calendar.DATE));
             List<WalletItemDto> dayList = result.getOrDefault(day, new ArrayList<WalletItemDto>());
             dayList.add(tmp);
