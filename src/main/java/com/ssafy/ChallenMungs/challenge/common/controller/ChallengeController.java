@@ -328,7 +328,10 @@ ChallengeController {
         } else {
             challengeService.save(challenge);
         }
-        return ResponseEntity.status(HttpStatus.OK).build();
+
+        HashMap<String, String> dto = new HashMap<>();
+        dto.put("result", "success");
+        return new ResponseEntity(dto, HttpStatus.OK);
     }
 
     // 챌린지id로 챌린지를 조회하는 API
