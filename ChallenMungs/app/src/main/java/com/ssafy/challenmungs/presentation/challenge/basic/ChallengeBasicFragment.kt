@@ -2,6 +2,7 @@ package com.ssafy.challenmungs.presentation.challenge.basic
 
 import android.content.Context
 import android.graphics.Typeface
+import android.util.Log
 import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
 import androidx.core.view.children
@@ -29,10 +30,8 @@ class ChallengeBasicFragment :
     }
 
     override fun initView() {
+        Log.d("ChallengeBasicFragment", "ChallengeBasicFragment is init")
         observe()
-
-        binding.toolbar.title = "매일매일 산책 미션!"
-
         initViewPager()
         initListener()
     }
@@ -92,15 +91,25 @@ class ChallengeBasicFragment :
                 R.id.challenge_basic_info_fragment
             )
         }
+
+        binding.toolbar.ivBack.setOnClickListener {
+            challengeViewModel.initNotStartedChallengeDetail()
+            challengeViewModel.initBasicTodayList()
+            popBackStack()
+        }
     }
 
     private fun observe() {
         challengeViewModel.notStartedChallengeDetail.observe(viewLifecycleOwner) {
-            if (it != null && challengeViewModel.participants.value != null)
-                challengeViewModel.getBasicHistory(
-                    it.challengeId,
-                    challengeViewModel.participants.value!![0].memberId
-                )
+            it?.let {
+                binding.toolbar.title = challengeViewModel.notStartedChallengeDetail.value!!.title
+
+                if (challengeViewModel.participants.value != null)
+                    challengeViewModel.getBasicHistory(
+                        it.challengeId,
+                        challengeViewModel.participants.value!![0].memberId
+                    )
+            }
         }
     }
 }
