@@ -11,6 +11,5 @@ import java.util.List;
 @AllArgsConstructor
 public class WalletListDto {
     String day;
-    WalletItemDto item;
     List<WalletItemDto> itemList;
 }

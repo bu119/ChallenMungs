@@ -52,7 +52,6 @@ public class WalletServiceImpl implements  WalletService{
 
     @Override
     public void insertSpecialWallet(String campaign1, String campaign2,String loginId) throws Exception {
-        System.out.println(loginId);
         User user=userRepo.findUserByLoginId(loginId);
         if(user==null) throw new Exception("로그인아이디 확인");
         walletRepo.save(initWallet(user,'1',campaign1));
@@ -83,34 +82,7 @@ public class WalletServiceImpl implements  WalletService{
         walletRepo.save(wallet);
     }
 
-    @Override
-    public void sendKlay(String from, String to, int money) {
-        BigInteger klayForm = BigInteger.valueOf(money).multiply(BigInteger.TEN.pow(18));
-        String hexString = "0x" + klayForm.toString(16);
 
-        RestTemplate restTemplate = new RestTemplate();
-
-        // 요청 헤더 설정
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON);
-        headers.set("x-chain-id", "1001"); // 1001(Baobob 테스트넷)
-        headers.set("Authorization", "Basic S0FTS1dDQUdINjkwRkFRV0lPVDE4QkhUOnNTYThjQlI1akhncXRwbnUtWWltMHV5dkVpb1V2REVQRGpMSmJjRkM="); //AccountPool 등록
-
-        // 요청 바디 설정
-        JSONObject requestBody = new JSONObject();
-        requestBody.put("from", from);
-        requestBody.put("value", hexString);
-        requestBody.put("to", to);
-        requestBody.put("submit", true);
-
-        // 요청 엔티티 생성
-        HttpEntity<String> requestEntity = new HttpEntity<>(requestBody.toString(), headers);
-
-        // POST 요청 보내기
-        String url = "https://wallet-api.klaytnapi.com/v2/tx/fd/value";
-        ResponseEntity<String> responseEntity = restTemplate.exchange(url, HttpMethod.POST, requestEntity, String.class);
-        String responseBody = responseEntity.getBody();
-    }
 
 
     public Wallet initWallet(User user,char type,String address){
@@ -138,7 +110,7 @@ public class WalletServiceImpl implements  WalletService{
             BigInteger balanceWei = balanceResponse.getBalance();
 
             // 단위 변환: KLAY -> KLAY
-            String balanceKlay = String.valueOf(Convert.fromWei(balanceWei.toString(), Convert.Unit.ETHER).toBigInteger());
+            String balanceKlay = Convert.fromWei(balanceWei.toString(), Convert.Unit.ETHER).toPlainString();
             return balanceKlay;
 
         } catch (Exception e) {
@@ -419,12 +391,6 @@ public class WalletServiceImpl implements  WalletService{
         String result = totalAmount.toString();
 
         return result;
-    }
-
-    @Override
-    public String getWalletAddress(String loginId) throws JsonProcessingException {
-        User user = userRepo.findUserByLoginId(loginId);
-        return walletRepo.findByUserAndType(user, 'w').getAddress();
     }
 
 }

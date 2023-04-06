@@ -86,13 +86,6 @@ public class WalletController {
         return new ResponseEntity<Object>(res.makeSimpleRes(service.getTotalDonate(loginId)),HttpStatus.OK);
     }
 
-    @GetMapping("tokenConfirm/myWalletAddress")
-    @ApiOperation(value = "내 지갑 주소를 반환합니다.")
-    ResponseEntity<Object> getWalletAddress(HttpServletRequest request) throws JsonProcessingException {
-        String loginId = request.getAttribute("loginId").toString();
-        return new ResponseEntity<Object>(res.makeSimpleRes(service.getWalletAddress(loginId)),HttpStatus.OK);
-    }
-
     @GetMapping("viewCampaignWallet")
     @ApiOperation(value = "캠페인 모금액 출,입금 기록을 반환합니다.",notes="fromOnly : true(출금내역만 조회)\n toOnly : true(모금내역만 조회)\nreceipt : null(후원), url일 때(출금) ")
     ResponseEntity<Object> viewCampaignWallet(int campaignId, boolean fromOnly, boolean toOnly) throws JsonProcessingException {
