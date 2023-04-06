@@ -27,6 +27,7 @@ public interface DonateService {
     List<Map<String, Object>> viewMyDonations(String loginId, int year);
     DonationDetailDto getDonation(int donationId);
     DonationSummaryDto getSummary(String loginId, int year);
+    int totalDonateAll();
 
 
 

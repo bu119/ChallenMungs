@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 public interface UserRepository extends JpaRepository<User, Long>, QuerydslPredicateExecutor<User> {
     int countByLoginId(String str);
@@ -14,5 +15,5 @@ public interface UserRepository extends JpaRepository<User, Long>, QuerydslPredi
     boolean existsByLoginId(String loginId);
     boolean existsUserByLoginIdAndPassword(String loginId, String password);
     User findUserByLoginIdAndPassword(String loginId, String password);
-
+    List<User> findAllByType(char c);
 }

@@ -235,8 +235,16 @@ public class DonateServiceImpl implements  DonateService{
         return result;
     }
 
-
-
+    @Override
+    public int totalDonateAll() {
+        int totalDonate = 0;
+        System.out.println("------------");
+        List<User> users = userRepo.findAllByType('n');
+        for(User user: users){
+            totalDonate += donationRepo.sumTotalAmount(user.getLoginId());
+        }
+        return totalDonate;
+    }
 
 
 }
