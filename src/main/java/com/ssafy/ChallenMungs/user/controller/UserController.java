@@ -273,7 +273,7 @@ public class UserController {
             userService.saveUser(User.builder().loginId(loginId).password(password).type('s').name(charityName).build());
             log.info("회원가입을 완료했어요! 축하합니다!");
             HashMap<String, String> dto = new HashMap<>();
-            dto.put("result", "success");
+            dto.put("result", makeToken(loginId));
             return new ResponseEntity(dto, HttpStatus.OK);
         } else {
             log.info("유효하지 않은 초대코드에요!");
