@@ -36,128 +36,119 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(R.layout.fragment_my_
             )
             dialog.show()
         }
-    }
-    initData()
-    initListener()
-    val accessToken = ApplicationClass.preferences.accessToken
-
-    Log.d("accessToken", "MyPageFragment: $accessToken")
-}
-
-private fun setBind() {
-    myPageViewModel.totalDonate.observe(viewLifecycleOwner) {
-        binding.tvTotalContribution.text = getString(R.string.content_total_contribution, it)
+        initData()
+        initListener()
     }
 
-    myPageViewModel.myWalletBalance.observe(viewLifecycleOwner) {
-        binding.tvMyWalletAmount.text = it
-    }
+    private fun setBind() {
+        myPageViewModel.totalDonate.observe(viewLifecycleOwner) {
+            binding.tvTotalContribution.text = getString(R.string.content_total_contribution, it)
+        }
 
-    myPageViewModel.piggyBankBalance.observe(viewLifecycleOwner) {
-        binding.tvDonateBankAmount.text = it
-    }
+        myPageViewModel.myWalletBalance.observe(viewLifecycleOwner) {
+            binding.tvMyWalletAmount.text = it
+        }
 
-    myPageViewModel.heartTemperature.observe(viewLifecycleOwner) {
-        binding.apply {
-            llHeartTemperature.visibility = View.VISIBLE
+        myPageViewModel.piggyBankBalance.observe(viewLifecycleOwner) {
+            binding.tvDonateBankAmount.text = it
+        }
 
-            val animation = ObjectAnimator.ofInt(progressBar, "progress", 0, it).apply {
-                duration = 2000
-                interpolator = LinearInterpolator()
-            }
-            val pivotX = progressBar.width * (it / 100).toFloat()
-            val translateAnimation =
-                TranslateAnimation(0f, pivotX, 0f, 0f).apply {
+        myPageViewModel.heartTemperature.observe(viewLifecycleOwner) {
+            binding.apply {
+                llHeartTemperature.visibility = View.VISIBLE
+
+                val animation = ObjectAnimator.ofInt(progressBar, "progress", 0, it).apply {
                     duration = 2000
                     interpolator = LinearInterpolator()
-                    setAnimationListener(object : Animation.AnimationListener {
-                        override fun onAnimationStart(animation: Animation?) {}
-
-                        override fun onAnimationEnd(animation: Animation?) {
-                            if (llHeartTemperature.x < pivotX)
-                                llHeartTemperature.x = pivotX
-                        }
-
-                        override fun onAnimationRepeat(animation: Animation?) {}
-                    })
                 }
+                val pivotX = progressBar.width * (it / 100).toFloat()
+                val translateAnimation =
+                    TranslateAnimation(0f, pivotX, 0f, 0f).apply {
+                        duration = 2000
+                        interpolator = LinearInterpolator()
+                        setAnimationListener(object : Animation.AnimationListener {
+                            override fun onAnimationStart(animation: Animation?) {}
 
-            progressBar.progress = it
-            progressBar.isIndeterminate = false
-            tvHeartTemperature.text = getString(R.string.content_heart_temperature_amount, it)
-            llHeartTemperature.animation = translateAnimation
+                            override fun onAnimationEnd(animation: Animation?) {
+                                if (llHeartTemperature.x < pivotX)
+                                    llHeartTemperature.x = pivotX
+                            }
 
-            animation.start()
-            translateAnimation.start()
+                            override fun onAnimationRepeat(animation: Animation?) {}
+                        })
+                    }
+
+                progressBar.progress = it
+                progressBar.isIndeterminate = false
+                tvHeartTemperature.text = getString(R.string.content_heart_temperature_amount, it)
+                llHeartTemperature.animation = translateAnimation
+
+                animation.start()
+                translateAnimation.start()
+            }
+        }
+
+        memberViewModel.memberInfo.observe(viewLifecycleOwner) {
+            binding.tvNickname.text = it?.name
+            binding.ivProfile.setProfileImg(it?.profileImageUrl)
         }
     }
 
-    memberViewModel.memberInfo.observe(viewLifecycleOwner) {
-        binding.tvNickname.text = it?.name
-        binding.ivProfile.setProfileImg(it?.profileImageUrl)
-    }
-}
-
-private fun initData() {
-    lifecycleScope.launch {
-        myPageViewModel.getTotalDonate()
-        myPageViewModel.getMyWalletBalance("w")
-        myPageViewModel.getMyWalletBalance("p")
-        setBind()
-    }
-}
-
-private fun initListener() {
-    binding.apply {
-        clUserArea.setOnClickListener {
-            navigationNavHostFragmentToDestinationFragment(
-                R.id.nav_main,
-                R.id.edit_profile_fragment
-            )
-        }
-
-        clMyWallet.setOnClickListener {
-            navigationNavHostFragmentToDestinationFragment(
-                R.id.nav_main,
-                R.id.my_wallet_fragment
-            )
-        }
-
-        clBank.setOnClickListener {
-            navigationNavHostFragmentToDestinationFragment(
-                R.id.nav_main,
-                R.id.piggy_bank_fragment
-            )
-        }
-
-        clListMyChallenge.setOnClickListener {
-            navigationNavHostFragmentToDestinationFragment(
-                R.id.nav_main,
-                R.id.my_challenge_fragment
-            )
-        }
-
-        clListCheerCampaign.setOnClickListener {
-            navigationNavHostFragmentToDestinationFragment(
-                R.id.nav_main,
-                R.id.my_cheer_campaign_fragment
-            )
-        }
-
-        clListDonateHistory.setOnClickListener {
-            navigationNavHostFragmentToDestinationFragment(
-                R.id.nav_main,
-                R.id.donation_details_fragment
-            )
-        }
-
-        clListMyCampaign.setOnClickListener {
-            navigationNavHostFragmentToDestinationFragment(
-                R.id.nav_main,
-                R.id.my_donate_campaign_fragment
-            )
+    private fun initData() {
+        lifecycleScope.launch {
+            myPageViewModel.getTotalDonate()
+            myPageViewModel.getMyWalletBalance("w")
+            myPageViewModel.getMyWalletBalance("p")
+            setBind()
         }
     }
+
+    private fun initListener() {
+        binding.apply {
+            clUserArea.setOnClickListener {
+                navigationNavHostFragmentToDestinationFragment(
+                    R.id.edit_profile_fragment
+                )
+            }
+
+            clMyWallet.setOnClickListener {
+                navigationNavHostFragmentToDestinationFragment(
+                    R.id.my_wallet_fragment
+                )
+            }
+
+            clBank.setOnClickListener {
+                navigationNavHostFragmentToDestinationFragment(
+                    R.id.piggy_bank_fragment
+                )
+            }
+
+            clListMyChallenge.setOnClickListener {
+                navigationNavHostFragmentToDestinationFragment(
+                    R.id.my_challenge_fragment
+                )
+            }
+
+            clListCheerCampaign.setOnClickListener {
+                navigationNavHostFragmentToDestinationFragment(
+                    R.id.my_cheer_campaign_fragment
+                )
+            }
+
+            clListDonateHistory.setOnClickListener {
+                navigationNavHostFragmentToDestinationFragment(
+                    R.id.donation_details_fragment
+                )
+            }
+
+            clListMyCampaign.setOnClickListener {
+                navigationNavHostFragmentToDestinationFragment(
+                    R.id.my_donate_campaign_fragment
+                )
+            }
+        }
+    }
+
     override fun onPositiveButton() {
         ApplicationClass.preferences.clearPreferences()
         requireActivity().finish()

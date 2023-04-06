@@ -36,7 +36,6 @@ class ChallengeFragment : BaseFragment<FragmentChallengeBinding>(R.layout.fragme
     private fun initListener() {
         binding.fabPanel.setOnClickListener {
             navigationNavHostFragmentToDestinationFragment(
-                R.id.nav_main,
                 R.id.panel_create_fragment
             )
         }
