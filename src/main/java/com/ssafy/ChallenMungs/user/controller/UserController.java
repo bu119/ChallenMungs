@@ -227,7 +227,9 @@ public class UserController {
             walletService.saveOrUpdateWallet(loginId, walletAddress);
         }
 
-        return ResponseEntity.status(HttpStatus.OK).build();
+        HashMap<String, String> dto = new HashMap<>();
+        dto.put("result", "success");
+        return new ResponseEntity(dto, HttpStatus.OK);
     }
 
     String getInfo(String token) throws IOException {
@@ -271,7 +273,9 @@ public class UserController {
             log.info("유효한 초대코드에요! 회원가입을 진행할게요");
             userService.saveUser(User.builder().loginId(loginId).password(password).type('s').name(charityName).build());
             log.info("회원가입을 완료했어요! 축하합니다!");
-            return ResponseEntity.status(200).build();
+            HashMap<String, String> dto = new HashMap<>();
+            dto.put("result", "success");
+            return new ResponseEntity(dto, HttpStatus.OK);
         } else {
             log.info("유효하지 않은 초대코드에요!");
             return ResponseEntity.status(417).build();
@@ -283,7 +287,9 @@ public class UserController {
     ResponseEntity codeEmail(@RequestParam("to") String email, @RequestParam("charityName") String charityName) {
         log.info("초대코드를 담은 이메일을 보낼게요!:" + email);
         emailService.sendHtmlEmail(email, charityName);
-        return ResponseEntity.status(HttpStatus.OK).build();
+        HashMap<String, String> dto = new HashMap<>();
+        dto.put("result", "success");
+        return new ResponseEntity(dto, HttpStatus.OK);
     }
 
     @PostMapping("/charityLogin")
@@ -346,7 +352,9 @@ public class UserController {
     ResponseEntity updatePassword(HttpServletRequest request, @RequestParam("currentPassword") String currentPassword, @RequestParam("newPassword") String newPassword){
         String loginId = request.getAttribute("loginId").toString();
         if (userService.updatePassword(loginId, currentPassword, newPassword)) {
-            return ResponseEntity.status(HttpStatus.OK).build();
+            HashMap<String, String> dto = new HashMap<>();
+            dto.put("result", "success");
+            return new ResponseEntity(dto, HttpStatus.OK);
         } else {
             return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).build();
         }
@@ -357,6 +365,8 @@ public class UserController {
     ResponseEntity updatePassword(@RequestParam("loginId") String loginId) {
         log.info("이메일로 임시 비밀번호를 보낼게요!:" + loginId);
         emailService.sendHtmlEmail2(loginId);
-        return ResponseEntity.status(HttpStatus.OK).build();
+        HashMap<String, String> dto = new HashMap<>();
+        dto.put("result", "success");
+        return new ResponseEntity(dto, HttpStatus.OK);
     }
 }
