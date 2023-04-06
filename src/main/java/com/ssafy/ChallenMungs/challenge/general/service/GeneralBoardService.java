@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 
@@ -44,7 +45,7 @@ public class GeneralBoardService {
 
     // today에 등록된 글 가져오기
     public List<GeneralBoard> getBoardsByChallengeToday(Challenge challenge) {
-        LocalDate today = LocalDate.now();
+        LocalDate today = LocalDate.now(ZoneId.of("Asia/Seoul"));
         List<GeneralBoard> boards = boardRepository.findAllByChallengeAndRegisterDay(challenge, today);
         if (boards.isEmpty()) {
             return null;

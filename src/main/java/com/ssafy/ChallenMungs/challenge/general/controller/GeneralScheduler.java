@@ -7,6 +7,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.List;
 
 @Component
@@ -16,6 +17,6 @@ public class GeneralScheduler {
 
     @Scheduled(cron = "1 0 0 * * *")
     void checkRejectCount() {
-        List<GeneralBoard> boards = generalBoardService.findAllByRegisterDay(LocalDate.now().minusDays(1));
+        List<GeneralBoard> boards = generalBoardService.findAllByRegisterDay(LocalDate.now(ZoneId.of("Asia/Seoul")).minusDays(1));
     }
 }

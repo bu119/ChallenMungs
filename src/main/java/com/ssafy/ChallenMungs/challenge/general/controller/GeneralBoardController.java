@@ -87,6 +87,9 @@ public class GeneralBoardController {
         String loginId = request.getAttribute("loginId").toString();
         User user = userService.findUserByLoginId(loginId);
 
+        LocalDate today = LocalDate.now(ZoneId.of("Asia/Seoul"));
+        log.info(loginId + ": " + today +" 의 인증 게시글을 업로드 합니다.");
+
         // 해당 챌린지에 로그인한 유저가 참여하고 있는지 확인
         MyChallenge myChallenge = myChallengeService.findByLoginIdAndChallengeId(loginId,challengeId);
         if (myChallenge == null) {
@@ -95,7 +98,7 @@ public class GeneralBoardController {
         }
 
         // 해당 챌린지에 이미 인증을 완료한 사진이 있는지 확인
-        GeneralBoard board = boardService.findByChallengeAndUserAndRegisterDay(challenge, user, LocalDate.now());
+        GeneralBoard board = boardService.findByChallengeAndUserAndRegisterDay(challenge, user, today);
         if (board != null) {
             log.info("이미 사진 인증을 완료하였습니다.");
             return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
@@ -110,8 +113,7 @@ public class GeneralBoardController {
             return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).build();
         }
 
-        LocalDate today = LocalDate.now(ZoneId.of("Asia/Seoul"));
-        log.info(loginId + ": " + today +" 의 인증 게시글을 업로드 합니다.");
+
         int boardId = boardService.savePicture(
                 GeneralBoard.builder()
                         .challenge(challenge)
