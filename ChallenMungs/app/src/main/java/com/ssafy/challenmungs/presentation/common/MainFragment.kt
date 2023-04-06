@@ -8,6 +8,7 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import com.ssafy.challenmungs.R
@@ -30,6 +31,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
         R.id.information_fragment,
         R.id.my_page_fragment
     )
+    private val mainViewModel by activityViewModels<MainViewModel>()
 
     override fun initView() {
         val navHostFragment =
@@ -37,6 +39,11 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
         navController = navHostFragment.navController
         val navGraph = navController.navInflater.inflate(R.navigation.navigation_home)
         navController.graph = navGraph
+
+        mainViewModel.status.observe(viewLifecycleOwner) {
+            navController.navigate(menusNavigation[it])
+            selected(menus[it])
+        }
 
         menus.forEachIndexed { tabIndex, tabName ->
             setMenu(tabName, tabIndex)
@@ -69,7 +76,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
 
         tab.setOnClickListener {
             selected(tabName)
-            navController.navigate(menusNavigation[tabIndex])
+            mainViewModel.setStatus(tabIndex)
         }
     }
 
