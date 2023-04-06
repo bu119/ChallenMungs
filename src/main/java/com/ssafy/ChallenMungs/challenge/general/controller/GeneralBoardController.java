@@ -262,7 +262,10 @@ public class GeneralBoardController {
         // 내 게시글이면 false
         boolean result = rejectService.addOrCancelReject(boardId, user);
         if (result) {
-            return ResponseEntity.ok("result : Success Reject Count updated!");
+            HashMap<String, String> dto = new HashMap<>();
+            dto.put("result", "success");
+            return new ResponseEntity(dto, HttpStatus.OK); // 200
+//            return ResponseEntity.ok("result : Success Reject Count updated!");
         } else {
             return ResponseEntity.badRequest().build();
         }
