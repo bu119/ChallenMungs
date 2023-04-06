@@ -230,7 +230,6 @@ ChallengeController {
         HashMap<String, Object> dto = new HashMap<>();
         dto.put("challenge", challenge);
         dto.put("participant", newList);
-        dto.put("period", ChronoUnit.DAYS.between(challenge.getStartDate(), challenge.getEndDate()) + 1);
         return new ResponseEntity(dto, HttpStatus.OK);
     }
 

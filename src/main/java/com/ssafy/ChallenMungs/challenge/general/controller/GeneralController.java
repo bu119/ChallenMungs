@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 
 @RestController
 @RequestMapping("/general")
@@ -69,6 +70,7 @@ public class GeneralController {
                         .successCondition(successCondition)
                         .challengeType(1)
                         .status(0)
+                        .period(ChronoUnit.DAYS.between(startDate, endDate) + 1)
                         .build()
         );
 
