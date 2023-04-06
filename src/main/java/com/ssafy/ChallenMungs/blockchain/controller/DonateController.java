@@ -34,7 +34,6 @@ public class DonateController {
     ResponseEntity<Object> donate(HttpServletRequest request, @RequestParam int campaignId, @RequestParam int money, @RequestParam String memo) {
         String loginId = request.getAttribute("loginId").toString();
         service.donate(campaignId,money,memo,loginId);
-        HashMap<String, Object> dto = new HashMap<>();
         return new ResponseEntity<Object>(res.makeSimpleRes("성공"),HttpStatus.OK);
     }
 
@@ -52,7 +51,6 @@ public class DonateController {
         else{
             return new ResponseEntity<Object>(res.makeSimpleRes("잔액이 부족합니다."),HttpStatus.BAD_REQUEST);
         }
-
     }
 
     //이월하기
@@ -91,6 +89,12 @@ public class DonateController {
     ResponseEntity<Object> isTransferAble(@RequestParam int campaignId) {
 
         return new ResponseEntity<Object>(res.makeSimpleRes(service.checkCampaignTransferAble(campaignId)),HttpStatus.OK);
+    }
+
+    @GetMapping("/totalDonateAll")
+    @ApiOperation(value = "모든 사람의 누적 기부 금액을 반환합니다.")
+    ResponseEntity<Object> totalDonateAll() {
+        return new ResponseEntity<Object>(res.makeSimpleRes(service.totalDonateAll()),HttpStatus.OK);
     }
 
 
