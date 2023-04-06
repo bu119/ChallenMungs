@@ -18,6 +18,10 @@
         <action
             android:id="@+id/action_to_main_fragment"
             app:destination="@id/main_fragment" />
+
+        <action
+            android:id="@+id/action_to_shelter_home_fragment"
+            app:destination="@id/shelter_home_fragment" />
     </fragment>
 
     <fragment
@@ -29,6 +33,10 @@
         <action
             android:id="@+id/action_to_main_fragment"
             app:destination="@id/main_fragment" />
+
+        <action
+            android:id="@+id/action_to_shelter_home_fragment"
+            app:destination="@id/shelter_home_fragment" />
     </fragment>
 
     <fragment
@@ -71,4 +79,10 @@
         android:name="com.ssafy.challenmungs.presentation.challenge.basic.ChallengeBasicInfoFragment"
         android:label="Challenge Basic Info Fragment"
         tools:layout="@layout/fragment_challenge_basic_info" />
+
+    <fragment
+        android:id="@+id/shelter_home_fragment"
+        android:name="com.ssafy.challenmungs.presentation.shelter.ShelterHomeFragment"
+        android:label="Shelter Home Fragment"
+        tools:layout="@layout/fragment_shelter_home" />
 </navigation>
