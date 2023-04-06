@@ -100,4 +100,10 @@ public class WalletController {
         return new ResponseEntity<Object>(service.viewCampaignWallet(campaignId, fromOnly, toOnly),HttpStatus.OK);
     }
 
+    @GetMapping("sendKlay")
+    @ApiOperation(value = "임의로 클레이튼을 전송합니다.")
+    ResponseEntity<Object> sendKlay(@RequestParam String from, @RequestParam String to, @RequestParam int amount) {
+        service.sendKlay(from, to, amount);
+        return new ResponseEntity<Object>(res.makeSimpleRes("성공"),HttpStatus.OK);
+    }
 }

@@ -135,6 +135,9 @@ public class CampaignContentServiceImpl implements CampaignContentService{
         String existAddress="";
         for(Campaign campaign:campaigns){
 //            if(!campaign.getWalletAddress().equals("none"))
+//            System.out.println("----------------------------------");
+//            System.out.println(campaign.getCampaignId());
+//            System.out.println(campaign.getEndUnix());
             if(campaign.getEndUnix() == 0){
                 campaignCnt++;
             }
@@ -142,7 +145,7 @@ public class CampaignContentServiceImpl implements CampaignContentService{
                 existAddress=campaign.getWalletAddress();
             }
         }
-
+        System.out.println(campaignCnt);
         //사용가능한 add가 2개이면(슬롯 하나도 안 쓴 상태면) 첫번째 캠페인 계좌주소를 반환
         if(campaignCnt==0){
              return walletRepo.findByUserAndType(user,'1').getAddress();
