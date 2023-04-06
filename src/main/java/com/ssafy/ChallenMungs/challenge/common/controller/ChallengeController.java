@@ -305,7 +305,6 @@ ChallengeController {
         if (challenge.getChallengeType() == 1){
             fromAddress = generalChallenge;
         }
-
         else {
             fromAddress = panelChallenge;
         }

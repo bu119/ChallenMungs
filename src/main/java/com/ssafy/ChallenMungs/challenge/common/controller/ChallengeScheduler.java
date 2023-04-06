@@ -16,25 +16,19 @@ import com.ssafy.ChallenMungs.challenge.treasure.handler.TreasureVo;
 import com.ssafy.ChallenMungs.common.util.FileManager;
 import com.ssafy.ChallenMungs.user.entity.User;
 import com.ssafy.ChallenMungs.user.service.UserService;
-import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.*;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
-import org.springframework.web.client.RestTemplate;
 
-import java.time.Duration;
-import java.math.BigInteger;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-
-import static com.ssafy.ChallenMungs.challenge.general.service.GeneralBoardService.*;
 
 @Component
 public class ChallengeScheduler {
@@ -70,8 +64,10 @@ public class ChallengeScheduler {
     @Autowired
     WalletRepository walletRepo;
 
-    String normalChallenge = "0x2649eadC4C15bac554940A0A702fa759bddf0dBe";
-    String specialChallenge = "0xee43BB5476e52B04175d698C56cC4516b96A85A5";
+    @Value("${GENERAL_ADDRESS}")
+    String generalChallenge;
+    @Value("${PANEL_ADDRESS}")
+    String panelChallenge;
 
     @Scheduled(cron = "0 0 0 * * ?") // 매일 자정에 동작해요
 //    @Scheduled(cron = "0/5 * * * * ?") // 20초마다 실행해요
@@ -91,8 +87,8 @@ public class ChallengeScheduler {
                     List<MyChallenge> myChallenges = myChallengeService.findAllByChallengeId(c.getChallengeId());
                     String fromAddress;
                     if (c.getChallengeType() == 1){
-                        fromAddress = normalChallenge;
-                    }else{ fromAddress = specialChallenge; }
+                        fromAddress = generalChallenge;
+                    }else{ fromAddress = panelChallenge; }
                     int fee = c.getEntryFee();
                     // 모든 챌린지 참여자들 돌면서
                     for (MyChallenge mc : myChallenges) {
@@ -234,7 +230,7 @@ public class ChallengeScheduler {
                         String shelterAddress = campaignListRepo.findCampaignByCampaignId(c.getCampaignId()).getWalletAddress();
                         for(User successUser:successUsers){
                             String userPiggyBank = walletRepo.findByUserAndType(successUser, 'p').getAddress();
-                            walletService.sendKlay(specialChallenge, userPiggyBank, getCoin);
+                            walletService.sendKlay(panelChallenge, userPiggyBank, getCoin);
                             walletService.sendKlay(userPiggyBank, shelterAddress, getCoin);
 //                            sendKlay(successUser, getCoin, true, shelterAddress);
                         }
@@ -307,7 +303,7 @@ public class ChallengeScheduler {
                         newRankInfoMap.put("obtainKlay", myklay[idx-1]);
                         newRankInfoList.add(newRankInfoMap);
                         String userPiggyBank = walletRepo.findByUserAndType(u, 'p').getAddress();
-                        walletService.sendKlay(specialChallenge, userPiggyBank, myklay[idx-1]);
+                        walletService.sendKlay(panelChallenge, userPiggyBank, myklay[idx-1]);
 //                        sendKlay(u, myklay[idx-1], false, null);
                         idx++;
                         mc.setSuccessResult(rv.getTeamRank());
@@ -364,7 +360,7 @@ public class ChallengeScheduler {
                         newRankInfoMap.put("myTreasureList", rv.getMyTreasureList());
                         newRankInfoList.add(newRankInfoMap);
                         String userPiggyBank = walletRepo.findByUserAndType(u, 'p').getAddress();
-                        walletService.sendKlay(specialChallenge, userPiggyBank, myklay[idx-1]);
+                        walletService.sendKlay(panelChallenge, userPiggyBank, myklay[idx-1]);
 //                        sendKlay(u, myklay[idx-1], false, null);
                         idx++;
                         mc.setSuccessResult(rv.getTeamRank());
