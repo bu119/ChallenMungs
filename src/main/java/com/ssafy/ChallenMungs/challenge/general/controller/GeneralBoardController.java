@@ -1,5 +1,6 @@
 package com.ssafy.ChallenMungs.challenge.general.controller;
 
+import com.amazonaws.services.kms.model.NotFoundException;
 import com.ssafy.ChallenMungs.challenge.common.entity.Challenge;
 import com.ssafy.ChallenMungs.challenge.common.entity.MyChallenge;
 import com.ssafy.ChallenMungs.challenge.common.service.ChallengeService;
@@ -168,6 +169,13 @@ public class GeneralBoardController {
         Challenge challenge = challengeService.findByChallengeId(challengeId);
         // 해당 챌린지의 선택한 게시글 유저의 기록을 가져옴
         List<GeneralBoard> boards = boardService.getBoardsByChallengeAndUser(challenge, boardUser);
+
+        // 예외 처리 추가
+        if (boards == null || boards.isEmpty()) {
+            log.info("인증 게시글이 존재하지 않습니다.");
+            throw new NotFoundException("게시글이 존재하지 않습니다.");
+        }
+
         List<GeneralBoardHistoryDto> dtoList = new ArrayList<>();
         for (GeneralBoard gb : boards) {
 
@@ -230,7 +238,7 @@ public class GeneralBoardController {
     // boardId를 받아서 해당 board의 rejectCount를 1 증가하고, GeneralReject 테이블 추가
     @PostMapping("tokenConfirm/reject")
     @ApiOperation(value = "일반챌린지 인증을 반려하는 api입니다.", notes = "boradId를 활용하여 거절 횟수를 증가합니다.")
-    public ResponseEntity<Void> addOrCancelReject(HttpServletRequest request, @RequestParam("boardId") Integer boardId) {
+    public ResponseEntity<String> addOrCancelReject(HttpServletRequest request, @RequestParam("boardId") Integer boardId) {
         String loginId = request.getAttribute("loginId").toString();
         User user = userService.findUserByLoginId(loginId);
         // 이 board를 이미 반려했는지, 반려안했는지, 내 게시글인지 확인
@@ -238,7 +246,7 @@ public class GeneralBoardController {
         // 내 게시글이면 false
         boolean result = rejectService.addOrCancelReject(boardId, user);
         if (result) {
-            return ResponseEntity.ok().build();
+            return ResponseEntity.ok("result : Success Reject Count updated!");
         } else {
             return ResponseEntity.badRequest().build();
         }
@@ -251,7 +259,7 @@ public class GeneralBoardController {
 
         String loginId = request.getAttribute("loginId").toString();
         boardService.updateSuccessCount(loginId, challengeId);
-        return ResponseEntity.ok("Success Count updated");
+        return ResponseEntity.ok("result : Success Count updated!");
     }
 
 }

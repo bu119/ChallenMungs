@@ -138,7 +138,7 @@ public class WalletServiceImpl implements  WalletService{
             BigInteger balanceWei = balanceResponse.getBalance();
 
             // 단위 변환: KLAY -> KLAY
-            String balanceKlay = Convert.fromWei(balanceWei.toString(), Convert.Unit.ETHER).toPlainString();
+            String balanceKlay = String.valueOf(Convert.fromWei(balanceWei.toString(), Convert.Unit.ETHER).toBigInteger());
             return balanceKlay;
 
         } catch (Exception e) {
@@ -174,21 +174,47 @@ public class WalletServiceImpl implements  WalletService{
     String lowerN = normalChallenge.toLowerCase();
     String lowerS = specialChallenge.toLowerCase();
     // for문 돌면서 item 만들기
+
     @Override
-    public Map<String, List<WalletItemDto>> viewMyWallet(String loginId) throws JsonProcessingException {
+    public List<Map<String, Object>> viewMyWallet(String loginId) throws JsonProcessingException {
         User user = userRepo.findUserByLoginId(loginId);
         String address = walletRepo.findByUserAndType(user, 'w').getAddress();
+        int totalMoney = Integer.parseInt(getBalance(loginId, 'w'));
+        int before_input = 0;
 
         JsonNode items = getHistory(address);
 
-        Map<String, List<WalletItemDto>> result = new HashMap<>();
+        List<Map<String, Object>> result = new ArrayList<>();
+        Map<String, List<WalletItemDto>> dayMap = new LinkedHashMap<>();
+
+//        Map<String, List<WalletItemDto>> result = new HashMap<>();
 
         //사용 내역 바꾸기
         for (JsonNode item : items) {
             String from = item.get("from").asText();
             String to = item.get("to").asText();
             String title;
+
+            long timstamp = item.get("timestamp").asLong();
+            Date date = new Date(timstamp * 1000L);
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(date);
+
+            // 전송 Klaytn(hex)
+            String hexvalue = item.get("value").asText();
+//            log.info(hexvalue);
+            // 0x slicing
+            hexvalue = hexvalue.substring(2);
+            // Decimal로 변환
+            BigInteger decimal = new BigInteger(hexvalue, 16);
+            BigInteger divisor = new BigInteger("1000000000000000000");
+            // 최종값으로 변환
+            BigDecimal amount = new BigDecimal(decimal).divide(new BigDecimal(divisor));
+
             if (from.equals(address)) {
+                totalMoney += before_input;
+                before_input = amount.intValue();
+
                 if (to.equals(lowerN)) {
                     title = "일반 챌린지 참여";
                 } else if (to.equals(lowerS)) {
@@ -199,8 +225,49 @@ public class WalletServiceImpl implements  WalletService{
             }
             // 충전
             else {
+                totalMoney += before_input;
+                before_input = amount.intValue() * (-1);
                 title = "충전";
             }
+
+            // 값 넣기
+            WalletItemDto tmp = new WalletItemDto(title, amount, String.valueOf(calendar.get(Calendar.HOUR_OF_DAY) + ":" + calendar.get(Calendar.MINUTE)), totalMoney);
+            String day = String.valueOf(calendar.get(Calendar.MONTH) + 1) + "." + String.valueOf(calendar.get(Calendar.DATE));
+            List<WalletItemDto> dayList = dayMap.getOrDefault(day, new ArrayList<>());
+            dayList.add(tmp);
+            dayMap.put(day, dayList);
+        }
+
+        // 결과 맵으로 변환
+        for (Map.Entry<String, List<WalletItemDto>> entry : dayMap.entrySet()) {
+            Map<String, Object> resultMap = new HashMap<>();
+            resultMap.put("date", entry.getKey());
+            resultMap.put("items", entry.getValue());
+            result.add(resultMap);
+        }
+       return result;
+    }
+
+    @Override
+    public List<Map<String, Object>> viewMyPiggyBank(String loginId) throws JsonProcessingException {
+        User user = userRepo.findUserByLoginId(loginId);
+        String address = walletRepo.findByUserAndType(user, 'p').getAddress();
+        JsonNode items = getHistory(address);
+
+        int totalMoney = Integer.parseInt(getBalance(loginId, 'p'));
+        // item별 당시 계좌 잔액 표기를 위해
+        int before_input = 0;
+
+//        Map<String, List<WalletItemDto>> result = new HashMap<>();
+        List<Map<String, Object>> result = new ArrayList<>();
+        Map<String, List<WalletItemDto>> dayMap = new LinkedHashMap<>();
+
+
+        //사용 내역 바꾸기
+        for (JsonNode item : items) {
+            String from = item.get("from").asText();
+            String to = item.get("to").asText();
+            String title;
 
             //전송 시간
             long timstamp = item.get("timestamp").asLong();
@@ -219,30 +286,11 @@ public class WalletServiceImpl implements  WalletService{
             // 최종값으로 변환
             BigDecimal amount = new BigDecimal(decimal).divide(new BigDecimal(divisor));
 
-            // 값 넣기
-            WalletItemDto tmp = new WalletItemDto(title, amount, String.valueOf(calendar.get(Calendar.HOUR_OF_DAY)+":"+calendar.get(Calendar.MINUTE)));
-            String day = String.valueOf(calendar.get(Calendar.MONTH) + 1) + "." + String.valueOf(calendar.get(Calendar.DATE));
-            List<WalletItemDto> dayList = result.getOrDefault(day, new ArrayList<WalletItemDto>());
-            dayList.add(tmp);
-            result.put(day, dayList);
-        }
-        return result;
-    }
-
-    @Override
-    public Map<String, List<WalletItemDto>> viewMyPiggyBank(String loginId) throws JsonProcessingException {
-        User user = userRepo.findUserByLoginId(loginId);
-        String address = walletRepo.findByUserAndType(user, 'p').getAddress();
-        JsonNode items = getHistory(address);
-
-        Map<String, List<WalletItemDto>> result = new HashMap<>();
-
-        //사용 내역 바꾸기
-        for (JsonNode item : items) {
-            String from = item.get("from").asText();
-            String to = item.get("to").asText();
-            String title;
+            // 챌린지 보상
             if (to.equals(address)) {
+                totalMoney += before_input;
+                before_input = amount.intValue() * (-1);
+
                 if (from.equals(lowerN)) {
                     title = "일반 챌린지 보상";
                 } else if (from.equals(lowerS)) {
@@ -251,35 +299,27 @@ public class WalletServiceImpl implements  WalletService{
                     title = "error";
                 }
             }
-            // 충전
+            // 기부
             else {
+                totalMoney += before_input;
+                before_input = amount.intValue();
                 Wallet shelter = walletRepo.findByAddress(to);
                 title = shelter.getUser().getName() + "에 기부";
             }
 
-            //전송 시간
-            long timstamp = item.get("timestamp").asLong();
-            Date date = new Date(timstamp * 1000L);
-            Calendar calendar = Calendar.getInstance();
-            calendar.setTime(date);
-
-            // 전송 Klaytn(hex)
-            String hexvalue = item.get("value").asText();
-//            log.info(hexvalue);
-            // 0x slicing
-            hexvalue = hexvalue.substring(2);
-            // Decimal로 변환
-            BigInteger decimal = new BigInteger(hexvalue, 16);
-            BigInteger divisor = new BigInteger("1000000000000000000");
-            // 최종값으로 변환
-            BigDecimal amount = new BigDecimal(decimal).divide(new BigDecimal(divisor));
-
             // 값 넣기
-            WalletItemDto tmp = new WalletItemDto(title, amount, String.valueOf(calendar.get(Calendar.HOUR_OF_DAY)+":"+calendar.get(Calendar.MINUTE)));
+            WalletItemDto tmp = new WalletItemDto(title, amount, String.valueOf(calendar.get(Calendar.HOUR_OF_DAY)+":"+calendar.get(Calendar.MINUTE)), totalMoney);
             String day = String.valueOf(calendar.get(Calendar.MONTH) + 1) + "." + String.valueOf(calendar.get(Calendar.DATE));
-            List<WalletItemDto> dayList = result.getOrDefault(day, new ArrayList<WalletItemDto>());
+            List<WalletItemDto> dayList = dayMap.getOrDefault(day, new ArrayList<>());
             dayList.add(tmp);
-            result.put(day, dayList);
+            dayMap.put(day, dayList);
+        }
+
+        for (Map.Entry<String, List<WalletItemDto>> entry : dayMap.entrySet()) {
+            Map<String, Object> dayResult = new HashMap<>();
+            dayResult.put("date", entry.getKey());
+            dayResult.put("items", entry.getValue());
+            result.add(dayResult);
         }
 
         return result;
@@ -419,6 +459,12 @@ public class WalletServiceImpl implements  WalletService{
         String result = totalAmount.toString();
 
         return result;
+    }
+
+    @Override
+    public String getWalletAddress(String loginId) throws JsonProcessingException {
+        User user = userRepo.findUserByLoginId(loginId);
+        return walletRepo.findByUserAndType(user, 'w').getAddress();
     }
 
 }

@@ -1,13 +1,9 @@
 package com.ssafy.ChallenMungs.blockchain.service;
 
-import com.ssafy.ChallenMungs.blockchain.dto.DonationDetailDto;
-import com.ssafy.ChallenMungs.blockchain.dto.DonationItemDto;
-import com.ssafy.ChallenMungs.blockchain.dto.DonationListDto;
-import com.ssafy.ChallenMungs.blockchain.dto.DonationSummaryDto;
+import com.ssafy.ChallenMungs.blockchain.dto.*;
 import com.ssafy.ChallenMungs.blockchain.entity.Donation;
 import com.ssafy.ChallenMungs.blockchain.repository.DonationRepository;
 import com.ssafy.ChallenMungs.blockchain.repository.WalletRepository;
-import com.ssafy.ChallenMungs.campaign.controller.CampaignContentController;
 import com.ssafy.ChallenMungs.campaign.entity.Campaign;
 import com.ssafy.ChallenMungs.campaign.entity.Comment;
 import com.ssafy.ChallenMungs.campaign.repository.CampaignListRepository;
@@ -15,24 +11,13 @@ import com.ssafy.ChallenMungs.campaign.repository.CommentRepository;
 import com.ssafy.ChallenMungs.user.entity.User;
 import com.ssafy.ChallenMungs.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
-import org.json.JSONObject;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.http.*;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
 
 import javax.transaction.Transactional;
-import java.math.BigInteger;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 @Transactional
@@ -207,19 +192,31 @@ public class DonateServiceImpl implements  DonateService{
 
     //----내 기부내역 조회-----
     @Override
-    public Map<String,List<DonationItemDto>> viewMyDonations(String loginId, int year) {
+    public List<Map<String, Object>> viewMyDonations(String loginId, int year) {
 
-        Map<String,List<DonationItemDto>> result=new HashMap<>();
+//        Map<String,List<DonationItemDto>> result=new HashMap<>();
+        List<Map<String, Object>> result = new ArrayList<>();
+        Map<String, List<DonationItemDto>> dayMap = new LinkedHashMap<>();
+
+
         List <Donation> list=donationRepo.findAllByUserAndYearOrderByDonateDateDesc(userRepo.findUserByLoginId(loginId),year);
         for(Donation donate:list){
             DonationItemDto item=new DonationItemDto(donate.getShelter(),donate.getMoney(),donate.getTotalMoney(),donate.getDonateDate().getHour()+":"+donate.getDonateDate().getMinute());
             String day=donate.getDonateDate().getMonthValue()+"."+donate.getDonateDate().getDayOfMonth();
-            List <DonationItemDto> dayList=result.getOrDefault(day,new ArrayList<DonationItemDto>());
+            List <DonationItemDto> dayList = dayMap.getOrDefault(day,new ArrayList<DonationItemDto>());
             dayList.add(item);
-            result.put(day,dayList);
+            dayMap.put(day,dayList);
+        }
+
+        for (Map.Entry<String, List<DonationItemDto>> entry : dayMap.entrySet()) {
+            Map<String, Object> dayResult = new HashMap<>();
+            dayResult.put("date", entry.getKey());
+            dayResult.put("items", entry.getValue());
+            result.add(dayResult);
         }
         return result;
     }
+
     @Override
     public DonationDetailDto getDonation(int donationId){
         Donation d=donationRepo.findByDonationId(donationId);
