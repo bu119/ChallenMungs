@@ -133,7 +133,7 @@ public class UserController {
         URL url;
         HashMap<String, String> v = new HashMap<>();
         v.put("loginId", null);
-        v.put("profile", null);
+        v.put("profile", "https://kr.object.ncloudstorage.com/challenmungs-storage/user/eaf7f044-caa8-44d7-b890-9315913e9872ic_profile.png");
         try {
             url = new URL(reqURL);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -168,17 +168,11 @@ public class UserController {
     @GetMapping("/tokenConfirm/getNameAndProfileAndLoginId")
     @ApiOperation(value = "프로필수정 페이지에 들어갈 때 닉네임과 프로필이미지을 불러오는 메서드에요!")
     ResponseEntity<Map<String, Object>> getNameAndProfile(HttpServletRequest request) {
-        User user = userService.findUserByLoginId(request.getAttribute("loginId").toString());
-
-        String url;
-        if (user.getProfile() != null) {
-            url = user.getProfile();
-        } else url = "https://kr.object.ncloudstorage.com/challenmungs-storage/user/eaf7f044-caa8-44d7-b890-9315913e9872ic_profile.png";
-
         Map res = new HashMap<>();
         res.put("code", "get_name_success");
+        User user = userService.findUserByLoginId(request.getAttribute("loginId").toString());
         res.put("name", user.getName());
-        res.put("profile", url);
+        res.put("profile", user.getProfile());
         res.put("loginId", user.getLoginId());
         HttpStatus httpStatus = HttpStatus.OK;
         return new ResponseEntity<>(res, httpStatus);
