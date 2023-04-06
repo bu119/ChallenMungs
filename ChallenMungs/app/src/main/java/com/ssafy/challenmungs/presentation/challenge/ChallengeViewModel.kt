@@ -50,6 +50,10 @@ class ChallengeViewModel @Inject constructor(
         _notStartedChallengeDetail.value = null
     }
 
+    fun initBasicTodayList() {
+        _basicTodayList.value = null
+    }
+
     fun setChallengeParticipationFlag(flag: Boolean) {
         _notStartedChallengeDetail.value?.let {
             it.isParticipated = flag

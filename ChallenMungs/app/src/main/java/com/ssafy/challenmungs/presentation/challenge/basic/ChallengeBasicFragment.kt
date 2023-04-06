@@ -1,7 +1,9 @@
 package com.ssafy.challenmungs.presentation.challenge.basic
 
+import android.content.Context
 import android.graphics.Typeface
 import android.widget.TextView
+import androidx.activity.OnBackPressedCallback
 import androidx.core.view.children
 import androidx.fragment.app.activityViewModels
 import com.google.android.material.tabs.TabLayout
@@ -15,6 +17,12 @@ class ChallengeBasicFragment :
     BaseFragment<FragmentChallengeBasicBinding>(R.layout.fragment_challenge_basic) {
 
     private val challengeViewModel by activityViewModels<ChallengeViewModel>()
+    private val callback = object : OnBackPressedCallback(true) {
+        override fun handleOnBackPressed() {
+            challengeViewModel.initBasicTodayList()
+            popBackStack()
+        }
+    }
 
     enum class ViewType {
         TODAY, HISTORY
@@ -27,6 +35,16 @@ class ChallengeBasicFragment :
 
         initViewPager()
         initListener()
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        activity?.onBackPressedDispatcher?.addCallback(this@ChallengeBasicFragment, callback)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        callback.remove()
     }
 
     private fun initViewPager() {

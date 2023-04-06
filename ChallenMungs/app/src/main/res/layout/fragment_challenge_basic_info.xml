@@ -5,6 +5,8 @@
 
     <data>
 
+        <import type="android.view.View" />
+
         <variable
             name="info"
             type="com.ssafy.challenmungs.domain.entity.challenge.NotStartedChallengeDetail" />
@@ -372,6 +374,7 @@
             android:text="@string/content_participate"
             android:textColor="@color/black"
             android:textSize="16sp"
+            android:visibility="@{info.status == 0 ? View.VISIBLE : View.GONE}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
