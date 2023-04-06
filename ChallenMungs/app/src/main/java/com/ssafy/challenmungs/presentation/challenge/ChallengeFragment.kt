@@ -29,7 +29,16 @@ class ChallengeFragment : BaseFragment<FragmentChallengeBinding>(R.layout.fragme
     override fun initView() {
         initRecyclerView()
         observe()
+        initListener()
         challengeViewModel.getChallengeList(1)
+    }
+
+    private fun initListener() {
+        binding.fabPanel.setOnClickListener {
+            navigationNavHostFragmentToDestinationFragment(
+                R.id.panel_create_fragment
+            )
+        }
     }
 
     private fun initRecyclerView() {

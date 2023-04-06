@@ -12,80 +12,102 @@
         android:layout_height="match_parent"
         tools:context=".presentation.mypage.MyPageFragment">
 
-        <ImageView
-            android:id="@+id/iv_profile"
-            android:layout_width="65dp"
-            android:layout_height="65dp"
-            android:layout_marginStart="44dp"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_user_area"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="47dp"
-            android:contentDescription="@string/image_default_profile"
-            android:src="@drawable/ic_profile_default"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintEnd_toEndOf="@+id/cl_heart_temperature"
+            app:layout_constraintStart_toStartOf="@+id/cl_heart_temperature"
+            app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:id="@+id/tv_nickname"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:textColor="@color/black"
-            android:textSize="20sp"
-            app:layout_constraintBottom_toTopOf="@id/tv_total_contribution"
-            app:layout_constraintStart_toEndOf="@id/iv_profile"
-            app:layout_constraintTop_toTopOf="@id/iv_profile"
-            tools:text="김차돌내가짱이다짱짱" />
+            <ImageView
+                android:id="@+id/iv_profile"
+                android:layout_width="65dp"
+                android:layout_height="65dp"
+                android:contentDescription="@string/image_default_profile"
+                android:src="@drawable/ic_profile_default"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/tv_total_contribution"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/content_total_contribution"
-            android:textColor="@color/zambezi"
-            app:layout_constraintBottom_toBottomOf="@id/iv_profile"
-            app:layout_constraintStart_toStartOf="@id/tv_nickname" />
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@id/iv_profile"
+                app:layout_constraintTop_toTopOf="@id/iv_profile">
+
+                <TextView
+                    android:id="@+id/tv_nickname"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    tools:text="김차돌내가짱이다짱짱" />
+
+                <TextView
+                    android:id="@+id/tv_total_contribution"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:textColor="@color/zambezi" />
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cl_heart_temperature"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="38dp"
+            android:layout_marginHorizontal="26dp"
             android:layout_marginTop="27dp"
             android:background="@color/corn_silk"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_total_contribution">
+            app:layout_constraintTop_toBottomOf="@id/cl_user_area">
 
-            <TextView
-                android:id="@+id/tv_heart_temperature"
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/ll_heart_temperature"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="13dp"
-                android:text="@string/content_heart_temperature_amount"
-                android:textColor="@color/venetian_red"
-                android:textSize="11sp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toTopOf="@id/iv_heart_temperature"
-                app:layout_constraintEnd_toEndOf="@id/iv_heart_temperature"
-                app:layout_constraintStart_toStartOf="@id/iv_heart_temperature"
-                app:layout_constraintTop_toBottomOf="@id/tv_heart_temperature_name"
-                tools:ignore="TextContrastCheck" />
-
-            <ImageView
-                android:id="@+id/iv_heart_temperature"
-                android:layout_width="66dp"
-                android:layout_height="66dp"
-                android:contentDescription="@string/image_heart_temperature"
-                android:src="@drawable/ic_mypage_heart_temperature"
+                android:layout_marginTop="20dp"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:visibility="invisible"
                 app:layout_constraintBottom_toTopOf="@id/progress_bar"
-                app:layout_constraintEnd_toEndOf="@id/progress_bar"
-                app:layout_constraintStart_toStartOf="@id/progress_bar" />
+                app:layout_constraintStart_toStartOf="@id/progress_bar"
+                app:layout_constraintTop_toBottomOf="@+id/tv_heart_temperature_name">
+
+                <TextView
+                    android:id="@+id/tv_heart_temperature"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="13dp"
+                    android:textColor="@color/venetian_red"
+                    android:textSize="13sp"
+                    android:textStyle="bold"
+                    tools:ignore="TextContrastCheck" />
+
+                <ImageView
+                    android:id="@+id/iv_heart_temperature"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:contentDescription="@string/image_heart_temperature"
+                    android:src="@drawable/ic_mypage_heart_temperature" />
+
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
 
             <ProgressBar
                 android:id="@+id/progress_bar"
                 style="?android:attr/progressBarStyleHorizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="26dp"
+                android:layout_marginHorizontal="28dp"
                 android:layout_marginBottom="18dp"
                 android:max="100"
                 android:progressDrawable="@drawable/bg_custom_progress_my_page"
@@ -116,7 +138,7 @@
             android:layout_marginEnd="10dp"
             android:background="@drawable/bg_rect_fair_pink_radius15"
             android:paddingHorizontal="15dp"
-            android:paddingVertical="15dp"
+            android:paddingVertical="20dp"
             app:layout_constraintEnd_toStartOf="@id/gl_middle"
             app:layout_constraintStart_toStartOf="@id/cl_heart_temperature"
             app:layout_constraintTop_toBottomOf="@id/cl_heart_temperature">
@@ -164,7 +186,7 @@
             android:layout_marginTop="12dp"
             android:background="@drawable/bg_rect_fair_pink_radius15"
             android:paddingHorizontal="15dp"
-            android:paddingVertical="15dp"
+            android:paddingVertical="20dp"
             app:layout_constraintEnd_toEndOf="@id/cl_heart_temperature"
             app:layout_constraintStart_toStartOf="@id/gl_middle"
             app:layout_constraintTop_toBottomOf="@id/cl_heart_temperature">
@@ -210,144 +232,182 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="26dp"
             android:layout_marginTop="30dp"
-            android:paddingTop="15dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/cl_my_wallet">
 
-            <ImageView
-                android:id="@+id/iv_donate_history"
-                android:layout_width="17dp"
-                android:layout_height="17dp"
-                android:contentDescription="@string/image_donate_history"
-                android:src="@drawable/ic_mypage_donate_history"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:ignore="ImageContrastCheck" />
-
-            <TextView
-                android:id="@+id/tv_donate_history_name"
-                android:layout_width="wrap_content"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_list_donate_history"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:text="@string/title_donate_history"
-                android:textColor="@color/black"
-                android:textSize="14sp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="@id/iv_donate_history"
-                app:layout_constraintStart_toEndOf="@id/iv_donate_history"
-                app:layout_constraintTop_toTopOf="@id/iv_donate_history" />
+                android:paddingVertical="15dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/iv_donate_history"
+                    android:layout_width="17dp"
+                    android:layout_height="17dp"
+                    android:contentDescription="@string/image_donate_history"
+                    android:src="@drawable/ic_mypage_donate_history"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:ignore="ImageContrastCheck" />
+
+                <TextView
+                    android:id="@+id/tv_donate_history_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:text="@string/title_donate_history"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="@id/iv_donate_history"
+                    app:layout_constraintStart_toEndOf="@id/iv_donate_history"
+                    app:layout_constraintTop_toTopOf="@id/iv_donate_history" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <View
                 android:id="@+id/divider_donate_history"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:layout_marginTop="15dp"
                 android:background="@color/golden_glow"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_donate_history_name" />
+                app:layout_constraintTop_toBottomOf="@id/cl_list_donate_history" />
 
-            <ImageView
-                android:id="@+id/iv_my_challenge"
-                android:layout_width="17dp"
-                android:layout_height="17dp"
-                android:layout_marginTop="15dp"
-                android:contentDescription="@string/image_my_challenge"
-                android:src="@drawable/ic_mypage_my_challenge"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@id/divider_donate_history"
-                tools:ignore="ImageContrastCheck" />
-
-            <TextView
-                android:id="@+id/tv_my_challenge_name"
-                android:layout_width="wrap_content"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_list_my_challenge"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:text="@string/title_my_challenge"
-                android:textColor="@color/black"
-                android:textSize="14sp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="@id/iv_my_challenge"
-                app:layout_constraintStart_toEndOf="@id/iv_my_challenge"
-                app:layout_constraintTop_toTopOf="@id/iv_my_challenge" />
+                android:paddingVertical="15dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/cl_list_donate_history">
+
+                <ImageView
+                    android:id="@+id/iv_my_challenge"
+                    android:layout_width="17dp"
+                    android:layout_height="17dp"
+                    android:contentDescription="@string/image_my_challenge"
+                    android:src="@drawable/ic_mypage_my_challenge"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:ignore="ImageContrastCheck" />
+
+                <TextView
+                    android:id="@+id/tv_my_challenge_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:text="@string/title_my_challenge"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="@id/iv_my_challenge"
+                    app:layout_constraintStart_toEndOf="@id/iv_my_challenge"
+                    app:layout_constraintTop_toTopOf="@id/iv_my_challenge" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <View
                 android:id="@+id/divider_my_challenge"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:layout_marginTop="15dp"
                 android:background="@color/golden_glow"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_my_challenge_name" />
+                app:layout_constraintTop_toBottomOf="@id/cl_list_my_challenge" />
 
-            <ImageView
-                android:id="@+id/iv_cheer_campaign"
-                android:layout_width="17dp"
-                android:layout_height="17dp"
-                android:layout_marginTop="15dp"
-                android:contentDescription="@string/image_cheer_campaign"
-                android:src="@drawable/ic_mypage_cheer_campaign"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@id/divider_my_challenge" />
-
-            <TextView
-                android:id="@+id/tv_cheer_campaign_name"
-                android:layout_width="wrap_content"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_list_cheer_campaign"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:text="@string/title_cheer_campaign"
-                android:textColor="@color/black"
-                android:textSize="14sp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="@id/iv_cheer_campaign"
-                app:layout_constraintStart_toEndOf="@id/iv_cheer_campaign"
-                app:layout_constraintTop_toTopOf="@id/iv_cheer_campaign" />
+                android:paddingVertical="15dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/divider_my_challenge">
+
+                <ImageView
+                    android:id="@+id/iv_cheer_campaign"
+                    android:layout_width="17dp"
+                    android:layout_height="17dp"
+                    android:contentDescription="@string/image_cheer_campaign"
+                    android:src="@drawable/ic_mypage_cheer_campaign"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_cheer_campaign_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:text="@string/title_cheer_campaign"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="@id/iv_cheer_campaign"
+                    app:layout_constraintStart_toEndOf="@id/iv_cheer_campaign"
+                    app:layout_constraintTop_toTopOf="@id/iv_cheer_campaign" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <View
                 android:id="@+id/divider_cheer_campaign"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:layout_marginTop="15dp"
                 android:background="@color/golden_glow"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_cheer_campaign_name" />
+                app:layout_constraintTop_toBottomOf="@id/cl_list_cheer_campaign" />
 
-            <ImageView
-                android:id="@+id/iv_my_campaign"
-                android:layout_width="17dp"
-                android:layout_height="17dp"
-                android:layout_marginTop="15dp"
-                android:contentDescription="@string/image_my_campaign"
-                android:src="@drawable/ic_mypage_my_campaign"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@id/divider_cheer_campaign"
-                tools:ignore="ImageContrastCheck" />
-
-            <TextView
-                android:id="@+id/tv_my_campaign_name"
-                android:layout_width="wrap_content"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_list_my_campaign"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:text="@string/title_my_campaign"
-                android:textColor="@color/black"
-                android:textSize="14sp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="@id/iv_my_campaign"
-                app:layout_constraintStart_toEndOf="@id/iv_my_campaign"
-                app:layout_constraintTop_toTopOf="@id/iv_my_campaign" />
+                android:paddingVertical="15dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/divider_cheer_campaign">
+
+                <ImageView
+                    android:id="@+id/iv_my_campaign"
+                    android:layout_width="17dp"
+                    android:layout_height="17dp"
+                    android:contentDescription="@string/image_my_campaign"
+                    android:src="@drawable/ic_mypage_my_campaign"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:ignore="ImageContrastCheck" />
+
+                <TextView
+                    android:id="@+id/tv_my_campaign_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:text="@string/title_my_campaign"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="@id/iv_my_campaign"
+                    app:layout_constraintStart_toEndOf="@id/iv_my_campaign"
+                    app:layout_constraintTop_toTopOf="@id/iv_my_campaign" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <View
                 android:id="@+id/divider_my_campaign"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:layout_marginTop="15dp"
                 android:background="@color/golden_glow"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_my_campaign_name" />
+                app:layout_constraintTop_toBottomOf="@id/cl_list_my_campaign" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

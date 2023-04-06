@@ -5,17 +5,23 @@
 
     <data>
 
+        <variable
+            name="historyDetail"
+            type="com.ssafy.challenmungs.domain.entity.mypage.BalanceDetail" />
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:paddingTop="10dp">
 
         <ImageView
             android:id="@+id/iv_bank_statement_icon"
             android:layout_width="32dp"
             android:layout_height="32dp"
             android:contentDescription="@string/image_bank_statement_item_icon"
+            app:imgRes="@{historyDetail.imgRes}"
             app:layout_constraintBottom_toBottomOf="@+id/tv_bank_statement_time"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/tv_bank_statement_content"
@@ -26,6 +32,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
+            android:text="@{historyDetail.title}"
             android:textColor="@color/black"
             android:textSize="14sp"
             app:layout_constraintStart_toEndOf="@id/iv_bank_statement_icon"
@@ -38,7 +45,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="3dp"
             android:layout_marginBottom="8dp"
-            android:text="@string/content_bank_statement_time"
+            android:text="@{historyDetail.time}"
             android:textColor="@color/pink_swan"
             android:textSize="11sp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -50,6 +57,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="6dp"
+            android:text="@{Integer.toString(historyDetail.money)}"
             android:textColor="@color/venetian_red"
             android:textSize="13sp"
             app:layout_constraintEnd_toStartOf="@+id/iv_klay_icon"
@@ -72,7 +80,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="3dp"
             android:layout_marginBottom="8dp"
-            android:text="@string/content_bank_statement_total"
+            android:text="@{@string/content_bank_statement_total(historyDetail.totalMoney)}"
             android:textColor="@color/zambezi"
             android:textSize="11sp"
             app:layout_constraintBottom_toBottomOf="parent"

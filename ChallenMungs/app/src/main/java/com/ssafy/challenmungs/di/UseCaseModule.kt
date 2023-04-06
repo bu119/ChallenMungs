@@ -6,6 +6,7 @@ import com.ssafy.challenmungs.domain.usecase.challenge.*
 import com.ssafy.challenmungs.domain.usecase.donate.GetCampaignListUseCase
 import com.ssafy.challenmungs.domain.usecase.klaytn.CreateAccountUseCase
 import com.ssafy.challenmungs.domain.usecase.member.GetMemberInfoUseCase
+import com.ssafy.challenmungs.domain.usecase.mypage.*
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -110,4 +111,39 @@ object UseCaseModule {
     @Provides
     fun provideCreatePanelChallengeUseCase(panelRepository: PanelRepository): CreatePanelChallengeUseCase =
         CreatePanelChallengeUseCase(panelRepository)
+
+    @Singleton
+    @Provides
+    fun provideGetTotalDonateUseCase(myWalletRepository: MyWalletRepository): GetTotalDonateUseCase =
+        GetTotalDonateUseCase(myWalletRepository)
+
+    @Singleton
+    @Provides
+    fun provideGetMyWalletBalanceUseCase(myWalletRepository: MyWalletRepository): GetMyWalletBalanceUseCase =
+        GetMyWalletBalanceUseCase(myWalletRepository)
+
+    @Singleton
+    @Provides
+    fun provideGetMyWalletHistoryUseCase(myWalletRepository: MyWalletRepository): GetMyWalletHistoryUseCase =
+        GetMyWalletHistoryUseCase(myWalletRepository)
+
+    @Singleton
+    @Provides
+    fun provideGetPiggyBankHistoryUseCase(myWalletRepository: MyWalletRepository): GetPiggyBankHistoryUseCase =
+        GetPiggyBankHistoryUseCase(myWalletRepository)
+
+    @Singleton
+    @Provides
+    fun provideGetDonationSummaryUseCase(myWalletRepository: MyWalletRepository): GetDonationSummaryUseCase =
+        GetDonationSummaryUseCase(myWalletRepository)
+
+    @Singleton
+    @Provides
+    fun provideGetDonationHistoryUseCase(myWalletRepository: MyWalletRepository): GetDonationHistoryUseCase =
+        GetDonationHistoryUseCase(myWalletRepository)
+
+    @Singleton
+    @Provides
+    fun provideGetDonationDetailUseCase(myWalletRepository: MyWalletRepository): GetDonationDetailUseCase =
+        GetDonationDetailUseCase(myWalletRepository)
 }
