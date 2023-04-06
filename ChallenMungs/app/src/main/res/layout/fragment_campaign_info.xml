@@ -3,6 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+
+        <variable
+            name="data"
+            type="com.ssafy.challenmungs.domain.entity.campaign.Campaign" />
+
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -35,6 +43,7 @@
                     android:layout_height="240dp"
                     android:background="@color/trans45_black"
                     android:contentDescription="@string/image_campaign_main"
+                    android:setBasicCampaignImageUrl="@{data.thumbnail}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -68,6 +77,7 @@
                     android:layout_marginBottom="115dp"
                     android:gravity="center"
                     android:lineSpacingExtra="5dp"
+                    android:text="@{data.title}"
                     android:textColor="@color/white"
                     android:textSize="20sp"
                     android:textStyle="bold"
@@ -81,6 +91,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
+                    android:text="@{@string/content_campaign_shelter(data.shelterName)}"
                     android:textColor="@color/gainsboro"
                     android:textSize="11sp"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -97,10 +108,12 @@
                     android:layout_marginHorizontal="31dp"
                     android:layout_marginTop="6dp"
                     android:max="100"
+                    android:progress="@{data.achievePercent}"
                     android:progressDrawable="@drawable/bg_custom_progress_campaign"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tv_shelter_name" />
+                    app:layout_constraintTop_toBottomOf="@id/tv_shelter_name"
+                    tools:progress="34" />
 
                 <LinearLayout
                     android:id="@+id/ll_progress_amount"
@@ -116,6 +129,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center"
+                        android:text="@{@string/content_achieve_percent(data.collectAmount, data.targetAmount, data.achievePercent)}"
                         android:textAlignment="center"
                         android:textColor="@color/zambezi"
                         android:textSize="11sp"
@@ -158,6 +172,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="5dp"
                         android:gravity="center"
+                        android:text="@{Integer.toString(data.loveCount)}"
                         android:textAlignment="center"
                         android:textColor="@color/white"
                         android:textSize="11sp"
@@ -174,76 +189,76 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/iv_main" />
 
-                <View
-                    android:id="@+id/divider_between_content_usage_history"
-                    android:layout_width="0dp"
-                    android:layout_height="1dp"
-                    android:layout_marginHorizontal="15dp"
-                    android:layout_marginTop="30dp"
-                    android:background="@color/gainsboro"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/rv_content" />
+                <!--                <View-->
+                <!--                    android:id="@+id/divider_between_content_usage_history"-->
+                <!--                    android:layout_width="0dp"-->
+                <!--                    android:layout_height="1dp"-->
+                <!--                    android:layout_marginHorizontal="15dp"-->
+                <!--                    android:layout_marginTop="30dp"-->
+                <!--                    android:background="@color/gainsboro"-->
+                <!--                    app:layout_constraintEnd_toEndOf="parent"-->
+                <!--                    app:layout_constraintStart_toStartOf="parent"-->
+                <!--                    app:layout_constraintTop_toBottomOf="@id/rv_content" />-->
 
-                <TextView
-                    android:id="@+id/tv_usage_history"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="24dp"
-                    android:layout_marginTop="17dp"
-                    android:text="@string/title_usage_history"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/divider_between_content_usage_history" />
+                <!--                <TextView-->
+                <!--                    android:id="@+id/tv_usage_history"-->
+                <!--                    android:layout_width="wrap_content"-->
+                <!--                    android:layout_height="wrap_content"-->
+                <!--                    android:layout_marginStart="24dp"-->
+                <!--                    android:layout_marginTop="17dp"-->
+                <!--                    android:text="@string/title_usage_history"-->
+                <!--                    android:textSize="16sp"-->
+                <!--                    android:textStyle="bold"-->
+                <!--                    app:layout_constraintStart_toStartOf="parent"-->
+                <!--                    app:layout_constraintTop_toBottomOf="@id/divider_between_content_usage_history" />-->
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rv_usage_history"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="30dp"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginBottom="24dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tv_usage_history"
-                    tools:listitem="@layout/item_campaign_usage_history" />
+                <!--                <androidx.recyclerview.widget.RecyclerView-->
+                <!--                    android:id="@+id/rv_usage_history"-->
+                <!--                    android:layout_width="0dp"-->
+                <!--                    android:layout_height="wrap_content"-->
+                <!--                    android:layout_marginHorizontal="30dp"-->
+                <!--                    android:layout_marginTop="16dp"-->
+                <!--                    android:layout_marginBottom="24dp"-->
+                <!--                    app:layout_constraintEnd_toEndOf="parent"-->
+                <!--                    app:layout_constraintStart_toStartOf="parent"-->
+                <!--                    app:layout_constraintTop_toBottomOf="@id/tv_usage_history"-->
+                <!--                    tools:listitem="@layout/item_campaign_usage_history" />-->
 
-                <View
-                    android:id="@+id/divider_between_usage_history_comment"
-                    android:layout_width="0dp"
-                    android:layout_height="1dp"
-                    android:layout_marginHorizontal="15dp"
-                    android:layout_marginTop="30dp"
-                    android:background="@color/gainsboro"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/rv_usage_history" />
+                <!--                <View-->
+                <!--                    android:id="@+id/divider_between_usage_history_comment"-->
+                <!--                    android:layout_width="0dp"-->
+                <!--                    android:layout_height="1dp"-->
+                <!--                    android:layout_marginHorizontal="15dp"-->
+                <!--                    android:layout_marginTop="30dp"-->
+                <!--                    android:background="@color/gainsboro"-->
+                <!--                    app:layout_constraintEnd_toEndOf="parent"-->
+                <!--                    app:layout_constraintStart_toStartOf="parent"-->
+                <!--                    app:layout_constraintTop_toBottomOf="@id/rv_usage_history" />-->
 
-                <TextView
-                    android:id="@+id/tv_comment"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="24dp"
-                    android:layout_marginTop="17dp"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/divider_between_usage_history_comment"
-                    tools:text="댓글 (2)" />
+                <!--                <TextView-->
+                <!--                    android:id="@+id/tv_comment"-->
+                <!--                    android:layout_width="wrap_content"-->
+                <!--                    android:layout_height="wrap_content"-->
+                <!--                    android:layout_marginStart="24dp"-->
+                <!--                    android:layout_marginTop="17dp"-->
+                <!--                    android:textSize="16sp"-->
+                <!--                    android:textStyle="bold"-->
+                <!--                    app:layout_constraintStart_toStartOf="parent"-->
+                <!--                    app:layout_constraintTop_toBottomOf="@id/divider_between_usage_history_comment"-->
+                <!--                    tools:text="댓글 (2)" />-->
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rv_comment"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="30dp"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginBottom="24dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tv_comment"
-                    tools:listitem="@layout/item_campaign_info_comment" />
+                <!--                <androidx.recyclerview.widget.RecyclerView-->
+                <!--                    android:id="@+id/rv_comment"-->
+                <!--                    android:layout_width="0dp"-->
+                <!--                    android:layout_height="wrap_content"-->
+                <!--                    android:layout_marginHorizontal="30dp"-->
+                <!--                    android:layout_marginTop="16dp"-->
+                <!--                    android:layout_marginBottom="24dp"-->
+                <!--                    app:layout_constraintBottom_toBottomOf="parent"-->
+                <!--                    app:layout_constraintEnd_toEndOf="parent"-->
+                <!--                    app:layout_constraintStart_toStartOf="parent"-->
+                <!--                    app:layout_constraintTop_toBottomOf="@id/tv_comment"-->
+                <!--                    tools:listitem="@layout/item_campaign_info_comment" />-->
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

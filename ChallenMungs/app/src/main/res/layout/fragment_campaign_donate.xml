@@ -3,6 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+
+        <variable
+            name="vm"
+            type="com.ssafy.challenmungs.presentation.donate.DonateViewModel" />
+
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -37,6 +45,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
+            android:text="@{@string/content_balance_piggy_bank(vm.balancePiggyBank)}"
             android:textColor="@color/suva_grey"
             android:textSize="11sp"
             app:layout_constraintStart_toStartOf="@id/tv_my_piggy_bank"
@@ -75,11 +84,10 @@
         <EditText
             android:id="@+id/et_donate_amount"
             android:layout_width="wrap_content"
-            android:textCursorDrawable="@drawable/bg_rect_golden_glow_width2"
-            android:cursorVisible="true"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
             android:background="@drawable/bg_rect_pink_swan_to_golden_glow_stroke1"
+            android:cursorVisible="true"
             android:hint="@string/content_donate_amount"
             android:imeOptions="actionDone"
             android:importantForAutofill="no"
@@ -90,6 +98,7 @@
             android:paddingBottom="4dp"
             android:scrollHorizontally="true"
             android:textColorHint="@color/pink_swan"
+            android:textCursorDrawable="@drawable/bg_rect_golden_glow_width2"
             android:textDirection="rtl"
             android:textSize="30sp"
             android:textStyle="bold"
@@ -127,6 +136,7 @@
                 android:id="@+id/tv_my_piggy_bank_amount_in_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="@{@string/content_balance_piggy_bank(vm.balancePiggyBank)}"
                 android:textColor="@color/suva_grey"
                 android:textSize="11sp"
                 tools:text="잔액 1,233" />
