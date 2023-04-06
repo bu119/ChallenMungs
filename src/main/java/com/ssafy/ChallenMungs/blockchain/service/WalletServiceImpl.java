@@ -174,14 +174,18 @@ public class WalletServiceImpl implements  WalletService{
     String lowerN = normalChallenge.toLowerCase();
     String lowerS = specialChallenge.toLowerCase();
     // for문 돌면서 item 만들기
+
     @Override
-    public Map<String, List<WalletItemDto>> viewMyWallet(String loginId) throws JsonProcessingException {
+    public List<Map<String, Object>> viewMyWallet(String loginId) throws JsonProcessingException {
         User user = userRepo.findUserByLoginId(loginId);
         String address = walletRepo.findByUserAndType(user, 'w').getAddress();
 
         JsonNode items = getHistory(address);
 
-        Map<String, List<WalletItemDto>> result = new HashMap<>();
+        List<Map<String, Object>> result = new ArrayList<>();
+        Map<String, List<WalletItemDto>> dayMap = new LinkedHashMap<>();
+
+//        Map<String, List<WalletItemDto>> result = new HashMap<>();
 
         //사용 내역 바꾸기
         for (JsonNode item : items) {
@@ -220,13 +224,21 @@ public class WalletServiceImpl implements  WalletService{
             BigDecimal amount = new BigDecimal(decimal).divide(new BigDecimal(divisor));
 
             // 값 넣기
-            WalletItemDto tmp = new WalletItemDto(title, amount, String.valueOf(calendar.get(Calendar.HOUR_OF_DAY)+":"+calendar.get(Calendar.MINUTE)));
+            WalletItemDto tmp = new WalletItemDto(title, amount, String.valueOf(calendar.get(Calendar.HOUR_OF_DAY) + ":" + calendar.get(Calendar.MINUTE)));
             String day = String.valueOf(calendar.get(Calendar.MONTH) + 1) + "." + String.valueOf(calendar.get(Calendar.DATE));
-            List<WalletItemDto> dayList = result.getOrDefault(day, new ArrayList<WalletItemDto>());
+            List<WalletItemDto> dayList = dayMap.getOrDefault(day, new ArrayList<>());
             dayList.add(tmp);
-            result.put(day, dayList);
+            dayMap.put(day, dayList);
         }
-        return result;
+
+        // 결과 맵으로 변환
+        for (Map.Entry<String, List<WalletItemDto>> entry : dayMap.entrySet()) {
+            Map<String, Object> resultMap = new HashMap<>();
+            resultMap.put("date", entry.getKey());
+            resultMap.put("items", entry.getValue());
+            result.add(resultMap);
+        }
+       return result;
     }
 
     @Override
