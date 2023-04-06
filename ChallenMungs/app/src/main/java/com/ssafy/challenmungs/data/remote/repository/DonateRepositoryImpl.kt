@@ -18,4 +18,17 @@ class DonateRepositoryImpl @Inject constructor(
     ): Resource<List<CampaignCard>> = wrapToResource(Dispatchers.IO) {
         donateRemoteDataSource.getCampaignList(type, sort).map { it.toDomainModel() }
     }
+
+    override suspend fun getBalance(type: String): Resource<String> =
+        wrapToResource(Dispatchers.IO) {
+            donateRemoteDataSource.getBalance(type).toDomainModel()
+        }
+
+    override suspend fun requestDonate(
+        campaignId: Int,
+        money: Int,
+        memo: String
+    ): Resource<String> = wrapToResource(Dispatchers.IO) {
+        donateRemoteDataSource.requestDonate(campaignId, money, memo).toDomainModel()
+    }
 }
