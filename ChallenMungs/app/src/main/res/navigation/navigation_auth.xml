@@ -20,8 +20,8 @@
             app:destination="@id/main_fragment" />
 
         <action
-            android:id="@+id/action_to_shelter_join_fragment"
-            app:destination="@id/shelter_join_fragment" />
+            android:id="@+id/action_to_shelter_invite_code_fragment"
+            app:destination="@id/shelter_invite_code_fragment" />
     </fragment>
 
     <fragment
@@ -45,7 +45,12 @@
         android:id="@+id/shelter_join_fragment"
         android:name="com.ssafy.challenmungs.presentation.auth.ShelterJoinFragment"
         android:label="Shelter Join Fragment"
-        tools:layout="@layout/fragment_shelter_join" />
+        tools:layout="@layout/fragment_shelter_join">
+
+        <action
+            android:id="@+id/action_to_shelter_home_fragment"
+            app:destination="@id/shelter_home_fragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/campaign_info_fragment"
@@ -81,4 +86,21 @@
         android:name="com.ssafy.challenmungs.presentation.challenge.basic.ChallengeBasicInfoFragment"
         android:label="Challenge Basic Info Fragment"
         tools:layout="@layout/fragment_challenge_basic_info" />
+
+    <fragment
+        android:id="@+id/shelter_invite_code_fragment"
+        android:name="com.ssafy.challenmungs.presentation.auth.ShelterInviteCodeFragment"
+        android:label="Shelter Invite Code Fragment"
+        tools:layout="@layout/fragment_shelter_invite_code">
+
+        <action
+            android:id="@+id/action_to_shelter_join_fragment"
+            app:destination="@id/shelter_join_fragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/shelter_home_fragment"
+        android:name="com.ssafy.challenmungs.presentation.shelter.ShelterHomeFragment"
+        android:label="Shelter Home Fragment"
+        tools:layout="@layout/fragment_shelter_home" />
 </navigation>

@@ -1,9 +1,7 @@
 package com.ssafy.challenmungs.di
 
 import com.ssafy.challenmungs.domain.repository.*
-import com.ssafy.challenmungs.domain.usecase.auth.JoinUseCase
-import com.ssafy.challenmungs.domain.usecase.auth.LogInUseCase
-import com.ssafy.challenmungs.domain.usecase.auth.SetWalletUseCase
+import com.ssafy.challenmungs.domain.usecase.auth.*
 import com.ssafy.challenmungs.domain.usecase.challenge.*
 import com.ssafy.challenmungs.domain.usecase.donate.GetCampaignListUseCase
 import com.ssafy.challenmungs.domain.usecase.klaytn.CreateAccountUseCase
@@ -27,6 +25,16 @@ object UseCaseModule {
     @Provides
     fun provideJoinUseCase(authRepository: AuthRepository): JoinUseCase =
         JoinUseCase(authRepository)
+
+    @Singleton
+    @Provides
+    fun provideRequestShelterJoinUseCase(authRepository: AuthRepository): RequestShelterJoinUseCase =
+        RequestShelterJoinUseCase(authRepository)
+
+    @Singleton
+    @Provides
+    fun provideRequestInviteCodeUseCase(authRepository: AuthRepository): RequestInviteCodeUseCase =
+        RequestInviteCodeUseCase(authRepository)
 
     @Singleton
     @Provides

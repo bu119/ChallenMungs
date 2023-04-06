@@ -286,4 +286,10 @@
     <string name="content_basic_current_participants">현재 참가 인원 (%d명)</string>
     <string name="title_go_to_shelter"><![CDATA[후원캠페인 바로가기 >]]></string>
     <string name="image_basic_challenge_certificate">일반 챌린지 인증 버튼입니다.</string>
+    <string name="content_create_campaign">캠페인 생성하기</string>
+    <string name="content_shelter_campaign_1">캠페인1</string>
+    <string name="content_shelter_campaign_2">캠페인2</string>
+    <string name="content_send_email">전송</string>
+    <string name="content_email_hint">초대코드를 전송할 이메일 주소</string>
+    <string name="content_invite_code_already_exist">이미 초대코드를 받았습니다.</string>
 </resources>

@@ -78,7 +78,7 @@ class LogInFragment : BaseFragment<FragmentLogInBinding>(R.layout.fragment_log_i
         }
 
         binding.tvContentShelterJoin.setOnClickListener {
-            navigate(LogInFragmentDirections.actionToShelterJoinFragment())
+            navigate(LogInFragmentDirections.actionToShelterInviteCodeFragment())
         }
     }
 

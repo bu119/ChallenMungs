@@ -36,7 +36,12 @@ class SplashFragment : BaseFragment<FragmentSplashBinding>(R.layout.fragment_spl
             if (ApplicationClass.preferences.isFirstRun) {
                 navigate(SplashFragmentDirections.actionToPermissionFragment())
             } else if (result) {
-                navigate(SplashFragmentDirections.actionToMainFragment())
+                memberViewModel.memberInfo.value?.let {
+                    if (it.type == "n")
+                        navigate(SplashFragmentDirections.actionToMainFragment())
+                    else
+                        navigate(SplashFragmentDirections.actionToShelterHomeFragment())
+                }
             } else {
                 val intent = Intent(requireContext(), AuthActivity::class.java)
                 startActivity(intent)
