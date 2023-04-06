@@ -62,5 +62,5 @@ interface ChallengeApiService {
     @POST("/generalBoard/tokenConfirm/reject")
     suspend fun requestReject(
         @Query("boardId") boardId: Int
-    ): String
+    ): ResultResponse
 }

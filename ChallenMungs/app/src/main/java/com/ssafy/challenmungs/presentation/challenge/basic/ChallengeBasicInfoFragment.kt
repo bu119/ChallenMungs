@@ -1,12 +1,13 @@
 package com.ssafy.challenmungs.presentation.challenge.basic
 
-import android.content.Context
 import android.view.View
-import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import com.ssafy.challenmungs.R
+import com.ssafy.challenmungs.common.util.BindingAdapters.setParticipantList
 import com.ssafy.challenmungs.databinding.FragmentChallengeBasicInfoBinding
+import com.ssafy.challenmungs.domain.entity.challenge.Participant
+import com.ssafy.challenmungs.presentation.auth.MemberViewModel
 import com.ssafy.challenmungs.presentation.base.BaseFragment
 import com.ssafy.challenmungs.presentation.challenge.ChallengeViewModel
 import kotlinx.coroutines.launch
@@ -14,30 +15,21 @@ import kotlinx.coroutines.launch
 class ChallengeBasicInfoFragment :
     BaseFragment<FragmentChallengeBasicInfoBinding>(R.layout.fragment_challenge_basic_info) {
 
+    private val memberViewModel by activityViewModels<MemberViewModel>()
     private val challengeViewModel by activityViewModels<ChallengeViewModel>()
-    private val callback: OnBackPressedCallback = object : OnBackPressedCallback(true) {
-        override fun handleOnBackPressed() {
-            challengeViewModel.initNotStartedChallengeDetail()
-            popBackStack()
-        }
-    }
 
     override fun initView() {
         initBind()
         initListener()
-    }
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        requireActivity().onBackPressedDispatcher.addCallback(
-            this@ChallengeBasicInfoFragment,
-            callback
-        )
+        observe()
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        callback.remove()
+        challengeViewModel.notStartedChallengeDetail.value?.let {
+            if (it.status == 0)
+                challengeViewModel.initNotStartedChallengeDetail()
+        }
     }
 
     private fun initBind() {
@@ -55,7 +47,6 @@ class ChallengeBasicInfoFragment :
 
     private fun initListener() {
         binding.toolbar.ivBack.setOnClickListener {
-            challengeViewModel.initNotStartedChallengeDetail()
             popBackStack()
         }
 
@@ -68,9 +59,27 @@ class ChallengeBasicInfoFragment :
 
                     if (result) {
                         binding.btnParticipate.text = if (it.isParticipated) "참가하기" else "나가기"
+
+                        challengeViewModel.getChallengeInfo(it.challengeId)
                         challengeViewModel.setChallengeParticipationFlag(!it.isParticipated)
                     }
                 }
+            }
+        }
+    }
+
+    private fun observe() {
+        challengeViewModel.notStartedChallengeDetail.observe(viewLifecycleOwner) {
+            it?.let {
+                val myData = Participant(
+                    memberViewModel.memberInfo.value!!.profileImageUrl,
+                    memberViewModel.memberInfo.value!!.name
+                )
+                it.participants.forEach { member ->
+                    if (member.name == myData.name && member.profileImageUrl == myData.profileImageUrl) it.isParticipated =
+                        true
+                }
+                binding.rvParticipants.setParticipantList(it.participants)
             }
         }
     }

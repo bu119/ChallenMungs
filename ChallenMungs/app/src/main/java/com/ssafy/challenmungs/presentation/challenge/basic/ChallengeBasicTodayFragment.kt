@@ -1,5 +1,6 @@
 package com.ssafy.challenmungs.presentation.challenge.basic
 
+import android.util.Log
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ssafy.challenmungs.R
@@ -12,10 +13,11 @@ class ChallengeBasicTodayFragment :
     BaseFragment<FragmentChallengeBasicTodayBinding>(R.layout.fragment_challenge_basic_today) {
 
     private val challengeViewModel by activityViewModels<ChallengeViewModel>()
-    private val challengeBasicTodayAdapter by lazy { ChallengeBasicTodayAdapter(challengeViewModel::requestReject) }
+    private val challengeBasicTodayAdapter by lazy { ChallengeBasicTodayAdapter(challengeViewModel) }
 
     override fun initView() {
         initRecyclerView()
+        observe()
     }
 
     private fun initRecyclerView() {
@@ -32,6 +34,15 @@ class ChallengeBasicTodayFragment :
             )
 
             challengeBasicTodayAdapter.submitList(challengeViewModel.basicTodayList.value)
+        }
+    }
+
+    private fun observe() {
+        challengeViewModel.basicTodayList.observe(viewLifecycleOwner) {
+            it?.let {
+                Log.d("challengeBasicTodayAdapter", "challengeBasicTodayAdapter: $it")
+                challengeBasicTodayAdapter.submitList(it)
+            }
         }
     }
 }

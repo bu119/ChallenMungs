@@ -32,5 +32,5 @@ interface ChallengeRemoteDataSource {
 
     suspend fun requestWithDraw(challengeId: Long): ResultResponse
 
-    suspend fun requestReject(boardId: Int): String
+    suspend fun requestReject(boardId: Int): ResultResponse
 }

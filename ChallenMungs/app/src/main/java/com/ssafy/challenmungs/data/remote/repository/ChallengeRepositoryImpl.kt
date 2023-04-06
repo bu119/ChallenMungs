@@ -67,7 +67,8 @@ class ChallengeRepositoryImpl @Inject constructor(
             challengeRemoteDataSource.requestWithDraw(challengeId).toDomainModel()
         }
 
-    override suspend fun requestReject(boardId: Int): Resource<String> = wrapToResource(Dispatchers.IO) {
-        challengeRemoteDataSource.requestReject(boardId)
-    }
+    override suspend fun requestReject(boardId: Int): Resource<String> =
+        wrapToResource(Dispatchers.IO) {
+            challengeRemoteDataSource.requestReject(boardId).toDomainModel()
+        }
 }
