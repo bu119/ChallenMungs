@@ -85,6 +85,7 @@
         android:name="com.ssafy.challenmungs.presentation.shelter.ShelterHomeFragment"
         android:label="Shelter Home Fragment"
         tools:layout="@layout/fragment_shelter_home" />
+
     <fragment
         android:id="@+id/piggy_bank_fragment"
         android:name="com.ssafy.challenmungs.presentation.mypage.PiggyBankFragment"
@@ -128,4 +129,10 @@
         android:label="PanelCreateFragment"
         tools:layout="@layout/fragment_panel_create" />
 
+
+    <fragment
+        android:id="@+id/campaign_donate_fragment"
+        android:name="com.ssafy.challenmungs.presentation.donate.CampaignDonateFragment"
+        android:label="Campaign Donate Fragment"
+        tools:layout="@layout/fragment_campaign_donate" />
 </navigation>

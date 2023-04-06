@@ -25,7 +25,7 @@ object ServiceModule {
     @Provides
     @Singleton
     fun provideDonateApiService(
-        @NoAuthInterceptorClient retrofit: Retrofit
+        @AuthInterceptorClient retrofit: Retrofit
     ): DonateApiService =
         retrofit.create(DonateApiService::class.java)
 
