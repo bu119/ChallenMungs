@@ -278,7 +278,10 @@ public class GeneralBoardController {
 
         String loginId = request.getAttribute("loginId").toString();
         boardService.updateSuccessCount(loginId, challengeId);
-        return ResponseEntity.ok("result : Success Count updated!");
+        HashMap<String, String> dto = new HashMap<>();
+        dto.put("result", "success");
+        return new ResponseEntity(dto, HttpStatus.OK); // 200
+//        return ResponseEntity.ok("result : Success Count updated!");
     }
 
 }
