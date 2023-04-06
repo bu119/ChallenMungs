@@ -50,6 +50,9 @@ public class Challenge {
     @Column(name = "description")
     String description;
 
+    @Column(name = "period")
+    Long period;
+
     // 판넬뒤집기 요소
     @Column(name = "game_type")
     Integer gameType; //1: 개인, 2: 팀
@@ -80,7 +83,4 @@ public class Challenge {
 
     @Column(name = "map_size")
     Double map_size;
-
-    @Column(name = "period")
-    Long period;
 }

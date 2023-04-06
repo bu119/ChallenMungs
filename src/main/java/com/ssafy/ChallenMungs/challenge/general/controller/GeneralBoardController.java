@@ -1,5 +1,6 @@
 package com.ssafy.ChallenMungs.challenge.general.controller;
 
+import com.amazonaws.services.kms.model.NotFoundException;
 import com.ssafy.ChallenMungs.challenge.common.entity.Challenge;
 import com.ssafy.ChallenMungs.challenge.common.entity.MyChallenge;
 import com.ssafy.ChallenMungs.challenge.common.service.ChallengeService;
@@ -168,6 +169,12 @@ public class GeneralBoardController {
         Challenge challenge = challengeService.findByChallengeId(challengeId);
         // 해당 챌린지의 선택한 게시글 유저의 기록을 가져옴
         List<GeneralBoard> boards = boardService.getBoardsByChallengeAndUser(challenge, boardUser);
+
+        // 예외 처리 추가
+        if (boards == null || boards.isEmpty()) {
+            throw new NotFoundException("게시글이 존재하지 않습니다.");
+        }
+
         List<GeneralBoardHistoryDto> dtoList = new ArrayList<>();
         for (GeneralBoard gb : boards) {
 
