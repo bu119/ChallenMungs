@@ -3,10 +3,7 @@ package com.ssafy.challenmungs.data.remote.repository
 import com.ssafy.challenmungs.common.util.wrapToResource
 import com.ssafy.challenmungs.data.remote.Resource
 import com.ssafy.challenmungs.data.remote.datasource.challenge.ChallengeRemoteDataSource
-import com.ssafy.challenmungs.domain.entity.challenge.Challenge
-import com.ssafy.challenmungs.domain.entity.challenge.ChallengeBasicHistory
-import com.ssafy.challenmungs.domain.entity.challenge.ChallengeBasicToday
-import com.ssafy.challenmungs.domain.entity.challenge.NotStartedChallengeDetail
+import com.ssafy.challenmungs.domain.entity.challenge.*
 import com.ssafy.challenmungs.domain.repository.ChallengeRepository
 import kotlinx.coroutines.Dispatchers
 import javax.inject.Inject
@@ -47,6 +44,11 @@ class ChallengeRepositoryImpl @Inject constructor(
             challengeRemoteDataSource.getBasicHistory(challengeId, targetMemberId).map {
                 it.toDomainModel()
             }
+        }
+
+    override suspend fun getParticipants(challengeId: Int): Resource<List<ChallengeMember>> =
+        wrapToResource(Dispatchers.IO) {
+            challengeRemoteDataSource.getParticipants(challengeId).map { it.toDomainModel() }
         }
 
     override suspend fun getChallengeParticipationFlag(challengeId: Long): Resource<Boolean> =

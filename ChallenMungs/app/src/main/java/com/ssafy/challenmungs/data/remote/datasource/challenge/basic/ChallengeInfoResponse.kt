@@ -21,6 +21,7 @@ data class ChallengeInfoResponse(
         title = challenge.title,
         startDate = challenge.startDate.slice(IntRange(5, challenge.startDate.length - 1)),
         endDate = challenge.endDate.slice(IntRange(5, challenge.endDate.length - 1)),
+        period = challenge.period,
         maxParticipantCount = challenge.maxParticipantCount,
         currentParticipantCount = challenge.currentParticipantCount,
         entryFee = challenge.entryFee,

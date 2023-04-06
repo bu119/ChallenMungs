@@ -65,6 +65,11 @@ object UseCaseModule {
 
     @Singleton
     @Provides
+    fun provideGetParticipantsUseCase(challengeRepository: ChallengeRepository): GetParticipantsUseCase =
+        GetParticipantsUseCase(challengeRepository)
+
+    @Singleton
+    @Provides
     fun provideGetChallengeParticipationFlagUseCase(challengeRepository: ChallengeRepository): GetChallengeParticipationFlagUseCase =
         GetChallengeParticipationFlagUseCase(challengeRepository)
 

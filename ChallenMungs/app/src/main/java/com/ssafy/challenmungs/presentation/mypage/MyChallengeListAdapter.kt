@@ -74,8 +74,11 @@ class MyChallengeListAdapter(
             override fun onBind(data: Challenge) {
                 binding.challenge = data
 
-                challengeViewModel.getChallengeInfo(data.challengeId)
-                challengeViewModel.getBasicToday(data.challengeId)
+                data.challengeId.let {
+                    challengeViewModel.getParticipants(it)
+                    challengeViewModel.getChallengeInfo(it)
+                    challengeViewModel.getBasicToday(it)
+                }
             }
         }
     }

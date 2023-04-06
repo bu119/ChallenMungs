@@ -76,11 +76,13 @@ class ChallengeBasicFragment :
         }
     }
 
-    private fun observe(){
-        challengeViewModel.notStartedChallengeDetail.observe(viewLifecycleOwner){
-            it?.let {
-//                challengeViewModel.getBasicHistory(it.challengeId, it.participants[0].)
-            }
+    private fun observe() {
+        challengeViewModel.notStartedChallengeDetail.observe(viewLifecycleOwner) {
+            if (it != null && challengeViewModel.participants.value != null)
+                challengeViewModel.getBasicHistory(
+                    it.challengeId,
+                    challengeViewModel.participants.value!![0].memberId
+                )
         }
     }
 }

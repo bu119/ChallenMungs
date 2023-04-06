@@ -4,6 +4,7 @@ import com.ssafy.challenmungs.data.remote.datasource.challenge.ChallengeListResp
 import com.ssafy.challenmungs.data.remote.datasource.challenge.basic.ChallengeBasicHistoryResponse
 import com.ssafy.challenmungs.data.remote.datasource.challenge.basic.ChallengeBasicTodayResponse
 import com.ssafy.challenmungs.data.remote.datasource.challenge.basic.ChallengeInfoResponse
+import com.ssafy.challenmungs.data.remote.datasource.challenge.basic.ChallengeParticipantResponse
 import com.ssafy.challenmungs.data.remote.datasource.common.ResultResponse
 import retrofit2.http.GET
 import retrofit2.http.POST
@@ -36,6 +37,11 @@ interface ChallengeApiService {
         @Query("challengeId") challengeId: Int,
         @Query("boardUserId") targetMemberId: String
     ): List<ChallengeBasicHistoryResponse>
+
+    @GET("/challenge/tokenConfirm/participants")
+    suspend fun getParticipants(
+        @Query("challengeId") challengeId: Int
+    ): List<ChallengeParticipantResponse>
 
     @POST("/challenge/tokenConfirm/isHere")
     suspend fun getChallengeParticipationFlag(

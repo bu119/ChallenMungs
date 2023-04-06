@@ -13,6 +13,8 @@ data class ChallengeResponse(
     val startDate: String,
     @SerializedName("endDate")
     val endDate: String,
+    @SerializedName("period")
+    val period: Long?,
     @SerializedName("maxParticipantCount")
     val maxParticipantCount: Int,
     @SerializedName("currentParticipantCount")

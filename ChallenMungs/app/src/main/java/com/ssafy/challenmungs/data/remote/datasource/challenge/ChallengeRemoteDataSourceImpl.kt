@@ -3,6 +3,7 @@ package com.ssafy.challenmungs.data.remote.datasource.challenge
 import com.ssafy.challenmungs.data.remote.datasource.challenge.basic.ChallengeBasicHistoryResponse
 import com.ssafy.challenmungs.data.remote.datasource.challenge.basic.ChallengeBasicTodayResponse
 import com.ssafy.challenmungs.data.remote.datasource.challenge.basic.ChallengeInfoResponse
+import com.ssafy.challenmungs.data.remote.datasource.challenge.basic.ChallengeParticipantResponse
 import com.ssafy.challenmungs.data.remote.datasource.common.ResultResponse
 import com.ssafy.challenmungs.data.remote.service.ChallengeApiService
 import javax.inject.Inject
@@ -29,6 +30,9 @@ class ChallengeRemoteDataSourceImpl @Inject constructor(
         targetMemberId: String
     ): List<ChallengeBasicHistoryResponse> =
         challengeApiService.getBasicHistory(challengeId, targetMemberId)
+
+    override suspend fun getParticipants(challengeId: Int): List<ChallengeParticipantResponse> =
+        challengeApiService.getParticipants(challengeId)
 
     override suspend fun getChallengeParticipationFlag(challengeId: Long): ResultResponse =
         challengeApiService.getChallengeParticipationFlag(challengeId)

@@ -3,6 +3,7 @@ package com.ssafy.challenmungs.data.remote.datasource.challenge
 import com.ssafy.challenmungs.data.remote.datasource.challenge.basic.ChallengeBasicHistoryResponse
 import com.ssafy.challenmungs.data.remote.datasource.challenge.basic.ChallengeBasicTodayResponse
 import com.ssafy.challenmungs.data.remote.datasource.challenge.basic.ChallengeInfoResponse
+import com.ssafy.challenmungs.data.remote.datasource.challenge.basic.ChallengeParticipantResponse
 import com.ssafy.challenmungs.data.remote.datasource.common.ResultResponse
 
 interface ChallengeRemoteDataSource {
@@ -22,6 +23,8 @@ interface ChallengeRemoteDataSource {
         challengeId: Int,
         targetMemberId: String
     ): List<ChallengeBasicHistoryResponse>
+
+    suspend fun getParticipants(challengeId: Int): List<ChallengeParticipantResponse>
 
     suspend fun getChallengeParticipationFlag(challengeId: Long): ResultResponse
 

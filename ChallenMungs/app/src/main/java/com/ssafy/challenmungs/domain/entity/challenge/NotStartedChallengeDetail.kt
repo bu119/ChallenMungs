@@ -6,6 +6,7 @@ data class NotStartedChallengeDetail(
     val title: String,
     val startDate: String,
     val endDate: String,
+    val period: Long?,
     val maxParticipantCount: Int,
     val currentParticipantCount: Int,
     val entryFee: Int,

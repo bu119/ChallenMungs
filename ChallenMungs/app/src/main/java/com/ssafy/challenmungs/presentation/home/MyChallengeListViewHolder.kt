@@ -46,8 +46,11 @@ class MyChallengeListViewHolder(
                     challengeId.toString().toLong()
                 )
             else {
-                challengeViewModel.getChallengeInfo(challengeId.toString().toInt())
-                challengeViewModel.getBasicToday(challengeId.toString().toInt())
+                challengeId.toString().toInt().let {
+                    challengeViewModel.getParticipants(it)
+                    challengeViewModel.getChallengeInfo(it)
+                    challengeViewModel.getBasicToday(it)
+                }
             }
         }
     }
