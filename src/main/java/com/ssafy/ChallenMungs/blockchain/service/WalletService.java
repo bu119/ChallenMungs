@@ -21,4 +21,5 @@ public interface WalletService {
     Map<String, List<WalletItemDto>> viewMyPiggyBank(String loginId) throws JsonProcessingException;
     Map<String, List<CampaignItemDto>> viewCampaignWallet(int campaignId, boolean fromOnly, boolean toOnly) throws JsonProcessingException;
     String getTotalDonate(String loginId) throws JsonProcessingException;
+    String getWalletAddress(String loginId) throws JsonProcessingException;
 }

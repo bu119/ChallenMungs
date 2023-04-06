@@ -433,4 +433,10 @@ public class WalletServiceImpl implements  WalletService{
         return result;
     }
 
+    @Override
+    public String getWalletAddress(String loginId) throws JsonProcessingException {
+        User user = userRepo.findUserByLoginId(loginId);
+        return walletRepo.findByUserAndType(user, 'w').getAddress();
+    }
+
 }
