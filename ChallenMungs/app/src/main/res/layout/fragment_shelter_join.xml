@@ -11,7 +11,7 @@
             layout="@layout/toolbar_default" />
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/til_nickname"
+            android:id="@+id/til_member_id"
             style="@style/Widget.Material3.TextInputLayout.OutlinedBox.Dense"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -23,7 +23,7 @@
             app:layout_constraintTop_toBottomOf="@id/toolbar">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/til_et_nickname"
+                android:id="@+id/til_et_member_id"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:autofillHints="emailAddress"
@@ -49,7 +49,7 @@
             app:endIconMode="password_toggle"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/til_nickname">
+            app:layout_constraintTop_toBottomOf="@id/til_member_id">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/til_et_password"
@@ -161,8 +161,8 @@
             android:text="@string/content_join"
             android:textColor="@color/black"
             android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="@id/til_nickname"
-            app:layout_constraintStart_toStartOf="@id/til_nickname"
+            app:layout_constraintEnd_toEndOf="@id/til_member_id"
+            app:layout_constraintStart_toStartOf="@id/til_member_id"
             app:layout_constraintTop_toBottomOf="@id/til_invite_code" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
