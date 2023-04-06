@@ -89,22 +89,55 @@ class ChallengeViewModel @Inject constructor(
     }
 
     fun getBasicHistory(challengeId: Int, targetMemberId: String) = viewModelScope.launch {
-        when (val value = getBasicHistoryUseCase(challengeId, targetMemberId)) {
-            is Resource.Success<List<ChallengeBasicHistory>> -> {
-                notStartedChallengeDetail.value?.let { it ->
-                    var now = 0
+        notStartedChallengeDetail.value?.let { it ->
+            val list = ArrayList<ChallengeBasicHistory>(it.period!!.toInt())
+            var now = 0
 
-                    val list = List(it.period!!.toInt()) { index ->
-                        val calendar = Calendar.getInstance()
-                        val dateFormat = SimpleDateFormat("MM-dd", Locale.KOREA)
+            val dateFormat = SimpleDateFormat("MM-dd", Locale.KOREA)
+            val todayCalendar = Calendar.getInstance()
+            todayCalendar.time = Date()
+            todayCalendar.time =
+                dateFormat.parse(dateFormat.format(todayCalendar.time).toString())!!
+
+            when (val value = getBasicHistoryUseCase(challengeId, targetMemberId)) {
+                is Resource.Success<List<ChallengeBasicHistory>> -> {
+                    for (index in 0 until it.period.toInt()) {
                         val date = dateFormat.parse(it.startDate)
-                        val registerDay = dateFormat.parse(value.data[now].registerDay)
-                        date?.let { startDate -> calendar.time = startDate }
+                        val calendar = Calendar.getInstance()
+                        calendar.time = date!!
                         calendar.add(Calendar.DATE, index)
 
-                        if (date == registerDay)
-                            value.data[now++]
-                        else
+                        val defaultData = ChallengeBasicHistory(
+                            0,
+                            false,
+                            "",
+                            "",
+                            "",
+                            "",
+                            dateFormat.format(calendar.time),
+                            true
+                        )
+
+                        if (now < value.data.size) {
+                            val registerDay = dateFormat.parse(value.data[now].registerDay)
+
+                            if (calendar.time == registerDay) list.add(value.data[now++])
+                            else list.add(defaultData)
+                        } else list.add(defaultData)
+
+                        if (calendar.time == todayCalendar.time) break
+                    }
+
+                    list.trimToSize()
+                    list.reverse()
+
+                    _basicTodayHistory.value = list
+                }
+                is Resource.Error -> {
+                    Log.e("getBasicHistory", "getBasicHistory: ${value.errorMessage}")
+
+                    if (value.errorMessage == "500") {
+                        _basicTodayHistory.value = listOf(
                             ChallengeBasicHistory(
                                 0,
                                 false,
@@ -112,16 +145,13 @@ class ChallengeViewModel @Inject constructor(
                                 "",
                                 "",
                                 "",
-                                dateFormat.format(calendar.time),
-                                false
+                                dateFormat.format(todayCalendar.time),
+                                true
                             )
+                        )
                     }
-                    Log.d("getBasicHistory", list.toString())
-
-                    _basicTodayHistory.value = value.data
                 }
             }
-            is Resource.Error -> Log.e("getBasicHistory", "getBasicHistory: ${value.errorMessage}")
         }
     }
 

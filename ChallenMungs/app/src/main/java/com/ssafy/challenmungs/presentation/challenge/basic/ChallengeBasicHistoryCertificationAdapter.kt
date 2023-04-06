@@ -48,7 +48,10 @@ class ChallengeBasicHistoryCertificationAdapter(private var list: List<Challenge
 
         fun bind(item: ChallengeBasicHistory) {
             binding.date = item
+            binding.tvDate.visibility = if (item.pictureUrl == "") View.VISIBLE else View.GONE
             binding.ivReject.visibility = if (item.rejectResult) View.VISIBLE else View.GONE
+            binding.btnCertificate.visibility =
+                if (adapterPosition == 0 && list[0].pictureUrl == "") View.VISIBLE else View.GONE
         }
     }
 }
