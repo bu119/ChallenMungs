@@ -8,8 +8,9 @@ import com.ssafy.challenmungs.R
 import com.ssafy.challenmungs.databinding.ItemChallengeCardMyOngoingBinding
 
 class MyChallengeListAdapter(
-    private val navigationNavHostFragmentToDestinationFragment: (Int, Int, Long) -> Unit,
-    private val data: List<Map<String, Any>>
+    private val navigationNavHostFragmentToDestinationFragment: (Int, Long) -> Unit,
+    private val data: List<Map<String, Any>>,
+    private val getBasicToday: (Int) -> Unit,
 ) : RecyclerView.Adapter<MyChallengeListViewHolder>() {
 
     private lateinit var binding: ItemChallengeCardMyOngoingBinding
@@ -21,7 +22,7 @@ class MyChallengeListAdapter(
             parent,
             false
         )
-        return MyChallengeListViewHolder(binding)
+        return MyChallengeListViewHolder(binding, getBasicToday)
     }
 
     override fun onBindViewHolder(holder: MyChallengeListViewHolder, position: Int) {

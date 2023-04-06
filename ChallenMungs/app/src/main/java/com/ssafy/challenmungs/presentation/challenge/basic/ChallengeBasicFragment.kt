@@ -62,5 +62,11 @@ class ChallengeBasicFragment :
                 }
             }
         })
+
+        binding.toolbar.tvInfo.setOnClickListener {
+            navigationNavHostFragmentToDestinationFragment(
+                R.id.challenge_basic_info_fragment
+            )
+        }
     }
 }

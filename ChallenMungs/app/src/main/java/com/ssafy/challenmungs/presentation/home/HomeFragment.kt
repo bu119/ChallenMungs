@@ -2,12 +2,14 @@ package com.ssafy.challenmungs.presentation.home
 
 import android.content.Context
 import android.os.AsyncTask
+import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ssafy.challenmungs.ApplicationClass
 import com.ssafy.challenmungs.R
 import com.ssafy.challenmungs.databinding.FragmentHomeBinding
 import com.ssafy.challenmungs.presentation.base.BaseFragment
+import com.ssafy.challenmungs.presentation.challenge.ChallengeViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import okhttp3.FormBody
 import okhttp3.OkHttpClient
@@ -22,6 +24,7 @@ class HomeFragment() : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home)
     lateinit var myOngoingChallengeCardList: String
     lateinit var myChallengeOnlyTomorrowCardList: String
     lateinit var recentlyAddedCampaignCardList: String
+    private val challengeViewModel by activityViewModels<ChallengeViewModel>()
 
     override fun initView() {
         val jwt = ApplicationClass.preferences.accessToken.toString()
@@ -73,6 +76,18 @@ class HomeFragment() : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home)
                     recentlyAddedCampaignCardList
                 )
             )
+        }
+
+        observe()
+    }
+
+    private fun observe() {
+        challengeViewModel.basicTodayList.observe(viewLifecycleOwner) {
+            it?.let {
+                navigationNavHostFragmentToDestinationFragment(
+                    R.id.challenge_basic_fragment
+                )
+            }
         }
     }
 
@@ -152,7 +167,8 @@ class HomeFragment() : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home)
             val adapter =
                 MyChallengeListAdapter(
                     this@HomeFragment::navigationNavHostFragmentToDestinationFragment,
-                    list
+                    list,
+                    challengeViewModel::getBasicToday
                 )
             rv.adapter = adapter
             rv.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)

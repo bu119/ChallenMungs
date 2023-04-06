@@ -99,7 +99,6 @@ class ChallengeFragment : BaseFragment<FragmentChallengeBinding>(R.layout.fragme
 
                     if (result)
                         navigationNavHostFragmentToDestinationFragment(
-                            R.id.nav_main,
                             R.id.challenge_basic_info_fragment
                         )
                 }
