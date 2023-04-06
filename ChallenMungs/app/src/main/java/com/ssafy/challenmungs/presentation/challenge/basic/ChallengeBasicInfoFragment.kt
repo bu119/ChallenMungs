@@ -47,7 +47,10 @@ class ChallengeBasicInfoFragment :
 
     private fun initListener() {
         binding.toolbar.ivBack.setOnClickListener {
-            challengeViewModel.initNotStartedChallengeDetail()
+            challengeViewModel.notStartedChallengeDetail.value?.let {
+                if (it.status == 0)
+                    challengeViewModel.initNotStartedChallengeDetail()
+            }
             popBackStack()
         }
 
