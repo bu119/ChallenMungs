@@ -141,18 +141,32 @@ class ChallengeViewModel @Inject constructor(
                     Log.e("getBasicHistory", "getBasicHistory: ${value.errorMessage}")
 
                     if (value.errorMessage == "500") {
-                        _basicTodayHistory.value = listOf(
-                            ChallengeBasicHistory(
-                                0,
-                                false,
-                                "",
-                                "",
-                                "",
-                                "",
-                                dateFormat.format(todayCalendar.time),
-                                true
+                        for (index in 0 until it.period.toInt()) {
+                            val date = dateFormat.parse(it.startDate)
+                            val calendar = Calendar.getInstance()
+                            calendar.time = date!!
+                            calendar.add(Calendar.DATE, index)
+
+                            list.add(
+                                ChallengeBasicHistory(
+                                    0,
+                                    false,
+                                    "",
+                                    "",
+                                    "",
+                                    "",
+                                    dateFormat.format(calendar.time),
+                                    true
+                                )
                             )
-                        )
+
+                            if (calendar.time == todayCalendar.time) break
+                        }
+
+                        list.trimToSize()
+                        list.reverse()
+
+                        _basicTodayHistory.value = list
                     }
                 }
             }
