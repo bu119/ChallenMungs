@@ -13,6 +13,7 @@ import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -41,6 +42,10 @@ public class GeneralController {
     WalletService walletService;
     @Autowired
     WalletRepository walletRepo;
+    @Value("${GENERAL_ADDRESS}")
+    String generalChallenge;
+    @Value("${PANEL_ADDRESS}")
+    String panelChallenge;
 
     // 일반챌린지를 생성하는 API - 생성시 참가자 테이블에 생성자를 생성자로 추가
     @PostMapping("/tokenConfirm/create")
@@ -75,7 +80,6 @@ public class GeneralController {
         );
 
         String loginId = request.getAttribute("loginId").toString();
-        String generalChallenge = "0x2649eadC4C15bac554940A0A702fa759bddf0dBe";
         String fromAddress = walletRepo.findByUserAndType(userRepo.findUserByLoginId(loginId), 'w').getAddress();
         walletService.sendKlay(fromAddress, generalChallenge, entryFee);
         generalParticipantService.saveParticipant(

@@ -18,6 +18,7 @@ import lombok.RequiredArgsConstructor;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -167,13 +168,16 @@ public class WalletServiceImpl implements  WalletService{
         return itemsNode;
     }
     private Logger log = LoggerFactory.getLogger(WalletController.class);
-    String normalChallenge = "0x2649eadC4C15bac554940A0A702fa759bddf0dBe";
-    String specialChallenge = "0xee43BB5476e52B04175d698C56cC4516b96A85A5";
+
+
+    @Value("${GENERAL_ADDRESS}")
+    String normalChallenge;
+    @Value("${PANEL_ADDRESS}")
+    String specialChallenge;
 
     // 사용내역의 모든 주소들은 lowercase로 온다.
     String lowerN = normalChallenge.toLowerCase();
     String lowerS = specialChallenge.toLowerCase();
-    // for문 돌면서 item 만들기
 
     @Override
     public List<Map<String, Object>> viewMyWallet(String loginId) throws JsonProcessingException {
@@ -229,7 +233,7 @@ public class WalletServiceImpl implements  WalletService{
                 before_input = amount.intValue() * (-1);
                 title = "충전";
             }
-
+            System.out.println(calendar);
             // 값 넣기
             WalletItemDto tmp = new WalletItemDto(title, amount, String.valueOf(calendar.get(Calendar.HOUR_OF_DAY) + ":" + calendar.get(Calendar.MINUTE)), totalMoney);
             String day = String.valueOf(calendar.get(Calendar.MONTH) + 1) + "." + String.valueOf(calendar.get(Calendar.DATE));

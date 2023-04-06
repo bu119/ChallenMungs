@@ -145,6 +145,7 @@ public class CampaignContentServiceImpl implements CampaignContentService{
 
         //사용가능한 add가 2개이면(슬롯 하나도 안 쓴 상태면) 첫번째 캠페인 계좌주소를 반환
         if(campaignCnt==0){
+            System.out.println(walletRepo.findByUserAndType(user,'1').getAddress());
              return walletRepo.findByUserAndType(user,'1').getAddress();
         }
         //사용가능한 add가 1개이면 사용하지 않는 것을 반환
