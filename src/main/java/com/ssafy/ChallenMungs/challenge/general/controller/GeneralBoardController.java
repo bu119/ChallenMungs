@@ -132,6 +132,12 @@ public class GeneralBoardController {
 
         Challenge challenge = challengeService.findByChallengeId(challengeId);
         List<GeneralBoard> boards = boardService.getBoardsByChallengeToday(challenge);
+
+        if (boards == null || boards.isEmpty()) {
+            log.info("인증 게시글이 존재하지 않습니다.");
+            return new ResponseEntity<>(new ArrayList<>(), HttpStatus.OK);
+        }
+
         List<GeneralBoardTodayDto> dtoList = new ArrayList<>();
         for (GeneralBoard gb : boards) {
             String boardUserId = gb.getUser().getLoginId();
@@ -173,7 +179,7 @@ public class GeneralBoardController {
         // 예외 처리 추가
         if (boards == null || boards.isEmpty()) {
             log.info("인증 게시글이 존재하지 않습니다.");
-            throw new NotFoundException("게시글이 존재하지 않습니다.");
+            return new ResponseEntity<>(new ArrayList<>(), HttpStatus.OK);
         }
 
         List<GeneralBoardHistoryDto> dtoList = new ArrayList<>();
@@ -212,6 +218,12 @@ public class GeneralBoardController {
         Challenge challenge = challengeService.findByChallengeId(challengeId);
         // 해당 챌린지의 선택한 게시글 유저의 기록을 가져옴
         List<GeneralBoard> boards = boardService.getBoardsByChallenge(challenge);
+
+        if (boards == null || boards.isEmpty()) {
+            log.info("인증 게시글이 존재하지 않습니다.");
+            return new ResponseEntity<>(new ArrayList<>(), HttpStatus.OK);
+        }
+
         List<GeneralBoardHistoryDto> dtoList = new ArrayList<>();
         for (GeneralBoard gb : boards) {
 
