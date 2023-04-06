@@ -29,6 +29,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.websocket.server.PathParam;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -109,7 +110,7 @@ public class GeneralBoardController {
             return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).build();
         }
 
-        LocalDate today = LocalDate.now();
+        LocalDate today = LocalDate.now(ZoneId.of("Asia/Seoul"));
         log.info(loginId + ": " + today +" 의 인증 게시글을 업로드 합니다.");
         int boardId = boardService.savePicture(
                 GeneralBoard.builder()
