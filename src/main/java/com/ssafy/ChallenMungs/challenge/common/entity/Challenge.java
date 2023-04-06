@@ -80,4 +80,7 @@ public class Challenge {
 
     @Column(name = "map_size")
     Double map_size;
+
+    @Column(name = "period")
+    Long period;
 }
