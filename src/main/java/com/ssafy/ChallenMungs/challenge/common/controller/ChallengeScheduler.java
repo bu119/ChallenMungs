@@ -3,6 +3,7 @@ package com.ssafy.ChallenMungs.challenge.common.controller;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ssafy.ChallenMungs.blockchain.repository.WalletRepository;
+import com.ssafy.ChallenMungs.blockchain.service.DonateService;
 import com.ssafy.ChallenMungs.blockchain.service.WalletService;
 import com.ssafy.ChallenMungs.campaign.repository.CampaignListRepository;
 import com.ssafy.ChallenMungs.challenge.common.entity.Challenge;
@@ -63,6 +64,8 @@ public class ChallengeScheduler {
 
     @Autowired
     WalletRepository walletRepo;
+    @Autowired
+    DonateService donateService;
 
     @Value("${GENERAL_ADDRESS}")
     String generalChallenge;
@@ -227,12 +230,10 @@ public class ChallengeScheduler {
                     log.info(successPeopleCount + "명이 성공했어요. 성공한 사람은" + getCoin + "만큼의 돈을 나눠가져요");
 
                     if(getCoin != 0) {
-                        String shelterAddress = campaignListRepo.findCampaignByCampaignId(c.getCampaignId()).getWalletAddress();
                         for(User successUser:successUsers){
                             String userPiggyBank = walletRepo.findByUserAndType(successUser, 'p').getAddress();
                             walletService.sendKlay(panelChallenge, userPiggyBank, getCoin);
-                            walletService.sendKlay(userPiggyBank, shelterAddress, getCoin);
-//                            sendKlay(successUser, getCoin, true, shelterAddress);
+                            donateService.donate(c.getCampaignId(),getCoin, "일반캠페인으로 후원합니다^^",successUser.getLoginId());
                         }
                     }
 
