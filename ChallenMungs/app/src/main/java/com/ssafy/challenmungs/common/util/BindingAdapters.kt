@@ -36,6 +36,15 @@ object BindingAdapters {
     }
 
     @JvmStatic
+    @BindingAdapter("android:setBasicCampaignImageUrl")
+    fun ImageView.setBasicCampaignImageUrl(imgUrl: String?) {
+        Glide.with(this.context)
+            .load(imgUrl)
+            .centerCrop()
+            .into(this)
+    }
+
+    @JvmStatic
     @BindingAdapter("app:imgRes")
     fun ImageView.setImgResource(resId: Int) {
         this.setImageResource(resId)
