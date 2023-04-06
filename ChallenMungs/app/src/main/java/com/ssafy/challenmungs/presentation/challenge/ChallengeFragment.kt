@@ -1,6 +1,7 @@
 package com.ssafy.challenmungs.presentation.challenge
 
 import android.animation.ObjectAnimator
+import android.util.Log
 import android.view.KeyEvent
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
@@ -106,10 +107,12 @@ class ChallengeFragment : BaseFragment<FragmentChallengeBinding>(R.layout.fragme
                     val result =
                         challengeViewModel.getChallengeParticipationFlag(it.challengeId.toLong())
 
-                    if (result)
+                    if (result) {
+                        Log.d("TAG", "observe: $it")
                         navigationNavHostFragmentToDestinationFragment(
                             R.id.challenge_basic_info_fragment
                         )
+                    }
                 }
             }
         }

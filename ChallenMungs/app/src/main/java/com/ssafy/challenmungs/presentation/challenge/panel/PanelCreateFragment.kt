@@ -6,6 +6,7 @@ import android.view.animation.AnimationUtils
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.google.android.gms.maps.model.LatLng
@@ -17,6 +18,7 @@ import com.ssafy.challenmungs.databinding.FragmentPanelCreateBinding
 import com.ssafy.challenmungs.presentation.base.BaseFragment
 import com.ssafy.challenmungs.presentation.common.CustomSimpleDialog
 import com.ssafy.challenmungs.presentation.common.CustomSimpleDialogInterface
+import com.ssafy.challenmungs.presentation.common.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
@@ -29,6 +31,7 @@ class PanelCreateFragment :
     CustomSimpleDialogInterface, PlayAreaSettingInterface {
 
     private val panelCreateViewModel by viewModels<PanelCreateViewModel>()
+    private val mainViewModel by activityViewModels<MainViewModel>()
     private var centerLat: Double = 0.0
     private var centerLng: Double = 0.0
     private var mapSize: Double = 1.0
@@ -117,6 +120,7 @@ class PanelCreateFragment :
         val builder = MaterialDatePicker.Builder.dateRangePicker().apply {
             setCalendarConstraints(constrainBuilder.build())
             setTitleText(getString(R.string.title_select_date))
+
         }
         val picker = builder.build().apply {
             addOnPositiveButtonClickListener {
@@ -306,7 +310,8 @@ class PanelCreateFragment :
                 if (result) {
                     createCheck(false, getString(R.string.content_create_success))
                     popBackStack()
-                    // 캘린지 탭으로 status 섩정하는 코드 필요
+                    // 챌린지 탭으로 status 섩정하는 코드 필요
+                    mainViewModel.setStatus(0)
                 } else {
                     createCheck(false, getString(R.string.content_create_failed))
                     checkValue = Pair(false, "")
