@@ -110,6 +110,7 @@ public class GeneralBoardController {
         }
 
         LocalDate today = LocalDate.now();
+        log.info(loginId + ": " + today +" 의 인증 게시글을 업로드 합니다.");
         int boardId = boardService.savePicture(
                 GeneralBoard.builder()
                         .challenge(challenge)
