@@ -61,13 +61,7 @@ public class WalletServiceImpl implements  WalletService{
 
     }
 
-    // 후원처 출금계좌 생성
-//    @Override
-//    public void insertSpecialWithdrawalWallet(String walletAddress, String loginId) throws Exception {
-//        User user = userRepo.findUserByLoginId(loginId);
-//        if(user==null) throw new Exception("로그인아이디 확인");
-//        walletRepo.save(initWallet(user,'3',walletAddress));
-//    }
+
     @Override
     public void saveOrUpdateWallet(String loginId, String walletAddress) throws Exception {
         User user = userRepo.findUserByLoginId(loginId);
@@ -226,6 +220,11 @@ public class WalletServiceImpl implements  WalletService{
             else {
                 totalMoney += before_input;
                 before_input = amount.intValue() * (-1);
+                if(from.equals(lowerN)){
+                    title = "일반 챌린지 환불";
+                } else if (from.equals(lowerS)) {
+                    title = "특별 챌린지 환불";
+                }
                 title = "충전";
             }
 //            System.out.println(calendar);
