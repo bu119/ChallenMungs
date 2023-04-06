@@ -51,7 +51,7 @@ class CampaignListAdapter(
         private fun initListener(item: CampaignCard) {
             binding.root.setOnClickListener {
                 navigationToCampaignInfoFragment(
-                    R.id.nav_host,
+                    R.id.nav_main,
                     R.id.campaign_info_fragment,
                     item.campaignId.toLong()
                 )

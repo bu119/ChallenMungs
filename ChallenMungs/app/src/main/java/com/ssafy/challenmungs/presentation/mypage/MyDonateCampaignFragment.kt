@@ -4,7 +4,7 @@ import com.ssafy.challenmungs.R
 import com.ssafy.challenmungs.databinding.BaseListBinding
 import com.ssafy.challenmungs.presentation.base.BaseFragment
 
-class MyCheerCampaignFragment : BaseFragment<BaseListBinding>(R.layout.base_list) {
+class MyDonateCampaignFragment : BaseFragment<BaseListBinding>(R.layout.base_list) {
 
     override fun initView() {
         setBind()
@@ -12,7 +12,7 @@ class MyCheerCampaignFragment : BaseFragment<BaseListBinding>(R.layout.base_list
     }
 
     private fun setBind() {
-        binding.toolbar.title = getString(R.string.title_cheer_campaign)
+        binding.toolbar.title = getString(R.string.title_my_campaign)
     }
 
     private fun initListener() {

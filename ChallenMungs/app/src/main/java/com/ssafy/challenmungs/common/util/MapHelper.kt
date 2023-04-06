@@ -41,7 +41,7 @@ object MapHelper {
         CurrentLocationRequest.Builder()
             .setDurationMillis(UPDATE_INTERVAL)
             .setMaxUpdateAgeMillis(MAX_UPDATE_AGE)
-            .setPriority(Priority.PRIORITY_BALANCED_POWER_ACCURACY)
+            .setPriority(Priority.PRIORITY_HIGH_ACCURACY)
             .build()
     }
 
