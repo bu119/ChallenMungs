@@ -4,6 +4,7 @@ import com.ssafy.challenmungs.common.util.wrapToResource
 import com.ssafy.challenmungs.data.remote.Resource
 import com.ssafy.challenmungs.data.remote.datasource.challenge.ChallengeRemoteDataSource
 import com.ssafy.challenmungs.domain.entity.challenge.Challenge
+import com.ssafy.challenmungs.domain.entity.challenge.ChallengeBasicHistory
 import com.ssafy.challenmungs.domain.entity.challenge.ChallengeBasicToday
 import com.ssafy.challenmungs.domain.entity.challenge.NotStartedChallengeDetail
 import com.ssafy.challenmungs.domain.repository.ChallengeRepository
@@ -36,6 +37,16 @@ class ChallengeRepositoryImpl @Inject constructor(
     override suspend fun getBasicToday(challengeId: Int): Resource<List<ChallengeBasicToday>> =
         wrapToResource(Dispatchers.IO) {
             challengeRemoteDataSource.getBasicToday(challengeId).map { it.toDomainModel() }
+        }
+
+    override suspend fun getBasicHistory(
+        challengeId: Int,
+        targetMemberId: String
+    ): Resource<List<ChallengeBasicHistory>> =
+        wrapToResource(Dispatchers.IO) {
+            challengeRemoteDataSource.getBasicHistory(challengeId, targetMemberId).map {
+                it.toDomainModel()
+            }
         }
 
     override suspend fun getChallengeParticipationFlag(challengeId: Long): Resource<Boolean> =

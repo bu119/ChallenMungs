@@ -17,7 +17,7 @@ class MyChallengeListFragment(
 
     override fun initView() {
         binding.rvList.adapter =
-            MyChallengeListAdapter(position, dataList, challengeViewModel::getBasicToday)
+            MyChallengeListAdapter(position, dataList, challengeViewModel)
 
         observe()
     }

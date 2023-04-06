@@ -1,16 +1,16 @@
 package com.ssafy.challenmungs.presentation.home
 
 import android.annotation.SuppressLint
-import android.util.Log
 import androidx.recyclerview.widget.RecyclerView
 import com.ssafy.challenmungs.R
 import com.ssafy.challenmungs.databinding.ItemChallengeCardMyOngoingBinding
+import com.ssafy.challenmungs.presentation.challenge.ChallengeViewModel
 import java.text.SimpleDateFormat
 import java.util.*
 
 class MyChallengeListViewHolder(
     private val binding: ItemChallengeCardMyOngoingBinding,
-    private val getBasicToday: (Int) -> Unit,
+    private val challengeViewModel: ChallengeViewModel,
 ) :
     RecyclerView.ViewHolder(binding.root) {
 
@@ -46,13 +46,8 @@ class MyChallengeListViewHolder(
                     challengeId.toString().toLong()
                 )
             else {
-                Log.d(
-                    "MyChallengeListViewHolder",
-                    "challengeId: $challengeId, challengeType: ${
-                        dto["challengeType"].toString().toInt()
-                    }"
-                )
-                getBasicToday(challengeId.toString().toInt())
+                challengeViewModel.getChallengeInfo(challengeId.toString().toInt())
+                challengeViewModel.getBasicToday(challengeId.toString().toInt())
             }
         }
     }

@@ -3,20 +3,26 @@ package com.ssafy.challenmungs.presentation.challenge.basic
 import android.graphics.Typeface
 import android.widget.TextView
 import androidx.core.view.children
+import androidx.fragment.app.activityViewModels
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.ssafy.challenmungs.R
 import com.ssafy.challenmungs.databinding.FragmentChallengeBasicBinding
 import com.ssafy.challenmungs.presentation.base.BaseFragment
+import com.ssafy.challenmungs.presentation.challenge.ChallengeViewModel
 
 class ChallengeBasicFragment :
     BaseFragment<FragmentChallengeBasicBinding>(R.layout.fragment_challenge_basic) {
+
+    private val challengeViewModel by activityViewModels<ChallengeViewModel>()
 
     enum class ViewType {
         TODAY, HISTORY
     }
 
     override fun initView() {
+        observe()
+
         binding.toolbar.title = "매일매일 산책 미션!"
 
         initViewPager()
@@ -67,6 +73,14 @@ class ChallengeBasicFragment :
             navigationNavHostFragmentToDestinationFragment(
                 R.id.challenge_basic_info_fragment
             )
+        }
+    }
+
+    private fun observe(){
+        challengeViewModel.notStartedChallengeDetail.observe(viewLifecycleOwner){
+            it?.let {
+//                challengeViewModel.getBasicHistory(it.challengeId, it.participants[0].)
+            }
         }
     }
 }

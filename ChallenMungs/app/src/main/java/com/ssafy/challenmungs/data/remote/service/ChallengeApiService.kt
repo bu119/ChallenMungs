@@ -1,6 +1,7 @@
 package com.ssafy.challenmungs.data.remote.service
 
 import com.ssafy.challenmungs.data.remote.datasource.challenge.ChallengeListResponse
+import com.ssafy.challenmungs.data.remote.datasource.challenge.basic.ChallengeBasicHistoryResponse
 import com.ssafy.challenmungs.data.remote.datasource.challenge.basic.ChallengeBasicTodayResponse
 import com.ssafy.challenmungs.data.remote.datasource.challenge.basic.ChallengeInfoResponse
 import com.ssafy.challenmungs.data.remote.datasource.common.ResultResponse
@@ -29,6 +30,12 @@ interface ChallengeApiService {
     suspend fun getBasicToday(
         @Query("challengeId") challengeId: Int
     ): List<ChallengeBasicTodayResponse>
+
+    @GET("/generalBoard/tokenConfirm/history")
+    suspend fun getBasicHistory(
+        @Query("challengeId") challengeId: Int,
+        @Query("boardUserId") targetMemberId: String
+    ): List<ChallengeBasicHistoryResponse>
 
     @POST("/challenge/tokenConfirm/isHere")
     suspend fun getChallengeParticipationFlag(

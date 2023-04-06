@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ssafy.challenmungs.data.remote.Resource
 import com.ssafy.challenmungs.domain.entity.challenge.Challenge
+import com.ssafy.challenmungs.domain.entity.challenge.ChallengeBasicHistory
 import com.ssafy.challenmungs.domain.entity.challenge.ChallengeBasicToday
 import com.ssafy.challenmungs.domain.entity.challenge.NotStartedChallengeDetail
 import com.ssafy.challenmungs.domain.usecase.challenge.*
@@ -20,6 +21,8 @@ class ChallengeViewModel @Inject constructor(
     private val getChallengeListUseCase: GetChallengeListUseCase,
     private val getChallengeInfoUseCase: GetChallengeInfoUseCase,
     private val getBasicTodayUseCase: GetBasicTodayUseCase,
+    private val getBasicHistoryUseCase: GetBasicHistoryUseCase,
+    private val getParticipantsUseCase: GetParticipantsUseCase,
     private val getChallengeParticipationFlagUseCase: GetChallengeParticipationFlagUseCase,
     private val requestParticipateUseCase: RequestParticipateUseCase,
     private val requestWithDrawUseCase: RequestWithDrawUseCase,
@@ -36,6 +39,10 @@ class ChallengeViewModel @Inject constructor(
     private val _basicTodayList: MutableLiveData<List<ChallengeBasicToday>?> =
         MutableLiveData(null)
     val basicTodayList: LiveData<List<ChallengeBasicToday>?> = _basicTodayList
+
+    private val _basicTodayHistory: MutableLiveData<List<ChallengeBasicHistory>?> =
+        MutableLiveData(null)
+    val basicTodayHistory: LiveData<List<ChallengeBasicHistory>?> = _basicTodayHistory
 
     fun initNotStartedChallengeDetail() {
         _notStartedChallengeDetail.value = null
@@ -76,6 +83,20 @@ class ChallengeViewModel @Inject constructor(
                 "getBasicToday",
                 "getBasicToday: ${value.errorMessage}"
             )
+        }
+    }
+
+    fun getBasicHistory(challengeId: Int, targetMemberId: String) = viewModelScope.launch {
+        when (val value = getBasicHistoryUseCase(challengeId, targetMemberId)) {
+            is Resource.Success<List<ChallengeBasicHistory>> ->
+                _basicTodayHistory.value = value.data
+            is Resource.Error -> Log.e("getBasicHistory", "getBasicHistory: ${value.errorMessage}")
+        }
+    }
+
+    fun getParticipants(challengeId: Int) = viewModelScope.launch {
+        when(val value = getParticipantsUseCase(challengeId)){
+
         }
     }
 

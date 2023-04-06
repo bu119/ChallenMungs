@@ -9,11 +9,12 @@ import com.ssafy.challenmungs.R
 import com.ssafy.challenmungs.databinding.ItemChallengeCardOngoingFinishBinding
 import com.ssafy.challenmungs.databinding.ItemChallengeCardWaitingBinding
 import com.ssafy.challenmungs.domain.entity.challenge.Challenge
+import com.ssafy.challenmungs.presentation.challenge.ChallengeViewModel
 
 class MyChallengeListAdapter(
     private val position: Int,
     private val dataList: ArrayList<Challenge>,
-    private val getBasicToday: (Int) -> Unit,
+    private val challengeViewModel: ChallengeViewModel,
 ) :
     RecyclerView.Adapter<MyChallengeListAdapter.MyChallengeListViewHolder>() {
 
@@ -29,7 +30,7 @@ class MyChallengeListAdapter(
                     parent,
                     false
                 ),
-                getBasicToday
+                challengeViewModel
             )
         }
         else -> {
@@ -66,14 +67,15 @@ class MyChallengeListAdapter(
 
         class WaitViewHolder(
             private val binding: ItemChallengeCardWaitingBinding,
-            private val getBasicToday: (Int) -> Unit,
+            private val challengeViewModel: ChallengeViewModel,
         ) :
             MyChallengeListViewHolder(binding) {
 
             override fun onBind(data: Challenge) {
                 binding.challenge = data
 
-                getBasicToday(data.challengeId)
+                challengeViewModel.getChallengeInfo(data.challengeId)
+                challengeViewModel.getBasicToday(data.challengeId)
             }
         }
     }

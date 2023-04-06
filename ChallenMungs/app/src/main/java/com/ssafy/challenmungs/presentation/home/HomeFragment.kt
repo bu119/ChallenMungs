@@ -168,7 +168,7 @@ class HomeFragment() : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home)
                 MyChallengeListAdapter(
                     this@HomeFragment::navigationNavHostFragmentToDestinationFragment,
                     list,
-                    challengeViewModel::getBasicToday
+                    challengeViewModel
                 )
             rv.adapter = adapter
             rv.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
