@@ -132,6 +132,12 @@ public class GeneralBoardController {
 
         Challenge challenge = challengeService.findByChallengeId(challengeId);
         List<GeneralBoard> boards = boardService.getBoardsByChallengeToday(challenge);
+
+        if (boards == null || boards.isEmpty()) {
+            log.info("인증 게시글이 존재하지 않습니다.");
+            return new ResponseEntity<>(new ArrayList<>(), HttpStatus.OK);
+        }
+        
         List<GeneralBoardTodayDto> dtoList = new ArrayList<>();
         for (GeneralBoard gb : boards) {
             String boardUserId = gb.getUser().getLoginId();
