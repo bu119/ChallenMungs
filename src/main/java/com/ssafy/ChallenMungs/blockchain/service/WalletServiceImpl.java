@@ -53,7 +53,7 @@ public class WalletServiceImpl implements  WalletService{
 
     @Override
     public void insertSpecialWallet(String campaign1, String campaign2,String loginId) throws Exception {
-        System.out.println(loginId);
+//        System.out.println(loginId);
         User user=userRepo.findUserByLoginId(loginId);
         if(user==null) throw new Exception("로그인아이디 확인");
         walletRepo.save(initWallet(user,'1',campaign1));
@@ -170,11 +170,8 @@ public class WalletServiceImpl implements  WalletService{
     private Logger log = LoggerFactory.getLogger(WalletController.class);
 
 
-    @Value("${GENERAL_ADDRESS}")
-    String normalChallenge;
-    @Value("${PANEL_ADDRESS}")
-    String specialChallenge;
-
+    String normalChallenge = "0xcC1E6094bAfD1eb9EdA01a2a70E01f3bE7708C50";
+    String specialChallenge = "0x023ddCfc3F563D3D797A5F3934cb67c7e1AdB6Ca";
     // 사용내역의 모든 주소들은 lowercase로 온다.
     String lowerN = normalChallenge.toLowerCase();
     String lowerS = specialChallenge.toLowerCase();
@@ -190,8 +187,6 @@ public class WalletServiceImpl implements  WalletService{
 
         List<Map<String, Object>> result = new ArrayList<>();
         Map<String, List<WalletItemDto>> dayMap = new LinkedHashMap<>();
-
-//        Map<String, List<WalletItemDto>> result = new HashMap<>();
 
         //사용 내역 바꾸기
         for (JsonNode item : items) {
@@ -233,7 +228,7 @@ public class WalletServiceImpl implements  WalletService{
                 before_input = amount.intValue() * (-1);
                 title = "충전";
             }
-            System.out.println(calendar);
+//            System.out.println(calendar);
             // 값 넣기
             WalletItemDto tmp = new WalletItemDto(title, amount, String.valueOf(calendar.get(Calendar.HOUR_OF_DAY) + ":" + calendar.get(Calendar.MINUTE)), totalMoney);
             String day = String.valueOf(calendar.get(Calendar.MONTH) + 1) + "." + String.valueOf(calendar.get(Calendar.DATE));
