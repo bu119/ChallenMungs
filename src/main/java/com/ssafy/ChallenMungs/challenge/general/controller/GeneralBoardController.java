@@ -172,6 +172,7 @@ public class GeneralBoardController {
 
         // 예외 처리 추가
         if (boards == null || boards.isEmpty()) {
+            log.info("인증 게시글이 존재하지 않습니다.");
             throw new NotFoundException("게시글이 존재하지 않습니다.");
         }
 
