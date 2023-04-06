@@ -294,4 +294,7 @@
     <string name="content_send_email">전송</string>
     <string name="content_email_hint">초대코드를 전송할 이메일 주소</string>
     <string name="content_invite_code_already_exist">이미 초대코드를 받았습니다.</string>
+    <string name="content_campaign_shelter">by %s</string>
+    <string name="content_achieve_percent">%d / %d (%d%%)</string>
+    <string name="image_campaign_content">캠페인 상세정보 이미지입니다.</string>
 </resources>

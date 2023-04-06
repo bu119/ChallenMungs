@@ -86,6 +86,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="6dp"
             android:max="100"
+            android:progress="@{campaign.progress}"
             android:progressDrawable="@drawable/bg_custom_progress_campaign"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

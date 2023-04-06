@@ -40,6 +40,17 @@ object BindingAdapters {
     }
 
     @JvmStatic
+    @BindingAdapter("android:setCampaignContentImg")
+    fun ImageView.setCampaignContentImg(imgUrl: String?) {
+        Glide.with(this.context)
+            .load(imgUrl)
+            .placeholder(R.drawable.bg_rect_campaign_content_image_cannot_load)
+            .error(R.drawable.bg_rect_campaign_content_image_cannot_load)
+            .centerCrop()
+            .into(this)
+    }
+
+    @JvmStatic
     @BindingAdapter("android:setBasicCampaignImageUrl")
     fun ImageView.setBasicCampaignImageUrl(imgUrl: String?) {
         Glide.with(this.context)

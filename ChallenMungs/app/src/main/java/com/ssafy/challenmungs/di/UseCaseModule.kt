@@ -4,6 +4,7 @@ import com.ssafy.challenmungs.domain.repository.*
 import com.ssafy.challenmungs.domain.usecase.auth.*
 import com.ssafy.challenmungs.domain.usecase.challenge.*
 import com.ssafy.challenmungs.domain.usecase.donate.GetBalanceUseCase
+import com.ssafy.challenmungs.domain.usecase.donate.GetCampaignInfoUseCase
 import com.ssafy.challenmungs.domain.usecase.donate.GetCampaignListUseCase
 import com.ssafy.challenmungs.domain.usecase.donate.RequestDonateUseCase
 import com.ssafy.challenmungs.domain.usecase.klaytn.CreateAccountUseCase
@@ -103,6 +104,11 @@ object UseCaseModule {
     @Provides
     fun provideGetCampaignListUseCase(donateRepository: DonateRepository): GetCampaignListUseCase =
         GetCampaignListUseCase(donateRepository)
+
+    @Singleton
+    @Provides
+    fun provideGetCampaignInfoUseCase(donateRepository: DonateRepository): GetCampaignInfoUseCase =
+        GetCampaignInfoUseCase(donateRepository)
 
     @Singleton
     @Provides

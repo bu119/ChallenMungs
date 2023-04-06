@@ -67,10 +67,13 @@ class CampaignDonateFragment :
             }
 
             btnDonate.setOnClickListener {
-                donateViewModel.requestDonate(
-                    etDonateAmount.text.toString().toInt(),
-                    tilEtComment.text.toString()
-                )
+                donateViewModel.selectedCampaignId.value?.let {
+                    donateViewModel.requestDonate(
+                        it,
+                        etDonateAmount.text.toString().toInt(),
+                        tilEtComment.text.toString()
+                    )
+                }
                 popBackStack()
             }
         }
