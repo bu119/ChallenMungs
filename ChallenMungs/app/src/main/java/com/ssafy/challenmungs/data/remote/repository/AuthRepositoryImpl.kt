@@ -22,4 +22,19 @@ class AuthRepositoryImpl @Inject constructor(
         wrapToResource(Dispatchers.IO) {
             authRemoteDataSource.requestJoin(name, accessToken).toDomainModel()
         }
+
+    override suspend fun requestShelterJoin(
+        shelterName: String,
+        inviteCode: String,
+        memberId: String,
+        password: String
+    ): Resource<String> = wrapToResource(Dispatchers.IO) {
+        authRemoteDataSource.requestShelterJoin(shelterName, inviteCode, memberId, password)
+            .toDomainModel()
+    }
+
+    override suspend fun requestInviteCode(shelterName: String, email: String): Resource<String> =
+        wrapToResource(Dispatchers.IO) {
+            authRemoteDataSource.requestInviteCode(shelterName, email).toDomainModel()
+        }
 }

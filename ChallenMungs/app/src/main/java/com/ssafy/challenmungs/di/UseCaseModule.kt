@@ -1,12 +1,8 @@
 package com.ssafy.challenmungs.di
 
 import com.ssafy.challenmungs.domain.repository.*
-import com.ssafy.challenmungs.domain.usecase.auth.JoinUseCase
-import com.ssafy.challenmungs.domain.usecase.auth.LogInUseCase
-import com.ssafy.challenmungs.domain.usecase.auth.SetWalletUseCase
-import com.ssafy.challenmungs.domain.usecase.challenge.CreatePanelChallengeUseCase
-import com.ssafy.challenmungs.domain.usecase.challenge.GetChallengeListUseCase
-import com.ssafy.challenmungs.domain.usecase.challenge.GetPanelInfoUseCase
+import com.ssafy.challenmungs.domain.usecase.auth.*
+import com.ssafy.challenmungs.domain.usecase.challenge.*
 import com.ssafy.challenmungs.domain.usecase.donate.GetCampaignListUseCase
 import com.ssafy.challenmungs.domain.usecase.klaytn.CreateAccountUseCase
 import com.ssafy.challenmungs.domain.usecase.member.GetMemberInfoUseCase
@@ -33,6 +29,16 @@ object UseCaseModule {
 
     @Singleton
     @Provides
+    fun provideRequestShelterJoinUseCase(authRepository: AuthRepository): RequestShelterJoinUseCase =
+        RequestShelterJoinUseCase(authRepository)
+
+    @Singleton
+    @Provides
+    fun provideRequestInviteCodeUseCase(authRepository: AuthRepository): RequestInviteCodeUseCase =
+        RequestInviteCodeUseCase(authRepository)
+
+    @Singleton
+    @Provides
     fun provideSetWalletUseCase(memberRepository: MemberRepository): SetWalletUseCase =
         SetWalletUseCase(memberRepository)
 
@@ -53,12 +59,52 @@ object UseCaseModule {
 
     @Singleton
     @Provides
+    fun provideGetChallengeInfoUseCase(challengeRepository: ChallengeRepository): GetChallengeInfoUseCase =
+        GetChallengeInfoUseCase(challengeRepository)
+
+    @Singleton
+    @Provides
+    fun provideGetBasicTodayUseCase(challengeRepository: ChallengeRepository): GetBasicTodayUseCase =
+        GetBasicTodayUseCase(challengeRepository)
+
+    @Singleton
+    @Provides
+    fun provideGetBasicHistoryUseCase(challengeRepository: ChallengeRepository): GetBasicHistoryUseCase =
+        GetBasicHistoryUseCase(challengeRepository)
+
+    @Singleton
+    @Provides
+    fun provideGetParticipantsUseCase(challengeRepository: ChallengeRepository): GetParticipantsUseCase =
+        GetParticipantsUseCase(challengeRepository)
+
+    @Singleton
+    @Provides
+    fun provideGetChallengeParticipationFlagUseCase(challengeRepository: ChallengeRepository): GetChallengeParticipationFlagUseCase =
+        GetChallengeParticipationFlagUseCase(challengeRepository)
+
+    @Singleton
+    @Provides
+    fun provideRequestParticipateUseCase(challengeRepository: ChallengeRepository): RequestParticipateUseCase =
+        RequestParticipateUseCase(challengeRepository)
+
+    @Singleton
+    @Provides
+    fun provideRequestWithDrawUseCase(challengeRepository: ChallengeRepository): RequestWithDrawUseCase =
+        RequestWithDrawUseCase(challengeRepository)
+
+    @Singleton
+    @Provides
+    fun provideRequestRejectUseCase(challengeRepository: ChallengeRepository): RequestRejectUseCase =
+        RequestRejectUseCase(challengeRepository)
+
+    @Singleton
+    @Provides
     fun provideGetCampaignListUseCase(donateRepository: DonateRepository): GetCampaignListUseCase =
         GetCampaignListUseCase(donateRepository)
 
     @Singleton
     @Provides
-    fun provideGetChallengeInfoUseCase(panelRepository: PanelRepository): GetPanelInfoUseCase =
+    fun provideGetPanelInfoUseCase(panelRepository: PanelRepository): GetPanelInfoUseCase =
         GetPanelInfoUseCase(panelRepository)
 
     @Singleton

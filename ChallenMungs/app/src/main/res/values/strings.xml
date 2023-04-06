@@ -280,4 +280,17 @@
     <string name="image_challenge_basic">일반 챌린지 인증 사진입니다.</string>
     <string name="image_challenge_reject">거절당한 사진의 배경입니다.</string>
     <string name="content_team_rank">%d위 %s팀 (%d개)</string>
+    <string name="image_description">일반 챌린지 설명 태그 아이콘입니다.</string>
+    <string name="image_percent_to_success">일반 챌린지 성공 조건 태그 아이콘입니다.</string>
+    <string name="title_percent_to_success">성공 조건</string>
+    <string name="content_percent_to_success">%d%% 이상 성공</string>
+    <string name="content_basic_current_participants">현재 참가 인원 (%d명)</string>
+    <string name="title_go_to_shelter"><![CDATA[후원캠페인 바로가기 >]]></string>
+    <string name="image_basic_challenge_certificate">일반 챌린지 인증 버튼입니다.</string>
+    <string name="content_create_campaign">캠페인 생성하기</string>
+    <string name="content_shelter_campaign_1">캠페인1</string>
+    <string name="content_shelter_campaign_2">캠페인2</string>
+    <string name="content_send_email">전송</string>
+    <string name="content_email_hint">초대코드를 전송할 이메일 주소</string>
+    <string name="content_invite_code_already_exist">이미 초대코드를 받았습니다.</string>
 </resources>

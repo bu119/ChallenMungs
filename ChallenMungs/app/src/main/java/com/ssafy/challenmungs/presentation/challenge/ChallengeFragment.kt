@@ -4,6 +4,7 @@ import android.animation.ObjectAnimator
 import android.view.KeyEvent
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.ssafy.challenmungs.R
@@ -11,12 +12,18 @@ import com.ssafy.challenmungs.common.util.GridItemDecoration
 import com.ssafy.challenmungs.databinding.FragmentChallengeBinding
 import com.ssafy.challenmungs.presentation.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class ChallengeFragment : BaseFragment<FragmentChallengeBinding>(R.layout.fragment_challenge) {
 
     private val challengeViewModel by activityViewModels<ChallengeViewModel>()
-    private val challengeListAdapter by lazy { ChallengeListAdapter(requireContext()) }
+    private val challengeListAdapter by lazy {
+        ChallengeListAdapter(
+            requireContext(),
+            challengeViewModel::getChallengeInfo,
+        )
+    }
     private var isOpened = false
 
     override fun initView() {
@@ -91,6 +98,20 @@ class ChallengeFragment : BaseFragment<FragmentChallengeBinding>(R.layout.fragme
         challengeViewModel.challengeList.observe(viewLifecycleOwner) {
             it?.let {
                 challengeListAdapter.submitList(it)
+            }
+        }
+
+        challengeViewModel.notStartedChallengeDetail.observe(viewLifecycleOwner) {
+            it?.let {
+                lifecycleScope.launch {
+                    val result =
+                        challengeViewModel.getChallengeParticipationFlag(it.challengeId.toLong())
+
+                    if (result)
+                        navigationNavHostFragmentToDestinationFragment(
+                            R.id.challenge_basic_info_fragment
+                        )
+                }
             }
         }
     }

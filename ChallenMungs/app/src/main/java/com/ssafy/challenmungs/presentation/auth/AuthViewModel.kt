@@ -8,9 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.ssafy.challenmungs.ApplicationClass
 import com.ssafy.challenmungs.data.remote.Resource
 import com.ssafy.challenmungs.domain.entity.member.Auth
-import com.ssafy.challenmungs.domain.usecase.auth.JoinUseCase
-import com.ssafy.challenmungs.domain.usecase.auth.LogInUseCase
-import com.ssafy.challenmungs.domain.usecase.auth.SetWalletUseCase
+import com.ssafy.challenmungs.domain.usecase.auth.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
@@ -22,6 +20,8 @@ class AuthViewModel @Inject constructor(
     private val logInUseCase: LogInUseCase,
     private val joinUseCase: JoinUseCase,
     private val setWalletUseCase: SetWalletUseCase,
+    private val requestShelterJoinUseCase: RequestShelterJoinUseCase,
+    private val requestInviteCodeUseCase: RequestInviteCodeUseCase,
 ) : ViewModel() {
 
     private val _accessToken: MutableLiveData<String?> = MutableLiveData()
@@ -62,6 +62,24 @@ class AuthViewModel @Inject constructor(
         }
     }
 
+    suspend fun requestShelterJoin(
+        shelterName: String,
+        inviteCode: String,
+        memberId: String,
+        password: String
+    ) = viewModelScope.async {
+        when (val value = requestShelterJoinUseCase(shelterName, inviteCode, memberId, password)) {
+            is Resource.Success<String> -> {
+                ApplicationClass.preferences.accessToken = value.data
+                return@async true
+            }
+            is Resource.Error -> {
+                Log.e("requestShelterJoin", "requestShelterJoin: ${value.errorMessage}")
+                return@async false
+            }
+        }
+    }.await()
+
     suspend fun setWallet(memberId: String, piggyBank: String, wallet: String) =
         viewModelScope.async {
             when (val value = setWalletUseCase(memberId, piggyBank, wallet)) {
@@ -74,4 +92,14 @@ class AuthViewModel @Inject constructor(
                 }
             }
         }.await()
+
+    fun requestInviteCode(shelterName: String, email: String) = viewModelScope.launch {
+        when (val value = requestInviteCodeUseCase(shelterName, email)) {
+            is Resource.Success<String> -> {}
+            is Resource.Error -> Log.e(
+                "requestInviteCode",
+                "requestInviteCode: ${value.errorMessage}"
+            )
+        }
+    }
 }
