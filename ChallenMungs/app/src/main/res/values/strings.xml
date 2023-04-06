@@ -15,7 +15,7 @@
     <string name="image_menu">하단 메뉴의 이미지입니다.</string>
 
     <!-- My Page -->
-    <string name="content_heart_temperature_amount">%s °C</string>
+    <string name="content_heart_temperature_amount">%d °C</string>
     <string name="image_default_profile">image_default_profile_icon</string>
     <string name="title_donate_history">기부내역</string>
     <string name="title_my_challenge">내 챌린지</string>
@@ -147,6 +147,7 @@
     <string name="title_select_date">챌린지 기간을 선택해주세요.</string>
     <string name="content_get_my_location_warning_message">위치권한이 없으므로 기본 위치로 이동합니다. 위치 권한을 허용해주세요.</string>
     <string name="content_create_failed">챌린지 생성에 실패하였습니다.\n 조금 후에 다시 시도해주세요.</string>
+    <string name="content_create_success">챌린지가 생성되었습니다!</string>
 
     <!-- My Challenge -->
     <string name="title_ongoing">진행</string>

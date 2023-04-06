@@ -65,5 +65,9 @@ class MyChallengeFragment :
                 }
             }
         })
+
+        binding.toolbar.ivBack.setOnClickListener {
+            popBackStack()
+        }
     }
 }
