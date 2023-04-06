@@ -249,15 +249,21 @@ public class WalletServiceImpl implements  WalletService{
     }
 
     @Override
-    public Map<String, List<WalletItemDto>> viewMyPiggyBank(String loginId) throws JsonProcessingException {
+    public List<Map<String, Object>> viewMyPiggyBank(String loginId) throws JsonProcessingException {
         User user = userRepo.findUserByLoginId(loginId);
         String address = walletRepo.findByUserAndType(user, 'p').getAddress();
         JsonNode items = getHistory(address);
+
 
         Map<String, List<WalletItemDto>> result = new HashMap<>();
         int totalMoney = Integer.parseInt(getBalance(loginId, 'p'));
         // item별 당시 계좌 잔액 표기를 위해
         int before_input = 0;
+
+//        Map<String, List<WalletItemDto>> result = new HashMap<>();
+        List<Map<String, Object>> result = new ArrayList<>();
+        Map<String, List<WalletItemDto>> dayMap = new LinkedHashMap<>();
+
 
         //사용 내역 바꾸기
         for (JsonNode item : items) {
@@ -306,9 +312,16 @@ public class WalletServiceImpl implements  WalletService{
             // 값 넣기
             WalletItemDto tmp = new WalletItemDto(title, amount, String.valueOf(calendar.get(Calendar.HOUR_OF_DAY)+":"+calendar.get(Calendar.MINUTE)), totalMoney);
             String day = String.valueOf(calendar.get(Calendar.MONTH) + 1) + "." + String.valueOf(calendar.get(Calendar.DATE));
-            List<WalletItemDto> dayList = result.getOrDefault(day, new ArrayList<WalletItemDto>());
+            List<WalletItemDto> dayList = dayMap.getOrDefault(day, new ArrayList<>());
             dayList.add(tmp);
-            result.put(day, dayList);
+            dayMap.put(day, dayList);
+        }
+
+        for (Map.Entry<String, List<WalletItemDto>> entry : dayMap.entrySet()) {
+            Map<String, Object> dayResult = new HashMap<>();
+            dayResult.put("date", entry.getKey());
+            dayResult.put("items", entry.getValue());
+            result.add(dayResult);
         }
 
         return result;
