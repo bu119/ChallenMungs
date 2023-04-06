@@ -11,7 +11,7 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 public class WalletItemDto {
     String title;
-    BigDecimal amount;
+    BigDecimal money;
     String time;
     int totalMoney;
 

@@ -301,7 +301,17 @@ public class WalletServiceImpl implements  WalletService{
             else {
                 totalMoney += before_input;
                 before_input = amount.intValue();
-                Wallet shelter = walletRepo.findByAddress(to);
+                Wallet shelter;
+                //아름이이 계좌 오류로 인한 코드 나중에 바꾸기 밑에껄로
+                //shelter = walletRepo.findByAddress(to);
+
+                if (to.equals("0xe85c069b5a941cf7739333c5c4dfaddacbf77c4d")){
+                    shelter = walletRepo.findByAddress("0xba1663bc97c13bb6f9fff51144d14b7c542f25e6");
+                }
+                else{
+                    shelter = walletRepo.findByAddress(to);
+                }
+                ////////////////////////////////
                 title = shelter.getUser().getName() + "에 기부";
             }
 

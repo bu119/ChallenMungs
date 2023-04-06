@@ -173,6 +173,7 @@ public class UserController {
         User user = userService.findUserByLoginId(request.getAttribute("loginId").toString());
         res.put("name", user.getName());
         res.put("profile", user.getProfile());
+        res.put("type", user.getType());
         res.put("loginId", user.getLoginId());
         HttpStatus httpStatus = HttpStatus.OK;
         return new ResponseEntity<>(res, httpStatus);
