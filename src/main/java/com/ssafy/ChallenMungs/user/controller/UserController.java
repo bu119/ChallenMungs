@@ -270,7 +270,7 @@ public class UserController {
         log.info("초대코드를 확인해 볼게요!:" + inviteCode);
         if (codeService.confirmInviteCode(charityName, inviteCode)) {
             log.info("유효한 초대코드에요! 회원가입을 진행할게요");
-            userService.saveUser(User.builder().loginId(loginId).password(password).type('s').name(charityName).build());
+            userService.saveUser(User.builder().loginId(loginId).profile("https://kr.object.ncloudstorage.com/challenmungs-storage/user/eaf7f044-caa8-44d7-b890-9315913e9872ic_profile.png").password(password).type('s').name(charityName).build());
             log.info("회원가입을 완료했어요! 축하합니다!");
             HashMap<String, String> dto = new HashMap<>();
             dto.put("result", makeToken(loginId));
