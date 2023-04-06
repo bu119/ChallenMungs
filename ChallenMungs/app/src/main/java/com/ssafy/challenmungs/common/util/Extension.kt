@@ -31,6 +31,7 @@ fun getDeviceHeightPx(context: Context): Int {
     return context.resources.displayMetrics.heightPixels
 }
 
+@Suppress("DEPRECATION")
 @OptIn(DelicateCoroutinesApi::class)
 fun AppCompatActivity.setImmersiveMode() {
     // API 30 이상인 경우에는 WindowInsetsController를 사용하여 Fullscreen 모드로 설정
