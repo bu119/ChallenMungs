@@ -138,7 +138,7 @@ public class WalletServiceImpl implements  WalletService{
             BigInteger balanceWei = balanceResponse.getBalance();
 
             // 단위 변환: KLAY -> KLAY
-            String balanceKlay = Convert.fromWei(balanceWei.toString(), Convert.Unit.ETHER).toPlainString();
+            String balanceKlay = String.valueOf(Convert.fromWei(balanceWei.toString(), Convert.Unit.ETHER).toBigInteger());
             return balanceKlay;
 
         } catch (Exception e) {
