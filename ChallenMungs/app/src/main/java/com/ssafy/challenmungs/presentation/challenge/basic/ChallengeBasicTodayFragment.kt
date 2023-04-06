@@ -12,7 +12,7 @@ class ChallengeBasicTodayFragment :
     BaseFragment<FragmentChallengeBasicTodayBinding>(R.layout.fragment_challenge_basic_today) {
 
     private val challengeViewModel by activityViewModels<ChallengeViewModel>()
-    private val challengeBasicTodayAdapter by lazy { ChallengeBasicTodayAdapter() }
+    private val challengeBasicTodayAdapter by lazy { ChallengeBasicTodayAdapter(challengeViewModel::requestReject) }
 
     override fun initView() {
         initRecyclerView()

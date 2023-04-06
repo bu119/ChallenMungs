@@ -42,4 +42,7 @@ class ChallengeRemoteDataSourceImpl @Inject constructor(
 
     override suspend fun requestWithDraw(challengeId: Long): ResultResponse =
         challengeApiService.requestWithDraw(challengeId)
+
+    override suspend fun requestReject(boardId: Int): String =
+        challengeApiService.requestReject(boardId)
 }

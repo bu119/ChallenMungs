@@ -58,4 +58,9 @@ interface ChallengeApiService {
     suspend fun requestWithDraw(
         @Query("challengeId") challengeId: Long,
     ): ResultResponse
+
+    @POST("/generalBoard/tokenConfirm/reject")
+    suspend fun requestReject(
+        @Query("boardId") boardId: Int
+    ): String
 }

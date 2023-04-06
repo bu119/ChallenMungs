@@ -25,6 +25,7 @@ class ChallengeViewModel @Inject constructor(
     private val getChallengeParticipationFlagUseCase: GetChallengeParticipationFlagUseCase,
     private val requestParticipateUseCase: RequestParticipateUseCase,
     private val requestWithDrawUseCase: RequestWithDrawUseCase,
+    private val requestRejectUseCase: RequestRejectUseCase,
 ) : ViewModel() {
 
     private val _challengeList: MutableLiveData<List<Challenge>?> =
@@ -213,6 +214,16 @@ class ChallengeViewModel @Inject constructor(
             is Resource.Success<String> -> return@async true
             is Resource.Error -> {
                 Log.e("requestWithDraw", "requestWithDraw: ${value.errorMessage}")
+                return@async false
+            }
+        }
+    }.await()
+
+    suspend fun requestReject(boardId: Int) = viewModelScope.async {
+        when (val value = requestRejectUseCase(boardId)) {
+            is Resource.Success<String> -> return@async true
+            is Resource.Error -> {
+                Log.e("requestReject", "requestReject: ${value.errorMessage}")
                 return@async false
             }
         }

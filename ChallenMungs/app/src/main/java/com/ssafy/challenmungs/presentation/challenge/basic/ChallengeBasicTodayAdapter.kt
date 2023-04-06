@@ -9,8 +9,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.ssafy.challenmungs.R
 import com.ssafy.challenmungs.databinding.ItemChallengeBasicTodayBinding
 import com.ssafy.challenmungs.domain.entity.challenge.ChallengeBasicToday
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
-class ChallengeBasicTodayAdapter :
+class ChallengeBasicTodayAdapter(private val requestReject: suspend (Int) -> Boolean) :
     ListAdapter<ChallengeBasicToday, ChallengeBasicTodayAdapter.ChallengeBasicTodayViewHolder>(
         diffCallback
     ) {
@@ -39,6 +42,14 @@ class ChallengeBasicTodayAdapter :
 
         fun bind(item: ChallengeBasicToday) {
             binding.data = item
+
+            binding.btnReject.setOnClickListener {
+                CoroutineScope(Dispatchers.IO).launch {
+                    val result = requestReject(item.boardId)
+                    if (result) item.myRejectState = !item.myRejectState
+                    binding.tvReject.text = if (item.myRejectState) "취소하기" else "빈려하기"
+                }
+            }
         }
     }
 
