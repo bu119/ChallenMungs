@@ -19,6 +19,7 @@ import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -233,8 +234,11 @@ ChallengeController {
         return new ResponseEntity(dto, HttpStatus.OK);
     }
 
-    String generalChallenge = "0x2649eadC4C15bac554940A0A702fa759bddf0dBe";
-    String panelChallenge = "0xee43BB5476e52B04175d698C56cC4516b96A85A5";
+    @Value("${GENERAL_ADDRESS}")
+    String generalChallenge;
+    @Value("${PANEL_ADDRESS}")
+    String panelChallenge;
+
 
     @PostMapping("/tokenConfirm/getInChallenge")
     ResponseEntity getInChallenge(HttpServletRequest request, @RequestParam("challengeId") long challengeId, @RequestParam(name = "teamId", required = false) Integer teamId) {

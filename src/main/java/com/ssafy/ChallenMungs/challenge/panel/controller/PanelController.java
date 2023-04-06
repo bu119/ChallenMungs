@@ -20,6 +20,7 @@ import io.swagger.annotations.Api;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -62,6 +63,9 @@ public class PanelController {
     WalletService walletService;
     @Autowired
     WalletRepository walletRepo;
+
+    @Value("${PANEL_ADDRESS}")
+    String panelChallenge;
 
     @PostMapping("/tokenConfirm/makePanelChallenge")
     ResponseEntity makePanelChallenge(
@@ -116,7 +120,6 @@ public class PanelController {
                 .build());
 
         String loginId = request.getAttribute("loginId").toString();
-        String panelChallenge = "0xee43BB5476e52B04175d698C56cC4516b96A85A5";
         String fromAddress = walletRepo.findByUserAndType(userRepo.findUserByLoginId(loginId), 'w').getAddress();
         walletService.sendKlay(fromAddress, panelChallenge, entryFee);
 
