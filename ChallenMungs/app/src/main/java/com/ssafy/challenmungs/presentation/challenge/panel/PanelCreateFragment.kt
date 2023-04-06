@@ -214,6 +214,10 @@ class PanelCreateFragment :
             btnReset.setOnClickListener {
                 setReset()
             }
+
+            toolbar.ivBack.setOnClickListener {
+                popBackStack()
+            }
         }
     }
 
@@ -300,7 +304,9 @@ class PanelCreateFragment :
                     cellSize
                 )
                 if (result) {
-
+                    createCheck(false, getString(R.string.content_create_success))
+                    popBackStack()
+                    // 캘린지 탭으로 status 섩정하는 코드 필요
                 } else {
                     createCheck(false, getString(R.string.content_create_failed))
                     checkValue = Pair(false, "")
