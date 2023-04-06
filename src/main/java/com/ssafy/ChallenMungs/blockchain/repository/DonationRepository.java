@@ -17,7 +17,6 @@ public interface DonationRepository extends JpaRepository<Donation, Long> {
     Donation findByDonationId(int donationId);
     int countByUserAndYear(User user,int year);
 
-
     @Query(value = "select sum(money) from donation where login_id= :login_id",
             nativeQuery = true)
     int sumTotalAmount(@Param("login_id") String loginId);
