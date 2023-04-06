@@ -9,6 +9,7 @@ import com.ssafy.challenmungs.R
 import com.ssafy.challenmungs.common.util.BindingAdapters.setItems
 import com.ssafy.challenmungs.databinding.FragmentMyWalletBinding
 import com.ssafy.challenmungs.presentation.base.BaseFragment
+import com.ssafy.challenmungs.presentation.common.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -17,6 +18,7 @@ class MyWalletFragment : BaseFragment<FragmentMyWalletBinding>(R.layout.fragment
 
     private val myPageViewModel by activityViewModels<MyPageViewModel>()
     private val myWalletViewModel by activityViewModels<MyWalletViewModel>()
+    private val mainViewModel by activityViewModels<MainViewModel>()
 
     override fun initView() {
         initData()
@@ -57,6 +59,7 @@ class MyWalletFragment : BaseFragment<FragmentMyWalletBinding>(R.layout.fragment
         binding.btnParticipation.setOnClickListener {
             popBackStack()
             // homeFragment의 status를 챌린지 탭으로 설정하는 코드 필요
+            mainViewModel.setStatus(0)
         }
     }
 
