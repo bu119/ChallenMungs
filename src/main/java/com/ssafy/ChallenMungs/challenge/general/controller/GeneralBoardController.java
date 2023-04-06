@@ -88,7 +88,6 @@ public class GeneralBoardController {
         User user = userService.findUserByLoginId(loginId);
 
         LocalDate today = LocalDate.now(ZoneId.of("Asia/Seoul"));
-        log.info(loginId + ": " + today +" 의 인증 게시글을 업로드 합니다.");
 
         // 해당 챌린지에 로그인한 유저가 참여하고 있는지 확인
         MyChallenge myChallenge = myChallengeService.findByLoginIdAndChallengeId(loginId,challengeId);
@@ -103,6 +102,8 @@ public class GeneralBoardController {
             log.info("이미 사진 인증을 완료하였습니다.");
             return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
         }
+
+        log.info(loginId + ": " + today +" 의 인증 게시글을 업로드 합니다.");
 
         // 사진 업로드
         String url = null;
