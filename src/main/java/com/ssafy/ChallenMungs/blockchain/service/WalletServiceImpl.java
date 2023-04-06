@@ -254,8 +254,6 @@ public class WalletServiceImpl implements  WalletService{
         String address = walletRepo.findByUserAndType(user, 'p').getAddress();
         JsonNode items = getHistory(address);
 
-
-        Map<String, List<WalletItemDto>> result = new HashMap<>();
         int totalMoney = Integer.parseInt(getBalance(loginId, 'p'));
         // item별 당시 계좌 잔액 표기를 위해
         int before_input = 0;
