@@ -216,6 +216,7 @@ public class UserController {
         String url = null;
         try {
             if (file != null) url = fileService.saveFile(file, "user");
+            else url = "https://kr.object.ncloudstorage.com/challenmungs-storage/user/eaf7f044-caa8-44d7-b890-9315913e9872ic_profile.png";
         } catch (IOException e) {
             return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).build();
         }
