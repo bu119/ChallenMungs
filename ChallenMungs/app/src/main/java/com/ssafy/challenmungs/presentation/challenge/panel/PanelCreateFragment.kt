@@ -120,7 +120,6 @@ class PanelCreateFragment :
         val builder = MaterialDatePicker.Builder.dateRangePicker().apply {
             setCalendarConstraints(constrainBuilder.build())
             setTitleText(getString(R.string.title_select_date))
-
         }
         val picker = builder.build().apply {
             addOnPositiveButtonClickListener {
