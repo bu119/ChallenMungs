@@ -18,6 +18,11 @@ class CampaignDonateFragment :
 
     override fun initView() {
         binding.vm = donateViewModel
+
+        donateViewModel.campaignInfo.value?.let {
+            binding.tvShelterName.text = it.shelterName
+        }
+
         initListener()
     }
 

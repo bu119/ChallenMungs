@@ -109,4 +109,10 @@
         android:name="com.ssafy.challenmungs.presentation.donate.CampaignDonateFragment"
         android:label="Campaign Donate Fragment"
         tools:layout="@layout/fragment_campaign_donate" />
+
+    <fragment
+        android:id="@+id/panel_create_fragment"
+        android:name="com.ssafy.challenmungs.presentation.challenge.panel.PanelCreateFragment"
+        android:label="PanelCreateFragment"
+        tools:layout="@layout/fragment_panel_create" />
 </navigation>
