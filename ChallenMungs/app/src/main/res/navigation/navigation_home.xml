@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation_home"
+    app:startDestination="@id/home_fragment">
+
+    <fragment
+        android:id="@+id/challenge_fragment"
+        android:name="com.ssafy.challenmungs.presentation.challenge.ChallengeFragment"
+        android:label="Challenge Fragment"
+        tools:layout="@layout/fragment_challenge" />
+
+    <fragment
+        android:id="@+id/donate_fragment"
+        android:name="com.ssafy.challenmungs.presentation.donate.DonateFragment"
+        android:label="Donate Fragment"
+        tools:layout="@layout/fragment_donate" />
+
+    <fragment
+        android:id="@+id/information_fragment"
+        android:name="com.ssafy.challenmungs.presentation.information.InformationFragment"
+        android:label="InformationFragment"
+        tools:layout="@layout/fragment_information">
+
+        <action
+            android:id="@+id/action_to_informationPlaceListFragment"
+            app:destination="@id/information_placeList_fragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/information_placeList_fragment"
+        android:name="com.ssafy.challenmungs.presentation.information.InformationPlaceListFragment"
+        android:label="InformationPlaceListFragment"
+        tools:layout="@layout/fragment_information_place_list">
+
+        <argument
+            android:name="cardList"
+            android:defaultValue="gggg"
+            app:argType="string"
+            app:nullable="true" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/home_fragment"
+        android:name="com.ssafy.challenmungs.presentation.home.HomeFragment"
+        android:label="HomeFragment"
+        tools:layout="@layout/fragment_home">
+
+        <action
+            android:id="@+id/action_to_myOngoingChallengeFragment"
+            app:destination="@id/my_ongoing_challenge_full" />
+
+        <action
+            android:id="@+id/action_to_myChallengeOnlyTomorrowFullFragment"
+            app:destination="@id/my_challenge_only_tomorrow_full_fragment" />
+
+        <action
+            android:id="@+id/action_to_recentlyAddedCampaignFullFragment"
+            app:destination="@id/recently_added_campaign_full_fragment" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/my_ongoing_challenge_full"
+        android:name="com.ssafy.challenmungs.presentation.home.MyOngoingChallengeFull"
+        android:label="MyOngoingChallengeFull"
+        tools:layout="@layout/fragment_my_ongoing_challenge_full">
+
+        <argument
+            android:name="cardList"
+            app:argType="string" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/my_challenge_only_tomorrow_full_fragment"
+        android:name="com.ssafy.challenmungs.presentation.home.MyChallengeOnlyTomorrowFullFragment"
+        android:label="MyChallengeOnlyTomorrowFullFragment"
+        tools:layout="@layout/fragment_my_challenge_only_tomorrow_full">
+
+        <argument
+            android:name="cardList"
+            app:argType="string" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/recently_added_campaign_full_fragment"
+        android:name="com.ssafy.challenmungs.presentation.home.RecentlyAddedCampaignFullFragment"
+        android:label="RecentlyAddedCampaignFullFragment"
+        tools:layout="@layout/fragment_recently_added_campaign_full">
+
+        <argument
+            android:name="cardList"
+            app:argType="string" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/my_page_fragment"
+        android:name="com.ssafy.challenmungs.presentation.mypage.MyPageFragment"
+        android:label="MyPageFragment"
+        tools:layout="@layout/fragment_my_page" />
+
+</navigation>

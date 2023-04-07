@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_rect_white_smoke_white_radius50_stroke1">
+
+        <ImageView
+            android:id="@+id/iv_filter"
+            android:layout_width="17dp"
+            android:layout_height="17dp"
+            android:layout_marginVertical="7dp"
+            android:layout_marginStart="12dp"
+            android:contentDescription="@string/image_filter"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@drawable/ic_map_info" />
+
+        <TextView
+            android:id="@+id/tv_filter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="6dp"
+            android:layout_marginEnd="12dp"
+            android:textColor="@color/suva_grey"
+            android:textSize="11sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/iv_filter_option"
+            app:layout_constraintStart_toEndOf="@id/iv_filter"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="지역선택" />
+
+        <ImageView
+            android:id="@+id/iv_filter_option"
+            android:layout_width="13dp"
+            android:layout_height="13dp"
+            android:layout_marginStart="-4dp"
+            android:layout_marginEnd="12dp"
+            android:contentDescription="@string/image_sort_option"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/tv_filter"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@drawable/ic_filter_desc" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
