@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="data"
+            type="com.ssafy.challenmungs.domain.entity.challenge.ChallengeMember" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/iv_profile"
+            android:layout_width="53dp"
+            android:layout_height="53dp"
+            android:contentDescription="@string/profile_image"
+            android:profileImgString="@{data.profileUrl}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:background="@drawable/ic_profile_default"
+            tools:backgroundTint="@color/suva_grey" />
+
+        <ImageView
+            android:id="@+id/iv_profile_stroke"
+            android:layout_width="53dp"
+            android:layout_height="53dp"
+            android:visibility="gone"
+            android:contentDescription="@string/profile_image"
+            android:src="@drawable/bg_oval_festival_transparent_stroke5"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="7dp"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:maxLines="1"
+            android:text="@{data.memberName}"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="@id/iv_profile"
+            app:layout_constraintStart_toStartOf="@id/iv_profile"
+            app:layout_constraintTop_toBottomOf="@id/iv_profile"
+            tools:text="강은선" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

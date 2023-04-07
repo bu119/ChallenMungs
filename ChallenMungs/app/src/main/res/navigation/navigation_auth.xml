@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation_auth"
+    app:startDestination="@id/log_in_fragment">
+
+    <fragment
+        android:id="@+id/log_in_fragment"
+        android:name="com.ssafy.challenmungs.presentation.auth.LogInFragment"
+        android:label="LogInFragment"
+        tools:layout="@layout/fragment_log_in">
+
+        <action
+            android:id="@+id/action_to_on_boarding_fragment"
+            app:destination="@id/on_boarding_fragment" />
+
+        <action
+            android:id="@+id/action_to_main_fragment"
+            app:destination="@id/main_fragment" />
+
+        <action
+            android:id="@+id/action_to_shelter_invite_code_fragment"
+            app:destination="@id/shelter_invite_code_fragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/on_boarding_fragment"
+        android:name="com.ssafy.challenmungs.presentation.auth.OnBoardingFragment"
+        android:label="OnBoardingFragment"
+        tools:layout="@layout/fragment_on_boarding">
+
+        <action
+            android:id="@+id/action_to_main_fragment"
+            app:destination="@id/main_fragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/main_fragment"
+        android:name="com.ssafy.challenmungs.presentation.common.MainFragment"
+        android:label="Main Fragment"
+        tools:layout="@layout/fragment_main" />
+
+    <fragment
+        android:id="@+id/shelter_join_fragment"
+        android:name="com.ssafy.challenmungs.presentation.auth.ShelterJoinFragment"
+        android:label="Shelter Join Fragment"
+        tools:layout="@layout/fragment_shelter_join">
+
+        <action
+            android:id="@+id/action_to_shelter_home_fragment"
+            app:destination="@id/shelter_home_fragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/campaign_info_fragment"
+        android:name="com.ssafy.challenmungs.presentation.donate.CampaignInfoFragment"
+        android:label="Campaign Info Fragment"
+        tools:layout="@layout/fragment_campaign_info" />
+
+    <fragment
+        android:id="@+id/panel_play_fragment"
+        android:name="com.ssafy.challenmungs.presentation.challenge.panel.PanelPlayFragment"
+        android:label="PanelPlayFragment"
+        tools:layout="@layout/fragment_panel_play">
+
+        <action
+            android:id="@+id/action_to_panelInfoFragment"
+            app:destination="@id/panel_info_fragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/panel_info_fragment"
+        android:name="com.ssafy.challenmungs.presentation.challenge.panel.PanelInfoFragment"
+        android:label="PanelInfoFragment"
+        tools:layout="@layout/fragment_panel_info" />
+
+    <fragment
+        android:id="@+id/challenge_basic_fragment"
+        android:name="com.ssafy.challenmungs.presentation.challenge.basic.ChallengeBasicFragment"
+        android:label="Challenge Basic Fragment"
+        tools:layout="@layout/fragment_challenge_basic" />
+
+    <fragment
+        android:id="@+id/challenge_basic_info_fragment"
+        android:name="com.ssafy.challenmungs.presentation.challenge.basic.ChallengeBasicInfoFragment"
+        android:label="Challenge Basic Info Fragment"
+        tools:layout="@layout/fragment_challenge_basic_info" />
+
+    <fragment
+        android:id="@+id/shelter_invite_code_fragment"
+        android:name="com.ssafy.challenmungs.presentation.auth.ShelterInviteCodeFragment"
+        android:label="Shelter Invite Code Fragment"
+        tools:layout="@layout/fragment_shelter_invite_code">
+
+        <action
+            android:id="@+id/action_to_shelter_join_fragment"
+            app:destination="@id/shelter_join_fragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/shelter_home_fragment"
+        android:name="com.ssafy.challenmungs.presentation.shelter.ShelterHomeFragment"
+        android:label="Shelter Home Fragment"
+        tools:layout="@layout/fragment_shelter_home" />
+
+    <fragment
+        android:id="@+id/campaign_donate_fragment"
+        android:name="com.ssafy.challenmungs.presentation.donate.CampaignDonateFragment"
+        android:label="Campaign Donate Fragment"
+        tools:layout="@layout/fragment_campaign_donate" />
+
+    <fragment
+        android:id="@+id/panel_create_fragment"
+        android:name="com.ssafy.challenmungs.presentation.challenge.panel.PanelCreateFragment"
+        android:label="PanelCreateFragment"
+        tools:layout="@layout/fragment_panel_create" />
+</navigation>
