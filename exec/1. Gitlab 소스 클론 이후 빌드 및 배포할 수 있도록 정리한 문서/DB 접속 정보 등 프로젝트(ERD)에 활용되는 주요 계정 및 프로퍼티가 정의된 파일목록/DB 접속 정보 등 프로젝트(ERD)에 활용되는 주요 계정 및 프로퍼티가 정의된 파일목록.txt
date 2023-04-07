@@ -1,0 +1,68 @@
+# 📚 1. mysql
+
+mysql 같은경우 docker image를 이용할 것이다.
+
+참고 자료 : [젠킨스와 도커를 이용한 CICD 배포방법](https://dev-taerin.tistory.com/35)
+
+
+
+```
+
+# mysql 이미지 불러오기
+
+sudo docker pull mysql
+
+# 도커 이미지 확인
+
+sudo docker images
+
+# 도커 이름은 --name 뒤에 넣고, password는 root 패스워드(사용자 지정)
+
+sudo docker run -d -p 3305:3306 -e MYSQL_ROOT_PASSWORD=P@ssw0rd --restart=unless-stopped -v /home/ubuntu/db:/var/lib/mysql --name D210_mysql mysql
+
+# 도커 컨테이너 bash 접속
+
+sudo docker exec -it d210_mysql bash
+
+# mysql 접속
+
+mysql -u root -p
+
+# 패스워드 입력
+
+P@ssw0rd
+
+```
+
+
+&nbsp;
+
+`username` : root  
+`password` : P@ssw0rd
+  
+
+&nbsp;
+
+`springboot - application.yml`
+
+  
+```properties
+#db
+spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
+spring.datasource.url=jdbc:mysql://j8d2101.p.ssafy.io:3305/ChallenMungs
+spring.datasource.username=ssafy
+spring.datasource.password=P@ssw0rd
+#spring.datasource.url=jdbc:mysql://localhost:3306/testdb?useSSL=false&characterEncoding=UTF-8&serverTimezone=UTC
+#spring.datasource.username=root
+#spring.datasource.password=dbsrud11
+
+# JPA
+spring.jpa.hibernate.ddl-auto=update
+spring.jpa.database-platform=org.hibernate.dialect.MySQL5InnoDBDialect
+#?????? ?? true??
+spring.jpa.show-sql=false
+spring.data.jpa.repositories.enabled=true
+```
+
+
+&nbsp;

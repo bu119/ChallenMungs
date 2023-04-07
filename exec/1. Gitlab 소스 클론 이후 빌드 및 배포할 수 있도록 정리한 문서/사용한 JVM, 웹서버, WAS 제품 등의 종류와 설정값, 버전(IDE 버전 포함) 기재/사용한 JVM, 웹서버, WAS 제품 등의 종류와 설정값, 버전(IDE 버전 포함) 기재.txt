@@ -1,0 +1,152 @@
+1. 사용한 JVM : 
+    (1) Spring Boot : Zulu11
+    (2) Android Studio : Zulu 8 
+
+
+2. 웹서버 및 WAS : Spring Boot 내장 톰캣 및 https통신을 위한 Nginx(1.18.0)
+
+
+3. IDE 버전
+    (1) Intellij : IntelliJ IDEA 2022.3.2
+        Spring Boot : 2.7.9 version   
+        gradle : gradle-7.6-bin     
+
+    (2) Android Studio :
+        a. minSdk : 23
+        b. tartgetSdk : 33
+        c. compileSdk : 33
+
+    (3) VScode : 1.74.3
+
+    (4) MySQL : 8.0
+    
+
+4. 빌드 시 사용되는 환경 변수 등의 주요 내용
+    (1) 안드로이드
+        a. 구글 맵 API KEY
+            <string name="GOOGLE_MAP_API_KEY">AIzaSyCDIeuwf2gsaAvlqFj7AR_tQQrt6x63Kdf8</string>
+        b. 카카오 로그인 API KEY
+            <string name="KAKAO_APP_KEY">kakao4e720a8qwf355v9b5a280af935a3e9d3e29</string>
+            <string name="KAKAO_NATIVE_APP_KEY">4e720a8ed5eergr4af935a3e9d3e29</string>
+        c. 클레이튼 키
+            klaytn.authorization="Basic S0FTS1dDQUdINjkREfewgeRV0lPVDE4QkhUOnNTYThjQlI1akhncXRwbnUtWWltMHV5dkVpb1V2REVQRGpMSmJjRkM="_
+klaytn.xChainId="1001"
+
+    (2) 스프링 부트
+        a. 네이버 클라우드
+            23년 4월 7일 10시 57분<<현재 폐쇄>>
+
+        b. 구글 이메일
+            spring.mail.host=smtp.gmail.com
+            spring.mail.port=587
+            spring.mail.username=ssafytukwa
+            spring.mail.password=cquylibsbwgrgjyl
+            spring.mail.properties.mail.smtp.auth=true
+            spring.mail.properties.mail.smtp.starttls.enable=true
+
+        c. 파일 저장 주소
+            result.windows=C:\\TempResult
+            result.ubuntu=/home/asset/result
+
+3. 배포 시 특이사항
+    (1) 젠킨스를 이용한 자동배포 적용
+        a. 젠킨스 계정
+            i) 아이디 : amdin
+            II) 비밀번호 : 1234
+        b. 젠킨스 pipe-line script
+'''
+pipeline {
+    agent any
+     
+    stages {
+        stage('gitlab clone') {
+            steps {
+                git branch: 'develop_backend', credentialsId: 'gitlab2', url: 'https://lab.ssafy.com/s08-blockchain-contract-sub2/S08P22D210.git'
+            }
+        }
+        stage('build') {
+            steps {
+                sh '''
+                chmod +x ./gradlew
+                ./gradlew clean bootJar
+                '''
+            }
+        }
+        stage('docker image') {
+            
+            steps {
+                
+                sh '''
+                
+                docker build -t backend .
+                '''
+                
+            }
+        }
+        stage('docker run') {
+            
+            steps {
+                
+                sh '''
+                docker stop backend || true
+                docker rm backend || true
+                docker run -d --name backend -p 8080:9999 -v /home/ubuntu/asset/result:/home/asset/result backend
+                docker rmi -f $(docker images -f "dangling=true" -q)
+                '''
+                
+            }
+        }       
+    }
+}
+'''
+ 
+            c. nginx 설정용 conf파일 내용
+'''
+```shell
+server {
+        listen 80 default_server;
+        listen [::]:80 default_server;
+
+        server_name i8d208.p.ssafy.io;
+
+        location /{
+                proxy_pass http://localhost:3000;
+                proxy_set_header Upgrade $http_upgrade;
+                proxy_set_header Connection "upgrade";
+        }
+
+        location /api {
+                proxy_pass http://localhost:8000/api;
+        }
+
+}
+server {
+        listen 443 ssl;
+        listen [::]:443 ssl;
+
+        server_name i8d208.p.ssafy.io;
+
+        location /{
+                proxy_pass http://localhost:3000;
+                proxy_set_header Upgrade $http_upgrade;
+                proxy_set_header Connection "upgrade";
+        }
+
+        location /api {
+                proxy_pass http://localhost:8000/api;
+        }
+
+        ssl_certificate /etc/letsencrypt/live/i8d208.p.ssafy.io/fullchain.pem; # managed by Certbot
+        ssl_certificate_key /etc/letsencrypt/live/i8d208.p.ssafy.io/privkey.pem; # managed by Certbot
+        # include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
+        # ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
+}
+```
+
+
+4. DB 접속 정보 등 프로젝트(ERD)에 활용되는 주요 계정 및 프로퍼티가 정의된 파일 목록
+    a. DB접속 정보 등 프로젝트에 활용되는 주요 계정
+        1) id : sssafy
+        2) password: P@ssw0rd
+    b. 프로퍼티가 정의된 파일 목록
+        src/main/res/application.properties
