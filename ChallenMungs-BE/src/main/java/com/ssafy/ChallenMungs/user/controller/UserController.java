@@ -7,6 +7,10 @@ import com.google.gson.JsonParser;
 import com.ssafy.ChallenMungs.blockchain.repository.WalletRepository;
 import com.ssafy.ChallenMungs.blockchain.service.WalletService;
 import com.ssafy.ChallenMungs.blockchain.service.WalletServiceImpl;
+import com.ssafy.ChallenMungs.challenge.common.entity.Challenge;
+import com.ssafy.ChallenMungs.challenge.common.entity.MyChallenge;
+import com.ssafy.ChallenMungs.challenge.common.service.ChallengeService;
+import com.ssafy.ChallenMungs.challenge.common.service.MyChallengeService;
 import com.ssafy.ChallenMungs.image.service.FileServiceImpl;
 import com.ssafy.ChallenMungs.user.dto.Res1;
 import com.ssafy.ChallenMungs.user.dto.Res2;
@@ -37,6 +41,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -60,6 +65,13 @@ public class UserController {
 
     @Autowired
     WalletService walletService;
+
+    @Autowired
+    ChallengeService challengeService;
+
+    @Autowired
+    MyChallengeService myChallengeService;
+
 
     //토큰을 만들기 위한 비밀 키를 properties로 부터 가져와요
     @Value("${secret.key}")
@@ -187,6 +199,20 @@ public class UserController {
         log.info("토큰을 통해 가져온 로그인 아이디:" + loginId);
         boolean isDeleted = userService.delete(loginId);
         log.info("회원탈퇴 =" + isDeleted);
+        List<MyChallenge> myChallengeList = myChallengeService.findAllByLoginId(loginId);
+        for (MyChallenge mc : myChallengeList) {
+            Challenge tempChallenge = challengeService.findByChallengeId(mc.getChallengeId());
+            if (tempChallenge != null) {
+                if (tempChallenge.getCurrentParticipantCount() - 1 > 0) {
+                    tempChallenge.setCurrentParticipantCount(tempChallenge.getCurrentParticipantCount() - 1);
+                } else {
+                    challengeService.delete(tempChallenge);
+                }
+                myChallengeService.delete(mc);
+            } else {
+                myChallengeService.delete(mc);
+            }
+        }
         Map res = new HashMap<>();
 
         if (isDeleted) {

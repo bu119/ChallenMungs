@@ -43,4 +43,7 @@ public class MyChallengeService {
         return findByLoginId(loginId);
     }
 
+    public void delete(MyChallenge mc) {
+        myChallengeRepository.delete(mc);
+    }
 }
