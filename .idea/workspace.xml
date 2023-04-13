@@ -4,7 +4,496 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="257400c5-5bac-49e5-ac4a-0195cb85a402" name="Changes" comment="" />
+    <list default="true" id="bc92a33e-4765-43dd-a230-b64f8bd15135" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/../.idea/S08P22D210.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/workspace.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/build.gradle" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/proguard-rules.pro" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/androidTest/java/com/ssafy/challenmungs/ExampleInstrumentedTest.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/debug/ic_logo_basic-playstore.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/debug/res/anim/cycle.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/debug/res/anim/shake.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/debug/res/mipmap-anydpi-v26/ic_logo_basic.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/debug/res/mipmap-anydpi-v26/ic_logo_basic_round.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/debug/res/mipmap-hdpi/ic_logo_basic.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/debug/res/mipmap-hdpi/ic_logo_basic_foreground.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/debug/res/mipmap-hdpi/ic_logo_basic_round.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/debug/res/mipmap-mdpi/ic_logo_basic.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/debug/res/mipmap-mdpi/ic_logo_basic_foreground.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/debug/res/mipmap-mdpi/ic_logo_basic_round.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/debug/res/mipmap-xhdpi/ic_logo_basic.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/debug/res/mipmap-xhdpi/ic_logo_basic_foreground.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/debug/res/mipmap-xhdpi/ic_logo_basic_round.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/debug/res/mipmap-xxhdpi/ic_logo_basic.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/debug/res/mipmap-xxhdpi/ic_logo_basic_foreground.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/debug/res/mipmap-xxhdpi/ic_logo_basic_round.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/debug/res/mipmap-xxxhdpi/ic_logo_basic.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/debug/res/mipmap-xxxhdpi/ic_logo_basic_foreground.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/debug/res/mipmap-xxxhdpi/ic_logo_basic_round.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/AndroidManifest.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/ApplicationClass.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/common/util/ApiCallEx.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/common/util/BindingAdapters.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/common/util/Constants.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/common/util/CustomFilterChip.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/common/util/DialogSizeHelper.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/common/util/Extension.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/common/util/MapHelper.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/common/util/PermissionHelper.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/common/util/RecyclerViewItemDecoration.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/common/util/SquareFrameLayout.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/common/util/Ticker.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/data/local/datasource/SharedPreferences.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/data/remote/Resource.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/data/remote/datasource/auth/AuthRemoteDataSource.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/data/remote/datasource/auth/AuthRemoteDataSourceImpl.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/data/remote/datasource/auth/JoinResponse.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/data/remote/datasource/auth/LogInResponse.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/data/remote/datasource/base/DataToDomainMapper.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/data/remote/datasource/challenge/ChallengeItemFinishedResponse.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/data/remote/datasource/challenge/ChallengeItemNotFinishedResponse.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/data/remote/datasource/challenge/ChallengeListResponse.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/data/remote/datasource/challenge/ChallengeRemoteDataSource.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/data/remote/datasource/challenge/ChallengeRemoteDataSourceImpl.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/data/remote/datasource/challenge/basic/ChallengeBasicHistoryResponse.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/data/remote/datasource/challenge/basic/ChallengeBasicTodayResponse.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/data/remote/datasource/challenge/basic/ChallengeInfoResponse.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/data/remote/datasource/challenge/basic/ChallengeParticipantResponse.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/data/remote/datasource/challenge/basic/ChallengeResponse.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/data/remote/datasource/challenge/basic/ParticipantResponse.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/data/remote/datasource/challenge/panel/MessageListener.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/data/remote/datasource/challenge/panel/PanelInfoResponse.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/data/remote/datasource/challenge/panel/PanelRemoteDataSource.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/data/remote/datasource/challenge/panel/PanelRemoteDataSourceImpl.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/data/remote/datasource/challenge/panel/WebSocketListener.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/data/remote/datasource/challenge/panel/WebSocketManager.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/data/remote/datasource/common/ResultResponse.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/data/remote/datasource/donate/CampaignContentResponse.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/data/remote/datasource/donate/CampaignInfoResponse.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/data/remote/datasource/donate/CampaignListItemResponse.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/data/remote/datasource/donate/DonateRemoteDataSource.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/data/remote/datasource/donate/DonateRemoteDataSourceImpl.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/data/remote/datasource/klaytn/AccountResponse.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/data/remote/datasource/klaytn/WalletRemoteDataSource.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/data/remote/datasource/klaytn/WalletRemoteDataSourceImpl.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/data/remote/datasource/member/MemberRemoteDataSource.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/data/remote/datasource/member/MemberRemoteDataSourceImpl.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/data/remote/datasource/member/MemberResponse.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/data/remote/datasource/mypage/BalanceDetailResponse.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/data/remote/datasource/mypage/BalanceHistoryResponse.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/data/remote/datasource/mypage/DonationDetailResponse.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/data/remote/datasource/mypage/DonationSummaryResponse.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/data/remote/datasource/mypage/MyWalletRemoteDataSource.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/data/remote/datasource/mypage/MyWalletRemoteDataSourceImpl.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/data/remote/interceptor/AuthInterceptor.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/data/remote/interceptor/WalletAuthInterceptor.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/data/remote/repository/AuthRepositoryImpl.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/data/remote/repository/ChallengeRepositoryImpl.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/data/remote/repository/DonateRepositoryImpl.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/data/remote/repository/MemberRepositoryImpl.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/data/remote/repository/MyWalletRepositoryImpl.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/data/remote/repository/PanelRepositoryImpl.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/data/remote/repository/WalletRepositoryImpl.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/data/remote/service/AuthApiService.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/data/remote/service/ChallengeApiService.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/data/remote/service/DonateApiService.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/data/remote/service/MemberApiService.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/data/remote/service/MyWalletApiService.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/data/remote/service/PanelApiService.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/data/remote/service/WalletApiService.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/di/DataSourceModule.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/di/NetworkModule.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/di/RepositoryModule.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/di/ServiceModule.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/di/UseCaseModule.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/domain/entity/bank/BankStatement.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/domain/entity/campaign/Campaign.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/domain/entity/campaign/CampaignCard.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/domain/entity/campaign/CampaignContent.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/domain/entity/challenge/Challenge.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/domain/entity/challenge/ChallengeBasicHistory.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/domain/entity/challenge/ChallengeBasicToday.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/domain/entity/challenge/ChallengeCard.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/domain/entity/challenge/ChallengeInfo.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/domain/entity/challenge/ChallengeMember.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/domain/entity/challenge/ChallengeParticipant.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/domain/entity/challenge/NotStartedChallengeDetail.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/domain/entity/challenge/Participant.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/domain/entity/challenge/WebSocketData.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/domain/entity/klaytn/Account.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/domain/entity/member/Auth.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/domain/entity/member/Member.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/domain/entity/mypage/BalanceHistory.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/domain/entity/mypage/DonationDetail.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/domain/entity/mypage/DonationSummary.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/domain/repository/AuthRepository.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/domain/repository/ChallengeRepository.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/domain/repository/DonateRepository.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/domain/repository/MemberRepository.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/domain/repository/MyWalletRepository.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/domain/repository/PanelRepository.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/domain/repository/WalletRepository.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/domain/usecase/auth/JoinUseCase.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/domain/usecase/auth/LogInUseCase.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/domain/usecase/auth/RequestInviteCodeUseCase.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/domain/usecase/auth/RequestShelterJoinUseCase.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/domain/usecase/auth/SetWalletUseCase.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/domain/usecase/challenge/CreatePanelChallengeUseCase.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/domain/usecase/challenge/GetBasicHistoryUseCase.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/domain/usecase/challenge/GetBasicTodayUseCase.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/domain/usecase/challenge/GetChallengeInfoUseCase.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/domain/usecase/challenge/GetChallengeListUseCase.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/domain/usecase/challenge/GetChallengeParticipationFlagUseCase.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/domain/usecase/challenge/GetPanelInfoUseCase.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/domain/usecase/challenge/GetParticipantsUseCase.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/domain/usecase/challenge/RequestParticipateUseCase.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/domain/usecase/challenge/RequestRejectUseCase.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/domain/usecase/challenge/RequestWithDrawUseCase.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/domain/usecase/donate/GetBalanceUseCase.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/domain/usecase/donate/GetCampaignInfoUseCase.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/domain/usecase/donate/GetCampaignListUseCase.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/domain/usecase/donate/RequestDonateUseCase.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/domain/usecase/klaytn/CreateAccountUseCase.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/domain/usecase/member/GetMemberInfoUseCase.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/domain/usecase/mypage/GetDonationDetailUseCase.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/domain/usecase/mypage/GetDonationHistoryUseCase.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/domain/usecase/mypage/GetDonationSummaryUseCase.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/domain/usecase/mypage/GetMyWalletBalanceUseCase.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/domain/usecase/mypage/GetMyWalletHistoryUseCase.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/domain/usecase/mypage/GetPiggyBankHistoryUseCase.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/domain/usecase/mypage/GetTotalDonateUseCase.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/presentation/auth/AuthActivity.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/presentation/auth/AuthViewModel.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/presentation/auth/LogInFragment.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/presentation/auth/MemberViewModel.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/presentation/auth/OnBoardingFragment.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/presentation/auth/ShelterInviteCodeFragment.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/presentation/auth/ShelterJoinFragment.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/presentation/base/BaseFragment.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/presentation/challenge/ChallengeFragment.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/presentation/challenge/ChallengeListAdapter.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/presentation/challenge/ChallengeViewModel.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/presentation/challenge/basic/ChallengeBasicAdapter.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/presentation/challenge/basic/ChallengeBasicFragment.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/presentation/challenge/basic/ChallengeBasicHistoryCertificationAdapter.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/presentation/challenge/basic/ChallengeBasicHistoryFragment.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/presentation/challenge/basic/ChallengeBasicHistoryMemberAdapter.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/presentation/challenge/basic/ChallengeBasicInfoFragment.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/presentation/challenge/basic/ChallengeBasicTodayAdapter.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/presentation/challenge/basic/ChallengeBasicTodayFragment.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/presentation/challenge/panel/PanelCreateFragment.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/presentation/challenge/panel/PanelCreateViewModel.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/presentation/challenge/panel/PanelInfoFragment.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/presentation/challenge/panel/PanelParticipateFragment.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/presentation/challenge/panel/PanelPlayFragment.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/presentation/challenge/panel/PanelPlayViewModel.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/presentation/challenge/panel/PanelResultFragment.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/presentation/challenge/panel/ParticipantsListAdapter.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/presentation/challenge/panel/PlayAreaSettingDialog.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/presentation/challenge/panel/PlayAreaSettingInterface.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/presentation/challenge/panel/RankListAdapter.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/presentation/common/CustomSimpleDialog.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/presentation/common/CustomSimpleDialogInterface.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/presentation/common/MainActivity.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/presentation/common/MainFragment.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/presentation/common/MainViewModel.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/presentation/common/PermissionFragment.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/presentation/common/SplashFragment.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/presentation/donate/CampaignContentAdapter.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/presentation/donate/CampaignDonateFragment.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/presentation/donate/CampaignInfoFragment.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/presentation/donate/CampaignListAdapter.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/presentation/donate/DonateFragment.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/presentation/donate/DonateViewModel.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/presentation/home/HomeFragment.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/presentation/home/MyChallengeListAdapter.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/presentation/home/MyChallengeListViewHolder.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/presentation/home/MyChallengeOnlyTomorrowAdapter.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/presentation/home/MyChallengeOnlyTomorrowFullAdapter.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/presentation/home/MyChallengeOnlyTomorrowFullFragment.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/presentation/home/MyOngoingChallengeFull.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/presentation/home/MyOngoingChallengeFullAdapter.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/presentation/home/RecentlyAddedCampaign.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/presentation/home/RecentlyAddedCampaignFullFragment.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/presentation/information/InformationFragment.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/presentation/information/InformationPlaceListFragment.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/presentation/information/PlaceCardAdapter.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/presentation/klaytn/WalletViewModel.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/presentation/mypage/BankStatementInnerAdapter.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/presentation/mypage/BankStatementOuterAdapter.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/presentation/mypage/ChallengeState.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/presentation/mypage/ChooseTeamDialog.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/presentation/mypage/DonationCertificateDialog.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/presentation/mypage/DonationCertificateFragment.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/presentation/mypage/DonationHistoryFragment.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/presentation/mypage/DonationHistoryViewModel.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/presentation/mypage/EditProfileFragment.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/presentation/mypage/EditProfileViewModel.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/presentation/mypage/MyChallengeFragment.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/presentation/mypage/MyChallengeListAdapter.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/presentation/mypage/MyChallengeListFragment.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/presentation/mypage/MyChallengeViewPagerAdapter.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/presentation/mypage/MyCheerCampaignAdapter.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/presentation/mypage/MyCheerCampaignFragment.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/presentation/mypage/MyDonateCampaignFragment.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/presentation/mypage/MyPageFragment.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/presentation/mypage/MyPageViewModel.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/presentation/mypage/MyWalletFragment.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/presentation/mypage/MyWalletViewModel.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/presentation/mypage/PiggyBankFragment.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/presentation/mypage/PiggyBankViewModel.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/presentation/shelter/ShelterHomeFragment.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/java/com/ssafy/challenmungs/qualifiers.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/drawable/bg_btn_enable_gainsboro_to_golden_glow_radius5.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/drawable/bg_custom_progress_campaign.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/drawable/bg_custom_progress_my_page.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/drawable/bg_oval_festival_transparent_stroke5.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/drawable/bg_oval_white_smoke.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/drawable/bg_rect_basic_challenge_certification_initial.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/drawable/bg_rect_blue_radius10.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/drawable/bg_rect_blue_radius5.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/drawable/bg_rect_campaign_content_image_cannot_load.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/drawable/bg_rect_corn_silk_radius15.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/drawable/bg_rect_corn_silk_radius5.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/drawable/bg_rect_fair_pink_radius15.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/drawable/bg_rect_festival.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/drawable/bg_rect_festival_white_stroke2.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/drawable/bg_rect_gainsboro_radius5.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/drawable/bg_rect_gainsboro_transparent_stroke1.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/drawable/bg_rect_gainsboro_white_radius5_stroke1.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/drawable/bg_rect_golden_glow_golden_poppy_radius5_stroke1.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/drawable/bg_rect_golden_glow_radius100.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/drawable/bg_rect_golden_glow_radius5.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/drawable/bg_rect_golden_glow_radius50.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/drawable/bg_rect_golden_glow_width2.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/drawable/bg_rect_golden_poppy_radius5.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/drawable/bg_rect_pink_swan_radius10_image_not_found.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/drawable/bg_rect_pink_swan_to_golden_glow_stroke1.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/drawable/bg_rect_suva_grey_radius5.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/drawable/bg_rect_toast_radius5.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/drawable/bg_rect_venetian_red_radius10.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/drawable/bg_rect_venetian_red_radius5.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/drawable/bg_rect_white_radius10.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/drawable/bg_rect_white_radius100.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/drawable/bg_rect_white_radius100_with_stroke_goldenglow.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/drawable/bg_rect_white_radius15.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/drawable/bg_rect_white_radius5_stroke.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/drawable/bg_rect_white_smoke_radius10.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/drawable/bg_rect_white_smoke_radius5.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/drawable/bg_rect_white_smoke_white_radius50_stroke1.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/drawable/bg_rect_white_top_radius10.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/drawable/bg_rect_wite_smoke_pink_swan_radius5_stroke1.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/drawable/bg_rect_zambezi_radius34.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/drawable/bg_rect_zambezi_trans48_radius10.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/drawable/bg_splash.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/drawable/bg_venetian_red_challenge_rejected.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/drawable/ic_a_team.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/drawable/ic_add_photo.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/drawable/ic_arrow_left.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/drawable/ic_arrow_right.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/drawable/ic_b_team.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/drawable/ic_back.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/drawable/ic_bomb.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/drawable/ic_bronze_crown.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/drawable/ic_cafe.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/drawable/ic_calendar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/drawable/ic_category.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/drawable/ic_certificate_donate_stamp.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/drawable/ic_challenge.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/drawable/ic_challenge_failure.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/drawable/ic_challenge_failure_user.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/drawable/ic_challenge_success.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/drawable/ic_close_button.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/drawable/ic_dog_calendar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/drawable/ic_dog_footprint_suva_grey.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/drawable/ic_dog_footprint_toast.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/drawable/ic_donate.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/drawable/ic_explanation.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/drawable/ic_fab_clicked.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/drawable/ic_fail.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/drawable/ic_filter_asc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/drawable/ic_filter_desc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/drawable/ic_gold_crown.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/drawable/ic_heart_empty.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/drawable/ic_heart_filled.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/drawable/ic_help.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/drawable/ic_history_challenge.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/drawable/ic_history_donate.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/drawable/ic_history_withdraw.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/drawable/ic_home.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/drawable/ic_hospital.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/drawable/ic_info_list.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/drawable/ic_kakao_login_large_wide.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/drawable/ic_kakao_login_medium_wide.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/drawable/ic_klay.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/drawable/ic_logo_basic.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/drawable/ic_logo_grey.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/drawable/ic_logo_horizontal.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/drawable/ic_logo_vertical.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/drawable/ic_map.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/drawable/ic_map_info.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/drawable/ic_marker_pin.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/drawable/ic_meal.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/drawable/ic_medicine.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/drawable/ic_menu.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/drawable/ic_minus.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/drawable/ic_my_page.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/drawable/ic_mypage_cheer_campaign.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/drawable/ic_mypage_donate_history.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/drawable/ic_mypage_heart_temperature.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/drawable/ic_mypage_my_campaign.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/drawable/ic_mypage_my_challenge.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/drawable/ic_normal_challenge.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/drawable/ic_panel.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/drawable/ic_participants.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/drawable/ic_participation_fee.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/drawable/ic_permission_camera.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/drawable/ic_permission_gallery.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/drawable/ic_permission_gps.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/drawable/ic_phone_talk.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/drawable/ic_plus.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/drawable/ic_profile_camera.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/drawable/ic_profile_default.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/drawable/ic_question.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/drawable/ic_rank.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/drawable/ic_red_marker.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/drawable/ic_reject.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/drawable/ic_reset.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/drawable/ic_search.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/drawable/ic_share.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/drawable/ic_silver_crown.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/drawable/ic_subtract.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/drawable/ic_success_condition.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/drawable/ic_tag.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/drawable/ic_thumbs_up.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/drawable/ic_treasure_close.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/drawable/ic_treasure_hunt.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/drawable/ic_treasure_open.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/drawable/ic_volunteer.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/drawable/ic_wallet_charge.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/drawable/ic_wallet_exchange.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/drawable/ic_wallet_normal_challenge.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/drawable/ic_yellow_marker.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/drawable/ic_yellow_pin.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/layout/activity_auth.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/layout/activity_main.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/layout/base_list.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/layout/custom_filter_chip.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/layout/dialog_choose_team.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/layout/dialog_donation_certificate.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/layout/dialog_play_area_setting.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/layout/dialog_simple_custom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/layout/fragment_campaign_donate.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/layout/fragment_campaign_info.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/layout/fragment_challenge.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/layout/fragment_challenge_basic.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/layout/fragment_challenge_basic_history.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/layout/fragment_challenge_basic_info.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/layout/fragment_challenge_basic_today.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/layout/fragment_donate.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/layout/fragment_donation_certificate.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/layout/fragment_donation_details.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/layout/fragment_edit_profile.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/layout/fragment_home.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/layout/fragment_information.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/layout/fragment_information_place_list.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/layout/fragment_log_in.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/layout/fragment_main.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/layout/fragment_my_challenge.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/layout/fragment_my_challenge_list.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/layout/fragment_my_challenge_only_tomorrow_full.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/layout/fragment_my_ongoing_challenge_full.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/layout/fragment_my_page.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/layout/fragment_my_wallet.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/layout/fragment_on_boarding.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/layout/fragment_panel_create.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/layout/fragment_panel_info.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/layout/fragment_panel_participate.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/layout/fragment_panel_play.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/layout/fragment_panel_result.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/layout/fragment_permission.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/layout/fragment_recently_added_campaign_full.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/layout/fragment_shelter_home.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/layout/fragment_shelter_invite_code.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/layout/fragment_shelter_join.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/layout/fragment_splash.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/layout/item_bank_statement_date.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/layout/item_bank_statement_item.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/layout/item_bottom_menu.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/layout/item_campaign_card.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/layout/item_campaign_content_bold.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/layout/item_campaign_content_image.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/layout/item_campaign_content_normal.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/layout/item_campaign_info_comment.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/layout/item_campaign_usage_history.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/layout/item_challenge_basic_history_certification.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/layout/item_challenge_basic_history_member.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/layout/item_challenge_basic_today.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/layout/item_challenge_card_my_ongoing.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/layout/item_challenge_card_my_ongoing_match_parent.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/layout/item_challenge_card_ongoing_finish.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/layout/item_challenge_card_waiting.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/layout/item_my_challenge_only_tomorrow.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/layout/item_my_challenge_only_tomorrow_match_parent.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/layout/item_participants.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/layout/item_place_list_card.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/layout/item_rank.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/layout/item_recently_added_campaign_card.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/layout/toolbar_default.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/layout/toolbar_info.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/navigation/navigation_auth.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/navigation/navigation_home.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/navigation/navigation_main.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/values-night/themes.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/values/attrs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/values/colors.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/values/strings.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/values/themes.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/xml/backup_rules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/xml/data_extraction_rules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/main/res/xml/network_security_config.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/app/src/test/java/com/ssafy/challenmungs/ExampleUnitTest.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/build.gradle" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/gradle.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/gradle/libs.versions.toml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/gradle/wrapper/gradle-wrapper.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/gradlew" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/gradlew.bat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChallenMungs/settings.gradle" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../exec/1. Gitlab 소스 클론 이후 빌드 및 배포할 수 있도록 정리한 문서/DB 접속 정보 등 프로젝트(ERD)에 활용되는 주요 계정 및 프로퍼티가 정의된 파일목록/DB 접속 정보 등 프로젝트(ERD)에 활용되는 주요 계정 및 프로퍼티가 정의된 파일목록.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../exec/1. Gitlab 소스 클론 이후 빌드 및 배포할 수 있도록 정리한 문서/배포시 특이사항 기재/Jenkins, Pipeline으로 자동배포 만들기.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../exec/1. Gitlab 소스 클론 이후 빌드 및 배포할 수 있도록 정리한 문서/배포시 특이사항 기재/docker container에서작업중인것을저장하기.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../exec/1. Gitlab 소스 클론 이후 빌드 및 배포할 수 있도록 정리한 문서/배포시 특이사항 기재/nginx설정과ssl인증서발급.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../exec/1. Gitlab 소스 클론 이후 빌드 및 배포할 수 있도록 정리한 문서/빌드시 사용되는 환경 변수 등의 주요 내용 상세 기재/1. Docker, Jenkins 설치.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../exec/1. Gitlab 소스 클론 이후 빌드 및 배포할 수 있도록 정리한 문서/빌드시 사용되는 환경 변수 등의 주요 내용 상세 기재/2. docker container에서 docker image 빌드진행과정 - host docker.sock 연결.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../exec/1. Gitlab 소스 클론 이후 빌드 및 배포할 수 있도록 정리한 문서/빌드시 사용되는 환경 변수 등의 주요 내용 상세 기재/3. docker build, push (jenkins pipeline).md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../exec/1. Gitlab 소스 클론 이후 빌드 및 배포할 수 있도록 정리한 문서/빌드시 사용되는 환경 변수 등의 주요 내용 상세 기재/4. Image를가상서버에서 띄우기(ssh, jenkins pipeline).md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../exec/1. Gitlab 소스 클론 이후 빌드 및 배포할 수 있도록 정리한 문서/사용한 JVM, 웹서버, WAS 제품 등의 종류와 설정값, 버전(IDE 버전 포함) 기재/사용한 JVM, 웹서버, WAS 제품 등의 종류와 설정값, 버전(IDE 버전 포함) 기재.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../exec/2. 프로젝트에서 사용하는 외부 서비스 정보를 정리한 문서/프로젝트에서 사용하는 외부 서비스 정보를 정리한 문서.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../exec/3. DB 덤프파일 최신본/Dump20230407/ChallenMungs_campaign.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../exec/3. DB 덤프파일 최신본/Dump20230407/ChallenMungs_challenge.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../exec/3. DB 덤프파일 최신본/Dump20230407/ChallenMungs_code.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../exec/3. DB 덤프파일 최신본/Dump20230407/ChallenMungs_comment.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../exec/3. DB 덤프파일 최신본/Dump20230407/ChallenMungs_content.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../exec/3. DB 덤프파일 최신본/Dump20230407/ChallenMungs_donation.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../exec/3. DB 덤프파일 최신본/Dump20230407/ChallenMungs_general_board.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../exec/3. DB 덤프파일 최신본/Dump20230407/ChallenMungs_general_reject.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../exec/3. DB 덤프파일 최신본/Dump20230407/ChallenMungs_hibernate_sequence.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../exec/3. DB 덤프파일 최신본/Dump20230407/ChallenMungs_hibernate_sequences.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../exec/3. DB 덤프파일 최신본/Dump20230407/ChallenMungs_love.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../exec/3. DB 덤프파일 최신본/Dump20230407/ChallenMungs_my_challenge.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../exec/3. DB 덤프파일 최신본/Dump20230407/ChallenMungs_place.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../exec/3. DB 덤프파일 최신본/Dump20230407/ChallenMungs_receipt.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../exec/3. DB 덤프파일 최신본/Dump20230407/ChallenMungs_test.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../exec/3. DB 덤프파일 최신본/Dump20230407/ChallenMungs_user.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../exec/3. DB 덤프파일 최신본/Dump20230407/ChallenMungs_wallet.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../exec/4._시연시나리오.pdf" beforeDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -15,79 +504,61 @@
       <ProjectState />
     </projectState>
   </component>
-  <component name="FileTemplateManagerImpl">
-    <option name="RECENT_TEMPLATES">
-      <list>
-        <option value="Class" />
-      </list>
-    </option>
-  </component>
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
-  <component name="ProjectId" id="2O21EaZqX6bFM355rIdnzDgnVYv" />
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="2O4yU2HBDNjASImmU1srn6YGaa4" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelOrder2": "2",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "RequestMappingsPanelWidth2": "75",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "C:/Users/SSAFY/Desktop/특화/S08P22D210",
+    "last_opened_file_path": "C:/Users/SSAFY/Desktop/특화/S08P22D210/ChallenMungs-BE",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "spring.configuration.checksum": "2768913fc1e8fcb659fcdde793a46f68",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
   <component name="RunManager">
-    <configuration name="ChallenMungsApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
+    <configuration name="ChallenMungsApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <module name="ChallenMungs.main" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.ssafy.ChallenMungs.ChallenMungsApplication" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.ssafy.ChallenMungs.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <recent_temporary>
-      <list>
-        <item itemvalue="Spring Boot.ChallenMungsApplication" />
-      </list>
-    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="257400c5-5bac-49e5-ac4a-0195cb85a402" name="Changes" comment="" />
-      <created>1680743753923</created>
+      <changelist id="bc92a33e-4765-43dd-a230-b64f8bd15135" name="Changes" comment="" />
+      <created>1680834160388</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1680743753923</updated>
-      <workItem from="1680743755915" duration="288000" />
-      <workItem from="1680744056199" duration="18931000" />
-      <workItem from="1680768204345" duration="1804000" />
-      <workItem from="1680777930604" duration="15147000" />
-      <workItem from="1680812060850" duration="5168000" />
-      <workItem from="1681391584641" duration="18000" />
+      <updated>1680834160388</updated>
+      <workItem from="1680834161541" duration="720000" />
+      <workItem from="1680842737973" duration="84000" />
+      <workItem from="1681391643085" duration="3661000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
-  </component>
-  <component name="Vcs.Log.Tabs.Properties">
-    <option name="TAB_STATES">
-      <map>
-        <entry key="MAIN">
-          <value>
-            <State />
-          </value>
-        </entry>
-      </map>
-    </option>
   </component>
 </project>
