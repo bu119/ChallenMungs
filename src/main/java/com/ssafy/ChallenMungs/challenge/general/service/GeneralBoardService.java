@@ -5,6 +5,7 @@ import com.ssafy.ChallenMungs.challenge.common.entity.MyChallenge;
 import com.ssafy.ChallenMungs.challenge.common.repository.ChallengeRepository;
 import com.ssafy.ChallenMungs.challenge.common.repository.MyChallengeRepository;
 import com.ssafy.ChallenMungs.challenge.common.service.ChallengeService;
+import com.ssafy.ChallenMungs.challenge.common.service.MyChallengeService;
 import com.ssafy.ChallenMungs.challenge.general.entity.GeneralBoard;
 import com.ssafy.ChallenMungs.challenge.general.repository.GeneralBoardRepository;
 import com.ssafy.ChallenMungs.user.entity.User;
@@ -30,6 +31,10 @@ public class GeneralBoardService {
 
     @Autowired
     MyChallengeRepository myChallengeRepository;
+
+    @Autowired
+    MyChallengeService myChallengeService;
+
 
     @Autowired
     UserService userService;
@@ -108,11 +113,15 @@ public class GeneralBoardService {
     }
 
     // SuccessCount를 갱신하는 함수
+    @Transactional
     public void updateSuccessCount(String loginId, Long challengeId) {
+
         // 해당 유저
         User user = userService.findUserByLoginId(loginId);
         // 해당 챌린지
         Challenge challenge = challengeService.findByChallengeId(challengeId);
+        // 해당 마이 챌린지 정보
+        MyChallenge myChallenge = myChallengeRepository.findByLoginIdAndChallengeId(loginId, challengeId);
 
         int maxParticipantCount = challenge.getMaxParticipantCount();
         List<GeneralBoard> boardList = boardRepository.findAllByChallengeAndUser(challenge,user);
@@ -123,7 +132,6 @@ public class GeneralBoardService {
             }
         }
 
-        MyChallenge myChallenge = myChallengeRepository.findByLoginIdAndChallengeId(loginId, challengeId);
         myChallenge.setSuccessCount(successCount);
         myChallengeRepository.save(myChallenge);
     }

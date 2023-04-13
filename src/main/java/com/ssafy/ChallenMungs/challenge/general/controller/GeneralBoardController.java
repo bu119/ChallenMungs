@@ -273,16 +273,25 @@ public class GeneralBoardController {
     }
 
     // successCount 갱신
-    @PutMapping("/tokenConfirm/successCount")
-    @ApiOperation(value = "일반챌린지 성공횟수를 갱신하는 api입니다.", notes = "challengeId를 활용하여 나의 챌린지 성공횟수를 갱신합니다.")
-    public ResponseEntity<String> updateSuccessCount(HttpServletRequest request, @PathParam("challengeId") Long challengeId) {
+    @PutMapping("/successCount")
+    @ApiOperation(value = "일반챌린지 성공횟수를 갱신하는 api입니다.", notes = "challengeId를 활용하여 해당 챌린지 참여 유저의 성공횟수를 갱신합니다.")
+    public ResponseEntity<String> updateSuccessCount(@PathParam("challengeId") Long challengeId) {
 
-        String loginId = request.getAttribute("loginId").toString();
-        boardService.updateSuccessCount(loginId, challengeId);
-        HashMap<String, String> dto = new HashMap<>();
-        dto.put("result", "success");
-        return new ResponseEntity(dto, HttpStatus.OK); // 200
-//        return ResponseEntity.ok("result : Success Count updated!");
+//        String loginId = request.getAttribute("loginId").toString();
+//        boardService.updateSuccessCount(loginId, challengeId);
+
+        try {
+            List<MyChallenge> myChallenges = myChallengeService.findAllByChallengeId(challengeId);
+            for (MyChallenge mc : myChallenges) {
+                boardService.updateSuccessCount(mc.getLoginId(), challengeId);
+            }
+
+            HashMap<String, String> dto = new HashMap<>();
+            dto.put("result", "success");
+            return new ResponseEntity(dto, HttpStatus.OK); // 200
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>("Failed to update success count", HttpStatus.INTERNAL_SERVER_ERROR); // 500
+        }
     }
-
 }

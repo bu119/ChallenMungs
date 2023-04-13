@@ -8,8 +8,11 @@ import com.ssafy.ChallenMungs.blockchain.service.WalletService;
 import com.ssafy.ChallenMungs.campaign.repository.CampaignListRepository;
 import com.ssafy.ChallenMungs.challenge.common.entity.Challenge;
 import com.ssafy.ChallenMungs.challenge.common.entity.MyChallenge;
+import com.ssafy.ChallenMungs.challenge.common.repository.MyChallengeRepository;
 import com.ssafy.ChallenMungs.challenge.common.service.ChallengeService;
 import com.ssafy.ChallenMungs.challenge.common.service.MyChallengeService;
+import com.ssafy.ChallenMungs.challenge.general.entity.GeneralBoard;
+import com.ssafy.ChallenMungs.challenge.general.repository.GeneralBoardRepository;
 import com.ssafy.ChallenMungs.challenge.general.service.GeneralBoardService;
 import com.ssafy.ChallenMungs.challenge.panel.handler.*;
 import com.ssafy.ChallenMungs.challenge.treasure.handler.TreasureSocketHandler;
@@ -64,8 +67,15 @@ public class ChallengeScheduler {
 
     @Autowired
     WalletRepository walletRepo;
+
     @Autowired
     DonateService donateService;
+
+    @Autowired
+    MyChallengeRepository myChallengeRepository;
+
+    @Autowired
+    GeneralBoardRepository boardRepository;
 
     @Value("${GENERAL_ADDRESS}")
     String generalChallenge;
@@ -202,18 +212,29 @@ public class ChallengeScheduler {
                     int successPeopleCount = 0;
                     // 모든 챌린지 참여자들 돌면서
                     for (MyChallenge mc : myChallenges) {
+                        User user = userService.findUserByLoginId(mc.getLoginId());
+                        // 해당 챌린지
+                        Challenge challenge = challengeService.findByChallengeId(c.getChallengeId());
 
-                        generalBoardService.updateSuccessCount(mc.getLoginId(), c.getChallengeId());
-//                        mc.setSuccessRatio(calculateSuccessRatio(mc.getSuccessCount(), c.getStartDate(), c.getEndDate()));
+                        int maxParticipantCount = challenge.getMaxParticipantCount();
+                        List<GeneralBoard> boardList = boardRepository.findAllByChallengeAndUser(challenge,user);
+                        int successCount = 0;
+                        for (GeneralBoard board : boardList) {
+                            if (board.getRejectCount() < maxParticipantCount / 2) {
+                                successCount++;
+                            }
+                        }
+                        mc.setSuccessCount(successCount);
+
                         long daysBetween = ChronoUnit.DAYS.between(c.getStartDate(), c.getEndDate()) + 1;
-                        double successRatio = (double) mc.getSuccessCount() / daysBetween * 100;
+                        double successRatio = (double) successCount / daysBetween * 100;
                         mc.setSuccessRatio((int) Math.floor(successRatio));
 
-                        if (mc.getSuccessRatio() >= c.getSuccessCondition()) {
+                        if (successRatio >= c.getSuccessCondition()) {
                             mc.setSuccessResult(1);
                             successPeopleCount ++;
                             // user entity 내역
-                            successUsers.add(userService.findUserByLoginId(mc.getLoginId()));
+                            successUsers.add(user);
                         } else {
                             mc.setSuccessResult(0);
                         }
