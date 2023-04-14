@@ -16,6 +16,7 @@ class EditProfileFragment :
     override fun initView() {
         binding.vm = editProfileViewModel
         setData()
+        initListener()
     }
 
     private fun setData() {
@@ -23,6 +24,12 @@ class EditProfileFragment :
 
         editProfileViewModel.profileImgUrl.observe(viewLifecycleOwner) {
             binding.ivProfile.setProfileImg(it)
+        }
+    }
+
+    private fun initListener() {
+        binding.toolbar.ivBack.setOnClickListener {
+            popBackStack()
         }
     }
 }

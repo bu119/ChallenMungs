@@ -12,6 +12,8 @@ import com.ssafy.challenmungs.data.remote.datasource.klaytn.WalletRemoteDataSour
 import com.ssafy.challenmungs.data.remote.datasource.klaytn.WalletRemoteDataSourceImpl
 import com.ssafy.challenmungs.data.remote.datasource.member.MemberRemoteDataSource
 import com.ssafy.challenmungs.data.remote.datasource.member.MemberRemoteDataSourceImpl
+import com.ssafy.challenmungs.data.remote.datasource.mypage.MyWalletRemoteDataSource
+import com.ssafy.challenmungs.data.remote.datasource.mypage.MyWalletRemoteDataSourceImpl
 import com.ssafy.challenmungs.data.remote.service.*
 import dagger.Module
 import dagger.Provides
@@ -58,4 +60,10 @@ object DataSourceModule {
     fun providePanelDataSource(
         panelApiService: PanelApiService
     ): PanelRemoteDataSource = PanelRemoteDataSourceImpl(panelApiService)
+
+    @Provides
+    @Singleton
+    fun provideMyWalletDataSource(
+        myWalletApiService: MyWalletApiService
+    ): MyWalletRemoteDataSource = MyWalletRemoteDataSourceImpl(myWalletApiService)
 }

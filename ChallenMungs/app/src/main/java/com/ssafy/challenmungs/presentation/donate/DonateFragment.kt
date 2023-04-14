@@ -13,7 +13,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class DonateFragment : BaseFragment<FragmentDonateBinding>(R.layout.fragment_donate) {
 
     private val donateViewModel by activityViewModels<DonateViewModel>()
-    private val campaignListAdapter by lazy { CampaignListAdapter(this@DonateFragment::navigationNavHostFragmentToDestinationFragment) }
+    private val campaignListAdapter by lazy { CampaignListAdapter(donateViewModel) }
 
     override fun initView() {
         observe()
@@ -104,6 +104,12 @@ class DonateFragment : BaseFragment<FragmentDonateBinding>(R.layout.fragment_don
         donateViewModel.campaignList.observe(viewLifecycleOwner) {
             it?.let {
                 campaignListAdapter.submitList(it)
+            }
+        }
+
+        donateViewModel.campaignInfo.observe(viewLifecycleOwner) {
+            it?.let {
+                navigationNavHostFragmentToDestinationFragment(R.id.campaign_info_fragment)
             }
         }
     }

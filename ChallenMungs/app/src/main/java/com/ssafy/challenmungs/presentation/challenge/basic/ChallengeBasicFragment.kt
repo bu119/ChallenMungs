@@ -1,26 +1,49 @@
 package com.ssafy.challenmungs.presentation.challenge.basic
 
+import android.content.Context
 import android.graphics.Typeface
+import android.util.Log
 import android.widget.TextView
+import androidx.activity.OnBackPressedCallback
 import androidx.core.view.children
+import androidx.fragment.app.activityViewModels
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.ssafy.challenmungs.R
 import com.ssafy.challenmungs.databinding.FragmentChallengeBasicBinding
 import com.ssafy.challenmungs.presentation.base.BaseFragment
+import com.ssafy.challenmungs.presentation.challenge.ChallengeViewModel
 
 class ChallengeBasicFragment :
     BaseFragment<FragmentChallengeBasicBinding>(R.layout.fragment_challenge_basic) {
+
+    private val challengeViewModel by activityViewModels<ChallengeViewModel>()
+    private val callback = object : OnBackPressedCallback(true) {
+        override fun handleOnBackPressed() {
+            challengeViewModel.initBasicTodayList()
+            popBackStack()
+        }
+    }
 
     enum class ViewType {
         TODAY, HISTORY
     }
 
     override fun initView() {
-        binding.toolbar.title = "매일매일 산책 미션!"
-
+        Log.d("ChallengeBasicFragment", "ChallengeBasicFragment is init")
+        observe()
         initViewPager()
         initListener()
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        activity?.onBackPressedDispatcher?.addCallback(this@ChallengeBasicFragment, callback)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        callback.remove()
     }
 
     private fun initViewPager() {
@@ -62,5 +85,31 @@ class ChallengeBasicFragment :
                 }
             }
         })
+
+        binding.toolbar.tvInfo.setOnClickListener {
+            navigationNavHostFragmentToDestinationFragment(
+                R.id.challenge_basic_info_fragment
+            )
+        }
+
+        binding.toolbar.ivBack.setOnClickListener {
+            challengeViewModel.initNotStartedChallengeDetail()
+            challengeViewModel.initBasicTodayList()
+            popBackStack()
+        }
+    }
+
+    private fun observe() {
+        challengeViewModel.notStartedChallengeDetail.observe(viewLifecycleOwner) {
+            it?.let {
+                binding.toolbar.title = challengeViewModel.notStartedChallengeDetail.value!!.title
+
+                if (challengeViewModel.participants.value != null)
+                    challengeViewModel.getBasicHistory(
+                        it.challengeId,
+                        challengeViewModel.participants.value!![0].memberId
+                    )
+            }
+        }
     }
 }

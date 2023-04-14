@@ -13,6 +13,8 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.NavDirections
 import androidx.navigation.fragment.NavHostFragment
+import com.ssafy.challenmungs.R
+import com.ssafy.challenmungs.presentation.auth.AuthActivity
 import kotlinx.coroutines.*
 
 abstract class BaseFragment<T : ViewDataBinding>(
@@ -84,19 +86,23 @@ abstract class BaseFragment<T : ViewDataBinding>(
     }
 
     fun navigationNavHostFragmentToDestinationFragment(
-        fragmentContainerViewId: Int,
         destinationFragmentId: Int,
-        selectedId: Long
+        selectedId: Long = 0
     ) {
-        val navHostFragment =
-            activity?.supportFragmentManager?.findFragmentById(fragmentContainerViewId) as NavHostFragment
-        val bundle = Bundle()
-        bundle.putLong("cardId", selectedId)
-        navHostFragment.navController.navigate(destinationFragmentId, bundle)
+        activity?.let {
+            val fragmentContainerViewId =
+                if (activity is AuthActivity) R.id.nav_auth else R.id.nav_main
+            val navHostFragment =
+                activity?.supportFragmentManager?.findFragmentById(fragmentContainerViewId) as NavHostFragment
+            val bundle = Bundle()
+            bundle.putLong("cardId", selectedId)
+            navHostFragment.navController.navigate(destinationFragmentId, bundle)
+        }
     }
 
     fun getSelectedId(): Long? = arguments?.getLong("cardId")
 
+    @Suppress("DEPRECATION")
     @OptIn(DelicateCoroutinesApi::class)
     private fun setImmersive() {
         // API 30 이상인 경우에는 WindowInsetsController를 사용하여 Fullscreen 모드로 설정
