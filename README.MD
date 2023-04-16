@@ -1,4 +1,3 @@
-
 <img src="https://github.com/okanekudasai/pictures/blob/master/%EA%B7%B8%EB%A6%BC1.png?raw=true" width="128" height="128"/>
 
 
@@ -197,7 +196,7 @@
   
 
 # 🏃🏻 4. 프로젝트 회고
-저번 프로젝트에선 여기에 단체 사진이 있었음
+![팀단체사진](https://github.com/okanekudasai/pictures/blob/master/KakaoTalk_20230417_071420187_02.jpg?raw=true)
 
 
 **🦉 이아름**
