@@ -1,5 +1,4 @@
 
-
 <img src="https://github.com/okanekudasai/pictures/blob/master/%EA%B7%B8%EB%A6%BC1.png?raw=true" width="128" height="128"/>
 
 
@@ -32,7 +31,7 @@
 &nbsp;
   
 
-### 💰 추노 게임 설명
+### 💰 챌린멍스 앱 설명
 
 [챌린멍스 앱 화면 (클릭시 페이지 이동)](./README.assets/구현화면.md)
   
