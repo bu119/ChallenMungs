@@ -196,7 +196,7 @@
   
 
 # 🏃🏻 4. 프로젝트 회고
-![팀단체사진](https://github.com/okanekudasai/pictures/blob/master/KakaoTalk_20230417_071420187_02.jpg?raw=true)
+<img src="https://github.com/okanekudasai/pictures/blob/master/KakaoTalk_20230417_071420187_02.jpg?raw=true" width="250"/>
 
 
 **🦉 이아름**
