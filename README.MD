@@ -162,7 +162,7 @@
 
 > **🥁 챌린멍스 협업 툴**
 > 
-> 1. [notion](https://www.notion.so/2-7abb387ef23f4994ae5debac22771631)
+> 1. [notion](https://tame-soarer-696.notion.site/2-7abb387ef23f4994ae5debac22771631)
 > 2. zira
 > 3. mattermost
 > 4. slack
@@ -181,7 +181,7 @@
 
   
 
-[figma (클릭시 페이지 이동)](https://www.figma.com/file/NcE3q5X1CWMxW8Erz5K4Tj/%EB%94%94%EC%9E%90%EC%9D%B8?node-id=0-1&t=vz5m4LqENQo2jTOZ-0)
+[figma (클릭시 페이지 이동)](https://www.figma.com/file/NcE3q5X1CWMxW8Erz5K4Tj/%EB%94%94%EC%9E%90%EC%9D%B8?node-id=0%3A1&t=Hjqf5aPWJZPeaYyU-1)
 
   
 
@@ -207,9 +207,9 @@
 &nbsp;
 
 
-**🐥 강은선**
+**🐧 강은선**
 
->여따 적으면 될듯
+>안드로이드 팀 리더로 참여한 첫 프로젝트인만큼 부담감도 있었지만 서로 개발을 하면서 지킬 규칙을 세우고 이를 잘 지켜나가면서 프로젝트를 잘 마칠 수 있었습니다. 카카오 로그인과 viewpager2를 처음 사용해보는데다 블록체인이라는 새로운 기술을 도입하여 적응하는데 조금 어려움이 있었지만 공식문서와 chatGPT의 활용으로 어려움을 극복할 수 있었습니다.
 
 
 &nbsp;
