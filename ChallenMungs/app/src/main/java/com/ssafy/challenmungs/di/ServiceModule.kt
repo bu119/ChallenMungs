@@ -3,12 +3,7 @@ package com.ssafy.challenmungs.di
 import com.ssafy.challenmungs.AuthInterceptorClient
 import com.ssafy.challenmungs.NoAuthInterceptorClient
 import com.ssafy.challenmungs.WalletInterceptorClient
-import com.ssafy.challenmungs.data.remote.service.AuthApiService
-import com.ssafy.challenmungs.data.remote.service.ChallengeApiService
-import com.ssafy.challenmungs.data.remote.service.DonateApiService
-import com.ssafy.challenmungs.data.remote.service.MemberApiService
-import com.ssafy.challenmungs.data.remote.service.PanelApiService
-import com.ssafy.challenmungs.data.remote.service.WalletApiService
+import com.ssafy.challenmungs.data.remote.service.*
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -30,7 +25,7 @@ object ServiceModule {
     @Provides
     @Singleton
     fun provideDonateApiService(
-        @NoAuthInterceptorClient retrofit: Retrofit
+        @AuthInterceptorClient retrofit: Retrofit
     ): DonateApiService =
         retrofit.create(DonateApiService::class.java)
 
@@ -59,4 +54,11 @@ object ServiceModule {
     fun providePanelChallengeApiService(
         @AuthInterceptorClient retrofit: Retrofit
     ): PanelApiService = retrofit.create(PanelApiService::class.java)
+
+    @Provides
+    @Singleton
+    fun provideMyWalletApiService(
+        @AuthInterceptorClient retrofit: Retrofit
+    ): MyWalletApiService =
+        retrofit.create(MyWalletApiService::class.java)
 }

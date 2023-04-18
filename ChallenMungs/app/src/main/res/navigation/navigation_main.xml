@@ -18,6 +18,10 @@
         <action
             android:id="@+id/action_to_main_fragment"
             app:destination="@id/main_fragment" />
+
+        <action
+            android:id="@+id/action_to_shelter_home_fragment"
+            app:destination="@id/shelter_home_fragment" />
     </fragment>
 
     <fragment
@@ -29,29 +33,30 @@
         <action
             android:id="@+id/action_to_main_fragment"
             app:destination="@id/main_fragment" />
+
+        <action
+            android:id="@+id/action_to_shelter_home_fragment"
+            app:destination="@id/shelter_home_fragment" />
     </fragment>
 
     <fragment
         android:id="@+id/main_fragment"
         android:name="com.ssafy.challenmungs.presentation.common.MainFragment"
         android:label="Main Fragment"
-        tools:layout="@layout/fragment_main">
-
-        <action
-            android:id="@+id/action_to_campaign_info_fragment"
-            app:destination="@id/campaign_info_fragment" />
-    </fragment>
+        tools:layout="@layout/fragment_main" />
 
     <fragment
         android:id="@+id/campaign_info_fragment"
         android:name="com.ssafy.challenmungs.presentation.donate.CampaignInfoFragment"
         android:label="Campaign Info Fragment"
         tools:layout="@layout/fragment_campaign_info" />
+
     <fragment
         android:id="@+id/panel_play_fragment"
         android:name="com.ssafy.challenmungs.presentation.challenge.panel.PanelPlayFragment"
         android:label="PanelPlayFragment"
         tools:layout="@layout/fragment_panel_play">
+
         <action
             android:id="@+id/action_to_panelInfoFragment"
             app:destination="@id/panel_info_fragment" />
@@ -61,5 +66,73 @@
         android:id="@+id/panel_info_fragment"
         android:name="com.ssafy.challenmungs.presentation.challenge.panel.PanelInfoFragment"
         android:label="PanelInfoFragment"
-        tools:layout="@layout/fragment_panel_info"/>
+        tools:layout="@layout/fragment_panel_info" />
+
+    <fragment
+        android:id="@+id/challenge_basic_fragment"
+        android:name="com.ssafy.challenmungs.presentation.challenge.basic.ChallengeBasicFragment"
+        android:label="Challenge Basic Fragment"
+        tools:layout="@layout/fragment_challenge_basic" />
+
+    <fragment
+        android:id="@+id/challenge_basic_info_fragment"
+        android:name="com.ssafy.challenmungs.presentation.challenge.basic.ChallengeBasicInfoFragment"
+        android:label="Challenge Basic Info Fragment"
+        tools:layout="@layout/fragment_challenge_basic_info" />
+
+    <fragment
+        android:id="@+id/shelter_home_fragment"
+        android:name="com.ssafy.challenmungs.presentation.shelter.ShelterHomeFragment"
+        android:label="Shelter Home Fragment"
+        tools:layout="@layout/fragment_shelter_home" />
+
+    <fragment
+        android:id="@+id/piggy_bank_fragment"
+        android:name="com.ssafy.challenmungs.presentation.mypage.PiggyBankFragment"
+        android:label="PiggyBankFragment"
+        tools:layout="@layout/fragment_my_wallet" />
+    <fragment
+        android:id="@+id/edit_profile_fragment"
+        android:name="com.ssafy.challenmungs.presentation.mypage.EditProfileFragment"
+        android:label="EditProfileFragment"
+        tools:layout="@layout/fragment_edit_profile" />
+    <fragment
+        android:id="@+id/my_wallet_fragment"
+        android:name="com.ssafy.challenmungs.presentation.mypage.MyWalletFragment"
+        android:label="MyWalletFragment"
+        tools:layout="@layout/fragment_my_wallet" />
+
+    <fragment
+        android:id="@+id/my_cheer_campaign_fragment"
+        android:name="com.ssafy.challenmungs.presentation.mypage.MyCheerCampaignFragment"
+        android:label="MyCheerCampaignFragment"
+        tools:layout="@layout/base_list" />
+    <fragment
+        android:id="@+id/my_challenge_fragment"
+        android:name="com.ssafy.challenmungs.presentation.mypage.MyChallengeFragment"
+        android:label="MyChallengeFragment"
+        tools:layout="@layout/fragment_my_challenge" />
+    <fragment
+        android:id="@+id/my_donate_campaign_fragment"
+        android:name="com.ssafy.challenmungs.presentation.mypage.MyDonateCampaignFragment"
+        android:label="MyDonateCampaignFragment"
+        tools:layout="@layout/base_list" />
+    <fragment
+        android:id="@+id/donation_details_fragment"
+        android:name="com.ssafy.challenmungs.presentation.mypage.DonationHistoryFragment"
+        android:label="DonationDetailsFragment"
+        tools:layout="@layout/fragment_donation_details" />
+
+    <fragment
+        android:id="@+id/panel_create_fragment"
+        android:name="com.ssafy.challenmungs.presentation.challenge.panel.PanelCreateFragment"
+        android:label="PanelCreateFragment"
+        tools:layout="@layout/fragment_panel_create" />
+
+
+    <fragment
+        android:id="@+id/campaign_donate_fragment"
+        android:name="com.ssafy.challenmungs.presentation.donate.CampaignDonateFragment"
+        android:label="Campaign Donate Fragment"
+        tools:layout="@layout/fragment_campaign_donate" />
 </navigation>

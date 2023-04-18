@@ -4,6 +4,7 @@ plugins {
     id 'kotlin-kapt'
     id 'com.google.dagger.hilt.android'
     id 'androidx.navigation.safeargs.kotlin'
+    id 'com.google.gms.google-services'
 }
 
 Properties properties = new Properties()
@@ -12,6 +13,15 @@ properties.load(project.rootProject.file('local.properties').newDataInputStream(
 android {
     namespace 'com.ssafy.challenmungs'
     compileSdk 33
+
+    signingConfigs { // 이 부분 추가
+        release {
+            storeFile file("challenmungs.keystore")
+            storePassword "cofflsajdtm10!"
+            keyAlias "my-alias"
+            keyPassword "cofflsajdtm10!"
+        }
+    }
 
     defaultConfig {
         applicationId "com.ssafy.challenmungs"
@@ -22,16 +32,20 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
+        vectorDrawables.useSupportLibrary = true
+
         buildConfigField "String", "KLAYTN_AUTHORIZATION", properties.getProperty('klaytn.authorization')
         buildConfigField "String", "KLAYTN_X_CHAIN_ID", properties.getProperty('klaytn.xChainId')
     }
 
     buildTypes {
         release {
+            signingConfig signingConfigs.release
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
@@ -68,6 +82,9 @@ dependencies {
     // GoogleMap
     implementation libs.google.map
     implementation libs.google.map.location
+
+    implementation platform(libs.firebase.bom)
+    implementation libs.firebase.analytics
 }
 
 kapt {

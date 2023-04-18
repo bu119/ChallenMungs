@@ -6,7 +6,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".presentation.mypage.DonationDetailsFragment">
+        tools:context=".presentation.mypage.DonationHistoryFragment">
 
         <include
             android:id="@+id/toolbar"
@@ -243,7 +243,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/divider_middle"
-            tools:listitem="@layout/item_bank_statement_top" />
+            tools:listitem="@layout/item_bank_statement_date" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

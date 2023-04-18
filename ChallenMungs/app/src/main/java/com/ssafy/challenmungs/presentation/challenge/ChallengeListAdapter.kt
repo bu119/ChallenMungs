@@ -10,7 +10,10 @@ import com.ssafy.challenmungs.R
 import com.ssafy.challenmungs.databinding.ItemChallengeCardWaitingBinding
 import com.ssafy.challenmungs.domain.entity.challenge.Challenge
 
-class ChallengeListAdapter(private val context: Context) :
+class ChallengeListAdapter(
+    private val context: Context,
+    private val getChallengeInfo: (Int) -> Unit
+) :
     RecyclerView.Adapter<ChallengeListAdapter.ChallengeListViewHolder>() {
 
     private lateinit var binding: ItemChallengeCardWaitingBinding
@@ -38,7 +41,7 @@ class ChallengeListAdapter(private val context: Context) :
         notifyDataSetChanged()
     }
 
-    class ChallengeListViewHolder(
+    inner class ChallengeListViewHolder(
         private val context: Context,
         private val binding: ItemChallengeCardWaitingBinding,
     ) : RecyclerView.ViewHolder(binding.root) {
@@ -59,12 +62,13 @@ class ChallengeListAdapter(private val context: Context) :
 
                 executePendingBindings()
             }
-            initListener()
+
+            initListener(item.challengeId)
         }
 
-        private fun initListener() {
+        private fun initListener(challengeId: Int) {
             binding.root.setOnClickListener {
-                // 상세 페이지로 이동하는 navigation 코드 구현 필요
+                getChallengeInfo(challengeId)
             }
         }
     }

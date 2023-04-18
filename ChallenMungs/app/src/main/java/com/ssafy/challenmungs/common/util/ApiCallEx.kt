@@ -10,13 +10,13 @@ suspend fun <T> wrapToResource(dispatcher: CoroutineDispatcher, apiCall: suspend
         Resource.Success(apiCall())
     } catch (throwable: Throwable) {
         when(throwable) {
-            is IOException -> Resource.Error(throwable.message ?: "ERROR")
+            is IOException -> Resource.Error(throwable.message ?: "ERROR1")
             is HttpException -> {
                 val code = throwable.code()
                 Resource.Error(code.toString())
             }
             else -> {
-                Resource.Error(throwable.message ?: "ERROR")
+                Resource.Error(throwable.message ?: "ERROR2")
             }
         }
     }

@@ -1,5 +1,6 @@
 package com.ssafy.challenmungs.presentation.challenge.basic
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -36,12 +37,21 @@ class ChallengeBasicHistoryCertificationAdapter(private var list: List<Challenge
 
     override fun getItemCount(): Int = list.size
 
+    @SuppressLint("NotifyDataSetChanged")
+    fun submitList(list: List<ChallengeBasicHistory>) {
+        this.list = list
+        notifyDataSetChanged()
+    }
+
     inner class ChallengeBasicHistoryCertificationViewHolder(private val binding: ItemChallengeBasicHistoryCertificationBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: ChallengeBasicHistory) {
             binding.date = item
+            binding.tvDate.visibility = if (item.pictureUrl == "") View.VISIBLE else View.GONE
             binding.ivReject.visibility = if (item.rejectResult) View.VISIBLE else View.GONE
+            binding.btnCertificate.visibility =
+                if (adapterPosition == 0 && list[0].pictureUrl == "") View.VISIBLE else View.GONE
         }
     }
 }

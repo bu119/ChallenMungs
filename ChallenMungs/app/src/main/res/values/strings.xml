@@ -15,7 +15,7 @@
     <string name="image_menu">하단 메뉴의 이미지입니다.</string>
 
     <!-- My Page -->
-    <string name="content_heart_temperature_amount">%s °C</string>
+    <string name="content_heart_temperature_amount">%d °C</string>
     <string name="image_default_profile">image_default_profile_icon</string>
     <string name="title_donate_history">기부내역</string>
     <string name="title_my_challenge">내 챌린지</string>
@@ -147,6 +147,7 @@
     <string name="title_select_date">챌린지 기간을 선택해주세요.</string>
     <string name="content_get_my_location_warning_message">위치권한이 없으므로 기본 위치로 이동합니다. 위치 권한을 허용해주세요.</string>
     <string name="content_create_failed">챌린지 생성에 실패하였습니다.\n 조금 후에 다시 시도해주세요.</string>
+    <string name="content_create_success">챌린지가 생성되었습니다!</string>
 
     <!-- My Challenge -->
     <string name="title_ongoing">진행</string>
@@ -242,6 +243,7 @@
     <string name="content_character_limit">300</string>
     <string name="content_campaign_comment_hint">따듯한 한마디를 남겨주세요.</string>
     <string name="content_about_fee">수수료는 챌린멍스가 대신 부담합니다.</string>
+    <string name="content_balance_piggy_bank">잔액 %,d</string>
 
     <!-- Join - Shelter -->
     <string name="content_shelter_id_hint">아이디</string>
@@ -279,4 +281,20 @@
     <string name="image_challenge_basic">일반 챌린지 인증 사진입니다.</string>
     <string name="image_challenge_reject">거절당한 사진의 배경입니다.</string>
     <string name="content_team_rank">%d위 %s팀 (%d개)</string>
+    <string name="image_description">일반 챌린지 설명 태그 아이콘입니다.</string>
+    <string name="image_percent_to_success">일반 챌린지 성공 조건 태그 아이콘입니다.</string>
+    <string name="title_percent_to_success">성공 조건</string>
+    <string name="content_percent_to_success">%d%% 이상 성공</string>
+    <string name="content_basic_current_participants">현재 참가 인원 (%d명)</string>
+    <string name="title_go_to_shelter"><![CDATA[후원캠페인 바로가기 >]]></string>
+    <string name="image_basic_challenge_certificate">일반 챌린지 인증 버튼입니다.</string>
+    <string name="content_create_campaign">캠페인 생성하기</string>
+    <string name="content_shelter_campaign_1">캠페인1</string>
+    <string name="content_shelter_campaign_2">캠페인2</string>
+    <string name="content_send_email">전송</string>
+    <string name="content_email_hint">초대코드를 전송할 이메일 주소</string>
+    <string name="content_invite_code_already_exist">이미 초대코드를 받았습니다.</string>
+    <string name="content_campaign_shelter">by %s</string>
+    <string name="content_achieve_percent">%d / %d (%d%%)</string>
+    <string name="image_campaign_content">캠페인 상세정보 이미지입니다.</string>
 </resources>
